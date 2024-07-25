@@ -33,11 +33,40 @@ console.log(colors.inverse("Frog Launcher | Version: " + pjson.version + " | Hos
 app.whenReady().then(() => {
     if (!isAppInDev) {
         console.log("We are in production mode");
-        globalShortcut.register('Control+Shift+I', () => {
-            return false;
+
+        // Отключение клавиш для перезагрузки страницы
+        app.on('browser-window-focus', function () {
+            globalShortcut.register('Control+Shift+I', () => {
+                return false;
+            });
+            globalShortcut.register("CommandOrControl+R", () => {
+                return false;
+            });
+            globalShortcut.register("F5", () => {
+                return false;
+            });
+        });
+
+        app.on('browser-window-blur', function () {
+            globalShortcut.unregister('CommandOrControl+R');
+            globalShortcut.unregister('F5');
+            globalShortcut.unregister('Control+Shift+I');
         });
     } else {
         console.log("ooo|   Hello, developer   |ooo");
+
+        // Сброс времени запуска при перезагрузке страницы
+        app.on('browser-window-focus', function () {
+            globalShortcut.register("CommandOrControl+R", () => {
+                startTime = performance.now();
+                mainWindowObject.webContents.reloadIgnoringCache();
+                return true;
+            });
+        });
+
+        app.on('browser-window-blur', function () {
+            globalShortcut.unregister('CommandOrControl+R');
+        });
     }
 
     // Создаём консоль
