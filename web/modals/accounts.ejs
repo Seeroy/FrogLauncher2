@@ -12,9 +12,9 @@
             <div class="item custom-select icon-and-description placeholder" style="display: none" data-type="$5"
                  data-uuid="$3" data-username="$1">
                 <div class="icon">
-                    <img class="avatar" src="$4"/>
-                    <img class="type microsoft" style="display: none" src="assets/microsoft.png"/>
-                    <img class="type elyby" style="display: none" src="assets/elyby.png"/>
+                    <img class="avatar" src="$4" loading="lazy"/>
+                    <img class="type microsoft" style="display: none" src="assets/microsoft.png" loading="lazy"/>
+                    <img class="type elyby" style="display: none" src="assets/elyby.png" loading="lazy"/>
                 </div>
                 <span class="title">$1</span>
                 <span class="description">$2</span>
@@ -36,7 +36,7 @@
 
 <script>
     $(function () {
-        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content").click(function (e) {
+        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content .content-inner, .layout .content .content-inner *").click(function (e) {
             if (FrogModals.isModalShown("accounts")) {
                 e.stopPropagation();
                 if (this !== e.target) {

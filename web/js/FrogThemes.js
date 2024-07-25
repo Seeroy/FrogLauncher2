@@ -125,6 +125,5 @@ class FrogThemes {
             return true;
         }
         return false;
-        return false;
     }
 }

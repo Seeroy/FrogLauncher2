@@ -71,11 +71,11 @@ $(function () {
         animateCSSNode($("html")[0], "fadeOut").then(() => {
             $("html").hide();
             FrogThemes.changeTheme(false, $(this).data("mode"));
+            setTimeout(() => {
+                $("html").show();
+                animateCSSNode($("html")[0], "fadeIn");
+            }, 250);
         })
-        setTimeout(() => {
-            $("html").show();
-            animateCSSNode($("html")[0], "fadeIn");
-        }, 600);
     })
 
     // Смена основного цвета

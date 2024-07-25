@@ -8,7 +8,7 @@
 }
 
 .custom-select:hover {
-    filter: brightness(118%);
+    filter: brightness(110%);
     background: var(--theme-primaryBgLight) !important;
 }
 

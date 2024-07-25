@@ -6,7 +6,7 @@
         <div class="versions-list" style="display: none;">
             <div class="item custom-select icon-and-description placeholder" style="display: none" data-version="$3"
                  data-installed="$4">
-                <img class="icon" src="$5"/>
+                <img class="icon" src="$5" loading="lazy"/>
                 <span class="title">$1</span>
                 <span class="installed">
                     <span class="material-symbols-outlined">download_done</span>
@@ -23,7 +23,7 @@
 
 <script>
     $(function () {
-        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content").click(function (e) {
+        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content .content-inner, .layout .content .content-inner *").click(function (e) {
             if (FrogModals.isModalShown("versions")) {
                 e.stopPropagation();
                 if (this !== e.target) {
