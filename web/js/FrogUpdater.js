@@ -15,21 +15,27 @@ class FrogUpdater {
 
     // При нахождении обновления - показать уведомление
     static onUpdateAvailable = () => {
+        let $notifyElem = $(".update-notify");
+        let $notifyElemBtn = $notifyElem.find("button:not(.transparent)");
+        let $notifyElemText = $notifyElem.find(".description");
         FrogCollector.writeLog(`Updater: New version found`);
-        notifyElem.show();
-        notifyElem.addClass("animate__animated animate__fadeInDown");
-        notifyElemBtn.hide();
-        notifyElemText.text("Идёт скачивание");
+        $notifyElem.show();
+        $notifyElem.addClass("animate__animated animate__fadeInDown");
+        $notifyElemBtn.hide();
+        $notifyElemText.text("Идёт скачивание");
         setTimeout(() => {
-            notifyElem.removeClass("animate__animated animate__fadeInDown");
+            $notifyElem.removeClass("animate__animated animate__fadeInDown");
         }, 1000);
     }
 
     // После скачивания обновления - изменить уведомление
     static onUpdateDownloaded = () => {
+        let $notifyElem = $(".update-notify");
+        let $notifyElemBtn = $notifyElem.find("button:not(.transparent)");
+        let $notifyElemText = $notifyElem.find(".description");
         FrogCollector.writeLog(`Updater: New version downloaded, ready to restart`);
-        notifyElemBtn.show();
-        notifyElemText.text("После перезапуска лаунчера обновление будет установлено");
+        $notifyElemBtn.show();
+        $notifyElemText.text("После перезапуска лаунчера обновление будет установлено");
     }
 
     // Установить обновление

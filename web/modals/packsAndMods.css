@@ -33,7 +33,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     color: var(--theme-primary);
 }
 
-    /* Modal */
+/* Modal */
 #modal-packs {
     gap: 12px;
     display: flex;

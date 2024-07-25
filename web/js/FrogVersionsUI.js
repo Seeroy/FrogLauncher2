@@ -1,7 +1,7 @@
 class FrogVersionsUI {
     // Открыть UI версий
     static open = () => {
-        if(FrogModals.isModalShown("versions")){
+        if (FrogModals.isModalShown("versions")) {
             return FrogModals.hideModal("versions");
         }
         return FrogModals.showModal("versions");

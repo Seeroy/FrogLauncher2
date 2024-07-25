@@ -102,7 +102,7 @@ class FrogAccountsUI {
 
     // Открыть UI аккаунтов
     static open = () => {
-        if(FrogModals.isModalShown("accounts")){
+        if (FrogModals.isModalShown("accounts")) {
             return FrogModals.hideModal("accounts");
         }
         return FrogModals.showModal("accounts");

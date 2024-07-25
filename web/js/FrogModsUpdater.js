@@ -88,7 +88,7 @@ class FrogModsUpdater {
         $("#modal-packs .updateTab .updateMode").show();
         return new Promise(resolve => {
             let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);
-            if(modpackManifest === false){
+            if (modpackManifest === false) {
                 return false;
             }
             modpackManifest.files.forEach((filesItem, manifestIndex) => {
@@ -97,14 +97,14 @@ class FrogModsUpdater {
                 let modItemIndex = -1;
                 // Ищем ID мода в списке
                 mods__resultList.forEach((modItem, index) => {
-                    if(modItem.currentFileName === filename){
+                    if (modItem.currentFileName === filename) {
                         modItemIndex = index;
                     }
                 })
-                if(modItemIndex !== -1){
+                if (modItemIndex !== -1) {
                     // Удаляем старый мод и обновляем конфиг
                     let fullModPath = path.join(global.GAME_DATA, "modpacks", mods__currentModpackId, modpackManifest.files[manifestIndex].path);
-                    if(fs.existsSync(fullModPath)){
+                    if (fs.existsSync(fullModPath)) {
                         fs.unlinkSync(fullModPath);
                     }
                     modpackManifest.files[manifestIndex].hashes = mods__resultList[modItemIndex].latest.file.hashes;

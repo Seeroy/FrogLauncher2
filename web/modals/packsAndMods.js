@@ -2,7 +2,7 @@ let packs__firstAppear = true;
 
 $(function () {
     $(document).on("showModalEvent", (e) => {
-        if(packs__firstAppear === true){
+        if (packs__firstAppear === true) {
             packs__firstAppear = false;
             FrogPacksUI.reloadAll(true);
         } else {

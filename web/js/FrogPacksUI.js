@@ -323,7 +323,7 @@ class FrogPacksUI {
 
                 result.forEach((item) => {
 
-                    if ((FrogUtils.compareArrays(selectedVersions, item.game_versions).length > 0 ||selectedVersions.length === 0) && (FrogUtils.compareArrays(selectedLoaders, item.loaders).length > 0 || selectedLoaders.length === 0))  {
+                    if ((FrogUtils.compareArrays(selectedVersions, item.game_versions).length > 0 || selectedVersions.length === 0) && (FrogUtils.compareArrays(selectedLoaders, item.loaders).length > 0 || selectedLoaders.length === 0)) {
                         $versionList.append(`<div class="item">
 <span class="title">${item.name}</span>
 <div class="flex flex-align-center flex-gap-4 versions">${FrogUtils.capitalizeWord(item.loaders[0])} <div class="microdot"><div style="background: var(--theme-primaryBg)" class="dot"></div></div> ${item.game_versions.join(", ")}</div>

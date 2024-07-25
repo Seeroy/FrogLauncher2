@@ -1,8 +1,9 @@
 .update-notify {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
     padding: 20px 10px;
 
     position: absolute;
@@ -12,27 +13,28 @@
     right: 0;
     z-index: 4;
 
-    border-radius: 8px;
+    border-radius: 16px;
     background: var(--theme-primaryBg);
-    border: 2px solid black;
     outline-offset: -4px;
-    width: max-content;
+    width: 542px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .update-notify .caption {
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: 700;
     color: var(--text-color);
+    text-align: center;
 }
 
 .update-notify .description {
-    font-size: 14pt;
+    font-size: 13pt;
     font-weight: 500;
     color: var(--text-sub);
+    text-align: center;
 }
 
 .update-notify button {
-    background: var(--theme-primaryBgLighter);
     font-size: 14pt;
     padding: 8px 26px !important;
     border-radius: 32px !important;
