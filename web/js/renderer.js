@@ -23,9 +23,10 @@ global.LAUNCHER_VERSION = packageJson.version;
 
 // Ссылки на seeeroy.ru
 global.SITE_URL = "https://froglauncher.seeeroy.ru";
+global.CDN_URL = "https://cdn.seeeroy.ru";
 global.STATS_URL = "https://statscol.seeeroy.ru/save_fl?savedata=";
-global.NEWS_URL = SITE_URL + "/v2/news.json";
-global.SERVERS_URL = SITE_URL + "/v2/servers.json";
+global.NEWS_URL = CDN_URL + "/FrogLauncher/news.json";
+global.SERVERS_URL = CDN_URL + "/FrogLauncher/servers.json";
 
 // Ссылка на Java
 global.JAVA_LIST_URL = "https://api.adoptium.net/v3/info/available_releases";

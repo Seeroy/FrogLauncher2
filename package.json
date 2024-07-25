@@ -63,7 +63,7 @@
     },
     "publish": {
       "provider": "generic",
-      "url": "https://froglauncher.seeeroy.ru/v2/updates"
+      "url": "https://cdn.seeeroy.ru/FrogLauncher/updates"
     },
     "nsis": {
       "installerIcon": "resources/icon.ico",
