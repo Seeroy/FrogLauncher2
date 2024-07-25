@@ -1,0 +1,68 @@
+.flyout, .flymenu {
+    background: var(--theme-primaryBg);
+    width: 80%;
+    height: 78px;
+    padding: 10px;
+    border-radius: 21px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    box-shadow: var(--theme-primaryBgShadow) 0px 2px 24px;
+}
+
+.flyout > div, button {
+    height: 56px;
+    border-radius: 11px !important;
+}
+
+.flyout #playButton {
+    width: 15vw;
+    min-width: 160px;
+}
+
+.flyout #accountSelect {
+    width: 20vw;
+}
+
+.flyout .flyout-mode {
+    animation-duration: .24s !important;
+}
+
+/* Hide divs */
+.flyout > div.hidden {
+    display: none;
+}
+
+.flyout .progress-pill,
+.flyout .spinner-wrapper,
+.flyout #versionSelect {
+    flex-grow: 1;
+}
+
+/* Spinner wrapper */
+.flyout .spinner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
+    flex-direction: row;
+}
+
+.flyout .spinner-wrapper .title {
+    font-weight: 400;
+    font-size: 14pt;
+}
+
+/* Flyout start mode */
+.flyout.start-mode #accountSelect,
+.flyout.start-mode #versionSelect {
+    pointer-events: none !important;
+    cursor: not-allowed;
+}
+
+.flyout.start-mode #playButton {
+    display: none;
+}

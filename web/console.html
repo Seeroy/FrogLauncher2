@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="./css/globals.css" rel="stylesheet"/>
+    <script src="./js/renderer.js"></script>
+    <title>Консоль | FrogLauncher</title>
+</head>
+
+<body>
+<div class="header">
+    <span class="grow">Консоль</span>
+    <button class="transparent square small"><span class="material-symbols-outlined"
+                                                   onclick="ipcRenderer.send('close-console-window')">close</span>
+    </button>
+</div>
+<div class="wrapper">
+    <div class="console-textarea"></div>
+</div>
+
+</body>
+</html>
+
+<style>
+    * {
+        color: var(--text-color);
+    }
+
+    body, html {
+        border-radius: 8px;
+    }
+
+    .console-textarea {
+        background: var(--bg-main);
+        padding: 8px;
+        gap: 6px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: max-content;
+        min-height: 100%;
+    }
+
+    .wrapper {
+        overflow: auto !important;
+        width: 100%;
+        height: 100%;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: var(--bg-sub) !important;
+    }
+
+    .header {
+        background: var(--bg-sub);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 48px;
+    }
+
+    .header button {
+        width: 32px;
+        height: 32px;
+    }
+
+    .header .grow {
+        flex-grow: 1;
+        font-size: 16pt;
+        text-align: center;
+        -webkit-app-region: drag;
+    }
+</style>
+
+<script>
+    let consoleElem = $(".console-textarea");
+    ipcRenderer.send("full-console-log");
+    ipcRenderer.on("user-console-log", function (event, data) {
+        if (data !== "undefined" && typeof data !== "undefined") {
+            consoleElem.html(data.replaceAll("undefined", "").replaceAll("\n\n", "<br>").trim());
+        }
+        consoleElem.scrollTop($(consoleElem)[0].scrollHeight);
+    });
+</script>

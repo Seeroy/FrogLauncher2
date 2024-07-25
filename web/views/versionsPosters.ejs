@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="views/versionsPosters.css">
+
+<div class="chip large pill">
+    <span class="material-symbols-outlined">bolt</span>
+    <span>Крупные обновления</span>
+</div>
+
+<div class="versionsPostersWrapper">
+    <div class="versionsPosters">
+        <div class="item placeholder"
+             style="display: none; background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.82), rgb(0, 0, 0)), url('assets/posters/$1.webp');">
+            <span class="title">Версия $1</span>
+            <span class="description">$2</span>
+            <button class="square" onclick="FrogStarter.simpleStart('vanilla-$1')">
+                <span class="material-symbols-outlined">play_arrow</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const versionsPostersData = [{"version": "1.21", "description": "Сложные испытания"}, {
+        "version": "1.20",
+        "description": "Тропы и сказки"
+    }, {"version": "1.19", "description": "Дикое обновление"}, {
+        "version": "1.18",
+        "description": "Пещеры и скалы (ч.2)"
+    }, {"version": "1.17", "description": "Пещеры и скалы (ч.1)"}, {
+        "version": "1.16",
+        "description": "Обновление Нижнего мира"
+    }, {"version": "1.15", "description": "Жужжащие пчёлы"}, {
+        "version": "1.14",
+        "description": "Деревни и грабежи"
+    }, {"version": "1.13", "description": "Водное обновление"}, {
+        "version": "1.12",
+        "description": "Цветной мир"
+    }, {"version": "1.11", "description": "Исследовательское обновление"}];
+
+    function loadVersionsPosters() {
+        let placeholder = $(".versionsPosters .item.placeholder")[0].outerHTML;
+        placeholder = placeholder.replace(' placeholder', "");
+        // По placeholder`у добавляем новые элементы
+        versionsPostersData.forEach((ver) => {
+            let preparedPlaceholder = placeholder.replaceAll("$1", ver.version).replaceAll("$2", ver.description);
+            $(".versionsPosters").append(preparedPlaceholder);
+        })
+
+        // Показываем в списке
+        $(".versionsPosters .item:not(.placeholder)").show();
+    }
+
+    $(function () {
+        loadVersionsPosters();
+    })
+</script>

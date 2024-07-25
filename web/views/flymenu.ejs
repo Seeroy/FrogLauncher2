@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="views/flymenu.css"/>
+
+<div class="flymenu animate__animated animate__fadeInLeft animate__faster">
+    <div class="menu-wrapped">
+        <div class="item active" data-modal="none" data-text="Домашний экран">
+            <span class="material-symbols-outlined">home</span>
+        </div>
+        <div class="item" data-modal="settings" data-text="Настройки">
+            <span class="material-symbols-outlined">settings</span>
+        </div>
+        <div class="item" data-modal="packs" data-text="Сборки">
+            <span class="material-symbols-outlined">deployed_code</span>
+        </div>
+        <div class="item" data-modal="servers" data-text="Сервера">
+            <span class="material-symbols-outlined">dns</span>
+        </div>
+    </div>
+    <div class="item" data-text="Консоль" onclick="FrogUI.showConsole()">
+        <span class="material-symbols-outlined">terminal</span>
+    </div>
+    <div class="item" data-text="Папка с игрой" onclick="openExternal(global.GAME_DATA)">
+        <span class="material-symbols-outlined">folder</span>
+    </div>
+</div>
+
+<script>
+    $(".flymenu .item").click(function () {
+        if ($(this).hasClass("active") || typeof $(this).data("modal") === "undefined") {
+            return;
+        }
+
+        $(".flymenu .item.active").removeClass("active");
+        $(this).addClass("active");
+        let modalName = $(this).data("modal");
+
+        if (modalName === "none") {
+            FrogModals.hideCurrentModal().then(() => {
+                FrogModals.showContent();
+            });
+        } else {
+            FrogModals.switchModal(modalName);
+        }
+    })
+
+    $(".flymenu .item").mouseenter(function () {
+        if ($(this).hasClass("active")) {
+            return;
+        }
+        FrogFlyout.showTooltip(this, $(this).data("text"));
+    });
+
+    $(".flymenu .item").mouseleave(function () {
+        FrogFlyout.hideTooltip();
+    });
+</script>

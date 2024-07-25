@@ -1,0 +1,11 @@
+html.light {
+    --bg-main: #faf9f9;
+    --bg-sub: #b8b8b8;
+    --bg-transparent: rgba(250, 249, 249, 0.5);
+    --text-color: #000000;
+    --text-sub: #616161;
+}
+
+html.light .flymenu .item:not(.active) * {
+    color: black;
+}

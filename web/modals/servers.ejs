@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="modals/servers.css"/>
+
+<div class="modal" id="modal-servers" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <span class="material-symbols-outlined">dns</span>
+        <h1>Сервера</h1>
+    </div>
+    <div class="serversListWrapper">
+        <div class="serversList">
+            <div class="item placeholder" style="display: none !important;">
+                <img src="$5"/>
+                <div class="flex flex-col flex-justify-center flex-grow">
+                    <span class="caption">$1</span>
+                    <span class="description">$2</span>
+                </div>
+                <div class="flex flex-col flex-justify-center flex-gap-4">
+                    <div class="version">
+                        <span class="material-symbols-outlined" style="font-size: 10pt">conversion_path</span>
+                        <span>$3</span>
+                    </div>
+                    <div class="ip">
+                        <span class="material-symbols-outlined" style="font-size: 10pt">dns</span>
+                        <span>$4</span>
+                    </div>
+                </div>
+                <div class="flex items-center flex-justify-center copy-btn">
+                        <span class="material-symbols-outlined"
+                              onclick="FrogServersUI.copyServerIP(`$6`)">content_copy</span>
+                </div>
+                <div class="flex items-center flex-justify-center play-btn" style="display: none;">
+                        <span class="material-symbols-outlined" style="font-size: 26pt;"
+                              onclick="FrogServersUI.playOnServer(`$6`, `$7`)">play_arrow</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="disclaimer">Разработчик лаунчера не несёт ответственности за качество геймплея и честность серверов, представленных в списке</span>
+</div>

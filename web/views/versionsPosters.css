@@ -1,0 +1,91 @@
+.versionsPostersWrapper {
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+    width: 100%;
+    height: max-content;
+}
+
+.versionsPosters {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: max-content;
+    gap: 12px;
+    grid-template-areas:
+    ". .";
+    justify-content: center;
+    align-content: center;
+
+    grid-auto-flow: dense;
+
+    width: 82vw;
+    height: max-content;
+    scroll-snap-align: center;
+    scroll-snap-type: x mandatory;
+
+    overflow: auto;
+}
+
+.versionsPosters.start-mode button {
+    display: none !important;
+}
+
+.versionsPostersWrapper *::-webkit-scrollbar-thumb,
+.versionsPostersWrapper *::-webkit-scrollbar,
+.versionsPostersWrapper *::-webkit-scrollbar-track {
+    height: 8px !important;
+}
+
+.versionsPostersWrapper *::-webkit-scrollbar-thumb {
+    background: var(--theme-primaryBgLighter);
+}
+
+.versionsPostersWrapper *::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Version item */
+.versionsPosters .item {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: max-content 1fr max-content;
+    grid-template-rows: 1fr max-content max-content;
+    gap: 2px;
+    grid-template-areas:
+    ". . ."
+    "title title button"
+    "description description button";
+    justify-content: center;
+    align-content: center;
+
+    padding: 14px;
+    border-radius: 8px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 100%;
+    height: 21vh;
+
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+}
+
+.versionsPosters .item .title {
+    grid-area: title;
+    font-size: 22pt;
+    font-weight: 700;
+    color: white;
+}
+
+.versionsPosters .item .description {
+    grid-area: description;
+    font-size: 13pt;
+    color: rgba(235, 235, 235);
+}
+
+.versionsPosters .item button {
+    grid-area: button;
+}

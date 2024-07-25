@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="modals/versions.css"/>
+
+<div class="modal overlay" id="modal-versions" style="display: none;">
+    <input type="text" placeholder="Поиск" class="search"/>
+    <div class="ver-list-wrapper">
+        <div class="versions-list" style="display: none;">
+            <div class="item custom-select icon-and-description placeholder" style="display: none" data-version="$3"
+                 data-installed="$4">
+                <img class="icon" src="$5"/>
+                <span class="title">$1</span>
+                <span class="installed">
+                    <span class="material-symbols-outlined">download_done</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="preloader">
+            <div class="spinner"></div>
+            <span class="title">Загружаем список версий, ждите</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content").click(function (e) {
+            if (FrogModals.isModalShown("versions")) {
+                e.stopPropagation();
+                if (this !== e.target) {
+                    return;
+                }
+                FrogModals.hideModal("versions");
+            }
+        })
+
+        $("#modal-versions input.search").on("input", function () {
+            FrogVersionsUI.searchByInput();
+        });
+    })
+</script>

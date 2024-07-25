@@ -1,0 +1,87 @@
+/* Элементы */
+@import "./resets.css";
+@import "./layout.css";
+@import "./progress.css";
+@import "./slider.css";
+@import "./update-notify.css";
+@import "./misc.css";
+@import "./button.css";
+@import "./tabs.css";
+@import "./custom-select.css";
+@import "./spinner.css";
+@import "./modal.css";
+@import "./colorPicker.css";
+@import "./switch.css";
+@import "./scrollbar.css";
+@import "./chips.css";
+@import "./input.css";
+@import "./toast.css";
+@import "./alert.css";
+@import "./link.css";
+@import "./link_openInNew.css";
+@import "./checkbox.css";
+
+@import "./themes/dark.css";
+@import "./themes/light.css";
+
+/* Шрифты */
+@import "../assets/fonts/MaterialSymbols/font.css";
+
+@font-face {
+    font-family: "Manrope";
+    src: url("../assets/fonts/Manrope.ttf") format("truetype");
+}
+
+body,
+html {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    color: var(--text-color);
+}
+
+html.noEffects,
+html.noEffects * {
+    filter: none !important;
+    box-shadow: none !important;
+}
+
+html.noAnimations,
+html.noAnimations * {
+    transition: 0s !important;
+    animation-duration: 0.001s !important;
+}
+
+* {
+    transition: 0.2s;
+    font-family: Manrope, sans-serif;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -webkit-app-region: no-drag;
+    overflow: hidden;
+}
+
+.material-symbols-rounded,
+.material-symbols-outlined,
+.material-symbols-sharp {
+    margin: 0;
+    padding: 0;
+    height: max-content;
+    width: max-content;
+}
+
+:root {
+    --bradius: 8px;
+    --success: #32d583;
+    --error: #f04438;
+    --warning: #fdb022;
+    --info: #53b1fd;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(2px);
+}

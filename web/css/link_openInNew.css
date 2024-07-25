@@ -1,0 +1,24 @@
+.link {
+    font-size: 14pt;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.link * {
+    display: inline-block !important;
+}
+
+.link,
+.link * {
+    text-decoration: none !important;
+    color: var(--theme-primaryLighter) !important;
+}
+
+.link:hover * {
+    color: var(--theme-primary) !important;
+}

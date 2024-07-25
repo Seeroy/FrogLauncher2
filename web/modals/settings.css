@@ -1,0 +1,171 @@
+#modal-settings .settings-layout > h3 {
+    font-weight: 600;
+    margin: 21px 0;
+    padding: 0;
+}
+
+#modal-settings .content {
+    display: flex;
+    gap: 16px;
+}
+
+#modal-settings .content .tabs {
+    width: 26vw;
+}
+
+#modal-settings .content .tabs .tab {
+    height: 54px;
+}
+
+#modal-settings .settings-layout .splitter {
+    margin: 8px 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(190, 190, 190, 0.25);
+}
+
+#modal-settings .settings-item {
+    background: var(--theme-primaryBgLight);
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#modal-settings > h2 {
+    font-weight: 400;
+    margin: 16px 0;
+}
+
+#modal-settings .settings-item .name {
+    font-weight: 500;
+    font-size: 14pt;
+}
+
+#modal-settings .settings-item .description {
+    font-size: 11pt;
+    font-weight: 400;
+    color: var(--text-sub);
+    max-width: 40vw;
+}
+
+#modal-settings .settings-item .icon {
+    background: var(--theme-primaryBgLighter);
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 6px;
+}
+
+#modal-settings .settings-item .icon img {
+    width: 26px;
+    height: 26px;
+}
+
+html.dark #modal-settings .settings-item .icon img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(184deg) brightness(103%) contrast(101%);
+}
+
+html.light #modal-settings .settings-item img.icon {
+    filter: none;
+}
+
+#modal-settings .settings-item .icon * {
+    color: var(--text-color);
+}
+
+#modal-settings .settings-layout {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
+    width: 100%;
+}
+
+/* Micro placeholder for dark mode switch */
+#modal-settings .placeholder.active,
+#modal-settings .settings-item .wp-item.active {
+    border: 4px solid var(--theme-primary);
+}
+
+#modal-settings .placeholder:not(.active):hover,
+#modal-settings .settings-item .wp-item:not(.active):hover {
+    cursor: pointer;
+    filter: brightness(120%);
+}
+
+#modal-settings .placeholder {
+    width: 96px;
+    height: 64px;
+    display: grid;
+    grid-template-columns: 12px 1fr 24px;
+    grid-template-rows: 1fr 1fr 8px;
+    gap: 4px 4px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "left main main"
+    "left main main"
+    "bottom-1 bottom-1 bottom-2";
+    padding: 6px;
+    border-radius: 8px;
+    background: #3c3c3c;
+}
+
+#modal-settings .placeholder.light {
+    background: #f1f1f1;
+}
+
+#modal-settings .placeholder .left {
+    border-radius: 4px;
+    grid-area: left;
+    background: #bdbdbd;
+}
+
+#modal-settings .placeholder.light .left {
+    background: #606060;
+}
+
+#modal-settings .placeholder .bottom-1 {
+    grid-area: bottom-1;
+    background: #818181;
+    border-radius: 4px;
+}
+
+#modal-settings .placeholder.light .bottom-1 {
+    background: #757575;
+}
+
+#modal-settings .placeholder .bottom-2 {
+    grid-area: bottom-2;
+    background: #0a73ff;
+    border-radius: 4px;
+}
+
+#modal-settings .placeholder .main {
+    grid-area: main;
+    background: #818181;
+    border-radius: 4px;
+}
+
+/* Wallpapers changer */
+#modal-settings .settings-item .wp-item {
+    height: 50px;
+    border-radius: 6px;
+}
+
+/* Tabs */
+#modal-settings .layout-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+}
+
+#modal-settings .layout-tab:not(.active) {
+    display: none;
+}
+
+#modal-settings .packs-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

@@ -1,0 +1,34 @@
+<div class="packs-wrapper">
+    <!-- Список сборок -->
+    <div class="packs-list">
+        <div class="item placeholder" data-id="$6"
+             style="display: none;">
+            <img class="icon" src="$1"/>
+            <span class="title">$2</span>
+            <span class="description">$3</span>
+            <div class="specs">
+                <span class="material-symbols-outlined">download</span>
+                <span class="downloads">$4</span>
+                <span class="material-symbols-outlined">favorite</span>
+                <span class="favorite">$5</span>
+            </div>
+            <div class="button">
+                <button class="primary small pill button" onclick="FrogPacksUI.loadVersionsList('$6')">
+                    Установить
+                </button>
+                <a class="link" href="#" onclick="FrogPacksUI.openProjectURL('$6')">
+                    <span class="material-symbols-outlined">open_in_new</span>
+                    <span>Открыть</span>
+                </a>
+            </div>
+
+            <div class="versions-scroll">
+                <div class="versions-list"></div>
+            </div>
+        </div>
+    </div>
+    <div class="preloader">
+        <div class="spinner"></div>
+        <span class="title">Загружаем модификации</span>
+    </div>
+</div>

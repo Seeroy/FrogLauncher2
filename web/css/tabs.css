@@ -1,0 +1,80 @@
+.tabs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    overflow: visible;
+}
+
+.tabs.bg {
+    background: var(--theme-primaryBgShadow);
+}
+
+.tabs.vertical {
+    flex-direction: column;
+}
+
+.tabs.vertical .tab {
+    width: 100%;
+    justify-content: start;
+}
+
+.tabs .tab {
+    background: var(--theme-primaryBgLight);
+    width: max-content;
+    height: 40px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 24px 16px;
+    font-size: 14pt;
+}
+
+.tabs .tab .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    background: var(--theme-primaryBgLighter);
+    border-radius: 8px;
+}
+
+.tabs .tab.active .icon {
+    background: var(--theme-primaryLighter);
+}
+
+.tabs .tab .icon * {
+    font-size: 16px;
+}
+
+.tabs .tab:not(.active):hover {
+    cursor: pointer;
+    filter: brightness(105%);
+}
+
+html.light .tabs .tab:not(.active):hover {
+    filter: brightness(95%);
+}
+
+.tabs .tab * {
+    color: var(--text-color);
+}
+
+.tabs .tab:not(.active):hover {
+    filter: brightness(135%);
+}
+
+.tabs .tab.active {
+    background: var(--theme-primary);
+    border: none;
+    box-shadow: var(--theme-primaryBgLight) 0 2px 16px;
+}
+
+.tabs .tab.active * {
+    color: var(--theme-text);
+}

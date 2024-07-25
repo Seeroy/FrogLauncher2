@@ -1,0 +1,72 @@
+/* Flyout menu */
+.flymenu {
+    width: 78px !important;
+    height: 100% !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.flymenu .menu-wrapped {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.flymenu .item {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background: var(--theme-primaryBgLight);
+    color: var(--theme-text);
+}
+
+.flymenu .item:not(.active):hover {
+    cursor: pointer;
+    filter: brightness(112%);
+    box-shadow: var(--theme-primaryBgLight) 0 0 24px;
+}
+
+html.light .flymenu .item:not(.active):hover {
+    filter: brightness(90%);
+}
+
+.flymenu .item.active {
+    background: var(--theme-primary);
+    box-shadow: var(--theme-primaryDarker) 0 0 24px;
+}
+
+.flymenu .item.active,
+.flymenu .item.active * {
+    color: var(--theme-text);
+    font-size: 24px;
+}
+
+.flymenu-tooltip {
+    z-index: 9999;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    border-radius: 16px;
+
+    width: max-content;
+    height: max-content;
+    transition: top 0s, left 0s !important;
+    pointer-events: none !important;
+}

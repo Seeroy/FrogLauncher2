@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="modals/packsAndMods.css"/>
+
+<div class="modal" id="modal-packs" style="display: none;">
+    <!-- Заглавные табы -->
+    <%- include('../sections/packsAndMods/mainTabs.ejs'); %>
+
+    <div class="layout-tab active" data-main-tab="install">
+        <div class="modal-layout">
+            <div class="installTo">
+                <span>Устанавливать в:</span>
+
+                <select class="custom-select" id="packs_dirList">
+                    <option value="default" selected>В стандартную папку</option>
+                </select>
+            </div>
+
+            <!-- Фильтры -->
+            <%- include('../sections/packsAndMods/filters.ejs'); %>
+
+            <!-- Поле для поиска -->
+            <input type="text" placeholder="Поиск" class="search"/>
+
+            <!-- Враппер списка сборок (для скролла) -->
+            <%- include('../sections/packsAndMods/wrappedModsList.ejs'); %>
+
+            <!-- Список установленных -->
+            <div class="installedList">
+                <div class="scroll-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout-tab" data-main-tab="update">
+        <%- include('../sections/packsAndMods/updateTab.ejs'); %>
+    </div>
+
+    <div class="layout-tab" data-main-tab="create">
+        <%- include('../sections/packsAndMods/newPackTab.ejs'); %>
+    </div>
+</div>
+
+<script src="modals/packsAndMods.js"></script>

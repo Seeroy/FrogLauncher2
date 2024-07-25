@@ -1,0 +1,23 @@
+#modal-changelog .list .item {
+    width: 100%;
+    height: max-content;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    background: var(--theme-primaryBgLight);
+}
+
+#modal-changelog .list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: max-content;
+}
+
+#modal-changelog .wrapper {
+    overflow: auto;
+    height: 60vh;
+}

@@ -1,0 +1,66 @@
+.custom-select {
+    background: var(--theme-primaryBgLight);
+    cursor: pointer;
+
+    border-radius: 6px;
+    padding: 0 6px;
+    height: 56px;
+}
+
+.custom-select:hover {
+    filter: brightness(118%);
+    background: var(--theme-primaryBgLight) !important;
+}
+
+/* Icon and description mode */
+.custom-select.icon-and-description {
+    display: grid;
+    grid-template-columns: 40px 1fr max-content;
+    grid-template-rows: max-content max-content;
+    grid-auto-columns: 1fr;
+    gap: 0 6px;
+    grid-auto-flow: row;
+    align-content: center;
+    grid-template-areas:
+    "icon title button"
+    "icon description button";
+}
+
+.custom-select.icon-and-description .icon {
+    justify-self: center;
+    align-self: center;
+    grid-area: icon;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.custom-select.icon-and-description .title {
+    grid-area: title;
+    font-size: 14pt;
+    font-weight: 500;
+}
+
+.custom-select.icon-and-description .button {
+    grid-area: button;
+    justify-self: center;
+    align-self: center;
+    padding: 2px;
+    border-radius: 9999px;
+    background: var(--theme-primaryBgLighter);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-select.icon-and-description .description {
+    align-self: start;
+    grid-area: description;
+
+    color: rgb(150, 150, 150);
+    text-transform: uppercase;
+    font-size: 9pt;
+    font-weight: 700;
+}

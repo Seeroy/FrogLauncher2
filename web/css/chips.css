@@ -1,0 +1,47 @@
+.chip {
+    background: var(--theme-primaryBgLighter);
+    width: max-content;
+    height: max-content;
+
+    padding: 4px 10px;
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.chip.small {
+    font-size: 10pt;
+    padding: 4px 8px;
+}
+
+.chip.small * {
+    font-size: 10pt;
+}
+
+.chip.large {
+    font-size: 18pt;
+    padding: 8px 16px;
+}
+
+.chip.pill {
+    border-radius: 9999px;
+}
+
+.chip.square {
+    border-radius: 6px;
+}
+
+.chip.bgLight {
+    background: var(--theme-primaryBgLight);
+}
+
+.chip.primary {
+    background: var(--theme-primary);
+}
+
+.chip.primaryDarker {
+    background: var(--theme-primaryDarker);
+}

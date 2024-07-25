@@ -1,0 +1,129 @@
+.loading-screen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    backdrop-filter: blur(24px);
+}
+
+.loading-screen .caption {
+    font-weight: 800;
+    font-size: 48pt;
+
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+
+    animation-timing-function: ease-in;
+    animation: fade 1.2s;
+}
+
+.loading-screen .description {
+    font-weight: 600;
+    font-size: 16pt;
+
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+    margin-top: 16px;
+
+    animation-timing-function: ease-in;
+    animation: fade 1.2s;
+}
+
+.loading-screen img {
+    animation-timing-function: ease-in-out;
+    width: 384px;
+    transition: 1.2s !important;
+    clip-path: circle(1%);
+}
+
+.loading-screen img.uncircle {
+    clip-path: circle(80%);
+}
+
+/* Animate in */
+.loading-screen.animateIn .caption {
+    animation: fadeIn 1.2s;
+}
+
+/* Animate out */
+.loading-screen.animateOut img {
+    animation: zoomFadeOutBig 1.06s;
+}
+
+.loading-screen.animateOut .caption {
+    animation: fadeOut 1.06s;
+}
+
+.loading-screen.animateOut {
+    animation: fadeOutLinear 1s;
+}
+
+.hide-on-loading {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+@keyframes zoomFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zoomFadeOutBig {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.2);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.01;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOutLinear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

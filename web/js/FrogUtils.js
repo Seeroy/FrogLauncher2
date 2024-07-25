@@ -1,0 +1,92 @@
+class FrogUtils {
+    // Random Integer
+    static getRandomInt = (max) => {
+        return Math.floor(Math.random() * max);
+    }
+
+    // Расширение файла
+    static fileExt = (file) => {
+        return path.extname(file);
+    }
+
+    // Имя файла из ссылки
+    static getFilenameFromURL = (url) => {
+        return url.split("/").splice(-1)[0];
+    }
+
+    // Первая буква большая
+    static capitalizeWord = (word) => {
+        word = word.toString();
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    // Проверить текст по массиву регулярок
+    static isTextMatchRegexpArray = (regexpArray, text) => {
+        let matches = false;
+        regexpArray.forEach(function (status) {
+            if (text.match(status) != null) {
+                matches = true;
+            }
+        });
+        return matches;
+    }
+
+    // Округлить до 512
+    static round512 = (x) => {
+        return Math.ceil(x / 512) * 512;
+    }
+
+    // Создать недостающие директории в пути
+    static createMissingDirectories = (path) => {
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path, {recursive: true});
+            return true;
+        }
+        return false;
+    }
+
+    // Размер файла в человеко-читаемый
+    static humanFileSize(bytes, si = false, dp = 1) {
+        const thresh = si ? 1000 : 1024;
+
+        if (Math.abs(bytes) < thresh) {
+            return bytes + ' B';
+        }
+
+        const units = si
+            ? ['Кб', 'Мб', 'Гб', 'Тб', 'Пб', 'Эб', 'Зб', 'Йб']
+            : ['КиБ', 'МиБ', 'ГиБ', 'ТиБ', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        let u = -1;
+        const r = 10 ** dp;
+
+        do {
+            bytes /= thresh;
+            ++u;
+        } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+        return bytes.toFixed(dp) + ' ' + units[u];
+    }
+
+    // Удалить элемент из массива
+    static removeElementFromArray = (array, element) => {
+        let index = array.indexOf(element);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        return array;
+    }
+
+    // Сравнить массивы (возвращает совпадения)
+    static compareArrays = (arr1, arr2) => {
+        let arr3 = [];
+        arr1.forEach((item) => {
+            arr2.forEach((item2) => {
+                if (item == item2) {
+                    arr3.push(item);
+                }
+            });
+        });
+        return arr3;
+    }
+}

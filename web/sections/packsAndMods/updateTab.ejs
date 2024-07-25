@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="sections/packsAndMods/updateTab.css"/>
+
+<div class="updateTab">
+    <div class="selectMode">
+        <div class="icon">
+            <span class="material-symbols-outlined">update</span>
+        </div>
+        <h1>Обновление модов</h1>
+        <h3>На данный момент обновление модов доступно только в ручном режиме и для тестирования. Для проверки
+            обновлений вам нужно выбрать сборку:</h3>
+        <select class="custom-select" id="mods-update-pack-select"></select>
+        <button class="primary pill" onclick="FrogModsUpdater.checkUpdatesBySelect()">Проверить обновления</button>
+    </div>
+
+    <div class="updateMode" style="display: none">
+        <div class="spinner large"></div>
+        <h2 class="text">Проверка обновлений</h2>
+        <h3 class="mod"></h3>
+    </div>
+
+    <div class="foundUpdateMode" style="display: none">
+        <h2>Найдено обновлений: <span class="updatesFoundCount"></span></h2>
+
+        <div class="updatesListWrapper">
+            <div class="updatesList"></div>
+        </div>
+
+        <button class="primary pill" onclick="FrogModsUpdater.updateAllFromList()">Обновить всё</button>
+    </div>
+</div>

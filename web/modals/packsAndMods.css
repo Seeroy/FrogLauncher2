@@ -1,0 +1,364 @@
+/* Tabs */
+#modal-packs .tabs > .tab {
+    flex-grow: 1;
+    padding: 8px;
+}
+
+#modal-packs .tabs {
+    height: 32px;
+}
+
+#modal-packs .layout-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+}
+
+#modal-packs .layout-tab:not(.active) {
+    display: none;
+}
+
+/* Sub tabs */
+#modal-packs .tabs.sub {
+    height: max-content;
+}
+
+#modal-packs .tabs.sub .tab {
+    height: 32px;
+    padding: 4px;
+    flex-direction: row !important;
+}
+
+html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) {
+    color: var(--theme-primary);
+}
+
+    /* Modal */
+#modal-packs {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+#modal-packs .preloader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#modal-packs select {
+    height: 48px;
+    flex-grow: 1;
+    padding: 0 16px;
+    font-size: 14pt;
+    color: var(--text-color);
+}
+
+/* Modal layout */
+#modal-packs .modal-layout {
+    display: grid;
+    grid-template-columns: 272px 1fr 25%;
+    grid-template-rows: max-content 48px 1fr;
+    grid-auto-columns: 1fr;
+    gap: 8px 8px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "installTo installTo installTo"
+    "search mods installedList"
+    "filters mods installedList";
+
+    width: 100%;
+    height: 100%;
+}
+
+#modal-packs .modal-layout .search {
+    grid-area: search;
+    height: 48px;
+    padding: 8px;
+}
+
+#modal-packs .modal-layout .installedList {
+    grid-area: installedList;
+
+    background: var(--theme-primaryBgLight);
+    border-radius: 8px;
+    padding: 12px;
+
+    height: 100%;
+    overflow: auto;
+}
+
+#modal-packs .modal-layout .filters {
+    grid-area: filters;
+
+    background: var(--theme-primaryBgLight);
+    border-radius: 8px;
+    padding: 12px;
+
+    height: 100%;
+    overflow: auto;
+}
+
+#modal-packs .modal-layout .installTo {
+    grid-area: installTo;
+    width: 100%;
+    height: max-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+#modal-packs .modal-layout .installTo input {
+    flex-grow: 1;
+}
+
+/* Filters */
+#modal-packs .modal-layout .filters__scroll-wrapper {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#modal-packs .modal-layout .filters .scroll-wrap {
+    max-height: 50vh;
+    overflow: auto;
+}
+
+#modal-packs .modal-layout .filters .scroll-wrap > div {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 6px;
+    background: var(--theme-primaryBgLighter);
+    border-radius: 8px;
+}
+
+#modal-packs .modal-layout .packs-wrapper {
+    grid-area: mods;
+    overflow: auto;
+}
+
+#modal-packs .packs-list {
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Pack item */
+#modal-packs .packs-list .item {
+    background: var(--theme-primaryBgLight);
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    display: grid;
+    grid-template-columns: 64px 1fr max-content;
+    grid-template-rows: max-content max-content max-content;
+    grid-auto-columns: 1fr;
+    gap: 4px 8px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "icon title button"
+    "icon description button"
+    "icon specs button";
+}
+
+#modal-packs .packs-list .item .icon {
+    justify-self: center;
+    align-self: center;
+    grid-area: icon;
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+}
+
+#modal-packs .packs-list .item .button {
+    justify-self: center;
+    align-self: center;
+    grid-area: button;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+#modal-packs .packs-list .item .button button {
+    font-size: 12pt;
+    padding: 8px 16px;
+    height: max-content;
+}
+
+#modal-packs .packs-list .item .button .link * {
+    color: var(--theme-primaryLighter);
+    font-size: 11pt;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#modal-packs .packs-list .item .button .link * {
+    display: inline-block !important;
+}
+
+#modal-packs .packs-list .item .button .link,
+#modal-packs .packs-list .item .button .link * {
+    text-decoration: none !important;
+}
+
+#modal-packs .packs-list .item .button .link:hover * {
+    color: var(--theme-primary);
+}
+
+#modal-packs .packs-list .item .title {
+    grid-area: title;
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+#modal-packs .packs-list .item .description {
+    grid-area: description;
+    font-size: 11pt;
+    opacity: 0.95;
+}
+
+#modal-packs .packs-list .item .specs {
+    grid-area: specs;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#modal-packs .packs-list .item .specs * {
+    color: var(--text-sub);
+    font-size: 12pt;
+}
+
+/* Versions list */
+#modal-packs .packs-list .item:not(.opened) .versions-scroll {
+    display: none !important;
+}
+
+#modal-packs .packs-list .item .versions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: max-content;
+    width: 100%;
+}
+
+#modal-packs .packs-list .item .versions-scroll {
+    grid-area: versionsList;
+    max-height: 30vh;
+    width: 100%;
+    overflow: auto;
+}
+
+#modal-packs .packs-list .item.opened {
+    grid-template-rows: max-content max-content max-content max-content max-content;
+    grid-template-areas:
+    "icon title button"
+    "icon description button"
+    "icon specs button"
+    "icon pressToOpen button"
+    "versionsList versionsList versionsList";
+    max-height: 60vh;
+}
+
+#modal-packs .packs-list .item .versions-list .item {
+    background: var(--theme-primaryBgLighter);
+    padding: 6px 32px;
+    border-radius: 8px;
+
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    grid-template-rows: max-content max-content;
+    grid-auto-columns: 1fr;
+    gap: 4px 8px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "title button"
+    "versions button";
+}
+
+#modal-packs .packs-list .item .versions-list .item .title {
+    grid-area: title;
+}
+
+#modal-packs .packs-list .item .versions-list .item .versions {
+    grid-area: versions;
+}
+
+#modal-packs .packs-list .item .versions-list .item button,
+#modal-packs .packs-list .item .versions-list .item .material-symbols-outlined {
+    align-self: center;
+    justify-self: center;
+
+    height: max-content;
+    width: max-content;
+
+    grid-area: button;
+}
+
+#modal-packs .packs-list .item .versions-list .item button {
+    padding: 8px 16px;
+    font-size: 12pt;
+    border-radius: 32px !important;
+}
+
+/* Installed list */
+#modal-packs .installedList .scroll-wrap {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: 100%;
+    gap: 4px;
+}
+
+#modal-packs .installedList .scroll-wrap .item {
+    width: 100%;
+    height: max-content;
+    padding: 8px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--theme-primaryBgLighter);
+}
+
+#modal-packs .installedList .scroll-wrap .item .icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+#modal-packs .installedList .scroll-wrap .item .name {
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    font-size: 10pt;
+    width: 75%;
+}
+
+#modal-packs .installedList .scroll-wrap .item button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+}

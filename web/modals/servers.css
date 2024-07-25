@@ -1,0 +1,100 @@
+#modal-servers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#modal-servers .serversListWrapper {
+    width: 100%;
+    height: 80%;
+    overflow: auto;
+
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+#modal-servers .serversList {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: max-content;
+
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+#modal-servers .serversList .item {
+    background: var(--theme-primaryBgLight);
+    border-radius: 16px;
+
+    padding: 6px 20px;
+
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+#modal-servers .serversList .item .caption {
+    font-weight: 700;
+    font-size: 16pt;
+    color: var(--text-color);
+}
+
+#modal-servers .serversList .item .description {
+    font-weight: 500;
+    font-size: 11pt;
+    color: var(--text-sub);
+}
+
+#modal-servers .serversList .item .ip,
+#modal-servers .serversList .item .version {
+    width: max-content;
+    height: 32px;
+    background: var(--theme-primaryBgLighter);
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0;
+
+    gap: 8px;
+}
+
+#modal-servers .serversList .item .ip *,
+#modal-servers .serversList .item .version * {
+    font-size: 11pt;
+    color: var(--text-sub);
+}
+
+#modal-servers .serversList .item .copy-btn,
+#modal-servers .serversList .item .play-btn {
+    margin: 0 8px;
+}
+
+#modal-servers .serversList .item .copy-btn .material-symbols-outlined,
+#modal-servers .serversList .item .play-btn .material-symbols-outlined {
+    font-size: 21pt;
+    color: var(--theme-primaryLighter);
+    cursor: pointer;
+}
+
+#modal-servers .serversList .item .copy-btn .material-symbols-outlined:hover,
+#modal-servers .serversList .item .play-btn .material-symbols-outlined:hover {
+    color: var(--text-sub);
+}
+
+#modal-servers .disclaimer {
+    color: var(--text-sub);
+    font-size: 11pt;
+    text-align: center;
+}
+
+html.light {
+
+}

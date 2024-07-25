@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="modals/accounts.css"/>
+
+<div class="modal overlay" id="modal-accounts" style="display: none;">
+    <div class="add-local hidden" style="display: none;">
+        <input type="text" placeholder="Введите никнейм"/>
+        <button class="transparent square small" onclick="FrogAccountsUI.addLocalAccount()">
+            <span class="icon material-symbols-outlined">add</span>
+        </button>
+    </div>
+    <div class="acc-list-wrapper">
+        <div class="accounts-list">
+            <div class="item custom-select icon-and-description placeholder" style="display: none" data-type="$5"
+                 data-uuid="$3" data-username="$1">
+                <div class="icon">
+                    <img class="avatar" src="$4"/>
+                    <img class="type microsoft" style="display: none" src="assets/microsoft.png"/>
+                    <img class="type elyby" style="display: none" src="assets/elyby.png"/>
+                </div>
+                <span class="title">$1</span>
+                <span class="description">$2</span>
+                <span class="check">
+                    <span class="material-symbols-outlined">check</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="acc-btns">
+        <button onclick="FrogAccountsUI.addMicrosoftAccount()">
+            <img src="assets/microsoft.png" height="24"/>
+        </button>
+        <button onclick="FrogAccountsUI.showAddLocalAccountUI()">
+            Оффлайн
+        </button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".flymenu *, .title-wrapper *, #playButton *, #versionSelect *, .layout .content").click(function (e) {
+            if (FrogModals.isModalShown("accounts")) {
+                e.stopPropagation();
+                if (this !== e.target) {
+                    return;
+                }
+                FrogModals.hideModal("accounts");
+            }
+        })
+    })
+</script>

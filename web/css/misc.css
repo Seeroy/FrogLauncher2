@@ -1,0 +1,64 @@
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+.flex-justify-center {
+    justify-content: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-gap-8 {
+    gap: 8px
+}
+
+.flex-gap-4 {
+    gap: 4px
+}
+
+.flex-gap-v-8 {
+    gap: 0 8px;
+}
+
+.flex-gap-h-8 {
+    gap: 0 8px;
+}
+
+/* Microdot */
+.microdot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+}
+
+.microdot .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--theme-primaryBgLighter);
+}

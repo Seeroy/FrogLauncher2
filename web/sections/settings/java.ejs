@@ -1,0 +1,48 @@
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">motion_photos_auto</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">Автоматически выбирать версию Java</span>
+        <span class="description">Версия выбирается и устанавливается на основе официального манифеста Mojang</span>
+    </div>
+    <label class="switch" data-setting="autoSelectJava" data-checked>
+        <input type="checkbox" id="autoSelectJavaChk">
+        <span class="inner"></span>
+    </label>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item" id="selectJavaSettingsItem">
+    <div class="icon">
+        <span class="material-symbols-outlined">folder</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">Пользовательская версия Java</span>
+        <div class="flex flex-center flex-gap-8">
+            <input type="text" class="lighter flex-grow" readonly id="javaDirectoryInput">
+            <button class="square small" onclick='ipcRenderer.send("open-java-dialog")'>
+                <span class="material-symbols-outlined">folder</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #modal-settings:has(#autoSelectJavaChk:checked) #selectJavaSettingsItem {
+        display: none !important;
+    }
+</style>
+
+<script>
+    $(function () {
+        // Файл java.exe
+        $("#javaDirectoryInput").val(FrogConfig.read("selectedJava", ""));
+    })
+
+    // При выборе Java
+    ipcRenderer.on("get-java-result", (e, result) => {
+        let pathResult = path.normalize(result);
+        FrogConfig.write("selectedJava", pathResult);
+        $("#javaDirectoryInput").val(pathResult);
+    })
+</script>

@@ -1,0 +1,54 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch .inner {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(270deg, var(--theme-primaryBgLighter) 0%, var(--theme-primaryBgLight) 50%, var(--theme-primary) 50%, var(--theme-primaryDarker) 100%);
+    background-size: 132px;
+    background-position: -67px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.switch .inner:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 3px;
+    bottom: 4px;
+    background-color: var(--theme-text);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .inner {
+    background-position: 0;
+}
+
+input:focus + .inner {
+    box-shadow: 0 0 1px var(--theme-primary);
+}
+
+input:checked + .inner:before {
+    -webkit-transform: translateX(32px);
+    -ms-transform: translateX(32px);
+    transform: translateX(32px);
+}

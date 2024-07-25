@@ -1,0 +1,90 @@
+{
+  "name": "frogLauncher2",
+  "version": "2.0.0",
+  "description": "Minecraft-лаунчер. Твой. Крутой",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "set LAUNCHER_IN_DEV=yes && electron .",
+    "build-win": "electron-builder build --win --publish never",
+    "build-linux": "electron-builder build --linux --publish never",
+    "test": "set LAUNCHER_IN_DEV=yes && set LAUNCHER_IN_TEST=yes && electron ."
+  },
+  "author": "Seeroy",
+  "license": "GPL-3.0",
+  "homepage": "https://froglauncher.seeeroy.ru",
+  "bugs": "https://github.com/Seeroy/FrogLauncher2/issues",
+  "repository": "https://github.com/Seeroy/FrogLauncher2",
+  "devDependencies": {
+    "electron": "^31.2.1",
+    "electron-builder": "^24.13.3",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.14",
+    "archiver": "^7.0.1",
+    "axios": "^1.7.2",
+    "colors": "^1.4.0",
+    "console-stamp": "^3.1.2",
+    "decompress": "^4.2.1",
+    "ejs-electron": "^3.0.0",
+    "electron-root-path": "^1.1.0",
+    "electron-updater": "^6.2.1",
+    "fs-extra": "^11.2.0",
+    "jquery": "^3.7.1",
+    "machine-uuid": "^1.2.0",
+    "minecraft-launcher-core": "^3.18.1",
+    "msmc": "^5.0.5",
+    "open": "^8.4.0",
+    "request": "^2.88.2",
+    "tomate-loaders": "^2.0.2"
+  },
+  "build": {
+    "productName": "FrogLauncher",
+    "appId": "ru.seeroy.froglauncher",
+    "copyright": "© 2024 Seeroy",
+    "directories": {
+      "buildResources": "resources"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "tar.gz"
+      ],
+      "maintainer": "Seeroy",
+      "vendor": "Seeroy",
+      "icon": "web/assets/icon.png"
+    },
+    "win": {
+      "asar": true,
+      "target": "nsis",
+      "icon": "resources/icon.ico"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": "https://froglauncher.seeeroy.ru/v2/updates"
+    },
+    "nsis": {
+      "installerIcon": "resources/icon.ico",
+      "installerHeaderIcon": "resources/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "**/*",
+      "node_modules/**/*",
+      "!logs{/*}",
+      "!logs/",
+      "!logs",
+      "!cache{/*}",
+      "!config.json",
+      "!frog_accounts.json",
+      "!LICENSE",
+      "!README.md",
+      "!.gitignore",
+      "!.git{/*}"
+    ]
+  }
+}

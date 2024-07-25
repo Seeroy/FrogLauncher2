@@ -1,0 +1,77 @@
+/* Обычная кнопка */
+button {
+    padding: 8px 18px;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-direction: row;
+    font-size: 18pt;
+    cursor: pointer;
+
+    height: max-content;
+    width: max-content;
+
+    background: var(--theme-primary);
+}
+
+button, button * {
+    color: var(--theme-text);
+}
+
+button:hover {
+    background: var(--theme-primaryDarker);
+}
+
+.button.pill {
+    border-radius: 24px !important;
+    padding: 6px 18px;
+}
+
+.button.pill.small {
+    padding: 4px 26px;
+    font-size: 15pt;
+}
+
+/* Квадратная кнопка */
+button.square {
+    width: 64px;
+    height: 64px;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.square:not(.small) .material-symbols-outlined {
+    font-size: 24pt;
+}
+
+button.square.small {
+    width: 48px;
+    height: 48px;
+}
+
+/* Прозрачная кнопка */
+button.transparent {
+    background: transparent;
+    color: var(--text-color);
+}
+
+button.transparent:hover {
+    background: var(--theme-primaryBgLight);
+}
+
+/* Кнопка sub-цвета */
+button.sub {
+    background: var(--bg-sub);
+    color: var(--text-color);
+}
+
+button.sub:hover {
+    filter: brightness(90%);
+}

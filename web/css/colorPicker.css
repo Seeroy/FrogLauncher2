@@ -1,0 +1,27 @@
+.color-picker {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.color-picker:hover {
+    filter: brightness(86%);
+}
+
+.color-picker .material-symbols-outlined {
+    color: white;
+    font-size: 16px;
+}
+
+.color-picker:not(.active) .material-symbols-outlined {
+    display: none;
+}
+
+.color-picker.active .material-symbols-outlined {
+    display: initial;
+}

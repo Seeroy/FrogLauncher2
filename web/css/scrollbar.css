@@ -1,0 +1,12 @@
+*:not(.slider)::-webkit-scrollbar-thumb {
+    background: var(--theme-primary);
+    border-radius: 8px;
+}
+
+*:not(.slider)::-webkit-scrollbar-track {
+    background: var(--theme-primaryBgLight);
+}
+
+*:not(.slider)::-webkit-scrollbar {
+    width: 10px;
+}

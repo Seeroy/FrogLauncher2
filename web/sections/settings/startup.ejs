@@ -1,0 +1,160 @@
+<link rel="stylesheet" href="sections/settings/startup.css"/>
+
+<div class="flex fex-centler flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">folder</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
+        <span class="name">Папка для хранения файлов игры</span>
+        <span class="description">В ней будут храниться все файлы игры, Java и другие</span>
+        <div class="flex flex-center flex-gap-8">
+            <input type="text" class="lighter flex-grow" readonly id="gameDirectoryInput">
+            <button class="square small" onclick='ipcRenderer.send("open-gd-dialog")'>
+                <span class="material-symbols-outlined">folder</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">memory_alt</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
+        <span class="name">Выделение памяти</span>
+        <span class="description">Рекомендуемое значение для современных версий игры - от 4 Гб. Уменьшите этот параметр, если в игре присутствуют фризы</span>
+        <div class="flex flex-center flex-gap-8">
+            <input class="flex-grow" type="range" min="0" max="100" step="512" value="20" id="xmxSlider"
+                   style="width: 50%">
+            <input type="number" class="lighter" id="xmxText" style="width: 160px;"/>
+            <h3 id="xmxText">Мб</h3>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">fullscreen</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">Полноэкранный режим игры</span>
+        <span class="description">Флаг может не работать с некоторыми сборками</span>
+    </div>
+    <label class="switch" data-setting="gameInFullscreen">
+        <input type="checkbox">
+        <span class="inner"></span>
+    </label>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">topic</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">Раздельное хранение версий</span>
+        <span class="description">Моды, сборки, ресурспаки и другие пользовательские файлы будут храниться в индивидуальной папке с каждой версией (Папка с игрой/home)</span>
+    </div>
+    <label class="switch" data-setting="separatedStorage">
+        <input type="checkbox">
+        <span class="inner"></span>
+    </label>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">arrow_split</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">Полное разделение версий (экспериментально)</span>
+        <span class="description">ВСЕ файлы, необходимые каждой версии будут храниться в индивидуальной папке (Папка с игрой/home)<br>Включайте эту функцию <b>только если у вас есть проблемы с запуском определённых версий при уже большом установленном количестве!</b></span>
+    </div>
+    <label class="switch" data-setting="fullySeparatedStorage">
+        <input type="checkbox">
+        <span class="inner"></span>
+    </label>
+</div>
+
+<div class="flex flex-gap-8 flex-col settings-item">
+    <div class="flex flex-center flex-gap-8">
+        <div class="icon">
+            <span class="material-symbols-outlined">reset_wrench</span>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">Фикс сетевой игры (экспериментально)</span>
+            <span class="description">Настройка направлена на исправление ошибки "Сетевая игра недоступна" при использовании ванильных версий >= 1.16.5<br>При возникновении каких-либо проблем со скинами и модами <b>рекомендуется отключить этот параметр</b></span>
+        </div>
+        <label class="switch" data-setting="multiplayerFix">
+            <input type="checkbox">
+            <span class="inner"></span>
+        </label>
+    </div>
+    <div class="flex flex-center flex-gap-8">
+        <img src="assets/multiplayer_disabled.jpg" alt="Мультиплеер недоступен"
+             style="height: 200px; border-radius: 8px;"/>
+        <img src="assets/multiplayer_enabled.jpg" alt="Мультиплеер доступен"
+             style="height: 200px; border-radius: 8px;"/>
+    </div>
+</div>
+
+<script>
+    // Подсчёт данных
+    let startup_maxMemory = FrogUtils.round512(os.totalmem() / 1024 / 1024);
+    let startup_minMemory = 512;
+    let startup_defaultMemory = FrogUtils.round512(startup_maxMemory / 2) - 512;
+    let startup_currentMemory = FrogConfig.read("xmxMemory", startup_defaultMemory);
+    let startup_xmxSlider = $("#xmxSlider");
+    let startup_xmxText = $("#xmxText");
+
+    $(function () {
+        // Настройка слайдера
+        startup_xmxSlider.attr("min", startup_minMemory);
+        startup_xmxSlider.attr("max", startup_maxMemory);
+        startup_xmxSlider.attr("value", startup_currentMemory);
+        startup_xmxText.val(startup_currentMemory);
+
+        // Директория игры
+        $("#gameDirectoryInput").val(global.GAME_DATA);
+    })
+
+    // При смене директории игры
+    ipcRenderer.on("get-gd-result", (e, result) => {
+        let pathResult = path.normalize(result);
+        global.GAME_DATA = pathResult;
+        FrogConfig.write("gameDirectory", pathResult);
+        FrogVersionsUI.loadVersions();
+        FrogAccountsUI.reloadAccountSelect();
+        FrogAccountsUI.reloadAccountsManager();
+        $("#gameDirectoryInput").val(pathResult);
+    })
+
+    // Изменение слайдера
+    startup_xmxSlider.on("input", () => {
+        startup_currentMemory = startup_xmxSlider.val();
+        startup_xmxText.val(startup_currentMemory);
+    })
+
+    // Сохранение изменений слайдера
+    startup_xmxSlider.on("change", () => {
+        startup_currentMemory = startup_xmxSlider.val();
+        startup_xmxText.val(startup_currentMemory);
+        FrogConfig.write("xmxMemory", startup_currentMemory);
+    })
+
+    // Изменение в поле ввода
+    startup_xmxText.on("change", () => {
+        let inputVal = startup_xmxText.val();
+        if (inputVal > startup_maxMemory || inputVal < startup_minMemory) {
+            if (inputVal < startup_minMemory) {
+                startup_currentMemory = startup_minMemory;
+            }
+            if (inputVal > startup_maxMemory) {
+                startup_currentMemory = startup_maxMemory;
+            }
+        } else {
+            startup_currentMemory = inputVal;
+        }
+        startup_xmxText.val(startup_currentMemory);
+        startup_xmxSlider.val(startup_currentMemory);
+        return FrogConfig.write("xmxMemory", startup_currentMemory);
+    })
+</script>

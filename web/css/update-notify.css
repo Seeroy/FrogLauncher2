@@ -1,0 +1,40 @@
+.update-notify {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 10px;
+
+    position: absolute;
+    margin: 0 auto;
+    top: 24px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+
+    border-radius: 8px;
+    background: var(--theme-primaryBg);
+    border: 2px solid black;
+    outline-offset: -4px;
+    width: max-content;
+}
+
+.update-notify .caption {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.update-notify .description {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--text-sub);
+}
+
+.update-notify button {
+    background: var(--theme-primaryBgLighter);
+    font-size: 14pt;
+    padding: 8px 26px !important;
+    border-radius: 32px !important;
+    height: max-content !important;
+}

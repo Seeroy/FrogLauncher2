@@ -1,0 +1,7 @@
+html.dark {
+    --bg-main: #171717;
+    --bg-sub: #404040;
+    --bg-transparent: rgba(23, 23, 23, 0.5);
+    --text-color: white;
+    --text-sub: #d1d1d1;
+}

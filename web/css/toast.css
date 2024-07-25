@@ -1,0 +1,83 @@
+.toast {
+    min-width: 18vw;
+    max-height: 40vh;
+    max-width: 40vw;
+    width: 100%;
+    height: max-content;
+    background: var(--theme-primaryBg);
+    border-radius: 8px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.toast .icon-bg {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--theme-primaryBgLight);
+    border-radius: 8px;
+    margin-right: 16px;
+}
+
+.toast .content {
+    display: flex;
+    flex-direction: column;
+}
+
+.toast .content .description {
+    margin-top: 2px;
+}
+
+.toast .icon-bg * {
+    color: var(--text-color);
+    font-size: 21pt;
+}
+
+.toast .icon-bg.circle {
+    border-radius: 50%;
+}
+
+.toast .icon-bg {
+    background: var(--theme-primaryBgLighter);
+}
+
+.toast .icon-bg.colored * {
+    color: var(--theme-primary);
+}
+
+.toast .caption {
+    font-size: 16pt;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.toast .description {
+    font-size: 13pt;
+    color: #9d9d9d;
+}
+
+#toasts-pool {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: absolute;
+    z-index: 3000000;
+
+    max-height: 100vh;
+    max-width: 45vw;
+    height: max-content;
+    width: max-content;
+
+    overflow: hidden;
+    gap: 12px;
+
+    top: 24px;
+    left: 24px;
+}

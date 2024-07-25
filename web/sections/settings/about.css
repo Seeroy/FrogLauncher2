@@ -1,0 +1,77 @@
+/* Clickable */
+.settings-item.clickable:hover {
+    cursor: pointer;
+    filter: brightness(119%);
+}
+
+#aboutItem {
+    background-image: linear-gradient(90deg, var(--theme-primaryBgLight) 0%, var(--theme-primaryBgLighter) 50%, var(--theme-primaryBgLight) 100%) !important;
+    background-position: 0 0;
+    animation: gradAnim 5s linear infinite normal;
+}
+
+/* Описание */
+#aboutItem .description {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    max-width: 100vw !important;
+}
+
+#aboutItem .description,
+#aboutItem .description * {
+    font-weight: 500;
+}
+
+#aboutItem * {
+    color: var(--text-color) !important;
+}
+
+/* Разные текста */
+#about_operatingSystem,
+#about_username {
+    color: var(--theme-primaryBgLighter);
+}
+
+/* Заголовок */
+#aboutItem .name {
+    font-size: 16pt !important;
+    font-weight: 700 !important;
+}
+
+#modal-settings .grid-wrapper {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 16px;
+    grid-template-areas:
+    ". .";
+    width: 100%;
+    height: 100%;
+}
+
+#modal-settings .grid-wrapper > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Version chip */
+#aboutItem .chip .dot {
+    background: white;
+}
+
+@keyframes gradAnim {
+    0% {
+        background-position: 0;
+    }
+
+    50% {
+        background-position: 30vw;
+    }
+
+    100% {
+        background-position: 62vw;
+    }
+}

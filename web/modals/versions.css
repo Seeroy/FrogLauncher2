@@ -1,0 +1,92 @@
+#modal-versions {
+    position: absolute;
+    z-index: 2;
+
+    padding: 12px;
+
+    width: 56vw;
+    height: 52vh;
+
+    bottom: calc(12% + 24px);
+    left: calc(24% + 6px);
+
+    background: var(--theme-primaryBg);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Versions list */
+#modal-versions .versions-list {
+    padding: 4px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: max-content;
+
+    background: var(--theme-primaryBg);
+    border-radius: 8px;
+}
+
+#modal-versions .ver-list-wrapper {
+    flex-grow: 1;
+    overflow: auto;
+    height: 77%;
+}
+
+/* Versions list item */
+#modal-versions .versions-list .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    height: max-content;
+    padding: 6px 12px;
+
+    width: 100%;
+}
+
+#modal-versions .versions-list .item .title {
+    flex-grow: 1;
+}
+
+#modal-versions .versions-list .item .icon {
+    position: relative;
+    display: inline-block;
+}
+
+#modal-versions .versions-list .item .icon {
+    object-fit: cover;
+
+    width: 44px;
+    height: 44px;
+}
+
+#modal-versions .versions-list .item .installed {
+    grid-area: check;
+    align-self: center;
+    justify-self: center;
+    color: var(--success);
+}
+
+#modal-versions .versions-list .item:not([data-installed="true"]) .installed {
+    display: none !important;
+}
+
+#modal-versions .versions-list .item.active {
+    border: 3px solid var(--theme-primary);
+}
+
+#modal-versions .preloader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+}

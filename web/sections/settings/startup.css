@@ -1,0 +1,3 @@
+#modal-settings:has(label[data-setting="fullySeparatedStorage"] input:checked) .settings-item:has(label[data-setting="separatedStorage"]) {
+    display: none !important;
+}

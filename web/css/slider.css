@@ -1,0 +1,26 @@
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 32px;
+    background: transparent;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 7px !important;
+    background: var(--theme-primaryBgLighter);
+    border-radius: 16px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 21px;
+    height: 21px;
+    margin-top: -6px;
+    background: var(--theme-primary);
+    border-radius: 9999px;
+    cursor: pointer;
+}

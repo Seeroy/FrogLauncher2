@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="modals/settings.css"/>
+
+<div class="modal" id="modal-settings" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <span class="material-symbols-outlined">settings</span>
+        <h1>Настройки</h1>
+        <div class="microdot">
+            <div class="dot"></div>
+        </div>
+        <div id="settings_currentSection" class="flex flex-gap-8 flex-center">
+            <span class="material-symbols-outlined">format_paint</span>
+            <span>Оформление</span>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Табы разделов -->
+        <%- include('../sections/settings/tabs'); %>
+
+        <div class="settings-layout">
+            <div class="layout-tab active" data-tab="personalization">
+                <!-- Персонализация -->
+                <%- include('../sections/settings/personalization'); %>
+            </div>
+
+            <div class="layout-tab" data-tab="game">
+                <!-- Игровой процесс -->
+                <%- include('../sections/settings/game'); %>
+            </div>
+
+            <div class="layout-tab" data-tab="startup">
+                <!-- Параметры запуска -->
+                <%- include('../sections/settings/startup'); %>
+            </div>
+
+            <div class="layout-tab" data-tab="java">
+                <!-- Настройки Java -->
+                <%- include('../sections/settings/java'); %>
+            </div>
+
+            <div class="layout-tab" data-tab="about">
+                <!-- О лаунчере -->
+                <%- include('../sections/settings/about'); %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="modals/settings.js"></script>
