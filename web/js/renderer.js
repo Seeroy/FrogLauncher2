@@ -27,6 +27,7 @@ global.CDN_URL = "https://cdn.seeeroy.ru";
 global.STATS_URL = "https://statscol.seeeroy.ru/save_fl?savedata=";
 global.NEWS_URL = CDN_URL + "/FrogLauncher/news.json";
 global.SERVERS_URL = CDN_URL + "/FrogLauncher/servers.json";
+global.AUTHLIB_INJECTOR_URL = CDN_URL + "/FrogLauncher/authlib-injector.jar";
 
 // Ссылка на Java
 global.JAVA_LIST_URL = "https://api.adoptium.net/v3/info/available_releases";

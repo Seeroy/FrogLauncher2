@@ -34,9 +34,35 @@ class FrogLaunchConfigurator {
                 FrogLaunchConfigurator.getModdedLaunchConfig(versionType, versionNumber).then(moddedLaunchConfig => {
                     resultConfig = {...moddedLaunchConfig, ...resultConfig};
                     resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
-                    resolve(resultConfig);
+                    // Готовим конфиг для ely.by, если надо
+                    FrogLaunchConfigurator.setupForElyby(resultConfig, activeAccount).then((resultConfigFinal) => {
+                        console.log(resultConfigFinal);
+                        return resolve(resultConfigFinal);
+                    })
                 })
             });
+        })
+    }
+
+    // Подготовить всё для запуска Ely.by (если нужно)
+    static setupForElyby = (config, activeAccount) => {
+        return new Promise(resolve => {
+            let configResult = config;
+            let accountType = FrogAccountsManager.getAccount(activeAccount).type;
+            if(accountType !== "elyby"){
+                return resolve(configResult);
+            }
+            // Если аккаунт - Ely.by скачиваем инжектор и добавляем его в конфигурацию
+            let authlibInjectorPath = path.join(global.GAME_DATA, "cache", "authlib-injector.jar");
+            if(!fs.existsSync(authlibInjectorPath)){
+                FrogDownloader.downloadFile(global.AUTHLIB_INJECTOR_URL, authlibInjectorPath).then(() => {
+                    configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=ely.by`);
+                    return resolve(configResult);
+                })
+            } else {
+                configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=ely.by`);
+                return resolve(configResult);
+            }
         })
     }
 
