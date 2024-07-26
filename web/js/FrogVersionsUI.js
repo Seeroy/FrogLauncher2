@@ -64,12 +64,12 @@ class FrogVersionsUI {
     static reloadButtonUI = () => {
         let $activeVersionItem = $("#modal-versions .versions-list .item.active");
         if ($activeVersionItem.length === 0) {
-            $("#versionSelect .title").text("Не выбран");
+            $("#versionSelect .title").text("Не выбрана");
             $("#versionSelect .icon").hide();
         } else {
             // Проверяем на модпак и на его существование
             let versionName = $activeVersionItem.data("version");
-            if (versionName.split("-")[0] === "pack") {
+            if (FrogVersionsManager.parseVersionID(versionName).type === "pack") {
                 if (!FrogPacks.isModpackExists(versionName.replace("pack-", ""))) {
                     return FrogVersionsManager.setActiveVersion("none");
                 }
@@ -102,5 +102,14 @@ class FrogVersionsUI {
         $("#modal-versions .versions-list .item:not(.placeholder)").each(function () {
             $(this).show();
         });
+    }
+
+    // Получить выбранные типы версий
+    static getVersionsTypeSelected = () => {
+        let selectedList = [];
+        $("#modal-versions #versionTypeSelect .chip.active").each(function(){
+            selectedList.push($(this).data("type"));
+        })
+        return selectedList;
     }
 }

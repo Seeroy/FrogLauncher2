@@ -24,10 +24,9 @@ class FrogStarter {
             // Готовим UI
             FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
             FrogFlyout.setUIStartMode(true);
-            let versionDisplayName = FrogVersionsManager.versionToDisplayName(this.versionId);
+            let versionDisplayName = FrogVersionsManager.versionToDisplayName();
             FrogFlyout.setText("Собираем конфигурацию", versionDisplayName);
             FrogFlyout.changeMode("spinner").then(() => {
-
                 // Получаем версию Java
                 FrogJavaManager.gameVersionToJavaVersion(this.versionNumber).then((javaVersion) => {
                     FrogCollector.writeLog(`Starter: Using Java ${javaVersion}`);
@@ -67,7 +66,7 @@ class FrogStarter {
         let useProgress = false;
         // Готовим UI
         FrogFlyout.setUIStartMode(true);
-        let versionDisplayName = FrogVersionsManager.versionToDisplayName(this.versionId);
+        let versionDisplayName = FrogVersionsManager.versionToDisplayName();
         FrogFlyout.setText("Готовим игру к запуску", versionDisplayName);
         FrogFlyout.changeMode("progress").then(() => {
             FrogCollector.writeLog(`Starter: UI preparation completed, starting game`);
@@ -172,11 +171,9 @@ class FrogStarter {
     static simpleStart = (versionId) => {
         let starter = new FrogStarter(versionId, versionId.split("-")[0], versionId.split("-")[1]);
         starter.prepare().then(() => {
-            if (versionId.split("-")[0] === "pack") {
-                let modpackId = versionId.split("-");
-                modpackId.shift();
-                modpackId = modpackId.join("-");
-                FrogPacks.verifyAndInstall(modpackId).then(() => {
+            let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
+            if (parsedVersion.type === "pack") {
+                FrogPacks.verifyAndInstall(parsedVersion.name).then(() => {
                     starter.launch();
                 })
             } else {

@@ -3,7 +3,7 @@ let fullListPerformance1, fullListPerformance2;
 class FrogVersionsManager {
     // Получить все ванильные доступные версии
     static getVanillaVersionsAvailable = (alllowedType = ["release"]) => {
-        const allowedVersionTypes = ["release", "snapshot"];
+        const allowedVersionTypes = ["release", "snapshot", "old_beta", "old_alpha"];
         alllowedType = alllowedType || ["release"];
 
         // Проверяем переменную allowedType
@@ -89,7 +89,7 @@ class FrogVersionsManager {
     }
 
     // Получить все доступные версии игры всех загрузчиков
-    static getAllVersionsAvailable = (vanillaVersionsType = 0) => {
+    static getAllVersionsAvailable = (vanillaVersionsType = ["release"]) => {
         // R = result
         let vanillaR, fabricR, forgeR, neoforgeR, quiltR;
         return new Promise((resolve) => {
@@ -128,11 +128,13 @@ class FrogVersionsManager {
     }
 
     // Получить полностью подготовленный для UI список версий
-    static getPreparedVersions = (vanillaVersionsType = 0) => {
+    static getPreparedVersions = () => {
         fullListPerformance1 = performance.now();
         FrogCollector.writeLog(`VersionManager: Preparing full versions list`);
         let resultList = [];
         let installedVersions = FrogVersionsManager.getInstalledVersionsList();
+
+        let vanillaVersionsType = FrogVersionsUI.getVersionsTypeSelected();
 
         let modpacksList = FrogPacks.getPacksList();
         if (modpacksList.length > 0) {
@@ -185,13 +187,16 @@ class FrogVersionsManager {
     };
 
     // Перевести ID версии в её название
-    static versionToDisplayName = (version) => {
+    static versionToDisplayName = (version = null) => {
+        if(version === null){
+            version = FrogVersionsManager.getActiveVersion();
+        }
+
         // Например: forge-1.16.5
-        let type = version.split("-")[0];
-        let ver = version.split("-")[1];
+        let parsed = FrogVersionsManager.parseVersionID(version);
 
         let displayType;
-        switch (type) {
+        switch (parsed.type) {
             case "forge":
                 displayType = "Forge";
                 break;
@@ -205,14 +210,14 @@ class FrogVersionsManager {
                 displayType = "Quilt";
                 break;
             case "pack":
-                let packData = FrogPacks.getModpackManifest(ver);
+                let packData = FrogPacks.getModpackManifest(parsed.name);
                 return `Сборка ${packData.displayName}`;
             default:
                 displayType = "Версия";
                 break;
         }
 
-        return `${displayType} ${ver}`;
+        return `${displayType} ${parsed.name}`;
     }
 
     // Получить активную версию
@@ -222,7 +227,7 @@ class FrogVersionsManager {
 
     // Задать активную версию
     static setActiveVersion = (version) => {
-        if (version.split("-").length !== 2) {
+        if (version.split("-").length < 2) {
             return false;
         }
         FrogConfig.write("activeVersion", version);
@@ -264,5 +269,16 @@ class FrogVersionsManager {
                 }
             })
         });
+    }
+
+    // Парсинг ID версии
+    static parseVersionID = (versionId) => {
+        let idSplit = versionId.split("-");
+        let versionType = idSplit[0];
+        idSplit.shift();
+        return {
+            type: versionType,
+            name: idSplit.join("-")
+        }
     }
 }

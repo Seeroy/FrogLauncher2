@@ -52,7 +52,8 @@ class FrogTests {
     static testVersion = (versionId) => {
         return new Promise(resolve => {
             FrogTests.prepareConfig(versionId).then(config => {
-                let starter = new FrogStarter(versionId, versionId.split("-")[0], versionId.split("-")[1]);
+                let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
+                let starter = new FrogStarter(versionId, parsedVersion.type, parsedVersion.name);
                 FrogTests.writeToTestLog("TEST: Starting version " + versionId);
                 let useProgress = false;
                 // Готовим UI
@@ -121,13 +122,12 @@ class FrogTests {
 
     static prepareConfig = (versionId) => {
         return new Promise((resolve, reject) => {
-            let versionType = versionId.split("-")[0];
-            let versionNumber = versionId.split("-")[1];
+            let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
             // Готовим UI
             FrogTests.writeToTestLog(`Starter: Preparing UI to start / prepare()`);
-            let versionDisplayName = FrogVersionsManager.versionToDisplayName(versionId);
+            let versionDisplayName = FrogVersionsManager.versionToDisplayName();
             // Получаем версию Java
-            FrogJavaManager.gameVersionToJavaVersion(versionNumber).then((javaVersion) => {
+            FrogJavaManager.gameVersionToJavaVersion(parsedVersion.name).then((javaVersion) => {
                 FrogTests.writeToTestLog(`Starter: Using Java ${javaVersion}`);
                 if (javaVersion === false) {
                     return reject(false);

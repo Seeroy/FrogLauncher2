@@ -4,13 +4,12 @@ class FrogLaunchConfigurator {
         FrogCollector.writeLog(`Config: Preparing launch config [version=${version}] [java=${javaVersion}]`);
         return new Promise(resolve => {
             let resultConfig = {};
-            if (version.split("-").length !== 2) {
+            if (version.split("-").length < 2) {
                 return false;
             }
 
             // Готовим переменные
-            let versionType = version.split("-")[0];
-            let versionNumber = version.split("-")[1];
+            let versionParsed = FrogVersionsManager.parseVersionID(version);
 
             resultConfig.memory = {
                 min: 1500,
@@ -31,12 +30,11 @@ class FrogLaunchConfigurator {
                 }
 
                 FrogCollector.writeLog(`Config: Created successfully, resolving promise`);
-                FrogLaunchConfigurator.getModdedLaunchConfig(versionType, versionNumber).then(moddedLaunchConfig => {
+                FrogLaunchConfigurator.getModdedLaunchConfig(versionParsed.type, versionParsed.name).then(moddedLaunchConfig => {
                     resultConfig = {...moddedLaunchConfig, ...resultConfig};
                     resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
                     // Готовим конфиг для ely.by, если надо
                     FrogLaunchConfigurator.setupForElyby(resultConfig, activeAccount).then((resultConfigFinal) => {
-                        console.log(resultConfigFinal);
                         return resolve(resultConfigFinal);
                     })
                 })
@@ -98,11 +96,10 @@ class FrogLaunchConfigurator {
         if (FrogConfig.read("separatedStorage") === true && FrogConfig.read("fullySeparatedStorage") === false) {
             configResult.overrides.gameDirectory = path.join(global.GAME_DATA, "home", (config?.version?.custom || config?.version?.number));
         }
-        let parsedActive = FrogVersionsManager.getActiveVersion().split("-");
+        let parsedActive = FrogVersionsManager.parseVersionID(FrogVersionsManager.getActiveVersion());
         // Для запуска модпака
-        if (parsedActive[0] === "pack") {
-            parsedActive.shift();
-            configResult.overrides.gameDirectory = path.join(global.GAME_DATA, "modpacks", parsedActive.join("-"));
+        if (parsedActive.type === "pack") {
+            configResult.overrides.gameDirectory = path.join(global.GAME_DATA, "modpacks", parsedActive.name);
         }
         configResult.overrides.maxSockets = 1;
         FrogCollector.writeLog(`Config: Applied user settings`);

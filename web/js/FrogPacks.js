@@ -11,14 +11,15 @@ class FrogPacks {
 
         fs.mkdirSync(modpackPath, {recursive: true});
         fs.mkdirSync(path.join(modpackPath, "mods"), {recursive: true});
+        let parsedVersion = FrogVersionsManager.parseVersionID(baseVersion);
         let resultJson = {
             id: modpackId,
             uuid: crypto.randomUUID(),
             displayName: displayName,
             baseVersion: {
                 full: baseVersion,
-                type: baseVersion.split("-")[0],
-                number: baseVersion.split("-")[1]
+                type: parsedVersion.type,
+                number: parsedVersion.name
             },
             files: []
         };
