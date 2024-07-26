@@ -263,6 +263,19 @@ app.whenReady().then(() => {
         }
     });
 
+    // Выбор обоев
+    ipcMain.on("select-bg-dialog", (event) => {
+        let dialogRet = dialog.showOpenDialogSync({
+            properties: ["dontAddToRecent"],
+            filters: [{name: "Изображение", extensions: ["png", "jpg", "jpeg", "gif", "webp"]}],
+        });
+        if (dialogRet !== undefined) {
+            event.sender.send("get-bg-result", dialogRet[0]);
+        } else {
+            event.sender.send("get-bg-result", false);
+        }
+    });
+
     // Загрузка пака .mrpack
     ipcMain.on("load-modrinth-pack-dialog", (event) => {
         let dialogRet = dialog.showOpenDialogSync({

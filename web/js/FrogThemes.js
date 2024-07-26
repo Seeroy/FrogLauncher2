@@ -117,13 +117,44 @@ class FrogThemes {
 
     // Сменить обои (1-5)
     static changeWallpaper = (wpId) => {
+        let $bgImage = $(".background.img");
         FrogCollector.writeLog(`ThemeEngine: Updated wallpaper : ${wpId}`);
-        if (5 >= parseInt(wpId) > 0) {
-            $(".background.img").removeClass("img-1 img-2 img-3 img-4 img-5");
-            $(".background.img").addClass(`img-${wpId}`);
+        if (wpId === "custom") {
+            let customWpPath = FrogConfig.read("customWallpaperPath", "");
+            $bgImage.removeClass("img-1 img-2 img-3 img-4 img-5");
+            $bgImage.css("background-image", `url(${customWpPath.replaceAll("\\", "/")})`);
+            return true;
+        } else if (5 >= parseInt(wpId) > 0) {
+            $bgImage.css("background-image", ``);
+            $bgImage.removeClass("img-1 img-2 img-3 img-4 img-5");
+            $bgImage.addClass(`img-${wpId}`);
             FrogConfig.write("currentWallpaper", wpId);
             return true;
         }
         return false;
+    }
+
+    // Выбрать кастомные обои
+    static selectCustomWallpaper = () => {
+        return new Promise(resolve => {
+            ipcRenderer.send("select-bg-dialog");
+            ipcRenderer.once("get-bg-result", (event, imgPath) => {
+                if (imgPath !== false) {
+                    let fileExt = path.extname(imgPath);
+                    let directoryPath = path.join(global.USERDATA_PATH, "AppCache");
+                    if (!fs.existsSync(directoryPath)) {
+                        fs.mkdirSync(directoryPath, {recursive: true});
+                    }
+                    let bgId = FrogUtils.getRandomInt(1000000000);
+                    fs.copyFileSync(
+                        imgPath,
+                        path.join(directoryPath, bgId + fileExt)
+                    );
+                    FrogConfig.write("currentWallpaper", "custom");
+                    FrogConfig.write("customWallpaperPath", path.join(directoryPath, bgId + fileExt));
+                    return resolve(path.join(directoryPath, bgId + fileExt));
+                }
+            })
+        })
     }
 }

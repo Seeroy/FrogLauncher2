@@ -49,6 +49,15 @@ $(function () {
     let currentWp = FrogConfig.read("currentWallpaper", "1");
     $(`#modal-settings .wp-item[data-wp='${currentWp}']`).addClass("active");
 
+    if(currentWp === "custom"){
+        let customWpPath = FrogConfig.read("customWallpaperPath", "");
+        if(customWpPath === "" || !fs.existsSync(customWpPath)){
+            FrogThemes.changeWallpaper(1);
+        } else {
+            $("#modal-settings .wp-item.placeholder").css("background-image", `url(${customWpPath.replaceAll("\\", "/")})`);
+        }
+    }
+
     // Смена обоев
     $("#modal-settings .wp-item").click(function () {
         if ($(this).hasClass("active")) {
@@ -57,7 +66,13 @@ $(function () {
 
         $("#modal-settings .wp-item.active").removeClass("active");
         $(this).addClass("active");
-        FrogThemes.changeWallpaper($(this).data("wp"));
+        if($(this).data("wp") === "custom"){
+            FrogThemes.selectCustomWallpaper().then(() => {
+                FrogThemes.changeWallpaper($(this).data("wp"));
+            });
+        } else {
+            FrogThemes.changeWallpaper($(this).data("wp"));
+        }
     })
 
     // Смена режима dark mode

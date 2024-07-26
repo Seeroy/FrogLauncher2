@@ -153,6 +153,18 @@ html.light #modal-settings .settings-item img.icon {
     border-radius: 6px;
 }
 
+#modal-settings .settings-item .wp-item.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--theme-primaryBgLighter);
+    width: 78px;
+}
+
+#modal-settings .settings-item .wp-item.placeholder * {
+    color: var(--text-color);
+}
+
 /* Tabs */
 #modal-settings .layout-tab {
     display: flex;
