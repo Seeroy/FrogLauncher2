@@ -167,7 +167,7 @@ class FrogJavaManager {
         return new Promise(resolve => {
             FrogVersionsManager.getVersionManifest(version).then(manifest => {
                 if (manifest !== false) {
-                    if (manifest.id.split(".")[1] <= 6 && typeof manifest.javaVersion === "undefined") {
+                    if ((manifest.id.split(".")[1] <= 6 || manifest.id.match(/-rd/gim)) && typeof manifest.javaVersion === "undefined") {
                         resolve(8);
                     } else {
                         resolve(manifest.javaVersion.majorVersion);

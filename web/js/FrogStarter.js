@@ -169,7 +169,8 @@ class FrogStarter {
 
     // Просто запустить версию по ID
     static simpleStart = (versionId) => {
-        let starter = new FrogStarter(versionId, versionId.split("-")[0], versionId.split("-")[1]);
+        let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
+        let starter = new FrogStarter(versionId, parsedVersion.type, parsedVersion.name);
         starter.prepare().then(() => {
             let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
             if (parsedVersion.type === "pack") {
