@@ -1,0 +1,63 @@
+const ELYBY_ENDPOINT = "https://authserver.ely.by";
+const ELYBY_AUTH_URL = "/auth/authenticate";
+const ELYBY_REFRESH_URL = "/auth/refresh";
+const ELYBY_VALIDATE_URL = "/auth/validate";
+
+class FrogElybyManager {
+    // Войти в аккаунт (возвращает success, data/error)
+    static loginAccount(login, password, totpToken = "") {
+        return new Promise((resolve) => {
+            machineUuid().then((clientToken) => {
+                if (totpToken !== "") {
+                    password = password + ":" + totpToken;
+                }
+                $.post(ELYBY_ENDPOINT + ELYBY_AUTH_URL, {
+                    username: login,
+                    password: password,
+                    clientToken: clientToken,
+                    requestUser: true
+                }).done((data) => {
+                    return resolve([true, data, clientToken]);
+                }).fail((err) => {
+                    if (err.responseJSON.errorMessage.match(/Invalid credentials/gim) !== null) {
+                        return resolve([false, "INVALID_CREDENTIALS", clientToken]);
+                    } else if (err.responseJSON.errorMessage.match(/two factor auth/gim) !== null) {
+                        return resolve([false, "REQUIRES_TOTP", clientToken]);
+                    } else {
+                        return resolve([false, err.responseJSON.errorMessage, clientToken]);
+                    }
+                })
+            });
+        })
+    }
+
+    // Обновить access token
+    static refreshAccessToken(authToken) {
+        return new Promise(resolve => {
+            machineUuid().then((clientToken) => {
+                $.post(ELYBY_ENDPOINT + ELYBY_REFRESH_URL, {
+                    authToken: authToken,
+                    clientToken: clientToken,
+                    requestUser: true,
+                }).done((data) => {
+                    return resolve([true, data, clientToken]);
+                }).fail((err) => {
+                    return resolve([false, err.responseJSON.errorMessage, clientToken]);
+                })
+            });
+        })
+    }
+
+    // Валидировать access token
+    static validateAccessToken(accessToken) {
+        return new Promise((resolve) => {
+            $.post(ELYBY_ENDPOINT + ELYBY_VALIDATE_URL, {
+                accessToken: accessToken,
+            }).done(() => {
+                return resolve(true);
+            }).fail(() => {
+                return resolve(false);
+            });
+        })
+    }
+}

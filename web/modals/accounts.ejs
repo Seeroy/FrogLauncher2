@@ -21,6 +21,9 @@
                 <span class="check">
                     <span class="material-symbols-outlined">check</span>
                 </span>
+                <button class="delete square small transparent" onclick="FrogAccountsManager.deleteAccount('$3')">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
             </div>
         </div>
     </div>
@@ -30,6 +33,9 @@
         </button>
         <button onclick="FrogAccountsUI.showAddLocalAccountUI()">
             Оффлайн
+        </button>
+        <button onclick="FrogModals.showModal('elybyLogin')">
+            Ely.by
         </button>
     </div>
 </div>

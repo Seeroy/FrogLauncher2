@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="modals/elybyLogin.css"/>
+
+<dialog class="modal overlay centered" id="modal-elybyLogin" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <button class="square transparent small" onclick="FrogModals.hideModal('elybyLogin')">
+            <span class="material-symbols-outlined">west</span>
+        </button>
+        <h1>Вход в аккаунт Ely.by</h1>
+    </div>
+    <input type="text" class="login" placeholder="Введите логин" />
+    <input type="password" class="password" placeholder="Введите пароль" />
+    <input type="text" class="totp" placeholder="Введите TOTP-код" />
+    <h5>Если вы не знаете, что такое TOTP-код или у вас не включена двухфакторная авторизация - не заполняйте это поле</h5>
+
+    <h4 class="error" style="color: var(--error); display: none;"></h4>
+
+    <button class="loginBtn" onclick="FrogElybyLoginUI.login()">Войти</button>
+</dialog>
+
+<script src="modals/elybyLogin.js"></script>

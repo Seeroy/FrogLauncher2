@@ -4,8 +4,8 @@
 
     padding: 12px;
 
-    width: 21vw;
-    height: 43vh;
+    width: 25vw;
+    height: 45vh;
 
     bottom: calc(12% + 24px);
     left: calc(3% + 6px);
@@ -98,6 +98,27 @@
 
 #modal-accounts .accounts-list .item:not(.active) .check {
     display: none;
+}
+
+#modal-accounts .accounts-list .item .delete {
+    grid-area: check;
+    align-self: center;
+    justify-self: center;
+
+    cursor: pointer;
+
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: none;
+}
+
+#modal-accounts .accounts-list .item .delete:hover * {
+    color: var(--error);
+}
+
+#modal-accounts .accounts-list .item:not(.active) .delete {
+    display: inherit;
 }
 
 #modal-accounts .accounts-list .item.active {

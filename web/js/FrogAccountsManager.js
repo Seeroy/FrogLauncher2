@@ -58,18 +58,6 @@ class FrogAccountsManager {
         return FrogAccountsManager.getAccounts()[uuid];
     }
 
-    // Удалить аккаунт по UUID
-    static removeAccount = (uuid) => {
-        let accounts = FrogAccountsManager.getAccounts();
-        if (typeof accounts[uuid] === "undefined") {
-            return false;
-        }
-
-        accounts[uuid] = null;
-        delete accounts[uuid];
-        return FrogAccountsManager.saveAccounts(accounts);
-    }
-
     // Существует ли аккаунт с таким UUID
     static isAccountExists = (uuid) => {
         let accounts = FrogAccountsManager.getAccounts();
@@ -164,5 +152,21 @@ class FrogAccountsManager {
                 resolve(true);
             })
         })
+    }
+
+    // Удалить аккаунт
+    static deleteAccount = (uuid) => {
+        if(FrogAccountsManager.isAccountExists(uuid)){
+            let accountsList = FrogAccountsManager.getAccounts();
+            accountsList[uuid] = null;
+            delete accountsList[uuid];
+
+            if(FrogAccountsManager.getActiveAccount() === uuid){
+                FrogAccountsManager.setActiveAccount("none");
+            }
+            FrogAccountsManager.saveAccounts(accountsList);
+            return true;
+        }
+        return false;
     }
 }

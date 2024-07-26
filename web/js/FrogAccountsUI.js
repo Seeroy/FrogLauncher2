@@ -9,7 +9,7 @@ class FrogAccountsUI {
 
         // Получаем код placeholder`а
         let placeholder = $("#modal-accounts .accounts-list .item.placeholder")[0].outerHTML;
-        placeholder = placeholder.replace(' placeholder"', "");
+        placeholder = placeholder.replace(' placeholder', "");
         // По placeholder`у добавляем новые элементы
         Object.values(accountsList).forEach((acc) => {
             let accountType = FrogAccountsUI.typeDisplayName(acc.type);
@@ -34,7 +34,7 @@ class FrogAccountsUI {
         })
 
         // Биндим клик на смену аккаунта
-        $("#modal-accounts .accounts-list .item").click(function () {
+        $("#modal-accounts .accounts-list .item, #modal-accounts .accounts-list .item *:not(.delete)").click(function () {
             FrogAccountsManager.setActiveAccount($(this).data("uuid"));
             FrogModals.hideModal("accounts");
         })

@@ -34,6 +34,9 @@ class FrogModals {
                 let modalElem = $(`.modal#modal-${modalName}`);
                 animateCSSNode(modalElem[0], "fadeOutDown").then(() => {
                     modalElem.hide();
+                    if (modalElem[0].tagName === "DIALOG") {
+                        modalElem[0].close();
+                    }
                     resolve(true);
                 });
             } else {

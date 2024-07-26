@@ -1,0 +1,23 @@
+#modal-elybyLogin {
+    position: absolute;
+    z-index: 2;
+
+    padding: 18px;
+
+    width: 36vw;
+    height: max-content;
+
+    margin: auto;
+
+    background: var(--theme-primaryBg);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 16px;
+}
+
+#modal-elybyLogin button.loginBtn {
+    border-radius: 9999px;
+    width: 100%;
+}
