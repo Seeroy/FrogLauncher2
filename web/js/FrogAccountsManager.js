@@ -90,6 +90,10 @@ class FrogAccountsManager {
             });
         } else if (accountData.type === "microsoft") {
             return cb(accountData.data);
+        } else if (accountData.type === "elyby") {
+            FrogElybyManager.getAccountForAuth(accountId).then(result => {
+                return cb(result);
+            })
         } else {
             return cb(false);
         }

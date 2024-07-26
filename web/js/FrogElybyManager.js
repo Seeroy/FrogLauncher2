@@ -60,4 +60,46 @@ class FrogElybyManager {
             });
         })
     }
+
+    // Получить данные аккаунта для авторизации
+    static getAccountForAuth = (uuid) => {
+        return new Promise(resolve => {
+            let accountData = FrogAccountsManager.getAccount(uuid);
+            // Проверяем токен
+            FrogElybyManager.validateAccessToken(accountData.accessToken).then(validationResult => {
+                if (!validationResult) {
+                    // Заново генерируем токен
+                    FrogElybyManager.refreshAccessToken(accountData.authToken).then(refreshResult => {
+                        if (!refreshResult[0]) {
+                            $("#modal-elybyLogin .error").text("Необходимо заново авторизоваться");
+                            FrogModals.showModal("elybyLogin");
+                            return resolve(false);
+                        } else {
+                            // Сохраняем данные после рефреша
+                            let accountsData = FrogAccountsManager.getAccounts();
+                            accountData.accessToken = refreshResult.accessToken;
+                            accountData.nickname = refreshResult.selectedProfile.name;
+                            accountsData[uuid] = accountData;
+                            FrogAccountsManager.saveAccounts(accountsData);
+
+                            // Возвращаем данные
+                            return resolve({
+                                access_token: accountData.accessToken,
+                                client_token: accountData.clientToken,
+                                uuid: accountData.uuid,
+                                name: accountData.nickname,
+                            });
+                        }
+                    })
+                } else {
+                    return resolve({
+                        access_token: accountData.accessToken,
+                        client_token: accountData.clientToken,
+                        uuid: accountData.uuid,
+                        name: accountData.nickname,
+                    });
+                }
+            });
+        })
+    }
 }
