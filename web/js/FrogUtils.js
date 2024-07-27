@@ -89,4 +89,22 @@ class FrogUtils {
         });
         return arr3;
     }
+
+    // Парсинг пути массива, например (test.inner.child)
+    static parseNestedObjectPath(path, obj) {
+        let pathSplit = path.split(".");
+        let currentInner = obj;
+        let arrayResult = false;
+        pathSplit.forEach((currentPath, i) => {
+            if(typeof currentInner[currentPath] === "undefined"){
+                arrayResult = false;
+            }
+
+            currentInner = currentInner[currentPath];
+            if(i === (pathSplit.length - 1)){
+                arrayResult = currentInner;
+            }
+        });
+        return arrayResult;
+    }
 }
