@@ -96,15 +96,30 @@ class FrogUtils {
         let currentInner = obj;
         let arrayResult = false;
         pathSplit.forEach((currentPath, i) => {
-            if(typeof currentInner[currentPath] === "undefined"){
+            if (typeof currentInner[currentPath] === "undefined") {
                 arrayResult = false;
             }
 
             currentInner = currentInner[currentPath];
-            if(i === (pathSplit.length - 1)){
+            if (i === (pathSplit.length - 1)) {
                 arrayResult = currentInner;
             }
         });
         return arrayResult;
+    }
+
+    // Найти самый глубокий элемент в DOM
+    static findDeepNested(element, currentLevel) {
+        let deepestLevel = 0;
+        let deepestLevelText;
+
+        if ((element.children().length === 0) && (deepestLevel < currentLevel)) {
+            // No children and current level is deeper than previous most nested level
+            deepestLevelText = element.text();
+        } else { // there are children, keep diving
+            element.children().each(function () {
+                FrogUtils.findDeepNested($(this), currentLevel + 1);
+            });
+        }
     }
 }
