@@ -15,6 +15,7 @@ const decompress = require("decompress");
 const machineUuid = require("machine-uuid");
 const packageJson = require("./../package.json");
 let AdmZip = require("adm-zip");
+const Jimp = require("jimp");
 
 const {exec} = require('node:child_process');
 

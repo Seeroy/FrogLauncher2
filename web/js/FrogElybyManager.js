@@ -104,4 +104,19 @@ class FrogElybyManager {
             });
         })
     }
+
+    // Получить текстуру головы скина Ely.by по нику
+    static getHeadURLByPlayerNickname = (nickname) => {
+        return new Promise(resolve => {
+            let fileUrl = `http://skinsystem.ely.by/skins/${nickname}.png`;
+            let filePath = path.join(global.USERDATA_PATH, "elybySkins", `${nickname}.png`);
+            if (!fs.existsSync(path.dirname(filePath))) {
+                fs.mkdirSync(path.dirname(filePath));
+            }
+            Jimp.read(fileUrl, (err, image) => {
+                image.crop(8, 8, 8, 8).write(filePath);
+                return resolve(filePath);
+            });
+        });
+    }
 }

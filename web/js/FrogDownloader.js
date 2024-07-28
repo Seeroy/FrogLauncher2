@@ -76,4 +76,37 @@ class FrogDownloader {
             })
         });
     }
+
+    // Скачать файл в фоновом режиме
+    static quietDownloadFile = (url, filePath) => {
+        FrogCollector.writeLog(`New quiet download [url=${url}]`);
+        let dirname = path.dirname(filePath);
+        if (!fs.existsSync(dirname)) {
+            fs.mkdirSync(dirname, {
+                recursive: true,
+            });
+        }
+
+        let received_bytes = 0;
+        let total_bytes = 0;
+
+        return new Promise((resolve, reject) => {
+            request
+                .get(url)
+                .on("error", function (error) {
+                    reject(error);
+                })
+                .on("response", function (data) {
+                    total_bytes = parseInt(data.headers["content-length"]);
+                    data.pipe(fs.createWriteStream(filePath));
+                })
+                .on("data", function (chunk) {
+                    received_bytes += chunk.length;
+                })
+                .on("end", function () {
+                    FrogCollector.writeLog(`Quiet download completed`);
+                    resolve(true);
+                });
+        })
+    }
 }

@@ -13,7 +13,11 @@ class FrogAccountsUI {
         // По placeholder`у добавляем новые элементы
         Object.values(accountsList).forEach((acc) => {
             let accountType = FrogAccountsUI.typeDisplayName(acc.type);
-            let preparedPlaceholder = placeholder.replaceAll("$1", acc.nickname).replaceAll("$2", accountType).replaceAll("$3", acc.uuid).replaceAll("$4", `https://minotar.net/avatar/${acc.nickname}/44`).replaceAll("$5", acc.type);
+            let imageUrl = `https://minotar.net/avatar/${acc.nickname}/44`;
+            if (acc.type === "elyby") {
+                imageUrl = path.join(global.USERDATA_PATH, "elybySkins", `${acc.nickname}.png`);
+            }
+            let preparedPlaceholder = placeholder.replaceAll("$1", acc.nickname).replaceAll("$2", accountType).replaceAll("$3", acc.uuid).replaceAll("$4", imageUrl).replaceAll("$5", acc.type);
             $("#modal-accounts .accounts-list").append(preparedPlaceholder);
         })
 
@@ -51,7 +55,13 @@ class FrogAccountsUI {
             let accountData = FrogAccountsManager.getAccount(activeAccount);
             $("#accountSelect .title").text(accountData.nickname);
             $("#accountSelect .icon").show();
-            $("#accountSelect .icon").attr("src", `https://minotar.net/avatar/${accountData.nickname}/40`);
+            if (accountData.type !== "elyby") {
+                $("#accountSelect .icon").attr("src", `https://minotar.net/avatar/${accountData.nickname}/40`);
+            } else {
+                FrogElybyManager.getHeadURLByPlayerNickname(accountData.nickname).then(url => {
+                    $("#accountSelect .icon").attr("src", url.replaceAll("\\", "/"));
+                });
+            }
         }
         return true;
     }
