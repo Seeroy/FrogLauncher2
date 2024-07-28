@@ -56,6 +56,11 @@ html.noAnimations * {
     animation-duration: 0.001s !important;
 }
 
+html.noAnimations #aboutItem {
+    animation: none;
+    animation-duration: 0s;
+}
+
 * {
     transition: 0.2s;
     font-family: Manrope, sans-serif;
