@@ -25,7 +25,7 @@ class FrogStarter {
             FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
             FrogFlyout.setUIStartMode(true);
             let versionDisplayName = FrogVersionsManager.versionToDisplayName();
-            FrogFlyout.setText("Собираем конфигурацию", versionDisplayName);
+            FrogFlyout.setText(MESSAGES.starter.configuring, versionDisplayName);
             FrogFlyout.changeMode("spinner").then(() => {
                 // Получаем версию Java
                 FrogJavaManager.gameVersionToJavaVersion(this.versionNumber).then((javaVersion) => {
@@ -67,7 +67,7 @@ class FrogStarter {
         // Готовим UI
         FrogFlyout.setUIStartMode(true);
         let versionDisplayName = FrogVersionsManager.versionToDisplayName();
-        FrogFlyout.setText("Готовим игру к запуску", versionDisplayName);
+        FrogFlyout.setText(MESSAGES.starter.preparingGame, versionDisplayName);
         FrogFlyout.changeMode("progress").then(() => {
             FrogCollector.writeLog(`Starter: UI preparation completed, starting game`);
             let launcher = new Client();
@@ -86,20 +86,11 @@ class FrogStarter {
                     console.log(e);
                 }
                 if (e.match(/Sound engine started/gim) !== null || e.match(/OpenAL initialized/gim) !== null || e.match(/Created\: 512x512 textures-atlas/gim) !== null) {
-                    FrogFlyout.setText("Игра запущена", versionDisplayName);
+                    FrogFlyout.setText(MESSAGES.starter.started, versionDisplayName);
                 }
                 if (e.match(/Stopping!/gim) !== null || e.match(/SoundSystem shutting down/gim) !== null) {
-                    FrogFlyout.setText("Игра закрывается", versionDisplayName);
+                    FrogFlyout.setText(MESSAGES.starter.closing, versionDisplayName);
                     FrogUI.appearMainWindow();
-                }
-                if (e.match(/Slim /gim) !== null) {
-                    FrogFlyout.setText("Установка Forge", "Этап 1");
-                }
-                if (e.match(/Data /gim) !== null) {
-                    FrogFlyout.setText("Установка Forge", "Этап 2");
-                }
-                if (e.match(/Patch /gim) !== null) {
-                    FrogFlyout.setText("Установка Forge", "Этап 2");
                 }
                 FrogCollector.writeLog(e);
             });
@@ -134,7 +125,7 @@ class FrogStarter {
                     }
                 }, 4000);
                 FrogFlyout.changeMode("spinner");
-                FrogFlyout.setText("Игра запускается", versionDisplayName);
+                FrogFlyout.setText(MESSAGES.starter.starting, versionDisplayName);
             });
             launcher.on('progress', (e) => {
                 if (e.type === "assets") {

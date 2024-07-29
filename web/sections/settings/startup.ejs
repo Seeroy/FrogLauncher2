@@ -5,8 +5,8 @@
         <span class="material-symbols-outlined">folder</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
-        <span class="name">Папка для хранения файлов игры</span>
-        <span class="description">В ней будут храниться все файлы игры, Java и другие</span>
+        <span class="name">{{settings.startup.gameDirectory.title}}</span>
+        <span class="description">{{settings.startup.gameDirectory.description}}</span>
         <div class="flex flex-center flex-gap-8">
             <input type="text" class="lighter flex-grow" readonly id="gameDirectoryInput">
             <button class="square small" onclick='ipcRenderer.send("open-gd-dialog")'>
@@ -21,13 +21,13 @@
         <span class="material-symbols-outlined">memory_alt</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
-        <span class="name">Выделение памяти</span>
-        <span class="description">Рекомендуемое значение для современных версий игры - от 4 Гб. Уменьшите этот параметр, если в игре присутствуют фризы</span>
+        <span class="name">{{settings.startup.memory.title}}</span>
+        <span class="description">{{settings.startup.memory.description}}</span>
         <div class="flex flex-center flex-gap-8">
             <input class="flex-grow" type="range" min="0" max="100" step="512" value="20" id="xmxSlider"
                    style="width: 50%">
             <input type="number" class="lighter" id="xmxText" style="width: 160px;"/>
-            <h3 id="xmxText">Мб</h3>
+            <h3 id="xmxText">{{units.mb}}</h3>
         </div>
     </div>
 </div>
@@ -37,8 +37,8 @@
         <span class="material-symbols-outlined">fullscreen</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Полноэкранный режим игры</span>
-        <span class="description">Флаг может не работать с некоторыми сборками</span>
+        <span class="name">{{settings.startup.fullscreen.title}}</span>
+        <span class="description">{{settings.startup.fullscreen.description}}</span>
     </div>
     <label class="switch" data-setting="gameInFullscreen">
         <input type="checkbox">
@@ -51,8 +51,8 @@
         <span class="material-symbols-outlined">topic</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Раздельное хранение версий</span>
-        <span class="description">Моды, сборки, ресурспаки и другие пользовательские файлы будут храниться в индивидуальной папке с каждой версией (Папка с игрой/home)</span>
+        <span class="name">{{settings.startup.partialSplit.title}}</span>
+        <span class="description">{{settings.startup.partialSplit.description}}</span>
     </div>
     <label class="switch" data-setting="separatedStorage">
         <input type="checkbox">
@@ -65,8 +65,8 @@
         <span class="material-symbols-outlined">arrow_split</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Полное разделение версий (экспериментально)</span>
-        <span class="description">ВСЕ файлы, необходимые каждой версии будут храниться в индивидуальной папке (Папка с игрой/home)<br>Включайте эту функцию <b>только если у вас есть проблемы с запуском определённых версий при уже большом установленном количестве!<br>Каждая из версий при включённой функции будет занимать большое кол-во места</b></span>
+        <span class="name">{{settings.startup.fullSplit.title}}</span>
+        <span class="description">{{settings.startup.fullSplit.description}}<br><b>{{settings.startup.fullSplit.description2}}<br>{{settings.startup.fullSplit.description3}}</b></span>
     </div>
     <label class="switch" data-setting="fullySeparatedStorage">
         <input type="checkbox">
@@ -80,8 +80,8 @@
             <span class="material-symbols-outlined">reset_wrench</span>
         </div>
         <div class="flex flex-grow flex-col flex-justify-center">
-            <span class="name">Фикс сетевой игры (экспериментально)</span>
-            <span class="description">Настройка направлена на исправление ошибки "Сетевая игра недоступна" при использовании ванильных версий >= 1.16.5<br>При возникновении каких-либо проблем со скинами и модами <b>рекомендуется отключить этот параметр</b></span>
+            <span class="name">{{settings.startup.multiplayerFix.title}}</span>
+            <span class="description">{{settings.startup.multiplayerFix.description}}<br>{{settings.startup.multiplayerFix.description2}}</span>
         </div>
         <label class="switch" data-setting="multiplayerFix">
             <input type="checkbox">
@@ -89,9 +89,9 @@
         </label>
     </div>
     <div class="flex flex-center flex-gap-8">
-        <img src="assets/multiplayer_disabled.jpg" alt="Мультиплеер недоступен"
+        <img src="assets/multiplayer_disabled.jpg"
              style="height: 200px; border-radius: 8px;"/>
-        <img src="assets/multiplayer_enabled.jpg" alt="Мультиплеер доступен"
+        <img src="assets/multiplayer_enabled.jpg"
              style="height: 200px; border-radius: 8px;"/>
     </div>
 </div>

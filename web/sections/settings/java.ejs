@@ -3,8 +3,8 @@
         <span class="material-symbols-outlined">motion_photos_auto</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Автоматически выбирать версию Java</span>
-        <span class="description">Версия выбирается и устанавливается на основе официального манифеста Mojang</span>
+        <span class="name">{{settings.java.auto.title}}</span>
+        <span class="description">{{settings.java.auto.description}}</span>
     </div>
     <label class="switch" data-setting="autoSelectJava" data-checked>
         <input type="checkbox" id="autoSelectJavaChk">
@@ -17,7 +17,7 @@
         <span class="material-symbols-outlined">folder</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Пользовательская версия Java</span>
+        <span class="name">{{settings.java.user}}</span>
         <div class="flex flex-center flex-gap-8">
             <input type="text" class="lighter flex-grow" readonly id="javaDirectoryInput">
             <button class="square small" onclick='ipcRenderer.send("open-java-dialog")'>

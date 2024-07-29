@@ -6,5 +6,292 @@
     "displayNameEnglish": "English",
     "author": "Seeroy"
   },
-  "translations": {}
+  "translations": {
+    "errors": {
+      "title": "Oh no, something happened!",
+      "exitCode": "Game ended with exit code",
+      "list": [
+        "This version of the game is not compatible with the version of Java you are using. If you are using automatic Java version detection, please contact the developer to correct the error.",
+        "Looks like the Java version and the Forge version are not compatible! If you are using automatic Java version detection, please contact the developer to correct the error.",
+        "Failed to allocate required amount of memory for Java Try reducing the amount of memory in the launcher settings",
+        "It looks like the game's executable JAR file has been lost.  Try restarting the launcher",
+        "The launcher cannot find the Java executable file! If you are using automatic Java version detection, please contact the developer to correct the error.",
+        "The game configuration or files may be corrupted or created by a newer version of the game. ",
+        "Try restarting the game again, if that doesn’t help, a complete reinstallation of the game is recommended."
+      ]
+    },
+    "accounts": {
+      "input": "Enter your nickname",
+      "offline": "Offline",
+      "local": "Local account",
+      "microsoft": "Microsoft Account",
+      "elyby": "Ely.by account",
+      "unknown": "Unknown account",
+      "addingMs": "Adding a Microsoft Account",
+      "alreadyExists": "This account has already been added",
+      "added": "New account added"
+    },
+    "changelog": {
+      "title": "Update history"
+    },
+    "loading": {
+      "progress": "Loading content",
+      "failed": "Failed to load content, try again later"
+    },
+    "elyby": {
+      "title": "Login to your Ely.by account",
+      "login": "Enter login",
+      "password": "enter password",
+      "totp": "Enter TOTP code",
+      "totpNotify": "If you do not know what a TOTP code is or you do not have two-factor authentication enabled, do not fill out this field",
+      "INVALID_CREDENTIALS": "Wrong credentials",
+      "REQUIRES_TOTP": "TOTP token not specified",
+      "repeat": "You need to log in again"
+    },
+    "java": {
+      "preparing": "Java preparation",
+      "unpacking": "Unpacking Java",
+      "installed": "New version installed",
+      "failed": "An error occurred during installation"
+    },
+    "commons": {
+      "login": "To come in",
+      "newAccountAdded": "New account added",
+      "search": "Search",
+      "install": "Install",
+      "open": "Open",
+      "notSelected": "Not chosen",
+      "starting": "Now in a new way",
+      "version": "Version",
+      "close": "Close",
+      "plsWait": "Please wait",
+      "downloading": "Download",
+      "installing": "Installation",
+      "news": "News",
+      "bigUpdates": "Major updates",
+      "create": "Create"
+    },
+    "packs": {
+      "importing": "Modpack import in progress",
+      "imported": "Modpack successfully imported",
+      "importFailed": "Import failed",
+      "alreadyExists": "This modpack is already installed",
+      "created": "Modpack created successfully",
+      "installTo": "Install to",
+      "defaultDir": "Default directory",
+      "filters": {
+        "title": "Filters",
+        "type": "View",
+        "mods": "Modifications",
+        "rp": "Resourcepacks",
+        "shaders": "Shaderpacks",
+        "packs": "Modpacks",
+        "loaders": "Modloaders",
+        "versions": "Game versions"
+      },
+      "install": "Install",
+      "updatePack": "Update modpack",
+      "createPack": "Create assembly",
+      "newPack": {
+        "title": "New modpack",
+        "input": "Enter the name of the assembly",
+        "description": "In the main list of versions, select the one you want to use as a base for the build"
+      },
+      "updatePackM": {
+        "title": "Mod update",
+        "disclaimer": "At the moment, mod updates are only available in manual mode and for testing",
+        "check": "Check for updates",
+        "checking": "Checking for updates",
+        "installing": "Installing updates",
+        "found": "Found: ",
+        "update": "Update everything"
+      }
+    },
+    "servers": {
+      "title": "Servers",
+      "disclaimer": "The launcher developer is not responsible for the quality of gameplay and the integrity of the servers presented in the list",
+      "ipCopied": "IP copied!"
+    },
+    "starter": {
+      "configuring": "Assembling the configuration",
+      "preparingGame": "Preparing the game for launch",
+      "starting": "The game starts",
+      "started": "The game has started",
+      "closing": "The game is closing"
+    },
+    "updater": {
+      "available": "New update available",
+      "downloading": "Downloading in progress",
+      "ready": "After restarting the launcher the update will be installed",
+      "changelog": "List of changes"
+    },
+    "settings": {
+      "title": "Settings",
+      "sections": {
+        "personalization": "Personalization",
+        "game": "In-game settings",
+        "startup": "Startup parameters",
+        "java": "Java options",
+        "about": "About launcher"
+      },
+      "game": {
+        "consoleOnStart": "Open console when starting game",
+        "consoleOnCrash": "Open console when crashing",
+        "hideOnStart": "Hide the launcher when starting the game"
+      },
+      "java": {
+        "auto": {
+          "title": "Automatically select Java version",
+          "description": "The version is selected and installed based on the official Mojang manifest"
+        },
+        "user": "Custom Java version"
+      },
+      "personalization": {
+        "mainColor": {
+          "title": "Main color",
+          "description": "Your launcher is your personality"
+        },
+        "darkMode": {
+          "title": "Color mode",
+          "description": "The launcher will use the selected mode"
+        },
+        "background": {
+          "title": "The background",
+          "description": "Today is a big castle, or a hellish world?"
+        },
+        "disableCss": {
+          "title": "Disable CSS Effects",
+          "description": "Disables shadows and filter() effects"
+        },
+        "disableAnimations": {
+          "title": "Disable animations",
+          "description": "The time of all animations and transitions is reduced to a minimum"
+        }
+      },
+      "startup": {
+        "gameDirectory": {
+          "title": "Folder for storing game files",
+          "description": "It will store all the game files, Java and others"
+        },
+        "memory": {
+          "title": "Memory allocation",
+          "description": "The recommended value for modern versions of the game is from 4 GB. "
+        },
+        "fullscreen": {
+          "title": "Full screen game mode",
+          "description": "The flag may not work with some builds"
+        },
+        "partialSplit": {
+          "title": "Separate version storage",
+          "description": "Mods, assemblies, resource packs and other user files will be stored in an individual folder with each version (Game folder/home)"
+        },
+        "fullSplit": {
+          "title": "Full version separation (experimental)",
+          "description": "ALL files required for each version will be stored in an individual folder (Game folder/home)",
+          "description2": "Only enable this feature if you have problems running certain versions when you already have a large installed base!",
+          "description3": "Each version, when the function is enabled, will take up a large amount of space"
+        },
+        "multiplayerFix": {
+          "title": "Network game fix (experimental)",
+          "description": "The setting is aimed at correcting the error \"Network game is not available\" when using vanilla versions >= 1.16.5",
+          "description2": "If you encounter any problems with skins and mods, it is recommended to disable this option"
+        }
+      },
+      "about": {
+        "site": "Official site",
+        "sources": "Project source code",
+        "telegram": "Telegram channel",
+        "vk": "Vkontakte community",
+        "debug": "Build a debug archive",
+        "history": "Launcher update history"
+      }
+    },
+    "flymenu": {
+      "home": "Home screen",
+      "settings": "Settings",
+      "packs": "Modpacks",
+      "servers": "Servers",
+      "console": "Console",
+      "folder": "Game folder"
+    },
+    "flyout": {
+      "account": "ACCOUNT",
+      "version": "GAME VERSION",
+      "play": "Play"
+    },
+    "versions": {
+      "releases": "Release versions",
+      "snapshots": "Snapshots",
+      "pack": "Assembly"
+    },
+    "versionsPosters": [
+      {
+        "version": "1.21",
+        "description": "Tricky Trials"
+      },
+      {
+        "version": "1.20",
+        "description": "Trails & Tales"
+      },
+      {
+        "version": "1.19",
+        "description": "The Wild Update"
+      },
+      {
+        "version": "1.18",
+        "description": "Caves & Cliffs (part 2)"
+      },
+      {
+        "version": "1.17",
+        "description": "Caves & Cliffs (part 1)"
+      },
+      {
+        "version": "1.16",
+        "description": "Nether Update"
+      },
+      {
+        "version": "1.15",
+        "description": "Buzzy Bees"
+      },
+      {
+        "version": "1.14",
+        "description": "Village & Pillage"
+      },
+      {
+        "version": "1.13",
+        "description": "The Aquatic Update"
+      },
+      {
+        "version": "1.12",
+        "description": "Color World"
+      },
+      {
+        "version": "1.11",
+        "description": "Exploration Update"
+      }
+    ],
+    "units": {
+      "size1": [
+        "KB",
+        "MB",
+        "GB",
+        "TB",
+        "Pb",
+        "Ab",
+        "Zb",
+        "Yb"
+      ],
+      "size2": [
+        "KiB",
+        "MiB",
+        "GiB",
+        "Tib",
+        "PiB",
+        "EiB",
+        "ZiB",
+        "YiB"
+      ],
+      "mb": "MB"
+    }
+  }
 }

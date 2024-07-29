@@ -9,7 +9,7 @@ class FrogJavaManager {
             }
             // Готовим UI
             FrogFlyout.setUIStartMode(true);
-            FrogFlyout.setText("Подготовка Java");
+            FrogFlyout.setText();
             FrogFlyout.setProgress(-1);
             FrogFlyout.changeMode("spinner").then(() => {
                 // Получаем информацию
@@ -18,7 +18,7 @@ class FrogJavaManager {
                 FrogDownloader.downloadFile(info.url, info.downloadPath, `Java ${version}`, true).then(() => {
                     // Меняем UI
                     FrogFlyout.changeMode("spinner").then(() => {
-                        FrogFlyout.setText(`Распаковка Java ${version}`);
+                        FrogFlyout.setText(`${MESSAGES.java.unpacking} ${version}`);
                     });
                     // Распаковываем
                     fs.mkdirSync(info.unpackPath, {recursive: true});
@@ -30,7 +30,7 @@ class FrogJavaManager {
                                 FrogFlyout.setUIStartMode(false);
                                 FrogFlyout.changeMode("idle");
                             }
-                            FrogToasts.create(`Java ${version}`, "info", "Новая версия установлена!");
+                            FrogToasts.create(`Java ${version}`, "info", MESSAGES.java.installed);
                             return resolve(true);
                         })
                         .catch(function (error) {
@@ -40,7 +40,7 @@ class FrogJavaManager {
                                 FrogFlyout.setUIStartMode(false);
                                 FrogFlyout.changeMode("idle");
                             }
-                            FrogToasts.create(`Java ${version}`, "error", "Произошла ошибка при распаковке!");
+                            FrogToasts.create(`Java ${version}`, "error", MESSAGES.java.failed);
                             return resolve(false);
                         });
                 });

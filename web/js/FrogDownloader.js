@@ -5,7 +5,7 @@ class FrogDownloader {
     static prepareUIToDownload(displayName) {
         return new Promise(resolve => {
             FrogFlyout.setProgress(0);
-            FrogFlyout.setText(`Скачивание ${displayName}`, "Пожалуйста, подождите");
+            FrogFlyout.setText(`${MESSAGES.commons.downloading} ${displayName}`, MESSAGES.commons.plsWait);
             FrogFlyout.changeMode("progress").then(resolve);
         })
     }
@@ -21,14 +21,14 @@ class FrogDownloader {
         let totalHuman = FrogUtils.humanFileSize(total);
 
         FrogFlyout.setProgress(progress);
-        FrogFlyout.setText(`Скачивание ${displayName}`, `${currentHuman} из ${totalHuman} (${progress}%)`);
+        FrogFlyout.setText(`${MESSAGES.commons.downloading} ${displayName}`, `${currentHuman} / ${totalHuman} (${progress}%)`);
         return true;
     }
 
     // Обновить UI загрузки (использовать текст)
     static updateDownloadUIText = (displayName, progress, current, total) => {
         FrogFlyout.setProgress(progress);
-        FrogFlyout.setText(`Скачивание файлов ${displayName}`, `${current} из ${total} (${progress}%)`);
+        FrogFlyout.setText(`${MESSAGES.commons.downloading} ${displayName}`, `${current} / ${total} (${progress}%)`);
         return true;
     }
 

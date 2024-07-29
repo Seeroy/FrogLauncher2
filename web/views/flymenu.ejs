@@ -2,23 +2,23 @@
 
 <div class="flymenu animate__animated animate__fadeInLeft animate__faster">
     <div class="menu-wrapped">
-        <div class="item active" data-modal="none" data-text="Домашний экран">
+        <div class="item active" data-modal="none" data-text="{{flymenu.home}}">
             <span class="material-symbols-outlined">home</span>
         </div>
-        <div class="item" data-modal="settings" data-text="Настройки">
+        <div class="item" data-modal="settings" data-text="{{flymenu.settings}}">
             <span class="material-symbols-outlined">settings</span>
         </div>
-        <div class="item" data-modal="packs" data-text="Сборки">
+        <div class="item" data-modal="packs" data-text="{{flymenu.packs}}">
             <span class="material-symbols-outlined">deployed_code</span>
         </div>
-        <div class="item" data-modal="servers" data-text="Сервера">
+        <div class="item" data-modal="servers" data-text="{{flymenu.servers}}">
             <span class="material-symbols-outlined">dns</span>
         </div>
     </div>
-    <div class="item" data-text="Консоль" onclick="FrogUI.showConsole()">
+    <div class="item" data-text="{{flymenu.console}}" onclick="FrogUI.showConsole()">
         <span class="material-symbols-outlined">terminal</span>
     </div>
-    <div class="item" data-text="Папка с игрой" onclick="openExternal(global.GAME_DATA)">
+    <div class="item" data-text="{{flymenu.folder}}" onclick="openExternal(global.GAME_DATA)">
         <span class="material-symbols-outlined">folder</span>
     </div>
 </div>

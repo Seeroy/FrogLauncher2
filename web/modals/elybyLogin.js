@@ -20,24 +20,16 @@ class FrogElybyLoginUI {
 
                 if(!isSuccess){
                     $error.show();
-                    let errorText = "";
                     // Показываем ошибку
-                    switch(data){
-                        case "INVALID_CREDENTIALS":
-                            errorText = "Неверный логин или пароль";
-                            break;
-                        case "REQUIRES_TOTP":
-                            errorText = "Не указан TOTP-токен";
-                            break;
-                        default:
-                            errorText = "Произошла ошибка: " + data;
-                            break;
+                    if(typeof MESSAGES.elyby[data] !== "undefined"){
+                        $error.text(MESSAGES.elyby[data]);
+                    } else {
+                        $error.text(data);
                     }
-                    $error.text(errorText);
                     return false;
                 } else {
                     if (FrogAccountsManager.isAccountExistsByNickname(data.selectedProfile.name, "elyby")) {
-                        FrogToasts.create("Данный аккаунт уже существует");
+                        FrogToasts.create(MESSAGES.accounts.alreadyExists);
                         return false;
                     }
 
@@ -57,7 +49,7 @@ class FrogElybyLoginUI {
 
                     $("#modal-elybyLogin input").val("");
                     FrogModals.hideModal("elybyLogin").then(() => {
-                        FrogToasts.create(data.selectedProfile.name, "person", "Добавлен новый аккаунт");
+                        FrogToasts.create(data.selectedProfile.name, "person", MESSAGES.commons.newAccountAdded);
                     });
                     return true;
                 }

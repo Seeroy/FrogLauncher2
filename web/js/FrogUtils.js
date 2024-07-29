@@ -54,8 +54,7 @@ class FrogUtils {
         }
 
         const units = si
-            ? ['Кб', 'Мб', 'Гб', 'Тб', 'Пб', 'Эб', 'Зб', 'Йб']
-            : ['КиБ', 'МиБ', 'ГиБ', 'ТиБ', 'PiB', 'EiB', 'ZiB', 'YiB'];
+            ? MESSAGES.units.size1 : MESSAGES.units.size2;
         let u = -1;
         const r = 10 ** dp;
 

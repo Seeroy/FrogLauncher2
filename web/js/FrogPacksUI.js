@@ -14,7 +14,7 @@ class FrogPacksUI {
         if (packName !== "" && packVersion !== "none") {
             $packNameInput.val("");
             FrogPacks.createPack(packVersion, packName);
-            FrogAlerts.create("Успешно!", "Модпак был успешно создан, нужно лишь добавить в него моды", "Отлично", "check_circle");
+            FrogAlerts.create("Ok!", MESSAGES.packs.created, MESSAGES.commons.close, "check_circle");
             FrogPacksUI.refreshDirectorySelect();
         }
     }
@@ -327,7 +327,7 @@ class FrogPacksUI {
                         $versionList.append(`<div class="item">
 <span class="title">${item.name}</span>
 <div class="flex flex-align-center flex-gap-4 versions">${FrogUtils.capitalizeWord(item.loaders[0])} <div class="microdot"><div style="background: var(--theme-primaryBg)" class="dot"></div></div> ${item.game_versions.join(", ")}</div>
-${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small pill" onclick="FrogPacks.downloadByVersionID('${item.id}', this)">Установить</button>` : `<span class="material-symbols-outlined">download_done</span>`}
+${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small pill" onclick="FrogPacks.downloadByVersionID('${item.id}', this)">${MESSAGES.commons.install}</button>` : `<span class="material-symbols-outlined">download_done</span>`}
 </div>`);
                     }
                 })
@@ -409,7 +409,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
         let selectedOption = $select.val();
         $select.html("");
         $updateSelect.html("");
-        $select.append('<option value="default">В стандартную папку</option>');
+        $select.append(`<option value="default">${MESSAGES.packs.defaultDir}</option>`);
         let myPacks = FrogPacks.getPacksList();
         let isAnyActiveSet = false;
         myPacks.forEach((pack) => {

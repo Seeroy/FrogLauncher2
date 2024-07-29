@@ -14,11 +14,11 @@
             </div>
             <div class="button">
                 <button class="primary small pill button" onclick="FrogPacksUI.loadVersionsList('$6')">
-                    Установить
+                    {{commons.install}}
                 </button>
                 <a class="link" href="#" onclick="FrogPacksUI.openProjectURL('$6')">
                     <span class="material-symbols-outlined">open_in_new</span>
-                    <span>Открыть</span>
+                    <span>{{commons.open}}</span>
                 </a>
             </div>
 
@@ -29,6 +29,6 @@
     </div>
     <div class="preloader">
         <div class="spinner"></div>
-        <span class="title">Загружаем модификации</span>
+        <span class="title">{{loading.progress}}</span>
     </div>
 </div>

@@ -211,9 +211,9 @@ class FrogVersionsManager {
                 break;
             case "pack":
                 let packData = FrogPacks.getModpackManifest(parsed.name);
-                return `Сборка ${packData.displayName}`;
+                return `${MESSAGES.versions.pack} ${packData.displayName}`;
             default:
-                displayType = "Версия";
+                displayType = MESSAGES.commons.versions;
                 break;
         }
 

@@ -2,7 +2,7 @@
     <div class="icon">
         <span class="material-symbols-outlined">terminal</span>
     </div>
-    <span class="name flex-grow">Открыть консоль при запуске игры</span>
+    <span class="name flex-grow">{{settings.game.consoleOnStart}}</span>
     <label class="switch" data-setting="consoleOnStart">
         <input type="checkbox">
         <span class="inner"></span>
@@ -13,7 +13,7 @@
     <div class="icon">
         <span class="material-symbols-outlined">bug_report</span>
     </div>
-    <span class="name flex-grow">Открыть консоль при краше</span>
+    <span class="name flex-grow">{{settings.game.consoleOnCrash}}</span>
     <label class="switch" data-setting="consoleOnCrash">
         <input type="checkbox">
         <span class="inner"></span>
@@ -24,11 +24,7 @@
     <div class="icon">
         <span class="material-symbols-outlined">hide</span>
     </div>
-    <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Скрывать лаунчер при запуске игры</span>
-        <span class="description">После закрытия игры лаунчер будет развёрнут</span>
-    </div>
-    <span class="name flex-grow"></span>
+    <span class="name flex-grow">{{settings.game.hideOnStart}}</span>
     <label class="switch" data-setting="hideLauncherOnStart" data-checked>
         <input type="checkbox">
         <span class="inner"></span>

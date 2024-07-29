@@ -64,7 +64,7 @@ class FrogVersionsUI {
     static reloadButtonUI = () => {
         let $activeVersionItem = $("#modal-versions .versions-list .item.active");
         if ($activeVersionItem.length === 0) {
-            $("#versionSelect .title").text("Не выбрана");
+            $("#versionSelect .title").text(MESSAGES.commons.notSelected);
             $("#versionSelect .icon").hide();
         } else {
             // Проверяем на модпак и на его существование

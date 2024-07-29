@@ -7,10 +7,10 @@
     <div class="layout-tab active" data-main-tab="install">
         <div class="modal-layout">
             <div class="installTo">
-                <span>Устанавливать в:</span>
+                <span>{{packs.installTo}} </span>
 
                 <select class="custom-select" id="packs_dirList">
-                    <option value="default" selected>В стандартную папку</option>
+                    <option value="default" selected>{{packs.defaultDir}}</option>
                 </select>
             </div>
 
@@ -18,7 +18,7 @@
             <%- include('../sections/packsAndMods/filters.ejs'); %>
 
             <!-- Поле для поиска -->
-            <input type="text" placeholder="Поиск" class="search"/>
+            <input type="text" placeholder="{{commons.search}}" class="search"/>
 
             <!-- Враппер списка сборок (для скролла) -->
             <%- include('../sections/packsAndMods/wrappedModsList.ejs'); %>

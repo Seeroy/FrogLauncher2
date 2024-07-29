@@ -1,7 +1,3 @@
-let notifyElem = $(".update-notify");
-let notifyElemBtn = notifyElem.children("button");
-let notifyElemText = notifyElem.children(".description");
-
 class FrogUpdater {
     // Забиндить эвенты обновлений
     static bindUpdate = () => {
@@ -22,7 +18,7 @@ class FrogUpdater {
         $notifyElem.show();
         $notifyElem.addClass("animate__animated animate__fadeInDown");
         $notifyElemBtn.hide();
-        $notifyElemText.text("Идёт скачивание");
+        $notifyElemText.text();
         setTimeout(() => {
             $notifyElem.removeClass("animate__animated animate__fadeInDown");
         }, 1000);
@@ -35,7 +31,7 @@ class FrogUpdater {
         let $notifyElemText = $notifyElem.find(".description");
         FrogCollector.writeLog(`Updater: New version downloaded, ready to restart`);
         $notifyElemBtn.show();
-        $notifyElemText.text("После перезапуска лаунчера обновление будет установлено");
+        $notifyElemText.text(MESSAGES.updater.ready);
     }
 
     // Установить обновление

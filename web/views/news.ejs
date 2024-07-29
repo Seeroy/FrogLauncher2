@@ -2,13 +2,13 @@
 
 <div class="chip large pill">
     <span class="material-symbols-outlined">newsmode</span>
-    <span>Новости</span>
+    <span>{{commons.news}}</span>
 </div>
 <div class="news-wrapper">
     <div class="news">
         <div class="preloader">
             <div class="spinner"></div>
-            <span class="title">Загружаем новости</span>
+            <span class="title">{{loading.progress}}</span>
         </div>
         <div class="news-list animate__animated animate__fadeIn animate__faster" style="display: none"></div>
         <div class="news-item placeholder" style="display: none;">
@@ -17,7 +17,7 @@
             <span class="date">$3</span>
             <div class="link" style="display: none;" onclick="openExternal('$4')">
                 <span class="material-symbols-outlined">open_in_new</span>
-                <span>Открыть новость</span>
+                <span>{{commons.open}}</span>
             </div>
         </div>
     </div>

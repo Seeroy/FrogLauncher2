@@ -35,6 +35,6 @@ class FrogServersUI {
     // Скопировать IP сервера
     static copyServerIP(ip) {
         navigator.clipboard.writeText(ip);
-        FrogToasts.create("IP скопирован!", "share");
+        FrogToasts.create(MESSAGES.servers.ipCopied, "share");
     }
 }

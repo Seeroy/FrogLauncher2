@@ -49,7 +49,7 @@ class FrogAccountsUI {
     static reloadAccountSelect = () => {
         let activeAccount = FrogAccountsManager.getActiveAccount();
         if (activeAccount === "none") {
-            $("#accountSelect .title").text("Не выбран");
+            $("#accountSelect .title").text(MESSAGES.commons.notSelected);
             $("#accountSelect .icon").hide();
         } else {
             let accountData = FrogAccountsManager.getAccount(activeAccount);
@@ -68,15 +68,10 @@ class FrogAccountsUI {
 
     // Получить текст из типа аккаунта
     static typeDisplayName = (type) => {
-        switch (type) {
-            case "local":
-                return "Локальный аккаунт";
-            case "microsoft":
-                return "Аккаунт Microsoft";
-            case "elyby":
-                return "Аккаунт Ely.by";
-            default:
-                return "Неизвестный тип";
+        if(typeof MESSAGES.accounts[type] !== "undefined"){
+            return MESSAGES.accounts[type];
+        } else {
+            return MESSAGES.accounts.unknown;
         }
     }
 
@@ -101,7 +96,7 @@ class FrogAccountsUI {
     static addMicrosoftAccount = () => {
         FrogModals.hideModal("accounts");
         FrogFlyout.setUIStartMode(true);
-        FrogFlyout.setText("Добавление аккаунта Microsoft", "Следуйте инструкции на экране");
+        FrogFlyout.setText(MESSAGES.accounts.addingMs);
         FrogFlyout.changeMode("spinner").then(() => {
             FrogAccountsManager.addMicrosoftAccount().then(() => {
                 FrogFlyout.changeMode("idle");

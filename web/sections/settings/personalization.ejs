@@ -3,8 +3,8 @@
         <span class="material-symbols-outlined">palette</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Главный цвет</span>
-        <span class="description">Твой лаунчер - твоя индивидуальность</span>
+        <span class="name">{{settings.personalization.mainColor.title}}</span>
+        <span class="description">{{settings.personalization.mainColor.description}}</span>
     </div>
     <div class="color-picker" style="background: #0a73ff;">
         <span class="material-symbols-outlined">check</span>
@@ -38,8 +38,8 @@
         <span class="material-symbols-outlined">dark_mode</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Цветовой режим</span>
-        <span class="description">Лаунчер будет использовать выбранный режим</span>
+        <span class="name">{{settings.personalization.darkMode.title}}</span>
+        <span class="description">{{settings.personalization.darkMode.description}}</span>
     </div>
     <div class="placeholder dark" data-mode="dark">
         <div class="left"></div>
@@ -61,8 +61,8 @@
         <span class="material-symbols-outlined">image</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Задний фон</span>
-        <span class="description">Сегодня большой замок, или адский мир?</span>
+        <span class="name">{{settings.personalization.background.title}}</span>
+        <span class="description">{{settings.personalization.background.description}}</span>
     </div>
     <img src="assets/backgrounds/min/1.webp" alt="Обои 1" data-wp="1" class="wp-item"/>
     <img src="assets/backgrounds/min/2.webp" alt="Обои 2" data-wp="2" class="wp-item"/>
@@ -79,8 +79,8 @@
         <span class="material-symbols-outlined">lens_blur</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Отключить CSS-эффекты</span>
-        <span class="description">Отключаются тени и эффекты filter()</span>
+        <span class="name">{{settings.personalization.disableCss.title}}</span>
+        <span class="description">{{settings.personalization.disableCss.description}}</span>
     </div>
     <label class="switch" data-setting="disableCssEffects">
         <input type="checkbox">
@@ -93,8 +93,8 @@
         <span class="material-symbols-outlined">animation</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
-        <span class="name">Отключить анимации</span>
-        <span class="description">Сокращается до минимума время всех анимаций и переходов</span>
+        <span class="name">{{settings.personalization.disableAnimations.title}}</span>
+        <span class="description">{{settings.personalization.disableAnimations.description}}</span>
     </div>
     <label class="switch" data-setting="disableAnimations">
         <input type="checkbox">

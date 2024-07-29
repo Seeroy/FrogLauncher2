@@ -173,7 +173,7 @@ class FrogPacks {
     // Импортировать пак с Modrinth (.mrpack)
     static importModrinthPack = (archivePath, iconUrl = false) => {
         return new Promise(resolve => {
-            FrogToasts.create("Идёт импорт модпака", "publish", path.parse(archivePath).name, 2500);
+            FrogToasts.create(MESSAGES.packs.importing, "publish", path.parse(archivePath).name, 2500);
             // Распаковываем архив
             let modpacksPath = path.join(global.GAME_DATA, "modpacks");
             let decompPath = path.join(modpacksPath, "TMP");
@@ -185,7 +185,7 @@ class FrogPacks {
             let modrinthIndex = JSON.parse(fs.readFileSync(path.join(decompPath, "modrinth.index.json")));
             let modpackId = `${modrinthIndex.name} ${modrinthIndex.versionId}`.replace(/\W/g, '_').trim();
             if (FrogPacks.isModpackExists(modpackId)) {
-                FrogToasts.create("Импорт модпака неудачен", "error", "Такой пак уже установлен!");
+                FrogToasts.create(MESSAGES.packs.importFailed, "error", MESSAGES.packs.alreadyExists);
                 fs.rmdirSync(decompPath, {recursive: true});
                 return resolve(false, "exists");
             }
@@ -237,7 +237,7 @@ class FrogPacks {
             };
             FrogPacks.writeModpackManifest(modpackId, manifestJson);
             fsExtra.moveSync(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
-            FrogToasts.create("Импорт модпака завершён!", "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
+            FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
             fs.rmdirSync(decompPath, {recursive: true});
             FrogVersionsUI.loadVersions();
             return resolve(true);
@@ -262,7 +262,7 @@ class FrogPacks {
                 let fileItem = response.files[0];
                 downloadPath = path.join(downloadPath, fileItem.filename);
                 FrogFlyout.setProgress(0);
-                FrogFlyout.setText("Скачивание ", response.name, "");
+                FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
                 FrogFlyout.changeMode("progress").then(() => {
                     FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename, true).then(() => {
                         if (packs_currentMode !== "modpacks") {
@@ -272,7 +272,7 @@ class FrogPacks {
                             return resolve();
                         } else {
                             // Ставим модпак
-                            FrogFlyout.setText("Установка модпака");
+                            FrogFlyout.setText(MESSAGES.commons.installing);
                             FrogFlyout.changeMode("spinner").then(() => {
                                 FrogPacks.importModrinthPack(downloadPath, iconUrl).then(() => {
                                     fs.unlinkSync(downloadPath);

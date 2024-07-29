@@ -5,16 +5,16 @@
         <button class="square transparent small" onclick="FrogModals.hideModal('elybyLogin')">
             <span class="material-symbols-outlined">west</span>
         </button>
-        <h1>Вход в аккаунт Ely.by</h1>
+        <h1>{{elyby.title}}</h1>
     </div>
-    <input type="text" class="login" placeholder="Введите логин" />
-    <input type="password" class="password" placeholder="Введите пароль" />
-    <input type="text" class="totp" placeholder="Введите TOTP-код" />
-    <h5>Если вы не знаете, что такое TOTP-код или у вас не включена двухфакторная авторизация - не заполняйте это поле</h5>
+    <input type="text" class="login" placeholder="{{elyby.login}}" />
+    <input type="password" class="password" placeholder="{{elyby.password}}" />
+    <input type="text" class="totp" placeholder="{{elyby.totp}}" />
+    <h5>{{elyby.totpNotify}}</h5>
 
     <h4 class="error" style="color: var(--error); display: none;"></h4>
 
-    <button class="loginBtn" onclick="FrogElybyLoginUI.login()">Войти</button>
+    <button class="loginBtn" onclick="FrogElybyLoginUI.login()">{{commons.login}}</button>
 </dialog>
 
 <script src="modals/elybyLogin.js"></script>

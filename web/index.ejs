@@ -12,12 +12,15 @@
     <link href="./css/globals.css" rel="stylesheet">
     <link href="./css/animate.min.css" rel="stylesheet">
 
+    <script src="./js/FrogConfig.js"></script>
+    <script src="./js/FrogTranslator.js"></script>
+    <script>FrogTranslator.loadCurrentLanguageToGlobalVariable()</script>
+
     <script src="./js/FrogAccountsManager.js"></script>
     <script src="./js/FrogAccountsUI.js"></script>
     <script src="./js/FrogAlerts.js"></script>
     <script src="./js/FrogAssets.js"></script>
     <script src="./js/FrogCollector.js"></script>
-    <script src="./js/FrogConfig.js"></script>
     <script src="./js/FrogDownloader.js"></script>
     <script src="./js/FrogErrorsParser.js"></script>
     <script src="./js/FrogElybyManager.js"></script>
@@ -33,15 +36,12 @@
     <script src="./js/FrogStarter.js"></script>
     <script src="./js/FrogTests.js"></script>
     <script src="./js/FrogThemes.js"></script>
-    <script src="./js/FrogTranslator.js"></script>
     <script src="./js/FrogToasts.js"></script>
     <script src="./js/FrogUtils.js"></script>
     <script src="./js/FrogUI.js"></script>
     <script src="./js/FrogUpdater.js"></script>
     <script src="./js/FrogVersionsManager.js"></script>
     <script src="./js/FrogVersionsUI.js"></script>
-
-    <script>FrogTranslator.loadCurrentLanguageToGlobalVariable()</script>
 
     <title>FrogLauncher</title>
 </head>
@@ -89,16 +89,16 @@
     <div class="update-notify" style="display: none">
         <div class="flex flex-center flex-gap-4">
             <span class="material-symbols-outlined">update</span>
-            <span class="caption">Доступно новое обновление</span>
+            <span class="caption">{{updater.available}}</span>
         </div>
-        <span class="description">Оно будет установлено после перезапуска лаунчера</span>
+        <span class="description">{{updater.ready}}</span>
         <div class="flex flex-gap-8 flex-align-center">
-            <button class="pill small" style="display: none" onclick="FrogUpdater.installUpdate()">Перезапустить</button>
+            <button class="pill small" style="display: none" onclick="FrogUpdater.installUpdate()">{{commons.install}}</button>
             <button class="transparent pill small"
                     onclick="openExternal('https://github.com/Seeroy/FrogLauncher2/releases/latest')">
                 <div class="link">
                     <span class="material-symbols-outlined">open_in_new</span>
-                    <span>Список изменений</span>
+                    <span>{{updater.changelog}}</span>
                 </div>
             </button>
         </div>
@@ -162,8 +162,10 @@
             FrogCollector.writeLog("DEVMODE: No start animation");
         }
 
-        // Переводим все ноды в DOM
-        FrogTranslator.translateAllNodes();
+        setTimeout(() => {
+            // Переводим все ноды в DOM
+            FrogTranslator.translateAllNodes();
+        }, 700);
 
         $("html").show();
 

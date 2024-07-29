@@ -72,7 +72,7 @@ class FrogElybyManager {
                     FrogElybyManager.refreshAccessToken(accountData.authToken).then(refreshResult => {
                         if (!refreshResult[0]) {
                             // Если ошибка генерации - удаляем акк и просим добавить заново
-                            $("#modal-elybyLogin .error").text("Необходимо заново авторизоваться");
+                            $("#modal-elybyLogin .error").text(MESSAGES.elyby.repeat);
                             FrogModals.showModal("elybyLogin");
                             FrogAccountsManager.deleteAccount(uuid);
                             return resolve(false);

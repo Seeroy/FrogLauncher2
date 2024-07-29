@@ -35,7 +35,7 @@ class FrogModsUpdater {
         if (typeof mods__packList[mods__currentChecking] === "undefined") {
             return mods__promiseResolve(mods__resultList);
         }
-        $("#modal-packs .updateTab .updateMode .text").text(`Проверка обновлений (${mods__currentChecking}/${Object.values(mods__packList).length})`);
+        $("#modal-packs .updateTab .updateMode .text").text(`${MESSAGES.packs.updatePackM.checking} (${mods__currentChecking}/${Object.values(mods__packList).length})`);
 
         let projectId = mods__packList[mods__currentChecking].url.split("/")[4];
         let fileName = mods__packList[mods__currentChecking].name;
@@ -84,7 +84,7 @@ class FrogModsUpdater {
         $("#modal-packs .updateTab .foundUpdateMode").hide();
         $("#modal-packs .updateTab .foundUpdateMode .updatesList").html("");
         $("#modal-packs .updateTab .updateMode .mod").text("");
-        $("#modal-packs .updateTab .updateMode .text").text("Установка обновлений");
+        $("#modal-packs .updateTab .updateMode .text").text(MESSAGES.packs.updatePackM.installing);
         $("#modal-packs .updateTab .updateMode").show();
         return new Promise(resolve => {
             let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);

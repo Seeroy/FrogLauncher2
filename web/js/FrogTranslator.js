@@ -4,12 +4,46 @@ class FrogTranslator {
     // Поиск и замена значений в HTML
     static translateAllNodes = () => {
         let currentLangData = FrogTranslator.getCurrentLanguageData().translations;
-        let $selector = $("span:not(.material-symbols-outlined),p,h1,h2,h3,h4,h5");
+        let $selector = $("button,span:not(.material-symbols-outlined):not(.icon):not(.avatar),p,h1,h2,h3,h4,h5");
         $selector.each(function () {
-            let itemText = $(this).text();
-            // Переводим текст
-            $(this).text(FrogTranslator.translateText(currentLangData, itemText));
+            if((this.tagName === "BUTTON" && $(this).children().length === 0) || this.tagName !== "BUTTON"){
+                let itemText = $(this).text();
+                // Переводим текст
+                let translated = FrogTranslator.translateText(currentLangData, itemText);
+                if (translated !== false) {
+                    $(this).text(translated);
+                }
+            }
         })
+
+        // Переводим плейсхолдеры полей ввода
+        let $selector2 = document.getElementsByTagName('input');
+        for (let index = 0; index < $selector2.length; ++index) {
+            let $element = $($selector2[index]);
+            let itemText = $element.attr('placeholder');
+
+            if(typeof itemText !== "undefined"){
+                // Переводим текст
+                let translated = FrogTranslator.translateText(currentLangData, itemText);
+                if (translated !== false) {
+                    $element.attr('placeholder', translated);
+                }
+            }
+        }
+
+        let $selector3 = document.getElementsByTagName('div');
+        for (let index = 0; index < $selector3.length; ++index) {
+            let $element = $($selector3[index]);
+            let itemText = $element.data("text");
+
+            if(typeof itemText !== "undefined"){
+                // Переводим текст
+                let translated = FrogTranslator.translateText(currentLangData, itemText);
+                if (translated !== false) {
+                    $element.data("text", translated);
+                }
+            }
+        }
     }
 
     // Перевести текст
@@ -28,8 +62,9 @@ class FrogTranslator {
                     text = text.replaceAll(match, messageByKey);
                 }
             })
+            return text;
         }
-        return text;
+        return false;
     }
 
     // Получить текущий язык
@@ -87,7 +122,7 @@ class FrogTranslator {
         if (fs.existsSync(languagesPath)) {
             fs.readdirSync(languagesPath).forEach(file => {
                 if (path.extname(file) === ".json") {
-                    result.push(path.basename(file));
+                    result.push(path.basename(file).split(".")[0]);
                 }
             })
             return result;

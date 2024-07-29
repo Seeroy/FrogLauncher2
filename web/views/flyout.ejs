@@ -4,8 +4,8 @@
     <!-- Выбор аккаунта -->
     <div class="custom-select icon-and-description" id="accountSelect" onclick="FrogAccountsUI.open()">
         <img class="icon" style="display: none"/>
-        <span class="title">Не выбран</span>
-        <span class="description">аккаунт</span>
+        <span class="title">{{commons.notSelected}}</span>
+        <span class="description">{{flyout.account}}</span>
         <div class="button">
             <span class="material-symbols-outlined">chevron_right</span>
         </div>
@@ -14,8 +14,8 @@
     <div class="custom-select icon-and-description flyout-mode" id="versionSelect" data-mode="idle"
          onclick="FrogVersionsUI.open()">
         <img class="icon" style="display: none"/>
-        <span class="title">Не выбрана</span>
-        <span class="description">версия игры</span>
+        <span class="title">{{commons.notSelected}}</span>
+        <span class="description">{{flyout.version}}</span>
         <div class="button">
             <span class="material-symbols-outlined">chevron_right</span>
         </div>
@@ -24,19 +24,19 @@
     <div class="progress-pill hidden flyout-mode" id="mainProgress" data-mode="progress">
         <div class="inner indeterminate" style="width: 1%;"></div>
         <div class="wrapper">
-            <span class="title">Скачиваем что-то...</span>
-            <span class="description">Скачиваем что-то...</span>
+            <span class="title">{{loading.progress}}</span>
+            <span class="description">{{loading.progress}}</span>
         </div>
-        <span class="percent">100%</span>
+        <span class="percent">0%</span>
     </div>
     <!-- Режим со спиннером -->
     <div class="spinner-wrapper hidden flyout-mode" id="spinnerWrapper_flyout" data-mode="spinner">
         <div class="icon spinner small"></div>
-        <span class="title">Мы что-то устанавливаем</span>
+        <span class="title">{{loading.progress}}</span>
     </div>
     <!-- Кнопка запуска игры -->
     <button id="playButton" onclick="FrogFlyout.startSelectedVersion()">
         <span class="material-symbols-outlined">sports_esports</span>
-        <span>Играть</span>
+        <span>{{flyout.play}}</span>
     </button>
 </div>

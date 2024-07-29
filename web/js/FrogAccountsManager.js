@@ -108,7 +108,7 @@ class FrogAccountsManager {
         }
 
         if (FrogAccountsManager.isAccountExistsByNickname(nickname, "local")) {
-            FrogToasts.create("Данный аккаунт уже существует");
+            FrogToasts.create(MESSAGES.accounts.alreadyExists);
             return true;
         }
 
@@ -124,7 +124,7 @@ class FrogAccountsManager {
         accountsList[accountUUID] = accountData;
         FrogAccountsManager.saveAccounts(accountsList);
 
-        FrogToasts.create(nickname, "person", "Добавлен новый аккаунт");
+        FrogToasts.create(nickname, "person", MESSAGES.accounts.added);
         return true;
     }
 
@@ -136,7 +136,7 @@ class FrogAccountsManager {
             ipcRenderer.once("get-ms-auth-result", (event, result) => {
                 let nickname = result.profile.name;
                 if (FrogAccountsManager.isAccountExistsByNickname(nickname, "microsoft")) {
-                    FrogToasts.create("Данный аккаунт уже существует");
+                    FrogToasts.create(MESSAGES.accounts.alreadyExists);
                     return resolve(false);
                 }
                 let accountUUID = crypto.randomUUID();
@@ -152,7 +152,7 @@ class FrogAccountsManager {
                 accountsList[accountUUID] = accountData;
                 FrogAccountsManager.saveAccounts(accountsList);
 
-                FrogToasts.create(nickname, "person", "Добавлен новый аккаунт");
+                FrogToasts.create(nickname, "person", MESSAGES.accounts.added);
                 resolve(true);
             })
         })
