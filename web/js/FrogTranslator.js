@@ -1,3 +1,5 @@
+global.MESSAGES = {};
+
 class FrogTranslator {
     // Поиск и замена значений в HTML
     static translateAllNodes = () => {
@@ -44,15 +46,21 @@ class FrogTranslator {
     static getCurrentLanguageData = () => {
         let currentLang = FrogTranslator.getCurrentLanguage();
         let langPath = path.join("./languages", `${currentLang}.json`);
-        return JSON.parse(fs.readFileSync(langPath));
+        let langData = JSON.parse(fs.readFileSync(langPath));
+
+        return langData;
+    }
+
+    // Загрузить данные языка в переменную (для JS)
+    static loadCurrentLanguageToGlobalVariable = () => {
+        global.MESSAGES = FrogTranslator.getCurrentLanguageData().translations;
     }
 
     // Задать текущий язык
     static setCurrentLanguage = (language) => {
         if (FrogTranslator.isLanguageExists(language)) {
             FrogConfig.write("language", language);
-
-            // TODO: Смена языка
+            FrogUI.reloadMainWindow();
             return true;
         }
         return false;

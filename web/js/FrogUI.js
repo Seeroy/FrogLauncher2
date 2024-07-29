@@ -30,6 +30,12 @@ class FrogUI {
         ipcRenderer.send("close-main-window");
     };
 
+    // Перезагрузить главное окно (по сути - рестарт лаунчера)
+    static reloadMainWindow = () => {
+        FrogCollector.writeLog(`Reloading main window!`);
+        ipcRenderer.send("reload-main-window");
+    }
+
     // Начать загрузочную анимацию
     static startLoadScreenAnimation = () => {
         let loadingScreenElem = $(".loading-screen");

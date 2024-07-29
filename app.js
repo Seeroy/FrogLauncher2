@@ -181,6 +181,11 @@ app.whenReady().then(() => {
         mainWindowObject.minimize();
     });
 
+    // Перезагрузить окно лаунчера
+    ipcMain.on("reload-main-window", () => {
+        mainWindowObject.webContents.reload();
+    });
+
     // Развернуть на весь экран окно лаунчера
     ipcMain.on("maximize-main-window", () => {
         if(mainWindowObject.isMaximized()){

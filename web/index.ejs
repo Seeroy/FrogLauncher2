@@ -41,6 +41,8 @@
     <script src="./js/FrogVersionsManager.js"></script>
     <script src="./js/FrogVersionsUI.js"></script>
 
+    <script>FrogTranslator.loadCurrentLanguageToGlobalVariable()</script>
+
     <title>FrogLauncher</title>
 </head>
 
@@ -159,6 +161,9 @@
             $(".loading-screen").hide();
             FrogCollector.writeLog("DEVMODE: No start animation");
         }
+
+        // Переводим все ноды в DOM
+        FrogTranslator.translateAllNodes();
 
         $("html").show();
 

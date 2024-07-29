@@ -6,5 +6,16 @@
     "displayNameEnglish": "Russian",
     "author": "Seeroy"
   },
-  "translations": {}
+  "translations": {
+    "accounts": {
+      "offline": "Оффлайн"
+    },
+    "changelog": {
+      "title": "История обновлений"
+    },
+    "loading": {
+      "progress": "Загружаем контент",
+      "failed": "Не удалось загрузить контент, попробуйте позднее"
+    }
+  }
 }
