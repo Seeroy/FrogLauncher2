@@ -147,6 +147,7 @@
         "user": "Custom Java version"
       },
       "personalization": {
+        "language": "Launcher language",
         "mainColor": {
           "title": "Main color",
           "description": "Your launcher is your personality"

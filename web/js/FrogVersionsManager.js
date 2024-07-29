@@ -213,7 +213,7 @@ class FrogVersionsManager {
                 let packData = FrogPacks.getModpackManifest(parsed.name);
                 return `${MESSAGES.versions.pack} ${packData.displayName}`;
             default:
-                displayType = MESSAGES.commons.versions;
+                displayType = MESSAGES.commons.version;
                 break;
         }
 

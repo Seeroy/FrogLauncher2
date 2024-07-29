@@ -165,7 +165,8 @@
         setTimeout(() => {
             // Переводим все ноды в DOM
             FrogTranslator.translateAllNodes();
-        }, 700);
+            FrogTranslator.loadLanguagesList();
+        }, 500);
 
         $("html").show();
 

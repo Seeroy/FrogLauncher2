@@ -46,6 +46,29 @@ class FrogTranslator {
         }
     }
 
+    // Загрузить список языков в UI
+    static loadLanguagesList = () => {
+        let langData = Object.values(FrogTranslator.getAvailableLanguagesDetails());
+        // Получаем код placeholder`а
+        let placeholder = $("#modal-settings #languages-list .item.placeholder")[0].outerHTML;
+        placeholder = placeholder.replaceAll(' placeholder', "").replaceAll(' display: none', "");
+        // По placeholder`у добавляем новые элементы
+        Object.values(langData).forEach((lang) => {
+            let preparedPlaceholder = placeholder.replaceAll("$1", lang.displayName).replaceAll("$2", lang.displayNameEnglish).replaceAll("$3", lang.author).replaceAll("$4", lang.id);
+            let $insertedElem = $("#modal-settings #languages-list").append(preparedPlaceholder);
+        })
+
+        // Помечаем нужные аккаунты в списке активными
+        $("#modal-settings #languages-list .item").each(function () {
+            if (!$(this).hasClass("placeholder")) {
+                if ($(this).data("lang") === FrogTranslator.getCurrentLanguage()) {
+                    $(this).addClass("active");
+                }
+                $(this).show();
+            }
+        })
+    }
+
     // Перевести текст
     static translateText = (languageData, text) => {
         text = text.toString();

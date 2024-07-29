@@ -8,6 +8,8 @@
 @import "./button.css";
 @import "./tabs.css";
 @import "./custom-select.css";
+@import "./checkbox.css";
+@import "./checksList.css";
 @import "./spinner.css";
 @import "./modal.css";
 @import "./colorPicker.css";
@@ -19,7 +21,7 @@
 @import "./alert.css";
 @import "./link.css";
 @import "./link_openInNew.css";
-@import "./checkbox.css";
+
 
 @import "./themes/dark.css";
 @import "./themes/light.css";

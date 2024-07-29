@@ -1,0 +1,47 @@
+.checksList {
+    display: flex;
+    padding: 8px;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 320px;
+}
+
+.checksList .item {
+    display: flex;
+    border-radius: 8px;
+    background: var(--theme-primaryBg);
+    border: 3px solid var(--theme-primaryBgLighter);
+    padding: 14px 16px;
+    align-items: center;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.checksList .item:not(.active) * {
+    color: var(--text-color);
+}
+
+.checksList .item:not(.active):hover {
+    filter: brightness(120%);
+}
+
+.checksList .item:not(.active) .check {
+    display: none !important;
+}
+
+.checksList .item.active {
+    border-color: var(--theme-primary);
+}
+
+.checksList .item.active .material-symbols-outlined {
+    color: var(--theme-primary);
+}
+
+.checksList .item .text {
+    flex-grow: 1;
+}
+
+.checksList .item .check {
+    font-size: 16px;
+}

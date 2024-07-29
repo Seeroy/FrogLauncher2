@@ -147,6 +147,7 @@
         "user": "Пользовательская версия Java"
       },
       "personalization": {
+        "language": "Язык лаунчера",
         "mainColor": {
           "title": "Главный цвет",
           "description": "Твой лаунчер - твоя индивидуальность"
