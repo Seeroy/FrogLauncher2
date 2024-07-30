@@ -188,7 +188,7 @@ app.whenReady().then(() => {
 
     // Развернуть на весь экран окно лаунчера
     ipcMain.on("maximize-main-window", () => {
-        if(mainWindowObject.isMaximized()){
+        if (mainWindowObject.isMaximized()) {
             mainWindowObject.unmaximize();
         } else {
             mainWindowObject.maximize();

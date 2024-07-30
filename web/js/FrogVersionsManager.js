@@ -188,7 +188,7 @@ class FrogVersionsManager {
 
     // Перевести ID версии в её название
     static versionToDisplayName = (version = null) => {
-        if(version === null){
+        if (version === null) {
             version = FrogVersionsManager.getActiveVersion();
         }
 

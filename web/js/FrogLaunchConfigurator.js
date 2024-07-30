@@ -47,12 +47,12 @@ class FrogLaunchConfigurator {
         return new Promise(resolve => {
             let configResult = config;
             let accountType = FrogAccountsManager.getAccount(activeAccount).type;
-            if(accountType !== "elyby"){
+            if (accountType !== "elyby") {
                 return resolve(configResult);
             }
             // Если аккаунт - Ely.by скачиваем инжектор и добавляем его в конфигурацию
             let authlibInjectorPath = path.join(global.GAME_DATA, "cache", "authlib-injector.jar");
-            if(!fs.existsSync(authlibInjectorPath)){
+            if (!fs.existsSync(authlibInjectorPath)) {
                 FrogDownloader.downloadFile(global.AUTHLIB_INJECTOR_URL, authlibInjectorPath).then(() => {
                     configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=ely.by`);
                     return resolve(configResult);

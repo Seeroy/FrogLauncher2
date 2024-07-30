@@ -6,7 +6,7 @@ class FrogElybyLoginUI {
 
         let $error = $("#modal-elybyLogin .error");
 
-        if(login !== "" && password !== ""){
+        if (login !== "" && password !== "") {
             $("#modal-elybyLogin .loginBtn").hide();
             $error.hide();
 
@@ -18,10 +18,10 @@ class FrogElybyLoginUI {
                 let clientToken = data[2];
                 data = data[1];
 
-                if(!isSuccess){
+                if (!isSuccess) {
                     $error.show();
                     // Показываем ошибку
-                    if(typeof MESSAGES.elyby[data] !== "undefined"){
+                    if (typeof MESSAGES.elyby[data] !== "undefined") {
                         $error.text(MESSAGES.elyby[data]);
                     } else {
                         $error.text(data);

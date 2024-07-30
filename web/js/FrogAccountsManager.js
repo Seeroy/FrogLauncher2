@@ -160,12 +160,12 @@ class FrogAccountsManager {
 
     // Удалить аккаунт
     static deleteAccount = (uuid) => {
-        if(FrogAccountsManager.isAccountExists(uuid)){
+        if (FrogAccountsManager.isAccountExists(uuid)) {
             let accountsList = FrogAccountsManager.getAccounts();
             accountsList[uuid] = null;
             delete accountsList[uuid];
 
-            if(FrogAccountsManager.getActiveAccount() === uuid){
+            if (FrogAccountsManager.getActiveAccount() === uuid) {
                 FrogAccountsManager.setActiveAccount("none");
             }
             FrogAccountsManager.saveAccounts(accountsList);

@@ -107,7 +107,7 @@ class FrogVersionsUI {
     // Получить выбранные типы версий
     static getVersionsTypeSelected = () => {
         let selectedList = [];
-        $("#modal-versions #versionTypeSelect .chip.active").each(function(){
+        $("#modal-versions #versionTypeSelect .chip.active").each(function () {
             selectedList.push($(this).data("type"));
         })
         return selectedList;

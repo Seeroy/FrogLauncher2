@@ -68,7 +68,7 @@ class FrogAccountsUI {
 
     // Получить текст из типа аккаунта
     static typeDisplayName = (type) => {
-        if(typeof MESSAGES.accounts[type] !== "undefined"){
+        if (typeof MESSAGES.accounts[type] !== "undefined") {
             return MESSAGES.accounts[type];
         } else {
             return MESSAGES.accounts.unknown;

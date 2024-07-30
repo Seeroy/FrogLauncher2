@@ -49,9 +49,9 @@ $(function () {
     let currentWp = FrogConfig.read("currentWallpaper", "1");
     $(`#modal-settings .wp-item[data-wp='${currentWp}']`).addClass("active");
 
-    if(currentWp === "custom"){
+    if (currentWp === "custom") {
         let customWpPath = FrogConfig.read("customWallpaperPath", "");
-        if(customWpPath === "" || !fs.existsSync(customWpPath)){
+        if (customWpPath === "" || !fs.existsSync(customWpPath)) {
             FrogThemes.changeWallpaper(1);
         } else {
             $("#modal-settings .wp-item.placeholder").css("background-image", `url(${customWpPath.replaceAll("\\", "/")})`);
@@ -66,7 +66,7 @@ $(function () {
 
         $("#modal-settings .wp-item.active").removeClass("active");
         $(this).addClass("active");
-        if($(this).data("wp") === "custom"){
+        if ($(this).data("wp") === "custom") {
             FrogThemes.selectCustomWallpaper().then(() => {
                 FrogThemes.changeWallpaper($(this).data("wp"));
             });

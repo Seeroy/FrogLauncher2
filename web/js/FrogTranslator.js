@@ -6,7 +6,7 @@ class FrogTranslator {
         let currentLangData = FrogTranslator.getCurrentLanguageData().translations;
         let $selector = $("button,span:not(.material-symbols-outlined):not(.icon):not(.avatar),p,h1,h2,h3,h4,h5");
         $selector.each(function () {
-            if((this.tagName === "BUTTON" && $(this).children().length === 0) || this.tagName !== "BUTTON"){
+            if ((this.tagName === "BUTTON" && $(this).children().length === 0) || this.tagName !== "BUTTON") {
                 let itemText = $(this).text();
                 // Переводим текст
                 let translated = FrogTranslator.translateText(currentLangData, itemText);
@@ -22,7 +22,7 @@ class FrogTranslator {
             let $element = $($selector2[index]);
             let itemText = $element.attr('placeholder');
 
-            if(typeof itemText !== "undefined"){
+            if (typeof itemText !== "undefined") {
                 // Переводим текст
                 let translated = FrogTranslator.translateText(currentLangData, itemText);
                 if (translated !== false) {
@@ -36,7 +36,7 @@ class FrogTranslator {
             let $element = $($selector3[index]);
             let itemText = $element.data("text");
 
-            if(typeof itemText !== "undefined"){
+            if (typeof itemText !== "undefined") {
                 // Переводим текст
                 let translated = FrogTranslator.translateText(currentLangData, itemText);
                 if (translated !== false) {
@@ -92,21 +92,30 @@ class FrogTranslator {
 
     // Получить текущий язык
     static getCurrentLanguage = () => {
+        let rdValue = FrogConfig.read("language", false);
+        if (rdValue === false) {
+            return FrogTranslator.setDefaultLanguage();
+        } else {
+            return rdValue;
+        }
+    }
+
+    // Задать стандартный язык лаунчера
+    static setDefaultLanguage = () => {
         let defaultValue = "ru";
         let defaultSystem = FrogTranslator.getSystemLanguage();
         if (FrogTranslator.isLanguageExists(defaultSystem)) {
             defaultValue = defaultSystem;
         }
-        return FrogConfig.read("language", defaultValue);
+        FrogConfig.write("language", defaultValue);
+        return defaultValue;
     }
 
     // Получить данные для текущего языка
     static getCurrentLanguageData = () => {
         let currentLang = FrogTranslator.getCurrentLanguage();
-        let langPath = path.join("./languages", `${currentLang}.json`);
-        let langData = JSON.parse(fs.readFileSync(langPath));
-
-        return langData;
+        let langPath = path.join(__dirname, "languages", `${currentLang}.json`);
+        return JSON.parse(fs.readFileSync(langPath));
     }
 
     // Загрузить данные языка в переменную (для JS)
@@ -130,7 +139,7 @@ class FrogTranslator {
         let languagesList = FrogTranslator.getAvailableLanguages();
 
         languagesList.forEach((item) => {
-            let langFile = JSON.parse(fs.readFileSync(path.join("./languages", `${item}.json`)));
+            let langFile = JSON.parse(fs.readFileSync(path.join(__dirname, "languages", `${item}.json`)));
             if (typeof langFile.info.code !== "undefined" && typeof langFile.info.id !== "undefined" && typeof langFile.info.displayNameEnglish !== "undefined") {
                 result[langFile.info.code] = langFile.info;
             }
@@ -141,7 +150,7 @@ class FrogTranslator {
     // Получить список доступных языков
     static getAvailableLanguages = () => {
         let result = [];
-        let languagesPath = path.join("./languages");
+        let languagesPath = path.join(__dirname, "languages");
         if (fs.existsSync(languagesPath)) {
             fs.readdirSync(languagesPath).forEach(file => {
                 if (path.extname(file) === ".json") {

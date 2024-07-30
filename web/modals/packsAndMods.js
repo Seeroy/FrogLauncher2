@@ -2,7 +2,7 @@ let packs__firstAppear = true;
 
 $(function () {
     $(document).on("showModalEvent", (e) => {
-        if(e.originalEvent.detail.modal !== "packs"){
+        if (e.originalEvent.detail.modal !== "packs") {
             return;
         }
         if (packs__firstAppear === true) {
