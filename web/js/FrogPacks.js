@@ -222,7 +222,6 @@ class FrogPacks {
             })
 
             // Создаём и сохраняем свой манифест
-
             let manifestJson = {
                 id: modpackId,
                 uuid: crypto.randomUUID(),

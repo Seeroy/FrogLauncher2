@@ -23,13 +23,19 @@ class FrogVersionsUI {
 
                 Object.values(versions).forEach((ver) => {
                     let versionIcon = "assets/versions/" + ver.type + ".png";
+                    let displayName = ver.displayName;
                     if (ver.type === "pack") {
                         let modpackData = FrogPacks.getModpackManifest(ver.id.replace("pack-", ""));
                         if (typeof modpackData.icon !== "undefined" && modpackData.icon !== false) {
                             versionIcon = modpackData.icon;
                         }
+
+                        if(displayName.indexOf(modpackData.baseVersion.number) === -1){
+                            // Добавляем в название версию игры, если её там нет
+                            displayName += ` (${modpackData.baseVersion.number})`;
+                        }
                     }
-                    let preparedPlaceholder = placeholder.replaceAll("$1", ver.displayName).replaceAll("$2", ver.type).replaceAll("$3", ver.id).replaceAll("$4", ver.installed).replaceAll("$5", versionIcon);
+                    let preparedPlaceholder = placeholder.replaceAll("$1", displayName).replaceAll("$2", ver.type).replaceAll("$3", ver.id).replaceAll("$4", ver.installed).replaceAll("$5", versionIcon);
                     $("#modal-versions .versions-list").append(preparedPlaceholder);
                 })
 
@@ -74,7 +80,9 @@ class FrogVersionsUI {
                     return FrogVersionsManager.setActiveVersion("none");
                 }
             }
-            $("#versionSelect .title").text($activeVersionItem.find("span.title").text());
+            if($activeVersionItem.length < 2){
+                $("#versionSelect .title").text($activeVersionItem.find("span.title").text());
+            }
             $("#versionSelect .icon").show();
             $("#versionSelect .icon").attr("src", $activeVersionItem.find("img.icon").attr("src"));
         }
