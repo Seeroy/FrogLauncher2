@@ -170,6 +170,11 @@ class FrogPacks {
         return validItems;
     }
 
+    // Очистить ID модпака от лишних символов
+    static modpackCleanID = (id) => {
+        return id.toString().replace(/\W/g, '_').trim();
+    }
+
     // Импортировать пак с Modrinth (.mrpack)
     static importModrinthPack = (archivePath, iconUrl = false) => {
         return new Promise(resolve => {

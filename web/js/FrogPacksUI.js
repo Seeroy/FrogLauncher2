@@ -306,10 +306,17 @@ class FrogPacksUI {
         return new Promise(resolve => {
             let $versionList = $(`#modal-packs .packs-list .item[data-id="${projectId}"] .versions-list`);
             let $itemElem = $(`#modal-packs .packs-list .item[data-id="${projectId}"]`);
+
+            // Показываем UI загрузки
+            $itemElem.addClass("opened");
+            $itemElem.find(".button button.pill").hide();
+            $itemElem.find("#versions-list-preloader").show();
+
             if ($versionList.length === 0) {
                 return resolve(false);
             }
             $versionList.html("");
+            // Получаем список версий
             $.get(`https://api.modrinth.com/v2/project/${projectId}/version`, (result) => {
 
                 let selectedVersions = [];
@@ -321,8 +328,8 @@ class FrogPacksUI {
                     selectedLoaders.push($(this).attr("value"));
                 })
 
+                // Загружаем его
                 result.forEach((item) => {
-
                     if ((FrogUtils.compareArrays(selectedVersions, item.game_versions).length > 0 || selectedVersions.length === 0) && (FrogUtils.compareArrays(selectedLoaders, item.loaders).length > 0 || selectedLoaders.length === 0)) {
                         $versionList.append(`<div class="item">
 <span class="title">${item.name}</span>
@@ -331,13 +338,17 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
 </div>`);
                     }
                 })
-                $itemElem.addClass("opened");
+                $itemElem.find("#versions-list-preloader").hide();
             });
         })
     }
 
     // Проверить, установлен ли уже этот файл
     static isFileInstalled = (filename) => {
+        if(packs_currentMode === "modpacks"){
+            let preparedId = FrogPacks.modpackCleanID(filename.replace(".mrpack", ""));
+            return FrogPacks.isModpackExists(preparedId);
+        }
         let modpackId = $("#modal-packs select").val();
         if (!FrogPacks.isModpackExists(modpackId)) {
             return fs.existsSync(path.join(global.GAME_DATA, "mods", filename)) || fs.existsSync(path.join(global.GAME_DATA, "shaderpacks", filename)) || fs.existsSync(path.join(global.GAME_DATA, "resourcepacks", filename));
