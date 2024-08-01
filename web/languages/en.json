@@ -21,7 +21,7 @@
       ]
     },
     "accounts": {
-      "input": "Enter your nickname",
+      "input": "Enter a nickname",
       "offline": "Offline",
       "local": "Local account",
       "microsoft": "Microsoft Account",
@@ -36,31 +36,31 @@
     },
     "loading": {
       "progress": "Loading content",
-      "failed": "Failed to load content, try again later"
+      "failed": "Failed to download content, try again later"
     },
     "elyby": {
-      "title": "Login to your Ely.by account",
+      "title": "Login to Ely.by account",
       "login": "Enter login",
       "password": "enter password",
       "totp": "Enter TOTP code",
       "totpNotify": "If you do not know what a TOTP code is or you do not have two-factor authentication enabled, do not fill out this field",
       "INVALID_CREDENTIALS": "Wrong credentials",
       "REQUIRES_TOTP": "TOTP token not specified",
-      "repeat": "You need to log in again"
+      "repeat": "You need to re-authorize"
     },
     "java": {
       "preparing": "Java preparation",
       "unpacking": "Unpacking Java",
       "installed": "New version installed",
-      "failed": "An error occurred during installation"
+      "failed": "Installation error occurred"
     },
     "commons": {
-      "login": "To come in",
-      "newAccountAdded": "New account added",
+      "login": "Sign in",
+      "newAccountAdded": "Added a new account",
       "search": "Search",
       "install": "Install",
       "open": "Open",
-      "notSelected": "Not chosen",
+      "notSelected": "Not selected",
       "starting": "Now in a new way",
       "version": "Version",
       "close": "Close",
@@ -109,7 +109,7 @@
     },
     "servers": {
       "title": "Servers",
-      "disclaimer": "The launcher developer is not responsible for the quality of gameplay and the integrity of the servers presented in the list",
+      "disclaimer": "Launcher developer is not responsible for the quality of gameplay and honesty of the servers presented in the list",
       "ipCopied": "IP copied!"
     },
     "starter": {
@@ -122,15 +122,15 @@
     "updater": {
       "available": "New update available",
       "downloading": "Downloading in progress",
-      "ready": "After restarting the launcher the update will be installed",
+      "ready": "After restarting the launcher, the update will be installed",
       "changelog": "List of changes"
     },
     "settings": {
       "title": "Settings",
       "sections": {
         "personalization": "Personalization",
-        "game": "In-game settings",
-        "startup": "Startup parameters",
+        "game": "Gameplay",
+        "startup": "Startup options",
         "java": "Java options",
         "about": "About launcher"
       },

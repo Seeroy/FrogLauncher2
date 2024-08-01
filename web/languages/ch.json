@@ -1,0 +1,298 @@
+{
+  "info": {
+    "code": "ch",
+    "id": "ch",
+    "displayName": "中文",
+    "displayNameEnglish": "Chine",
+    "author": "Seeroy"
+  },
+  "translations": {
+    "errors": {
+      "title": "哦，不，出事了！",
+      "exitCode": "遊戲以退出代碼結束",
+      "list": [
+        "此版本的遊戲與您使用的 Java 版本不相容。如果您使用的是自動偵測的 Java 版本，請聯絡開發人員修補錯誤！",
+        "看起來 Java 版本和 Forge 版本不相容！如果您正在使用自動偵測 Java 版本功能，請聯絡開發人員修正錯誤",
+        "未能為 Java 分配所需的記憶體 嘗試減少啟動器設定中的記憶體數量",
+        "看起來遊戲的可執行 JAR 檔遺失了 嘗試重新啟動啟動器",
+        "Launcher 找不到 Java 可執行檔！如果您使用自動 Java 版本偵測，請聯絡開發人員修正錯誤",
+        "設定或遊戲檔案可能已損毀或由更新版本的遊戲所建立。我們建議在啟動器設定中變更資料夾的路徑，重新安裝遊戲。",
+        "嘗試重新啟動遊戲，如果沒有幫助 - 建議完全重新安裝遊戲"
+      ]
+    },
+    "accounts": {
+      "input": "輸入您的暱稱",
+      "offline": "離線",
+      "local": "本地帳戶",
+      "microsoft": "微軟帳戶",
+      "elyby": "Ely.by account",
+      "unknown": "未知帳號",
+      "addingMs": "新增 Microsoft 帳戶",
+      "alreadyExists": "此帳號已新增",
+      "added": "新增帳號"
+    },
+    "changelog": {
+      "title": "更新歷史"
+    },
+    "loading": {
+      "progress": "上傳內容",
+      "failed": "載入內容失敗，稍後再試"
+    },
+    "elyby": {
+      "title": "登入您的 Ely.by 帳戶",
+      "login": "輸入登入",
+      "password": "輸入密碼",
+      "totp": "輸入 TOTP 代碼",
+      "totpNotify": "如果您不知道什麼是 TOTP 代碼，或者您沒有啟用雙重因素授權 - 請不要填寫此欄位",
+      "INVALID_CREDENTIALS": "登入或密碼無效",
+      "REQUIRES_TOTP": "未指定 TOTP 令牌",
+      "repeat": "您需要重新授權"
+    },
+    "java": {
+      "preparing": "Java 準備",
+      "unpacking": "解壓縮 Java",
+      "installed": "新版本已安裝",
+      "failed": "安裝期間發生錯誤"
+    },
+    "commons": {
+      "login": "登入",
+      "newAccountAdded": "新增帳號",
+      "search": "搜尋",
+      "install": "建立",
+      "open": "揭示",
+      "notSelected": "未選擇",
+      "starting": "現在以新的方式",
+      "version": "版本",
+      "close": "關閉",
+      "plsWait": "請稍候",
+      "downloading": "下載",
+      "installing": "安裝",
+      "news": "新聞",
+      "bigUpdates": "主要更新",
+      "create": "建立"
+    },
+    "packs": {
+      "importing": "模組匯入中",
+      "imported": "成功匯入 Modpack",
+      "importFailed": "匯入失敗",
+      "alreadyExists": "此修改包已安裝",
+      "created": "Modpack 已成功建立",
+      "installTo": "設置在",
+      "defaultDir": "標準目錄",
+      "filters": {
+        "title": "濾波器",
+        "type": "檢視",
+        "mods": "修改",
+        "rp": "資源包",
+        "shaders": "著色包",
+        "packs": "組裝",
+        "loaders": "裝載機",
+        "versions": "遊戲版本"
+      },
+      "install": "建立",
+      "updatePack": "更新模組",
+      "createPack": "建立組件",
+      "newPack": {
+        "title": "新建築",
+        "input": "輸入組合的名稱",
+        "description": "在主版本清單中，選擇您要用作建立基礎的版本"
+      },
+      "updatePackM": {
+        "title": "更新模組",
+        "disclaimer": "目前 MOD 更新僅可用於手動模式和測試。若要測試更新，您需要選擇一個版本：",
+        "check": "檢查更新",
+        "checking": "檢查更新",
+        "installing": "安裝更新",
+        "found": "找到了 ",
+        "update": "更新所有內容"
+      }
+    },
+    "servers": {
+      "title": "伺服器",
+      "disclaimer": "Launcher 開發者不對遊戲品質和列表中伺服器的誠實性負責。",
+      "ipCopied": "IP 已被複製！"
+    },
+    "starter": {
+      "configuring": "建立組態",
+      "preparingGame": "準備遊戲推出",
+      "starting": "遊戲開始",
+      "started": "遊戲已開始運作",
+      "closing": "遊戲結束"
+    },
+    "updater": {
+      "available": "提供新的更新",
+      "downloading": "下載",
+      "ready": "重新啟動 Launcher 之後，更新將會安裝。",
+      "changelog": "變更清單"
+    },
+    "settings": {
+      "title": "設定",
+      "sections": {
+        "personalization": "正式化",
+        "game": "遊戲玩法",
+        "startup": "啟動參數",
+        "java": "Java 參數",
+        "about": "關於啟動器"
+      },
+      "game": {
+        "consoleOnStart": "啟動遊戲時開啟控制台",
+        "consoleOnCrash": "當機時開啟主控台",
+        "hideOnStart": "啟動遊戲時隱藏啟動器"
+      },
+      "java": {
+        "auto": {
+          "title": "自動選擇 Java 版本",
+          "description": "版本是根據官方的 Mojang 宣言來選擇和安裝的"
+        },
+        "user": "自訂 Java 版本"
+      },
+      "personalization": {
+        "language": "啟動語言",
+        "mainColor": {
+          "title": "主要顏色",
+          "description": "您的啟動器就是您的個性"
+        },
+        "darkMode": {
+          "title": "彩色模式",
+          "description": "啟動器會使用選取的模式"
+        },
+        "background": {
+          "title": "背景幕布",
+          "description": "今天是一座大城堡，還是一個地獄世界？"
+        },
+        "disableCss": {
+          "title": "停用 CSS 效果",
+          "description": "停用陰影和效果 filter()"
+        },
+        "disableAnimations": {
+          "title": "停用動畫",
+          "description": "所有動畫和轉場時間都縮到最短"
+        }
+      },
+      "startup": {
+        "gameDirectory": {
+          "title": "儲存遊戲檔案的資料夾",
+          "description": "它會儲存所有遊戲檔案、Java 及其他檔案。"
+        },
+        "memory": {
+          "title": "記憶體分配",
+          "description": "現代版遊戲的建議值為 4 GB。如果遊戲凍結，請減少此參數。"
+        },
+        "fullscreen": {
+          "title": "全螢幕遊戲模式",
+          "description": "該標誌在某些版本中可能無法使用"
+        },
+        "partialSplit": {
+          "title": "獨立版本儲存",
+          "description": "Mod、Builds、resourcepacks 和其他自訂檔案將儲存在每個版本的個別資料夾（遊戲資料夾/home）中。"
+        },
+        "fullSplit": {
+          "title": "完整版分離（實驗性）",
+          "description": "每個版本所需的所有檔案都會儲存在個別資料夾 (Game Folder/home) 中。",
+          "description2": "只有當您在執行某些已安裝大量版本時遇到問題，才會啟用此功能！",
+          "description3": "啟用時，每個版本都會佔用大量空間"
+        },
+        "multiplayerFix": {
+          "title": "網路遊戲修正 (實驗性)",
+          "description": "當使用 vanilla 版本 >= 1.16.5 時，設定的目的是修正錯誤 \"Network game is not available\" ",
+          "description2": "如果您在使用面板和修改器時有任何問題，建議停用此設定"
+        }
+      },
+      "about": {
+        "site": "官方網站",
+        "sources": "專案原始碼",
+        "telegram": "Telegram 頻道",
+        "vk": "VKontakte 群組",
+        "debug": "收集除錯存檔",
+        "history": "啟動器更新歷史"
+      }
+    },
+    "flymenu": {
+      "home": "主畫面",
+      "settings": "設定",
+      "packs": "模組",
+      "servers": "伺服器",
+      "console": "控制台",
+      "folder": "遊戲資料夾"
+    },
+    "flyout": {
+      "account": "帳戶",
+      "version": "遊戲版本",
+      "play": "遊戲"
+    },
+    "versions": {
+      "releases": "發行版本",
+      "snapshots": "快照",
+      "pack": "組裝"
+    },
+    "versionsPosters": [
+      {
+        "version": "1.21",
+        "description": "具挑戰性的測試"
+      },
+      {
+        "version": "1.20",
+        "description": "小徑和故事"
+      },
+      {
+        "version": "1.19",
+        "description": "野生更新"
+      },
+      {
+        "version": "1.18",
+        "description": "洞穴與岩石（第二部分）"
+      },
+      {
+        "version": "1.17",
+        "description": "洞穴與岩石（第一部分）"
+      },
+      {
+        "version": "1.16",
+        "description": "底層世界更新"
+      },
+      {
+        "version": "1.15",
+        "description": "嗡嗡叫的蜜蜂"
+      },
+      {
+        "version": "1.14",
+        "description": "村莊與掠奪"
+      },
+      {
+        "version": "1.13",
+        "description": "水資源更新"
+      },
+      {
+        "version": "1.12",
+        "description": "多彩世界"
+      },
+      {
+        "version": "1.11",
+        "description": "研究更新"
+      }
+    ],
+    "units": {
+      "size1": [
+        "Kb",
+        "MB",
+        "GB",
+        "Tb",
+        "Pb",
+        "Ab",
+        "Zb",
+        "Yb"
+      ],
+      "size2": [
+        "KiB",
+        "MiB",
+        "GB",
+        "T&B",
+        "PiB",
+        "EiB",
+        "ZiB",
+        "YiB"
+      ],
+      "mb": "MB"
+    }
+  }
+}
