@@ -15,16 +15,13 @@ class FrogJavaManager {
                 // Получаем информацию
                 let info = FrogJavaManager.getByVersion(version);
                 // Скачиваем
-                FrogDownloader.downloadFile(info.url, info.downloadPath, `Java ${version}`, true).then(() => {
+                FrogDownloader.downloadFile(info.url, info.downloadPath, `Java ${version}`).then(() => {
                     // Меняем UI
                     FrogFlyout.changeMode("spinner").then(() => {
                         FrogFlyout.setText(`${MESSAGES.java.unpacking} ${version}`);
-                    });
-                    // Распаковываем
-                    fs.mkdirSync(info.unpackPath, {recursive: true});
-                    decompress(info.downloadPath, info.unpackPath)
-                        .then(function () {
-                            // Успешно!
+
+                        // Распаковываем
+                        FrogUtils.unpackArchive(info.downloadPath, info.unpackPath).then(() => {
                             fs.unlinkSync(info.downloadPath);
                             if (restoreStartMode) {
                                 FrogFlyout.setUIStartMode(false);
@@ -33,16 +30,7 @@ class FrogJavaManager {
                             FrogToasts.create(`Java ${version}`, "info", MESSAGES.java.installed);
                             return resolve(true);
                         })
-                        .catch(function (error) {
-                            // Неудачно :(
-                            console.error(error);
-                            if (restoreStartMode) {
-                                FrogFlyout.setUIStartMode(false);
-                                FrogFlyout.changeMode("idle");
-                            }
-                            FrogToasts.create(`Java ${version}`, "error", MESSAGES.java.failed);
-                            return resolve(false);
-                        });
+                    });
                 });
             });
         })

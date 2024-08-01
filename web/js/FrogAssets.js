@@ -35,7 +35,7 @@ class FrogAssets {
         let filePath = needToDownload[currentDownloadingAsset].path;
         let url = needToDownload[currentDownloadingAsset].url;
         let displayName = path.basename(filePath);
-        FrogDownloader.downloadFile(url, filePath, displayName, true).then(() => {
+        FrogDownloader.downloadFile(url, filePath, displayName).then(() => {
             FrogAssets.downloadNextAsset();
         })
     }

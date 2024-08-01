@@ -10,12 +10,10 @@ const request = require("request");
 const {Client, Authenticator} = require("minecraft-launcher-core");
 const {Auth} = require("msmc");
 const {forge, neoforge, fabric, quilt, vanilla, liner} = require("tomate-loaders");
-const archiver = require("archiver");
-const decompress = require("decompress");
 const machineUuid = require("machine-uuid");
 const packageJson = require("./../package.json");
-let AdmZip = require("adm-zip");
 const Jimp = require("jimp");
+const compressing = require('compressing');
 
 const {exec} = require('node:child_process');
 

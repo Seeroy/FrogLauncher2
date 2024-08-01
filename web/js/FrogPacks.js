@@ -121,7 +121,7 @@ class FrogPacks {
         let url = packs_downloadList[packs_currentDownloading].url;
         let displayName = packs_downloadList[packs_currentDownloading].displayName;
         fs.mkdirSync(path.dirname(filePath), {recursive: true});
-        FrogDownloader.downloadFile(url, filePath, displayName, true).then(() => {
+        FrogDownloader.downloadFile(url, filePath, displayName).then(() => {
             FrogPacks.downloadNext();
         })
     }
@@ -179,72 +179,74 @@ class FrogPacks {
     static importModrinthPack = (archivePath, iconUrl = false) => {
         return new Promise(resolve => {
             FrogToasts.create(MESSAGES.packs.importing, "publish", path.parse(archivePath).name, 2500);
-            // Распаковываем архив
+
+            // Создаём нужные директории
             let modpacksPath = path.join(global.GAME_DATA, "modpacks");
             let decompPath = path.join(modpacksPath, "TMP");
             fs.mkdirSync(path.join(decompPath), {recursive: true});
-            let archiveFile = new AdmZip(archivePath);
-            archiveFile.extractAllTo(decompPath, true);
 
-            // Читаем индекс и генерируем переменные
-            let modrinthIndex = JSON.parse(fs.readFileSync(path.join(decompPath, "modrinth.index.json")));
-            let modpackId = `${modrinthIndex.name} ${modrinthIndex.versionId}`.replace(/\W/g, '_').trim();
-            if (FrogPacks.isModpackExists(modpackId)) {
-                FrogToasts.create(MESSAGES.packs.importFailed, "error", MESSAGES.packs.alreadyExists);
-                fs.rmdirSync(decompPath, {recursive: true});
-                return resolve(false, "exists");
-            }
-            fsExtra.moveSync(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
-
-            // Получаем тип и версию игры
-            let baseVersionType = "vanilla";
-            if (Object.keys(modrinthIndex.dependencies).includes("fabric-loader") || Object.keys(modrinthIndex.dependencies).includes("fabric-api")) {
-                baseVersionType = "fabric";
-            }
-            if (Object.keys(modrinthIndex.dependencies).includes("forge")) {
-                baseVersionType = "forge";
-            }
-            if (Object.keys(modrinthIndex.dependencies).includes("neoforge")) {
-                baseVersionType = "neoforge";
-            }
-            if (Object.keys(modrinthIndex.dependencies).includes("quilt") || Object.keys(modrinthIndex.dependencies).includes("quilt-loader")) {
-                baseVersionType = "quilt";
-            }
-
-            // Готовим список файлов
-            let preparedFilesList = [];
-            modrinthIndex.files.forEach(item => {
-                if (typeof item?.env?.client === "undefined" || item?.env?.client === "required") {
-                    preparedFilesList.push({
-                        hashes: item.hashes,
-                        path: item.path,
-                        name: path.basename(item.path),
-                        url: item.downloads[0],
-                        size: item.fileSize,
-                        displayName: path.parse(item.path).name
-                    })
+            // Распаковываем архив
+            FrogUtils.unpackArchive(archivePath, decompPath).then(() => {
+                // Читаем индекс и генерируем переменные
+                let modrinthIndex = JSON.parse(fs.readFileSync(path.join(decompPath, "modrinth.index.json")));
+                let modpackId = `${modrinthIndex.name} ${modrinthIndex.versionId}`.replace(/\W/g, '_').trim();
+                if (FrogPacks.isModpackExists(modpackId)) {
+                    FrogToasts.create(MESSAGES.packs.importFailed, "error", MESSAGES.packs.alreadyExists);
+                    fs.rmdirSync(decompPath, {recursive: true});
+                    return resolve(false, "exists");
                 }
-            })
+                fsExtra.moveSync(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
 
-            // Создаём и сохраняем свой манифест
-            let manifestJson = {
-                id: modpackId,
-                uuid: crypto.randomUUID(),
-                displayName: `${modrinthIndex.name} ${modrinthIndex.versionId}`,
-                baseVersion: {
-                    full: `${baseVersionType}-${modrinthIndex.dependencies.minecraft}`,
-                    type: baseVersionType,
-                    number: modrinthIndex.dependencies.minecraft
-                },
-                files: preparedFilesList,
-                icon: iconUrl
-            };
-            FrogPacks.writeModpackManifest(modpackId, manifestJson);
-            fsExtra.moveSync(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
-            FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
-            fs.rmdirSync(decompPath, {recursive: true});
-            FrogVersionsUI.loadVersions();
-            return resolve(true);
+                // Получаем тип и версию игры
+                let baseVersionType = "vanilla";
+                if (Object.keys(modrinthIndex.dependencies).includes("fabric-loader") || Object.keys(modrinthIndex.dependencies).includes("fabric-api")) {
+                    baseVersionType = "fabric";
+                }
+                if (Object.keys(modrinthIndex.dependencies).includes("forge")) {
+                    baseVersionType = "forge";
+                }
+                if (Object.keys(modrinthIndex.dependencies).includes("neoforge")) {
+                    baseVersionType = "neoforge";
+                }
+                if (Object.keys(modrinthIndex.dependencies).includes("quilt") || Object.keys(modrinthIndex.dependencies).includes("quilt-loader")) {
+                    baseVersionType = "quilt";
+                }
+
+                // Готовим список файлов
+                let preparedFilesList = [];
+                modrinthIndex.files.forEach(item => {
+                    if (typeof item?.env?.client === "undefined" || item?.env?.client === "required") {
+                        preparedFilesList.push({
+                            hashes: item.hashes,
+                            path: item.path,
+                            name: path.basename(item.path),
+                            url: item.downloads[0],
+                            size: item.fileSize,
+                            displayName: path.parse(item.path).name
+                        })
+                    }
+                })
+
+                // Создаём и сохраняем свой манифест
+                let manifestJson = {
+                    id: modpackId,
+                    uuid: crypto.randomUUID(),
+                    displayName: `${modrinthIndex.name} ${modrinthIndex.versionId}`,
+                    baseVersion: {
+                        full: `${baseVersionType}-${modrinthIndex.dependencies.minecraft}`,
+                        type: baseVersionType,
+                        number: modrinthIndex.dependencies.minecraft
+                    },
+                    files: preparedFilesList,
+                    icon: iconUrl
+                };
+                FrogPacks.writeModpackManifest(modpackId, manifestJson);
+                fsExtra.moveSync(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
+                FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
+                fs.rmdirSync(decompPath, {recursive: true});
+                FrogVersionsUI.loadVersions();
+                return resolve(true);
+            })
         })
     }
 
@@ -268,7 +270,7 @@ class FrogPacks {
                 FrogFlyout.setProgress(0);
                 FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
                 FrogFlyout.changeMode("progress").then(() => {
-                    FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename, true).then(() => {
+                    FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename).then(() => {
                         if (packs_currentMode !== "modpacks") {
                             // Возвращем стандартный режим
                             FrogFlyout.changeMode("idle");

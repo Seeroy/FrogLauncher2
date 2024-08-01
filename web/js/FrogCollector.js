@@ -26,25 +26,14 @@ class FrogCollector {
                 resolvedRoot: path.resolve("./"),
                 machineId: uniqueId
             }));
-            const output = fs.createWriteStream(path.join(USERDATA_PATH, archiveName + ".zip"));
-            const archive = archiver('zip', {
-                zlib: {level: 9} // Sets the compression level.
-            });
-            archive.pipe(output);
-            archive.append(fs.createReadStream(filesList[0]), {name: path.basename(filesList[0])});
-            archive.append(fs.createReadStream(filesList[1]), {name: path.basename(filesList[1])});
-            archive.append(fs.createReadStream(filesList[2]), {name: path.basename(filesList[2])});
-            archive.append(fs.createReadStream(filesList[3]), {name: path.basename(filesList[3])});
-            archive.append(fs.createReadStream(global.CONFIG_PATH), {name: path.basename(global.CONFIG_PATH)});
-            archive.finalize();
-
-            output.on('close', function () {
+            const outputPath = path.join(USERDATA_PATH, archiveName + ".zip");
+            FrogUtils.compressDirectory(outputPath, archiveDirPath).then(() => {
                 filesList.forEach(file => {
                     fs.unlinkSync(file);
                 })
                 fs.rmdirSync(archiveDirPath);
                 openExternal(USERDATA_PATH);
-            });
+            })
         });
     }
 
