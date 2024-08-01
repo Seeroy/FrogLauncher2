@@ -1,0 +1,298 @@
+{
+  "info": {
+    "code": "de",
+    "id": "de",
+    "displayName": "Deutsch",
+    "displayNameEnglish": "German",
+    "author": "Seeroy"
+  },
+  "translations": {
+    "errors": {
+      "title": "Oh, nein, es ist etwas passiert!",
+      "exitCode": "Das Spiel endete mit einem Exit-Code",
+      "list": [
+        "Diese Version des Spiels ist nicht mit der von Ihnen verwendeten Java-Version kompatibel. Wenn Sie die automatische Java-Versionserkennung verwenden, wenden Sie sich bitte an den Entwickler, um den Fehler zu beheben",
+        "Es sieht so aus, als ob die Java-Version und die Forge-Version nicht kompatibel sind! Wenn Sie die automatische Java-Versionserkennung verwenden, wenden Sie sich bitte an den Entwickler, um den Fehler zu beheben",
+        "Der erforderliche Speicherplatz für Java konnte nicht zugewiesen werden Versuchen Sie, den Speicherplatz in den Einstellungen des Launchers zu verringern",
+        "Sieht so aus, als ob die ausführbare JAR-Datei des Spiels verloren gegangen ist Versuchen Sie, den Launcher neu zu starten",
+        "Launcher kann keine ausführbare Java-Datei finden! Wenn Sie die automatische Java-Versionserkennung verwenden, kontaktieren Sie bitte den Entwickler, um den Fehler zu beheben",
+        "Die Konfigurations- oder Spieldateien sind möglicherweise beschädigt oder wurden von einer neueren Version des Spiels erstellt. Wir empfehlen eine saubere Neuinstallation des Spiels, indem Sie den Pfad zum Ordner in den Einstellungen des Launchers ändern",
+        "Versuchen Sie, das Spiel noch einmal neu zu starten, wenn das nicht hilft - eine vollständige Neuinstallation des Spiels wird empfohlen"
+      ]
+    },
+    "accounts": {
+      "input": "Geben Sie Ihren Spitznamen ein",
+      "offline": "Offline",
+      "local": "Lokales Konto",
+      "microsoft": "Microsoft Konto",
+      "elyby": "Ely.by Konto",
+      "unknown": "Unbekanntes Konto",
+      "addingMs": "Hinzufügen eines Microsoft Kontos",
+      "alreadyExists": "Dieses Konto ist bereits hinzugefügt worden",
+      "added": "Neues Konto hinzugefügt"
+    },
+    "changelog": {
+      "title": "Geschichte aktualisieren"
+    },
+    "loading": {
+      "progress": "Hochladen von Inhalten",
+      "failed": "Der Inhalt konnte nicht geladen werden, versuchen Sie es später noch einmal"
+    },
+    "elyby": {
+      "title": "Melden Sie sich bei Ihrem Ely.by Konto an",
+      "login": "Anmeldung eingeben",
+      "password": "Geben Sie Ihr Passwort ein",
+      "totp": "Geben Sie den TOTP-Code ein",
+      "totpNotify": "Wenn Sie nicht wissen, was ein TOTP-Code ist oder Sie keine Zwei-Faktor-Autorisierung aktiviert haben, füllen Sie dieses Feld nicht aus.",
+      "INVALID_CREDENTIALS": "Ungültiges Login oder Passwort",
+      "REQUIRES_TOTP": "Nicht angegeben TOTP-Token",
+      "repeat": "Sie müssen eine neue Genehmigung erteilen"
+    },
+    "java": {
+      "preparing": "Java-Vorbereitung",
+      "unpacking": "Java auspacken",
+      "installed": "Die neue Version ist installiert",
+      "failed": "Bei der Installation ist ein Fehler aufgetreten"
+    },
+    "commons": {
+      "login": "Eintragen",
+      "newAccountAdded": "Neues Konto hinzugefügt",
+      "search": "Suche",
+      "install": "einrichten",
+      "open": "Enthüllen Sie",
+      "notSelected": "Nicht ausgewählt",
+      "starting": "Jetzt auf eine neue Art",
+      "version": "Version",
+      "close": "Schließen Sie",
+      "plsWait": "Bitte warten",
+      "downloading": "Herunterladen von",
+      "installing": "Einrichtung",
+      "news": "Nachrichten",
+      "bigUpdates": "Wichtige Aktualisierungen",
+      "create": "erstellen."
+    },
+    "packs": {
+      "importing": "Modpack-Import im Gange",
+      "imported": "Modpack erfolgreich importiert",
+      "importFailed": "Import fehlgeschlagen",
+      "alreadyExists": "Dieses Modpack ist bereits installiert",
+      "created": "Das Modpack wurde erfolgreich erstellt",
+      "installTo": "Eingestellt",
+      "defaultDir": "Standardverzeichnis",
+      "filters": {
+        "title": "Filter",
+        "type": "Siehe",
+        "mods": "Änderungen",
+        "rp": "Ressourcenpakete",
+        "shaders": "Shaderpacks",
+        "packs": "Baugruppen",
+        "loaders": "Lader",
+        "versions": "Versionen des Spiels"
+      },
+      "install": "einrichten",
+      "updatePack": "Modpack aktualisieren",
+      "createPack": "Eine Baugruppe erstellen",
+      "newPack": {
+        "title": "Neubau",
+        "input": "Geben Sie den Namen der Baugruppe ein",
+        "description": "Wählen Sie in der Hauptversionsliste die Version aus, die Sie als Basis für den Build verwenden möchten"
+      },
+      "updatePackM": {
+        "title": "Mods aktualisieren",
+        "disclaimer": "Im Moment sind Mod-Updates nur im manuellen Modus und zum Testen verfügbar. Um Updates zu testen, müssen Sie ein Build auswählen:",
+        "check": "Suchen Sie nach Aktualisierungen.",
+        "checking": "Prüfen auf Aktualisierungen",
+        "installing": "Installation von Updates",
+        "found": "Gefunden: ",
+        "update": "Alles aktualisieren"
+      }
+    },
+    "servers": {
+      "title": "Server",
+      "disclaimer": "Launcher-Entwickler ist nicht verantwortlich für die Qualität des Gameplays und Ehrlichkeit der Server in der Liste präsentiert",
+      "ipCopied": "Die IP wurde kopiert!"
+    },
+    "starter": {
+      "configuring": "Aufbau der Konfiguration",
+      "preparingGame": "Vorbereitung des Spiels für den Start",
+      "starting": "Das Spiel startet",
+      "started": "Das Spiel ist gestartet und läuft",
+      "closing": "Der Abschluss des Spiels"
+    },
+    "updater": {
+      "available": "Ein neues Update ist verfügbar",
+      "downloading": "Herunterladen von",
+      "ready": "Nach einem Neustart des Launcher wird das Update installiert",
+      "changelog": "Liste der Änderungen"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "sections": {
+        "personalization": "Formalisierung",
+        "game": "Spielverlauf",
+        "startup": "Parameter für die Inbetriebnahme",
+        "java": "Java-Parameter",
+        "about": "Über den Launcher"
+      },
+      "game": {
+        "consoleOnStart": "Öffnen Sie die Konsole beim Starten des Spiels",
+        "consoleOnCrash": "Öffnen der Konsole bei Absturz",
+        "hideOnStart": "Den Launcher beim Starten des Spiels ausblenden"
+      },
+      "java": {
+        "auto": {
+          "title": "Automatisch die Java-Version auswählen",
+          "description": "Die Version wird auf der Grundlage des offiziellen Mojang-Manifests ausgewählt und installiert"
+        },
+        "user": "Benutzerdefinierte Version von Java"
+      },
+      "personalization": {
+        "language": "Sprache des Launcher",
+        "mainColor": {
+          "title": "Hauptfarbe",
+          "description": "Ihr Launcher ist Ihre Persönlichkeit"
+        },
+        "darkMode": {
+          "title": "Farbmodus",
+          "description": "Der Launcher wird den ausgewählten Modus verwenden"
+        },
+        "background": {
+          "title": "Kulisse",
+          "description": "Ist es heute ein großes Schloss oder eine höllische Welt?"
+        },
+        "disableCss": {
+          "title": "CSS-Effekte deaktivieren",
+          "description": "Schatten und Effekte sind deaktiviert filter() "
+        },
+        "disableAnimations": {
+          "title": "Animationen deaktivieren",
+          "description": "Alle Animations- und Übergangszeiten sind auf ein Minimum reduziert"
+        }
+      },
+      "startup": {
+        "gameDirectory": {
+          "title": "Ordner zum Speichern von Spieldateien",
+          "description": "Er speichert alle Spieldateien, Java und andere"
+        },
+        "memory": {
+          "title": "Speicherzuweisung",
+          "description": "Der empfohlene Wert für moderne Versionen des Spiels ist 4 GB oder mehr. Verringern Sie diesen Parameter, wenn das Spiel einfriert"
+        },
+        "fullscreen": {
+          "title": "Vollbild-Spielmodus",
+          "description": "Das Flag funktioniert möglicherweise bei einigen Builds nicht"
+        },
+        "partialSplit": {
+          "title": "Getrennte Speicherung von Versionen",
+          "description": "Mods, Builds, Resourcepacks und andere benutzerdefinierte Dateien werden in einem eigenen Ordner mit jeder Version gespeichert (Game folder/home)"
+        },
+        "fullSplit": {
+          "title": "Trennung der Vollversion (experimentell)",
+          "description": "ALLE Dateien, die für jede Version benötigt werden, werden in einem eigenen Ordner gespeichert (Game Folder/home)",
+          "description2": "Aktivieren Sie diese Funktion nur, wenn Sie Probleme mit bestimmten Versionen haben, von denen bereits eine große Anzahl installiert ist!",
+          "description3": "Jede Version nimmt eine große Menge an Speicherplatz ein, wenn sie aktiviert ist"
+        },
+        "multiplayerFix": {
+          "title": "Behebung eines Netzwerkspiels (experimentell)",
+          "description": "Die Einstellung zielt darauf ab, den Fehler \"Netzwerkspiel ist nicht verfügbar\" zu beheben, wenn Vanilla-Versionen >= 1.16.5 verwendet werden.",
+          "description2": "Wenn Sie Probleme mit Skins und Mods haben, empfiehlt es sich, diese Einstellung zu deaktivieren"
+        }
+      },
+      "about": {
+        "site": "Offizielle Website",
+        "sources": "Quellcode des Projekts",
+        "telegram": "Telegram-Kanal",
+        "vk": "VKontakte Gruppe",
+        "debug": "Debug-Archiv sammeln",
+        "history": "Verlauf der Launcher-Aktualisierung"
+      }
+    },
+    "flymenu": {
+      "home": "Startbildschirm",
+      "settings": "Einstellungen",
+      "packs": "Modpacks",
+      "servers": "Server",
+      "console": "Konsole",
+      "folder": "Spiel-Ordner"
+    },
+    "flyout": {
+      "account": "ACCOUNT",
+      "version": "SPIELVERSION",
+      "play": "Spielen"
+    },
+    "versions": {
+      "releases": "Versionen freigeben",
+      "snapshots": "Schnappschüsse",
+      "pack": "Montage"
+    },
+    "versionsPosters": [
+      {
+        "version": "1.21",
+        "description": "Anspruchsvolle Tests"
+      },
+      {
+        "version": "1.20",
+        "description": "Pfade und Erzählungen"
+      },
+      {
+        "version": "1.19",
+        "description": "Wildes Update"
+      },
+      {
+        "version": "1.18",
+        "description": "Höhlen und Felsen (Teil 2)"
+      },
+      {
+        "version": "1.17",
+        "description": "Höhlen und Felsen (Teil 1)"
+      },
+      {
+        "version": "1.16",
+        "description": "Bottom World Update"
+      },
+      {
+        "version": "1.15",
+        "description": "Brummende Bienen"
+      },
+      {
+        "version": "1.14",
+        "description": "Dörfer und Plünderungen"
+      },
+      {
+        "version": "1.13",
+        "description": "Erneuerung des Wassers"
+      },
+      {
+        "version": "1.12",
+        "description": "Bunte Welt"
+      },
+      {
+        "version": "1.11",
+        "description": "Forschungs-Update."
+      }
+    ],
+    "units": {
+      "size1": [
+        "Kb",
+        "MB",
+        "GB",
+        "Tb",
+        "Pb",
+        "Ab",
+        "Zb",
+        "Yb"
+      ],
+      "size2": [
+        "KiB",
+        "MiB",
+        "GB",
+        "T&B",
+        "PiB",
+        "EiB",
+        "ZiB",
+        "YiB"
+      ],
+      "mb": "MB"
+    }
+  }
+}
