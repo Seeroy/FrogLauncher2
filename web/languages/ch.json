@@ -110,7 +110,8 @@
     "servers": {
       "title": "伺服器",
       "disclaimer": "Launcher 開發者不對遊戲品質和列表中伺服器的誠實性負責。",
-      "ipCopied": "IP 已被複製！"
+      "ipCopied": "IP 已被複製！",
+      "link": "如何添加您的伺服器？"
     },
     "starter": {
       "configuring": "建立組態",
@@ -137,7 +138,8 @@
       "game": {
         "consoleOnStart": "啟動遊戲時開啟控制台",
         "consoleOnCrash": "當機時開啟主控台",
-        "hideOnStart": "啟動遊戲時隱藏啟動器"
+        "hideOnStart": "啟動遊戲時隱藏啟動器",
+        "autoInstallDeps": "自動安裝 mod 的依賴項（實驗性）"
       },
       "java": {
         "auto": {

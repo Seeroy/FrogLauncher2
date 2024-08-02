@@ -1,5 +1,16 @@
 <div class="flex flex-center flex-gap-8 settings-item">
     <div class="icon">
+        <span class="material-symbols-outlined">work_update</span>
+    </div>
+    <span class="name flex-grow">{{settings.game.autoInstallDeps}}</span>
+    <label class="switch" data-setting="autoInstallDeps">
+        <input type="checkbox">
+        <span class="inner"></span>
+    </label>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
         <span class="material-symbols-outlined">terminal</span>
     </div>
     <span class="name flex-grow">{{settings.game.consoleOnStart}}</span>

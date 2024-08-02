@@ -250,6 +250,25 @@ class FrogPacks {
         })
     }
 
+    // Установить зависимости для мода
+    static installDependenciesList = (deps, gameVersion) => {
+        var currentDepInstalling = -1;
+        return new Promise(resolve => {
+            function installNextDep(){
+                currentDepInstalling++;
+                if(typeof deps[currentDepInstalling] !== "undefined"){
+                    $.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`, (depVersions) => {
+                        // Получаем нужную нам последнюю версию и ставим её
+                        FrogPacks.downloadByVersionID(depVersions[0].id).then(installNextDep);
+                    });
+                } else {
+                    return resolve(true);
+                }
+            }
+            installNextDep();
+        })
+    }
+
     // Скачать ресурс по ID версии
     static downloadByVersionID = (versionId, buttonElement = false) => {
         let iconUrl = false;
@@ -271,6 +290,10 @@ class FrogPacks {
                 FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
                 FrogFlyout.changeMode("progress").then(() => {
                     FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename).then(() => {
+                        if(typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true){
+                            FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0]).then(resolve);
+                            return;
+                        }
                         if (packs_currentMode !== "modpacks") {
                             // Возвращем стандартный режим
                             FrogFlyout.changeMode("idle");

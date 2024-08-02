@@ -295,7 +295,7 @@ class FrogPacksUI {
     static loadMore = () => {
         let savedScroll = $("#modal-packs .packs-wrapper").scrollTop();
         packs_currentOffset += 20;
-        FrogPacksUI.reloadAll(false, false).then(() => {
+        FrogPacksUI.reloadAll(false, false, false).then(() => {
             $("#modal-packs .packs-wrapper").scrollTop(savedScroll - 16);
             packs_scrollIsLoading = false;
         });

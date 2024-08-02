@@ -110,7 +110,8 @@
     "servers": {
       "title": "Servers",
       "disclaimer": "Launcher developer is not responsible for the quality of gameplay and honesty of the servers presented in the list",
-      "ipCopied": "IP copied!"
+      "ipCopied": "IP copied!",
+      "link": "How to add my server here?"
     },
     "starter": {
       "configuring": "Assembling the configuration",
@@ -137,7 +138,8 @@
       "game": {
         "consoleOnStart": "Open console when starting game",
         "consoleOnCrash": "Open console when crashing",
-        "hideOnStart": "Hide the launcher when starting the game"
+        "hideOnStart": "Hide the launcher when starting the game",
+        "autoInstallDeps": "Automatically install dependencies for mods (experimental)"
       },
       "java": {
         "auto": {

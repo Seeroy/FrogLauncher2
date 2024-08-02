@@ -110,7 +110,8 @@
     "servers": {
       "title": "Server",
       "disclaimer": "Launcher-Entwickler ist nicht verantwortlich für die Qualität des Gameplays und Ehrlichkeit der Server in der Liste präsentiert",
-      "ipCopied": "Die IP wurde kopiert!"
+      "ipCopied": "Die IP wurde kopiert!",
+      "link": "Wie füge ich meinen Server hinzu?"
     },
     "starter": {
       "configuring": "Aufbau der Konfiguration",
@@ -137,7 +138,8 @@
       "game": {
         "consoleOnStart": "Öffnen Sie die Konsole beim Starten des Spiels",
         "consoleOnCrash": "Öffnen der Konsole bei Absturz",
-        "hideOnStart": "Den Launcher beim Starten des Spiels ausblenden"
+        "hideOnStart": "Den Launcher beim Starten des Spiels ausblenden",
+        "autoInstallDeps": "Abhängigkeiten für Mods automatisch installieren (experimentell)"
       },
       "java": {
         "auto": {
