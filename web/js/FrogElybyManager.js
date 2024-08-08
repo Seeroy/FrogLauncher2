@@ -114,7 +114,7 @@ class FrogElybyManager {
                 fs.mkdirSync(path.dirname(filePath));
             }
             Jimp.read(fileUrl, (err, image) => {
-                image.crop(8, 8, 8, 8).write(filePath);
+                image.crop(8, 8, 8, 8).resize(48, 48, Jimp.RESIZE_NEAREST_NEIGHBOR).write(filePath);
                 return resolve(filePath);
             });
         });
