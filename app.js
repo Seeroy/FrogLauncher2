@@ -85,6 +85,13 @@ app.whenReady().then(() => {
     mainWindow.create(function (winObj) {
         mainWindowObject = winObj;
         mainWindowObject.webContents.userAgent = DEFAULT_USER_AGENT;
+
+        // Фикс для Alt+F4
+        mainWindowObject.on("closed", () => {
+            console.log(colors.blue("Bye Bye"));
+            app.exit(0);
+        })
+
         autoUpdater.checkForUpdates().then();
         console.log(colors.green("Main window created"));
     });
