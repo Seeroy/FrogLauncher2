@@ -64,19 +64,23 @@ $(function () {
             return;
         }
 
-        $("#modal-settings .wp-item.active").removeClass("active");
-        $(this).addClass("active");
         if ($(this).data("wp") === "custom") {
-            FrogThemes.selectCustomWallpaper().then(() => {
-                FrogThemes.changeWallpaper($(this).data("wp"));
+            FrogThemes.selectCustomWallpaper().then((result) => {
+                if (result !== false) {
+                    $("#modal-settings .wp-item.active").removeClass("active");
+                    $(this).addClass("active");
+                    FrogThemes.changeWallpaper($(this).data("wp"));
+                }
             });
         } else {
+            $("#modal-settings .wp-item.active").removeClass("active");
+            $(this).addClass("active");
             FrogThemes.changeWallpaper($(this).data("wp"));
         }
     })
 
     // Смена режима dark mode
-    $("#modal-settings .placeholder").click(function () {
+    $("#modal-settings .placeholder:not(.wp-item)").click(function () {
         if ($(this).hasClass("active")) {
             return;
         }

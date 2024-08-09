@@ -154,6 +154,7 @@ class FrogThemes {
                     FrogConfig.write("customWallpaperPath", path.join(directoryPath, bgId + fileExt));
                     return resolve(path.join(directoryPath, bgId + fileExt));
                 }
+                return resolve(false);
             })
         })
     }
