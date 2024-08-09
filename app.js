@@ -28,11 +28,11 @@ let consoleWindow = require("./windows/consoleWindow"); // Модуль для �
 const DEFAULT_USER_AGENT = "FrogLauncher/v" + pjson.version;
 
 // Е-Е-Едем
-console.log(colors.inverse("Frog Launcher | Version: " + pjson.version + " | Hostname: " + os.hostname() + " | <> by Seeroy"));
+console.log(colors.inverse("FrogLauncher v" + pjson.version + " | Hostname: " + os.hostname() + " | <> by Seeroy"));
 
 app.whenReady().then(() => {
     if (!isAppInDev) {
-        console.log("We are in production mode");
+        console.log(colors.inverse("We are in production mode"));
 
         // Отключение клавиш для перезагрузки страницы
         app.on('browser-window-focus', function () {
@@ -53,7 +53,7 @@ app.whenReady().then(() => {
             globalShortcut.unregister('Control+Shift+I');
         });
     } else {
-        console.log("ooo|   Hello, developer   |ooo");
+        console.log(colors.inverse("ooo|   Hello, developer   |ooo"));
 
         // Сброс времени запуска при перезагрузке страницы
         app.on('browser-window-focus', function () {
