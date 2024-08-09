@@ -128,5 +128,17 @@ $(function () {
         $("#modal-settings .layout-tab.active").removeClass("active");
         tabElem.addClass("active");
         animateCSSNode(tabElem[0], "fadeIn");
+
+        // Анимация плашки с каждой настройкой
+        if(FrogConfig.read("disableAnimations", false) !== true){
+            $(tabElem).find(".settings-item:not(#aboutItem)").each(function(index){
+                $(this).css("opacity", 0);
+                setTimeout(() => {
+                    animateCSSNode($(this)[0], "fadeIn").then(() => {
+                        $(this).css("opacity", 1);
+                    })
+                }, 80 * index)
+            })
+        }
     })
 });

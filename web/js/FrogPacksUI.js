@@ -384,6 +384,18 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                         $(this).show();
                     }
                 })
+
+                // Анимация плашки с каждым модов
+                if(FrogConfig.read("disableAnimations", false) !== true){
+                    $("#modal-packs .packs-list .item").each(function(index){
+                        $(this).css("opacity", 0);
+                        setTimeout(() => {
+                            animateCSSNode($(this)[0], "fadeIn").then(() => {
+                                $(this).css("opacity", 1);
+                            })
+                        }, 20 * index)
+                    })
+                }
                 $("#modal-packs .packs-list").show();
                 $("#modal-packs .preloader").hide();
                 return resolve(true);
