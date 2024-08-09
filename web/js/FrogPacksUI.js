@@ -171,8 +171,9 @@ class FrogPacksUI {
                 // Восстанавливаем отмеченное
                 selectedCheckboxes.forEach(chkId => {
                     let $chkbox = $(`.filters__scroll-wrapper input[value="${chkId}"]`);
-                    if ($chkbox.length === 1) {
+                    if ($chkbox.length > 0) {
                         $chkbox.attr("checked", true);
+                        $chkbox.prop("checked", true);
                     }
                 })
 
