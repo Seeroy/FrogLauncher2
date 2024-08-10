@@ -52,7 +52,7 @@ html.noEffects *:not(.icon img) {
 }
 
 html.noAnimations,
-html.noAnimations * {
+html.noAnimations *:not(.spinner) {
     transition: 0s !important;
     animation-duration: 0.001s !important;
 }
