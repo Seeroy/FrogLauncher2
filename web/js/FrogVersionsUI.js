@@ -22,7 +22,7 @@ class FrogVersionsUI {
                 // По placeholder`у добавляем новые элементы
 
                 Object.values(versions).forEach((ver) => {
-                    let versionIcon = "assets/versions/" + ver.type + ".png";
+                    let versionIcon = "assets/versions/" + ver.type + ".webp";
                     let displayName = ver.displayName;
                     if (ver.type === "pack") {
                         let modpackData = FrogPacks.getModpackManifest(ver.id.replace("pack-", ""));

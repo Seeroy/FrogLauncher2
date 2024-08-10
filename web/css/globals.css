@@ -46,7 +46,7 @@ html {
 }
 
 html.noEffects,
-html.noEffects * {
+html.noEffects *:not(.icon img) {
     filter: none !important;
     box-shadow: none !important;
 }

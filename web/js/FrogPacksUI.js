@@ -331,10 +331,15 @@ class FrogPacksUI {
 
                 // Загружаем его
                 result.forEach((item) => {
+                    let mappedLoaders = item.loaders.map(function(e) {
+                        e = FrogUtils.capitalizeWord(e);
+                        return e;
+                    });
+
                     if ((FrogUtils.compareArrays(selectedVersions, item.game_versions).length > 0 || selectedVersions.length === 0) && (FrogUtils.compareArrays(selectedLoaders, item.loaders).length > 0 || selectedLoaders.length === 0)) {
                         $versionList.append(`<div class="item">
 <span class="title">${item.name}</span>
-<div class="flex flex-align-center flex-gap-4 versions">${FrogUtils.capitalizeWord(item.loaders[0])} <div class="microdot"><div style="background: var(--theme-primaryBg)" class="dot"></div></div> ${item.game_versions.join(", ")}</div>
+<div class="flex flex-align-center flex-gap-4 versions">${mappedLoaders.join(", ")} <div class="microdot"><div style="background: var(--theme-primaryBg)" class="dot"></div></div> ${item.game_versions.join(", ")}</div>
 ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small pill" onclick="FrogPacks.downloadByVersionID('${item.id}', this)">${MESSAGES.commons.install}</button>` : `<span class="material-symbols-outlined">download_done</span>`}
 </div>`);
                     }
@@ -374,6 +379,9 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                 placeholder = placeholder.replace(' placeholder', "");
                 // По placeholder`у добавляем новые элементы
                 result.hits.forEach((item) => {
+                    if(item.icon_url === ""){
+                        item.icon_url = "assets/modIcon.webp";
+                    }
                     let preparedPlaceholder = placeholder.replaceAll("$1", item.icon_url).replaceAll("$2", item.title).replaceAll("$3", item.description).replaceAll("$4", kFormatter(item.downloads)).replaceAll("$5", kFormatter(item.follows)).replaceAll("$6", item.slug);
                     $("#modal-packs .packs-list").append(preparedPlaceholder);
                 })
