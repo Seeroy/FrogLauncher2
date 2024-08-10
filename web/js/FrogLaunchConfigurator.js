@@ -18,6 +18,7 @@ class FrogLaunchConfigurator {
 
             // Получаем данные для авторизации
             let activeAccount = FrogAccountsManager.getActiveAccount();
+            let activeAccountData = FrogAccountsManager.getAccount(activeAccount);
             FrogAccountsManager.getAccountMCLCData(activeAccount, (authData) => {
                 // Добавляем данные авторизации
                 resultConfig.authorization = authData;
@@ -34,7 +35,7 @@ class FrogLaunchConfigurator {
                     resultConfig = {...moddedLaunchConfig, ...resultConfig};
                     resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
                     // Готовим конфиг для ely.by, если надо
-                    FrogLaunchConfigurator.setupForElyby(resultConfig, activeAccount).then((resultConfigFinal) => {
+                    FrogLaunchConfigurator.setupForSkinSystems(resultConfig, activeAccount).then((resultConfigFinal) => {
                         return resolve(resultConfigFinal);
                     })
                 })
@@ -42,23 +43,27 @@ class FrogLaunchConfigurator {
         })
     }
 
-    // Подготовить всё для запуска Ely.by (если нужно)
-    static setupForElyby = (config, activeAccount) => {
+    // Подготовить всё для запуска Ely.by/FrogSkins
+    static setupForSkinSystems = (config, activeAccount) => {
         return new Promise(resolve => {
             let configResult = config;
             let accountType = FrogAccountsManager.getAccount(activeAccount).type;
-            if (accountType !== "elyby") {
+            if (accountType !== "elyby" && accountType !== "frog") {
                 return resolve(configResult);
+            }
+            let apiUrl = "ely.by";
+            if(accountType === "frog"){
+                apiUrl = global.SKINS_API_URL;
             }
             // Если аккаунт - Ely.by скачиваем инжектор и добавляем его в конфигурацию
             let authlibInjectorPath = path.join(global.GAME_DATA, "cache", "authlib-injector.jar");
             if (!fs.existsSync(authlibInjectorPath)) {
                 FrogDownloader.downloadFile(global.AUTHLIB_INJECTOR_URL, authlibInjectorPath).then(() => {
-                    configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=ely.by`);
+                    configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=${apiUrl}`);
                     return resolve(configResult);
                 })
             } else {
-                configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=ely.by`);
+                configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=${apiUrl}`);
                 return resolve(configResult);
             }
         })

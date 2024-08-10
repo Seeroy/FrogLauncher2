@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="modals/frogRegister.css"/>
+
+<dialog class="modal overlay centered" id="modal-frogRegister" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <button class="square transparent small" onclick="FrogModals.hideModal('frogRegister')">
+            <span class="material-symbols-outlined">west</span>
+        </button>
+        <h1>{{frogAuth.register.title}}</h1>
+    </div>
+    <input type="text" class="login" placeholder="{{elyby.login}}"/>
+    <input type="password" class="password" placeholder="{{elyby.password}}"/>
+    <input type="password" class="password-repeat" placeholder="{{frogAuth.register.repeatPassword}}"/>
+
+    <h4 class="error" style="color: var(--error); display: none;"></h4>
+
+    <button class="loginBtn" onclick="FrogSkinsUI.register()">{{frogAuth.register.go}}</button>
+
+    <div class="link" onclick="FrogSkinsUI.goLogin()">
+        <span class="material-symbols-outlined">open_in_new</span>
+        <span>{{frogAuth.goLogin}}</span>
+    </div>
+</dialog>

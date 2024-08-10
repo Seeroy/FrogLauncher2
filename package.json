@@ -1,6 +1,6 @@
 {
   "name": "frogLauncher2",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Minecraft-лаунчер. Твой. Крутой",
   "main": "app.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "author": "Seeroy",
   "license": "GPL-3.0",
-  "homepage": "https://froglauncher.seeeroy.ru",
+  "homepage": "https://froglauncher.ru",
   "bugs": "https://github.com/Seeroy/FrogLauncher2/issues",
   "repository": "https://github.com/Seeroy/FrogLauncher2",
   "devDependencies": {
@@ -61,7 +61,7 @@
     },
     "publish": {
       "provider": "generic",
-      "url": "https://cdn.seeeroy.ru/FrogLauncher/updates"
+      "url": "https://cdn.froglauncher.ru/updates"
     },
     "nsis": {
       "installerIcon": "resources/icon.ico",

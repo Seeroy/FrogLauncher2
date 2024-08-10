@@ -26,6 +26,7 @@
       "local": "Local account",
       "microsoft": "Microsoft Account",
       "elyby": "Ely.by account",
+      "frog": "FrogLauncher account",
       "unknown": "Unknown account",
       "addingMs": "Adding a Microsoft Account",
       "alreadyExists": "This account has already been added",
@@ -295,6 +296,30 @@
         "YiB"
       ],
       "mb": "MB"
+    },
+    "frogAuth": {
+      "login": {
+        "title": "Login | FrogID"
+      },
+      "register": {
+        "title": "Registration | FrogID",
+        "repeatPassword": "Enter password again",
+        "go": "Create an account!",
+        "success": {
+          "title": "Registration successful!",
+          "description": "Done, you have created an account!",
+          "button": "Alright"
+        }
+      },
+      "goRegister": "I don't have an account",
+      "goLogin": "I already have an account",
+      "errors": {
+        "WRONG_CREDENTIALS": "Invalid login or password",
+        "PNG_REQUIRED": "Required to select a PNG file",
+        "FILE_BITMAP_TOO_BIG": "The file is too large or too large",
+        "UNKNOWN": "An error occurred while performing the action",
+        "ALREADY_EXISTS": "This user already exists, please select a different nickname"
+      }
     }
   }
 }

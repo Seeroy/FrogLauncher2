@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="modals/frogLogin.css"/>
+
+<dialog class="modal overlay centered" id="modal-frogLogin" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <button class="square transparent small" onclick="FrogModals.hideModal('frogLogin')">
+            <span class="material-symbols-outlined">west</span>
+        </button>
+        <h1>{{frogAuth.login.title}}</h1>
+    </div>
+    <input type="text" class="login" placeholder="{{elyby.login}}"/>
+    <input type="password" class="password" placeholder="{{elyby.password}}"/>
+
+    <h4 class="error" style="color: var(--error); display: none;"></h4>
+
+    <button class="loginBtn" onclick="FrogSkinsUI.login()">{{commons.login}}</button>
+
+    <div class="link" onclick="FrogSkinsUI.goRegister()">
+        <span class="material-symbols-outlined">open_in_new</span>
+        <span>{{frogAuth.goRegister}}</span>
+    </div>
+</dialog>

@@ -26,6 +26,7 @@
       "local": "Lokales Konto",
       "microsoft": "Microsoft Konto",
       "elyby": "Ely.by Konto",
+      "frog": "FrogLauncher Konto",
       "unknown": "Unbekanntes Konto",
       "addingMs": "Hinzufügen eines Microsoft Kontos",
       "alreadyExists": "Dieses Konto ist bereits hinzugefügt worden",
@@ -295,6 +296,30 @@
         "YiB"
       ],
       "mb": "MB"
+    },
+    "frogAuth": {
+      "login": {
+        "title": "Anmelden | FrogID"
+      },
+      "register": {
+        "title": "Registrierung | FrogID",
+        "repeatPassword": "Geben Sie Ihr Passwort erneut ein",
+        "go": "Ein Konto erstellen!",
+        "success": {
+          "title": "Registrierung erfolgreich!",
+          "description": "Fertig, Sie haben ein Konto erstellt!",
+          "button": "Bußgeld"
+        }
+      },
+      "goRegister": "Ich habe kein Konto",
+      "goLogin": "Ich habe bereits ein Konto",
+      "errors": {
+        "WRONG_CREDENTIALS": "Ungültiger Benutzername oder Passwort",
+        "PNG_REQUIRED": "Erforderlich, um eine PNG-Datei auszuwählen",
+        "FILE_BITMAP_TOO_BIG": "Die Datei ist zu groß oder zu groß",
+        "UNKNOWN": "Beim Ausführen der Aktion ist ein Fehler aufgetreten",
+        "ALREADY_EXISTS": "Dieser Benutzer existiert bereits. Bitte wählen Sie einen anderen Spitznamen"
+      }
     }
   }
 }

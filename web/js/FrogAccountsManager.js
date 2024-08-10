@@ -48,8 +48,8 @@ class FrogAccountsManager {
             return false;
         }
         FrogConfig.write("activeAccount", accountId);
-        FrogAccountsUI.reloadAccountSelect();
         FrogAccountsUI.reloadAccountsManager();
+        FrogAccountsUI.reloadAccountSelect();
         return true;
     }
 
@@ -90,6 +90,16 @@ class FrogAccountsManager {
             });
         } else if (accountData.type === "microsoft") {
             return cb(accountData.data);
+        } else if (accountData.type === "frog") {
+            return cb({
+                access_token: accountData.accessToken,
+                client_token:accountData.clientToken,
+                uuid: accountData.uuid,
+                name: accountData.nickname,
+                meta: {
+                    type: "mojang"
+                }
+            });
         } else if (accountData.type === "elyby") {
             FrogElybyManager.getAccountForAuth(accountId).then(result => {
                 return cb(result);

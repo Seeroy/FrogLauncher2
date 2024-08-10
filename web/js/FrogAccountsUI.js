@@ -17,6 +17,9 @@ class FrogAccountsUI {
             if (acc.type === "elyby") {
                 imageUrl = path.join(global.USERDATA_PATH, "elybySkins", `${acc.nickname}.png`);
             }
+            if (acc.type === "frog") {
+                imageUrl = acc.textures.head || imageUrl;
+            }
             let preparedPlaceholder = placeholder.replaceAll("$1", acc.nickname).replaceAll("$2", accountType).replaceAll("$3", acc.uuid).replaceAll("$4", imageUrl).replaceAll("$5", acc.type);
             $("#modal-accounts .accounts-list").append(preparedPlaceholder);
         })
@@ -33,6 +36,9 @@ class FrogAccountsUI {
                 if ($(this).data("type") === "elyby") {
                     $(this).find(".type.elyby").show();
                 }
+                if ($(this).data("type") === "frog") {
+                    $(this).find(".type.frog").show();
+                }
                 $(this).show();
             }
         })
@@ -48,20 +54,16 @@ class FrogAccountsUI {
     // Перезагрузить кнопку для открытия менеджера аккаунтов
     static reloadAccountSelect = () => {
         let activeAccount = FrogAccountsManager.getActiveAccount();
+        let $activeAccount = $("#modal-accounts .accounts-list .item.active");
+
         if (activeAccount === "none") {
             $("#accountSelect .title").text(MESSAGES.commons.notSelected);
             $("#accountSelect .icon").hide();
+            $("#accountSelect .description").hide();
         } else {
-            let accountData = FrogAccountsManager.getAccount(activeAccount);
-            $("#accountSelect .title").text(accountData.nickname);
-            $("#accountSelect .icon").show();
-            if (accountData.type !== "elyby") {
-                $("#accountSelect .icon").attr("src", `https://minotar.net/avatar/${accountData.nickname}/40`);
-            } else {
-                FrogElybyManager.getHeadURLByPlayerNickname(accountData.nickname).then(url => {
-                    $("#accountSelect .icon").attr("src", url.replaceAll("\\", "/"));
-                });
-            }
+            $("#accountSelect")[0].innerHTML = "";
+            $("#accountSelect")[0].innerHTML = $activeAccount.html();
+            $("#accountSelect .check, #accountSelect .delete").remove();
         }
         return true;
     }

@@ -33,6 +33,7 @@
     <script src="./js/FrogPacks.js"></script>
     <script src="./js/FrogPacksUI.js"></script>
     <script src="./js/FrogServersUI.js"></script>
+    <script src="./js/FrogSkinsUI.js"></script>
     <script src="./js/FrogStarter.js"></script>
     <script src="./js/FrogTests.js"></script>
     <script src="./js/FrogThemes.js"></script>
@@ -71,6 +72,8 @@
         <%- include('modals/accounts'); %>
         <%- include('modals/versions'); %>
         <%- include('modals/elybyLogin'); %>
+        <%- include('modals/frogLogin'); %>
+        <%- include('modals/frogRegister'); %>
         <!-- Модальные окна КОНЕЦ-->
 
         <div class="content-inner animate__animated animate__zoomIn animate__faster">
@@ -172,8 +175,10 @@
         $("html").show();
 
         // Загружаем список аккаунтов
-        FrogAccountsUI.reloadAccountsManager();
-        FrogAccountsUI.reloadAccountSelect();
+        FrogSkinsUI.refreshAllProfiles().then(() => {
+            FrogAccountsUI.reloadAccountsManager();
+            FrogAccountsUI.reloadAccountSelect();
+        })
 
         // Загружаем список версий
         FrogVersionsUI.loadVersions();

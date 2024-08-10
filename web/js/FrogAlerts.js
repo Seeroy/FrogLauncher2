@@ -1,5 +1,5 @@
 const FROG_ALERT_PLACEHOLDER =
-    '<div class="alert-modal modal-bg" id="$5"> <div class="alert-window"> <div class="alert-icon">$4</div> <div class="alert-caption">$1</div> <div class="alert-description">$2</div> <button id="cmbtn-$5" class="custom-button w-full mt-4 text-white">$3</button> $6 </div> </div>';
+    '<dialog class="alert-modal modal-bg" id="$5"> <div class="alert-window"> <div class="alert-icon">$4</div> <div class="alert-caption">$1</div> <div class="alert-description">$2</div> <button id="cmbtn-$5" class="custom-button w-full mt-4 text-white">$3</button> $6 </div> </dialog>';
 
 class FrogAlerts {
     static create(caption, text, buttonText, icon, cb = () => {

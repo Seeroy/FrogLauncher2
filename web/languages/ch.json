@@ -26,6 +26,7 @@
       "local": "本地帳戶",
       "microsoft": "微軟帳戶",
       "elyby": "Ely.by account",
+      "frog": "FrogLauncher account",
       "unknown": "未知帳號",
       "addingMs": "新增 Microsoft 帳戶",
       "alreadyExists": "此帳號已新增",
@@ -295,6 +296,30 @@
         "YiB"
       ],
       "mb": "MB"
+    }
+  },
+  "frogAuth": {
+    "login": {
+      "title": "登录 | FrogID"
+    },
+    "register": {
+      "title": "注册 | FrogID",
+      "repeatPassword": "再次输入您的密码",
+      "go": "创建一个帐户！",
+      "success": {
+        "title": "注册成功！",
+        "description": "完成，您已经创建了一个帐户！",
+        "button": "美好的"
+      }
+    },
+    "goRegister": "我没有账户",
+    "goLogin": "我已经有一个帐户",
+    "errors": {
+      "WRONG_CREDENTIALS": "登录名或密码无效",
+      "PNG_REQUIRED": "需要选择 PNG 文件",
+      "FILE_BITMAP_TOO_BIG": "文件太大或太大",
+      "UNKNOWN": "执行操作时发生错误",
+      "ALREADY_EXISTS": "该用户已存在，请选择其他昵称"
     }
   }
 }
