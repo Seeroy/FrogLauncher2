@@ -1,0 +1,42 @@
+#modal-frogSkin {
+    height: 65vh;
+    width: 65vw;
+}
+
+#modal-frogSkin .layout {
+    display: grid;
+    width: 100%;
+    height: 100%;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+#modal-frogSkin .layout > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-frogSkin .layout .dragzone {
+    width: 60%;
+    height: 80%;
+
+    border: 4px dashed var(--theme-primaryBgLight);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-frogSkin .layout .dragzone h4 {
+    text-align: center;
+}
+
+#modal-frogSkin .layout .dragzone:hover {
+    border: 4px dashed var(--theme-primaryBgLighter);
+    background: var(--theme-primaryBgLight);
+}
