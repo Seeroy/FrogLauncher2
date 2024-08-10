@@ -8,22 +8,70 @@
         <span class="material-symbols-outlined">add_reaction</span>
         <h1>{{frogAuth.skin.title}}</h1>
     </div>
+    <form id="texture-image-form">
+        <input type="file" id="texture-image" name="texture-image" accept="image/png" style="display: none"/>
+    </form>
     <div class="layout">
-        <div>
+        <div class="skindiv">
             <h2>{{frogAuth.skin.skin}}</h2>
-            <div class="dragzone">
+            <div data-mode="skin" class="dragzone">
                 <img style="display: none"/>
                 <h4>Не установлен. Нажмите сюда, чтобы установить</h4>
             </div>
         </div>
-        <div>
+        <div class="capediv">
             <h2>{{frogAuth.skin.cape}}</h2>
-            <div class="dragzone">
+            <div data-mode="cape" class="dragzone">
                 <img style="display: none"/>
                 <h4>Не установлен. Нажмите сюда, чтобы установить</h4>
             </div>
         </div>
     </div>
+    <div class="error"></div>
 </dialog>
 
-<script src="modals/frogSkin.js"></script>
+<script>
+    let textureUploadType = "";
+    global.currentAccountInEditor = {};
+
+    $(function () {
+        let $error = $("#modal-frogSkin .error");
+
+        $("#modal-frogSkin .layout .dragzone").click(function () {
+            textureUploadType = $(this).data("mode");
+
+            let inputElement = $("#modal-frogSkin #texture-image");
+            inputElement.trigger("click");
+            inputElement.off("change");
+            inputElement.on("change", () => {
+                let formData = new FormData($("#texture-image-form")[0]);
+                $.ajax({
+                    url: `${global.SKINS_API_URL}/${textureUploadType}/upload?secret=${currentAccountInEditor.secret}`,
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        FrogSkinsUI.refreshAllProfiles().then(() => {
+                            FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
+                        })
+                    },
+                    error: function (e) {
+                        console.log(e);
+                        $error.show();
+                        let response = e.responseJSON || e.responseText;
+
+                        if (typeof response.success !== "undefined" && response.success === false) {
+                            let errorMessage = response.error || e.responseJSON.errorMessage;
+                            if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
+                                return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
+                            }
+                            return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+                        }
+                        $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
+                    },
+                    processData: false,
+                    contentType: false
+                });
+            });
+        });
+    })
+</script>

@@ -44,7 +44,7 @@
     pointer-events: none;
 }
 
-.layout {
+body > .layout {
     display: grid;
     height: 100%;
     width: 100%;
@@ -59,44 +59,44 @@
     "flyout flyout";
 }
 
-.layout > .title-wrapper {
+body > .layout > .title-wrapper {
     grid-area: title-wrapper;
     display: flex;
 }
 
-.layout > .title-wrapper .title,
-.layout > .title-wrapper .title * {
+body > .layout > .title-wrapper .title,
+body > .layout > .title-wrapper .title * {
     -webkit-app-region: drag;
     color: white;
 }
 
-.layout > .title-wrapper .title {
+body > .layout > .title-wrapper .title {
     flex-grow: 1;
 }
 
-.layout > .title-wrapper .title span {
+body > .layout > .title-wrapper .title span {
     font-size: 21pt;
     font-weight: 700;
 }
 
-.layout .flymenu {
+body > .layout .flymenu {
     align-self: center;
     grid-area: flymenu;
     overflow: visible;
 }
 
-.layout .content {
+body > .layout .content {
     grid-area: content;
     overflow: visible;
 }
 
-.layout .windowButtons {
+body > .layout .windowButtons {
     justify-self: end;
     align-self: center;
     grid-area: windowButtons;
 }
 
-.layout .flyout {
+body > .layout .flyout {
     width: 100%;
     justify-self: center;
     align-self: center;
@@ -109,7 +109,7 @@
 }
 
 /* Layout inner content */
-.layout .content-inner {
+body > .layout .content-inner {
     overflow-y: auto;
     max-height: 73vh;
 
@@ -118,15 +118,15 @@
     border-radius: 12px;
 }
 
-.layout .content-inner > * {
+body > .layout .content-inner > * {
     margin: 16px 0;
 }
 
-.layout .content-inner::-webkit-scrollbar-track {
+body > .layout .content-inner::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.layout .content-inner::-webkit-scrollbar {
+body > .layout .content-inner::-webkit-scrollbar {
     width: 8px;
 }
 

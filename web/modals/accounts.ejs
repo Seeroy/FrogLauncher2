@@ -22,9 +22,14 @@
                 <span class="check">
                     <span class="material-symbols-outlined">check</span>
                 </span>
-                <button class="delete square small transparent" onclick="FrogAccountsManager.deleteAccount('$3')">
-                    <span class="material-symbols-outlined">delete</span>
-                </button>
+                <div class="buttons">
+                    <button class="edit square small transparent" style="display: $6;" onclick="FrogSkinsUI.refreshSkinUI('$3'); FrogModals.showModal('frogSkin')">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <button class="delete square small transparent" onclick="FrogAccountsManager.deleteAccount('$3')">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

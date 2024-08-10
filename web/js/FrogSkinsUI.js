@@ -47,11 +47,9 @@ class FrogSkinsUI {
                 if (typeof response.success !== "undefined" && response.success === false) {
                     let errorMessage = response.error || e.responseJSON.errorMessage;
                     if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
-                        $error.text(MESSAGES.frogAuth.errors[errorMessage]);
-                    } else {
-                        $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+                        return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
                     }
-                    return;
+                    return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
                 }
                 $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
             })
@@ -108,11 +106,9 @@ class FrogSkinsUI {
                 if (typeof response.success !== "undefined" && response.success === false) {
                     let errorMessage = response.error || e.responseJSON.errorMessage;
                     if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
-                        $error.text(MESSAGES.frogAuth.errors[errorMessage]);
-                    } else {
-                        $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+                        return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
                     }
-                    return;
+                    return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
                 }
                 $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
             })
@@ -152,6 +148,33 @@ class FrogSkinsUI {
                 FrogAccountsManager.saveAccounts(accountsList);
                 return promiseResolve();
             }
+        }
+    }
+
+    // Обновить UI для работы со скинами/плащами
+    static refreshSkinUI = (accountUuid) => {
+        let accountData = FrogAccountsManager.getAccount(accountUuid);
+        global.currentAccountInEditor = accountData;
+        $("#modal-frogSkin .error").hide();
+        let $skinDragzone = $("#modal-frogSkin .skindiv .dragzone");
+        let $capeDragzone = $("#modal-frogSkin .capediv .dragzone");
+
+        if(accountData.textures.skin !== false){
+            $skinDragzone.find("img").show();
+            $skinDragzone.find("img").attr("src", accountData.textures.skin);
+            $skinDragzone.find("h4").hide();
+        } else {
+            $skinDragzone.find("h4").show();
+            $skinDragzone.find("img").hide();
+        }
+
+        if(accountData.textures.cape !== false){
+            $capeDragzone.find("img").show();
+            $capeDragzone.find("img").attr("src", accountData.textures.cape);
+            $capeDragzone.find("h4").hide();
+        } else {
+            $capeDragzone.find("h4").show();
+            $capeDragzone.find("img").hide();
         }
     }
 }

@@ -14,13 +14,15 @@ class FrogAccountsUI {
         Object.values(accountsList).forEach((acc) => {
             let accountType = FrogAccountsUI.typeDisplayName(acc.type);
             let imageUrl = `https://minotar.net/avatar/${acc.nickname}/44`;
+            let editButtonVisible = "none";
             if (acc.type === "elyby") {
                 imageUrl = path.join(global.USERDATA_PATH, "elybySkins", `${acc.nickname}.png`);
             }
             if (acc.type === "frog") {
                 imageUrl = acc.textures.head || imageUrl;
+                editButtonVisible = "inherit";
             }
-            let preparedPlaceholder = placeholder.replaceAll("$1", acc.nickname).replaceAll("$2", accountType).replaceAll("$3", acc.uuid).replaceAll("$4", imageUrl).replaceAll("$5", acc.type);
+            let preparedPlaceholder = placeholder.replaceAll("$1", acc.nickname).replaceAll("$2", accountType).replaceAll("$3", acc.uuid).replaceAll("$4", imageUrl).replaceAll("$5", acc.type).replaceAll("$6", editButtonVisible);
             $("#modal-accounts .accounts-list").append(preparedPlaceholder);
         })
 
@@ -63,7 +65,7 @@ class FrogAccountsUI {
         } else {
             $("#accountSelect")[0].innerHTML = "";
             $("#accountSelect")[0].innerHTML = $activeAccount.html();
-            $("#accountSelect .check, #accountSelect .delete").remove();
+            $("#accountSelect .check, #accountSelect .buttons").remove();
         }
         return true;
     }

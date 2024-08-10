@@ -6,10 +6,16 @@
 #modal-frogSkin .layout {
     display: grid;
     width: 100%;
-    height: 100%;
+    height: 75%;
 
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+}
+
+#modal-frogSkin .error {
+    width: 100%;
+    color: var(--error);
+    text-align: center;
 }
 
 #modal-frogSkin .layout > div {

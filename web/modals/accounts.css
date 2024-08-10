@@ -56,13 +56,24 @@
     grid-template-rows: max-content max-content;
     gap: 6px;
     grid-template-areas:
-    "icon title button check"
-    "icon description button check";
+    "icon title buttons check"
+    "icon description buttons check";
 
     height: max-content;
     padding: 6px 12px;
 
     width: 100%;
+}
+
+#modal-accounts .accounts-list .item .buttons {
+    grid-area: buttons;
+    align-self: center;
+    justify-self: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
 }
 
 #modal-accounts .accounts-list .item .icon,
@@ -104,21 +115,21 @@
     display: none;
 }
 
-#modal-accounts .accounts-list .item .delete {
-    grid-area: check;
-    align-self: center;
-    justify-self: center;
-
+#modal-accounts .accounts-list .item .buttons button {
     cursor: pointer;
 
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     display: none;
 }
 
 #modal-accounts .accounts-list .item .delete:hover * {
     color: var(--error);
+}
+
+#modal-accounts .accounts-list .item .edit:hover * {
+    color: var(--theme-primary);
 }
 
 #modal-accounts .accounts-list .item:not(.active) .delete {
