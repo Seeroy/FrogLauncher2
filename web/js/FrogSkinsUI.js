@@ -17,13 +17,13 @@ class FrogSkinsUI {
 
     // Начать процесс регистрации
     static register = () => {
-        let login = $("#modal-frogRegister input.login").val();
-        let password = $("#modal-frogRegister input.password").val();
-        let repPassword = $("#modal-frogRegister input.password-repeat").val();
+        let login = $("#modal-frogRegister input.login").val().trim();
+        let password = $("#modal-frogRegister input.password").val().trim();
+        let repPassword = $("#modal-frogRegister input.password-repeat").val().trim();
 
         let $error = $("#modal-frogRegister .error");
 
-        if (login !== "" && password !== "" && password === repPassword) {
+        if (login !== "" && password !== "" && password === repPassword && login.match(NICKNAME_REGEX) !== null) {
             $("#modal-frogRegister .loginBtn").hide();
             $error.hide();
 
@@ -63,11 +63,11 @@ class FrogSkinsUI {
 
     // Начать процесс входа
     static login = () => {
-        let login = $("#modal-frogLogin input.login").val();
-        let password = $("#modal-frogLogin input.password").val();
+        let login = $("#modal-frogLogin input.login").val().trim();
+        let password = $("#modal-frogLogin input.password").val().trim();
         let $error = $("#modal-frogLogin .error");
 
-        if (login !== "" && password !== "") {
+        if (login !== "" && password !== "" && login.match(NICKNAME_REGEX) !== null) {
             $("#modal-frogLogin .loginBtn").hide();
             $error.hide();
 
