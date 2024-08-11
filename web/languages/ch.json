@@ -320,6 +320,7 @@
       "FILE_BITMAP_TOO_BIG": "文件太大或太大",
       "UNKNOWN": "执行操作时发生错误",
       "ALREADY_EXISTS": "该用户已存在，请选择其他昵称"
-    }
+    },
+    "useButton": "FrogSkins皮肤系统"
   }
 }

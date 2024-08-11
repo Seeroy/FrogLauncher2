@@ -319,7 +319,8 @@
         "FILE_BITMAP_TOO_BIG": "The file is too large or too large",
         "UNKNOWN": "An error occurred while performing the action",
         "ALREADY_EXISTS": "This user already exists, please select a different nickname"
-      }
+      },
+      "useButton": "Use FrogSkins"
     }
   }
 }

@@ -34,8 +34,8 @@ class FrogLaunchConfigurator {
                 FrogLaunchConfigurator.getModdedLaunchConfig(versionParsed.type, versionParsed.name).then(moddedLaunchConfig => {
                     resultConfig = {...moddedLaunchConfig, ...resultConfig};
                     resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
-                    // Готовим конфиг для ely.by, если надо
-                    FrogLaunchConfigurator.setupForSkinSystems(resultConfig, activeAccount).then((resultConfigFinal) => {
+                    // Настраиваем authlib-injector
+                    FrogLaunchConfigurator.setupAuthlib(resultConfig, activeAccount).then((resultConfigFinal) => {
                         return resolve(resultConfigFinal);
                     })
                 })
@@ -44,7 +44,7 @@ class FrogLaunchConfigurator {
     }
 
     // Подготовить всё для запуска Ely.by/FrogSkins
-    static setupForSkinSystems = (config, activeAccount) => {
+    static setupAuthlib = (config, activeAccount) => {
         return new Promise(resolve => {
             let configResult = config;
             let accountType = FrogAccountsManager.getAccount(activeAccount).type;
@@ -52,8 +52,8 @@ class FrogLaunchConfigurator {
                 return resolve(configResult);
             }
             let apiUrl = "ely.by";
-            if(accountType === "frog"){
-                apiUrl = global.SKINS_API_URL.replace("https://", "");
+            if (accountType === "frog") {
+                apiUrl = global.SKINS_API_URL;
             }
             // Очищаем кэш скинов
             FrogSkinsUI.clearSkinsCache();
@@ -62,14 +62,16 @@ class FrogLaunchConfigurator {
             if (!fs.existsSync(authlibInjectorPath)) {
                 FrogDownloader.downloadFile(global.AUTHLIB_INJECTOR_URL, authlibInjectorPath).then(() => {
                     configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replaceAll(/\\/gi, "/")}=${apiUrl}`);
-                    if(global.IS_APP_IN_DEV){
+                    // Дебаг-режим
+                    if (global.IS_APP_IN_DEV) {
                         configResult.customArgs.push(`-Dauthlibinjector.debug=verbose,authlib`);
                     }
                     return resolve(configResult);
                 })
             } else {
                 configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replaceAll(/\\/gi, "/")}=${apiUrl}`);
-                if(global.IS_APP_IN_DEV){
+                // Дебаг-режим
+                if (global.IS_APP_IN_DEV) {
                     configResult.customArgs.push(`-Dauthlibinjector.debug=verbose,authlib`);
                 }
                 return resolve(configResult);

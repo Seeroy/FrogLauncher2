@@ -319,7 +319,8 @@
         "FILE_BITMAP_TOO_BIG": "Die Datei ist zu groß oder zu groß",
         "UNKNOWN": "Beim Ausführen der Aktion ist ein Fehler aufgetreten",
         "ALREADY_EXISTS": "Dieser Benutzer existiert bereits. Bitte wählen Sie einen anderen Spitznamen"
-      }
+      },
+      "useButton": "FrogSkins-Hautsystem"
     }
   }
 }

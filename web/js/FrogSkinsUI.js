@@ -193,9 +193,9 @@ class FrogSkinsUI {
             type: "POST",
             data: formData,
             success: function (response) {
-                FrogSkinsUI.refreshAllProfiles().then(() => {
                     FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
-                })
+                    FrogSkinsUI.refreshAllProfiles();
+                    FrogAccountsUI.reloadAccountSelect();
             },
             error: function (e) {
                 console.log(e);
