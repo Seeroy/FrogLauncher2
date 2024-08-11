@@ -83,8 +83,8 @@ class FrogSkinsUI {
                         nickname: result.username,
                         added: Date.now(),
                         clientToken: result.profileId,
-                        accessToken: result.profileUuid,
-                        uuid: result.profileUuid,
+                        accessToken: FrogUtils.randomString(32),
+                        uuid: result.profileUuid.replaceAll("-", ""),
                         secret: result.secret,
                         textures: result.textures
                     }

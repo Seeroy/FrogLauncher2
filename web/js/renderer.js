@@ -40,7 +40,7 @@ global.IS_APP_IN_DEV = ipcRenderer.sendSync("isAppInDev");
 global.IS_APP_IN_TEST = ipcRenderer.sendSync("isAppInTest");
 
 if(IS_APP_IN_DEV) {
-    global.SKINS_API_URL = "http://localhost:80";
+    //global.SKINS_API_URL = "http://localhost:58883";
 }
 
 // Пути к файлам

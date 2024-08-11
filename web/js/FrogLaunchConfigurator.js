@@ -53,7 +53,7 @@ class FrogLaunchConfigurator {
             }
             let apiUrl = "ely.by";
             if(accountType === "frog"){
-                apiUrl = global.SKINS_API_URL;
+                apiUrl = global.SKINS_API_URL.replace("https://", "");
             }
             // Очищаем кэш скинов
             FrogSkinsUI.clearSkinsCache();
@@ -61,11 +61,17 @@ class FrogLaunchConfigurator {
             let authlibInjectorPath = path.join(global.GAME_DATA, "cache", "authlib-injector.jar");
             if (!fs.existsSync(authlibInjectorPath)) {
                 FrogDownloader.downloadFile(global.AUTHLIB_INJECTOR_URL, authlibInjectorPath).then(() => {
-                    configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=${apiUrl}`);
+                    configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replaceAll(/\\/gi, "/")}=${apiUrl}`);
+                    if(global.IS_APP_IN_DEV){
+                        configResult.customArgs.push(`-Dauthlibinjector.debug=verbose,authlib`);
+                    }
                     return resolve(configResult);
                 })
             } else {
-                configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replace(/\\/, "/")}=${apiUrl}`);
+                configResult.customArgs.push(`-javaagent:${authlibInjectorPath.replaceAll(/\\/gi, "/")}=${apiUrl}`);
+                if(global.IS_APP_IN_DEV){
+                    configResult.customArgs.push(`-Dauthlibinjector.debug=verbose,authlib`);
+                }
                 return resolve(configResult);
             }
         })
