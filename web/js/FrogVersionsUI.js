@@ -11,6 +11,7 @@ class FrogVersionsUI {
     static loadVersions = () => {
         $(".flyout #versionSelectPlaceholder").show();
         $(".flyout #versionSelect").hide();
+        $(".flyout #playButton").hide();
 
         $("#modal-versions .versions-list .item").unbind("click");
         $("#modal-versions .versions-list .item:not(.placeholder)").remove();
@@ -91,6 +92,7 @@ class FrogVersionsUI {
         }
         $(".flyout #versionSelectPlaceholder").hide();
         $(".flyout #versionSelect").show();
+        $(".flyout #playButton").show();
         return true;
     }
 

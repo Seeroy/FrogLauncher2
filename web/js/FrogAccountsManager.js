@@ -89,6 +89,13 @@ class FrogAccountsManager {
                 return cb(authData);
             });
         } else if (accountData.type === "microsoft") {
+            if(accountData.data.meta.exp <= Date.now()){
+                FrogAccountsManager.deleteAccount(accountId);
+                FrogAlerts.create("Microsoft/Mojang", MESSAGES.elyby.repeat, MESSAGES.commons.login, "settings_account_box", () => {
+                    FrogAccountsUI.addMicrosoftAccount();
+                });
+                return cb(false);
+            }
             return cb(accountData.data);
         } else if (accountData.type === "frog") {
             return cb({

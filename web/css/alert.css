@@ -53,6 +53,7 @@
 
 .alert-modal .alert-window .alert-icon .material-symbols-outlined {
     font-size: 26pt;
+    color: var(--text-color);
 }
 
 .alert-modal .alert-window .alert-caption {

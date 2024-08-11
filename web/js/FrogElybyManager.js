@@ -75,6 +75,8 @@ class FrogElybyManager {
                             $("#modal-elybyLogin .error").text(MESSAGES.elyby.repeat);
                             FrogModals.showModal("elybyLogin");
                             FrogAccountsManager.deleteAccount(uuid);
+                            FrogFlyout.setUIStartMode(false);
+                            FrogFlyout.changeMode("idle");
                             return resolve(false);
                         } else {
                             // Сохраняем данные после рефреша
