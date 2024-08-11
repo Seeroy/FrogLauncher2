@@ -78,7 +78,7 @@
 }
 
 #modal-versions .versions-list .item.active {
-    border: 3px solid var(--theme-primary);
+    outline: 3px solid var(--theme-primary);
 }
 
 #modal-versions .preloader {

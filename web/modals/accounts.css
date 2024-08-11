@@ -86,8 +86,8 @@
 #accountSelect .icon .avatar {
     object-fit: cover;
 
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
 }
 
 #modal-accounts .accounts-list .item .icon .type,
@@ -137,7 +137,7 @@
 }
 
 #modal-accounts .accounts-list .item.active {
-    border: 3px solid var(--theme-primary);
+    outline: 3px solid var(--theme-primary);
 }
 
 /* Add local item */
