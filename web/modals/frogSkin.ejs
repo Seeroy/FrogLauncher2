@@ -2,7 +2,7 @@
 
 <dialog class="modal overlay centered" id="modal-frogSkin" style="display: none;">
     <div class="flex flex-gap-8 flex-align-center">
-        <button class="square transparent small" onclick="FrogModals.showContent()">
+        <button class="square transparent small" onclick="FrogModals.hideModal('frogSkin')">
             <span class="material-symbols-outlined">west</span>
         </button>
         <span class="material-symbols-outlined">add_reaction</span>
@@ -15,15 +15,16 @@
         <div class="skindiv">
             <h2>{{frogAuth.skin.skin}}</h2>
             <div data-mode="skin" class="dragzone">
-                <img style="display: none"/>
-                <h4>Не установлен. Нажмите сюда, чтобы установить</h4>
+                <span class="material-symbols-outlined">upload_file</span>
+                <h4>Нажмите сюда или перетащите файл, чтобы выбрать скин</h4>
             </div>
         </div>
+        <canvas id="skin_container"></canvas>
         <div class="capediv">
             <h2>{{frogAuth.skin.cape}}</h2>
             <div data-mode="cape" class="dragzone">
-                <img style="display: none"/>
-                <h4>Не установлен. Нажмите сюда, чтобы установить</h4>
+                <span class="material-symbols-outlined">upload_file</span>
+                <h4>Нажмите сюда или перетащите файл, чтобы выбрать скин</h4>
             </div>
         </div>
     </div>
@@ -37,6 +38,34 @@
     $(function () {
         let $error = $("#modal-frogSkin .error");
 
+        // Настройка drag and drop
+        $("#modal-frogSkin .layout .dragzone").each(function() {
+            $(this).on("dragenter", (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).addClass("dragged");
+            })
+
+            $(this).on("dragover", (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+            })
+
+            $(this).on("dragleave", (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).removeClass("dragged");
+            })
+
+            $(this).on("drop", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                textureUploadType = $(this).data("mode");
+                FrogSkinsUI.uploadTexture(textureUploadType, e.originalEvent.dataTransfer.files[0]);
+                $(this).removeClass("dragged");
+            })
+        })
+
         $("#modal-frogSkin .layout .dragzone").click(function () {
             textureUploadType = $(this).data("mode");
 
@@ -44,33 +73,7 @@
             inputElement.trigger("click");
             inputElement.off("change");
             inputElement.on("change", () => {
-                let formData = new FormData($("#texture-image-form")[0]);
-                $.ajax({
-                    url: `${global.SKINS_API_URL}/${textureUploadType}/upload?secret=${currentAccountInEditor.secret}`,
-                    type: "POST",
-                    data: formData,
-                    success: function (response) {
-                        FrogSkinsUI.refreshAllProfiles().then(() => {
-                            FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
-                        })
-                    },
-                    error: function (e) {
-                        console.log(e);
-                        $error.show();
-                        let response = e.responseJSON || e.responseText;
-
-                        if (typeof response.success !== "undefined" && response.success === false) {
-                            let errorMessage = response.error || e.responseJSON.errorMessage;
-                            if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
-                                return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
-                            }
-                            return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
-                        }
-                        $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
-                    },
-                    processData: false,
-                    contentType: false
-                });
+                FrogSkinsUI.uploadTexture(textureUploadType);
             });
         });
     })

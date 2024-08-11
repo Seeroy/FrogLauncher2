@@ -39,3 +39,28 @@
         transform: rotate(360deg);
     }
 }
+
+.line-spinner {
+    display: inline-block;
+    width: 100%;
+    height: 16px;
+    border-radius: 9999px;
+
+    background: var(--theme-primaryBgLight);
+
+    background-image: linear-gradient(90deg, var(--theme-primaryBgLight) 0%, var(--theme-primaryBgLighter) 50%, var(--theme-primaryBgLight) 100%) !important;
+    filter: brightness(115%);
+    background-position: 0 0;
+    animation: gradAnim 3s linear infinite normal;
+}
+
+.line-spinner.custom-select {
+    height: 100%;
+    width: max-content;
+    flex-grow: 1;
+    pointer-events: none;
+}
+
+.line-spinner.small {
+    height: 10px;
+}

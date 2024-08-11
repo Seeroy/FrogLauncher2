@@ -2,7 +2,9 @@
 
 <div class="flyout animate__animated animate__fadeInUp animate__faster">
     <!-- Выбор аккаунта -->
-    <div class="custom-select icon-and-description" id="accountSelect" onclick="FrogAccountsUI.open()">
+    <div class="line-spinner custom-select" id="accountSelectPlaceholder" style="flex-grow: 0.3;"></div>
+
+    <div class="custom-select icon-and-description" id="accountSelect" onclick="FrogAccountsUI.open()" style="display: none">
         <img class="icon" style="display: none"/>
         <span class="title">{{commons.notSelected}}</span>
         <span class="description">{{flyout.account}}</span>
@@ -11,8 +13,10 @@
         </div>
     </div>
     <!-- Выбор версии -->
+    <div class="line-spinner custom-select" id="versionSelectPlaceholder"></div>
+
     <div class="custom-select icon-and-description flyout-mode" id="versionSelect" data-mode="idle"
-         onclick="FrogVersionsUI.open()">
+         onclick="FrogVersionsUI.open()" style="display: none">
         <img class="icon" style="display: none"/>
         <span class="title">{{commons.notSelected}}</span>
         <span class="description">{{flyout.version}}</span>

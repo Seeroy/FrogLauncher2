@@ -8,8 +8,9 @@
     width: 100%;
     height: 75%;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
+    gap: 2px;
 }
 
 #modal-frogSkin .error {
@@ -34,15 +35,32 @@
     cursor: pointer;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#modal-frogSkin .layout .dragzone.dragged h4 {
+    display: none;
 }
 
 #modal-frogSkin .layout .dragzone h4 {
     text-align: center;
 }
 
-#modal-frogSkin .layout .dragzone:hover {
+#modal-frogSkin .layout .dragzone:hover,
+#modal-frogSkin .layout .dragzone.dragged {
     border: 4px dashed var(--theme-primaryBgLighter);
     background: var(--theme-primaryBgLight);
+}
+
+#skin_container {
+    align-self: center;
+    justify-self: center;
+    align-content: center;
+    justify-content: center;
+    pointer-events: none;
+
+    width: 300% !important;
+    height: 100% !important;
 }

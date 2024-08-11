@@ -7,6 +7,7 @@
     <script src="./js/renderer.js"></script>
     <script src="./js/howler.min.js"></script>
     <script src="./js/colors.js"></script>
+    <script src="./js/skinview3d.bundle.js"></script>
 
     <!-- Cтили -->
     <link href="./css/globals.css" rel="stylesheet">
@@ -171,6 +172,9 @@
             // Переводим все ноды в DOM
             FrogTranslator.translateAllNodes();
             FrogTranslator.loadLanguagesList();
+
+            // Блокировка драга картинок
+            $('img').on('dragstart', function(event) { event.preventDefault(); });
         }, 500);
 
         $("html").show();

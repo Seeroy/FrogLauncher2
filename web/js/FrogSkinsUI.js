@@ -1,3 +1,5 @@
+let skinViewer;
+
 class FrogSkinsUI {
     // Перейти к регистрации
     static goRegister() {
@@ -133,7 +135,7 @@ class FrogSkinsUI {
             currentAccount++;
             let accItem = accountsList[keysEachList[currentAccount]];
             if (typeof accItem !== "undefined") {
-                if(accItem.type === "frog"){
+                if (accItem.type === "frog") {
                     $.get(`${global.SKINS_API_URL}/profile?secret=${accItem.secret}`, (result) => {
                         if (result.success === true) {
                             accountsList[keysEachList[currentAccount]].textures = result.textures;
@@ -156,25 +158,85 @@ class FrogSkinsUI {
         let accountData = FrogAccountsManager.getAccount(accountUuid);
         global.currentAccountInEditor = accountData;
         $("#modal-frogSkin .error").hide();
-        let $skinDragzone = $("#modal-frogSkin .skindiv .dragzone");
-        let $capeDragzone = $("#modal-frogSkin .capediv .dragzone");
 
-        if(accountData.textures.skin !== false){
-            $skinDragzone.find("img").show();
-            $skinDragzone.find("img").attr("src", accountData.textures.skin);
-            $skinDragzone.find("h4").hide();
-        } else {
-            $skinDragzone.find("h4").show();
-            $skinDragzone.find("img").hide();
-        }
-
-        if(accountData.textures.cape !== false){
-            $capeDragzone.find("img").show();
-            $capeDragzone.find("img").attr("src", accountData.textures.cape);
-            $capeDragzone.find("h4").hide();
-        } else {
-            $capeDragzone.find("h4").show();
-            $capeDragzone.find("img").hide();
-        }
+        setTimeout(() => {
+            renderSkinInUI((accountData.textures.skin || ""), (accountData.textures.cape || ""));
+        }, 250);
     }
+
+    // Очистить кэш скинов
+    static clearSkinsCache = () => {
+        let cachePath = `${global.GAME_DATA}/assets/skins`;
+        if (!fs.existsSync(cachePath)) {
+            return true;
+        }
+
+        fs.rmSync(cachePath, {recursive: true, force: true});
+        if (!fs.existsSync(cachePath)) {
+            fs.mkdirSync(cachePath);
+        }
+        return true;
+    }
+
+    // Загрузить текстуру на сервер
+    static uploadTexture = (type, file = "") => {
+        let $error = $("#modal-frogSkin .error");
+        let formData;
+        if(file === ""){
+            formData = new FormData($("#texture-image-form")[0]);
+        } else {
+            formData = new FormData();
+            formData.append('texture-image', file);
+        }
+        $.ajax({
+            url: `${global.SKINS_API_URL}/${type}/upload?secret=${currentAccountInEditor.secret}`,
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                FrogSkinsUI.refreshAllProfiles().then(() => {
+                    FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
+                })
+            },
+            error: function (e) {
+                console.log(e);
+                $error.show();
+                let response = e.responseJSON || e.responseText;
+
+                if (typeof response.success !== "undefined" && response.success === false) {
+                    let errorMessage = response.error || e.responseJSON.errorMessage;
+                    if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
+                        return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
+                    }
+                    return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+                }
+                $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
+            },
+            processData: false,
+            contentType: false
+        });
+    }
+}
+
+function renderSkinInUI(skinPath = "", capePath = "") {
+    let $canvas = document.getElementById("skin_container");
+    if (skinPath === "" && capePath === "") {
+        return false;
+    }
+
+    if (skinPath !== "") {
+        let canvasSizes = $canvas.getBoundingClientRect();
+        skinViewer = new skinview3d.SkinViewer({
+            canvas: $canvas,
+            width: Math.round(canvasSizes.width),
+            height: Math.round(canvasSizes.height)
+        });
+        skinViewer.autoRotate = true;
+        skinViewer.loadSkin(path.normalize(skinPath));
+        skinViewer.animation = new skinview3d.WalkingAnimation();
+    }
+
+    if (capePath !== "") {
+        skinViewer.loadCape(path.normalize(capePath));
+    }
+    return true;
 }

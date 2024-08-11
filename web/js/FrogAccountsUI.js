@@ -55,6 +55,8 @@ class FrogAccountsUI {
 
     // Перезагрузить кнопку для открытия менеджера аккаунтов
     static reloadAccountSelect = () => {
+        $(".flyout #accountSelectPlaceholder").show();
+        $(".flyout #accountSelect").hide();
         let activeAccount = FrogAccountsManager.getActiveAccount();
         let $activeAccount = $("#modal-accounts .accounts-list .item.active");
 
@@ -67,6 +69,8 @@ class FrogAccountsUI {
             $("#accountSelect")[0].innerHTML = $activeAccount.html();
             $("#accountSelect .check, #accountSelect .buttons").remove();
         }
+        $(".flyout #accountSelectPlaceholder").hide();
+        $(".flyout #accountSelect").show();
         return true;
     }
 

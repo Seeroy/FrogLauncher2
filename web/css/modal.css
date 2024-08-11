@@ -67,3 +67,10 @@ dialog.modal * {
     height: 24px;
     font-size: 18px;
 }
+
+/* Icon */
+.modal > div:nth-child(1) > .material-symbols-outlined {
+    background: var(--theme-primaryBgLight);
+    padding: 10px;
+    border-radius: 8px;
+}

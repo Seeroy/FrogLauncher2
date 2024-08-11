@@ -55,6 +55,8 @@ class FrogLaunchConfigurator {
             if(accountType === "frog"){
                 apiUrl = global.SKINS_API_URL;
             }
+            // Очищаем кэш скинов
+            FrogSkinsUI.clearSkinsCache();
             // Если аккаунт - Ely.by скачиваем инжектор и добавляем его в конфигурацию
             let authlibInjectorPath = path.join(global.GAME_DATA, "cache", "authlib-injector.jar");
             if (!fs.existsSync(authlibInjectorPath)) {

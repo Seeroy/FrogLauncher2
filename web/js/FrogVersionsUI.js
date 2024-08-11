@@ -9,6 +9,9 @@ class FrogVersionsUI {
 
     // Загрузить список версий в UI
     static loadVersions = () => {
+        $(".flyout #versionSelectPlaceholder").show();
+        $(".flyout #versionSelect").hide();
+
         $("#modal-versions .versions-list .item").unbind("click");
         $("#modal-versions .versions-list .item:not(.placeholder)").remove();
         $("#modal-versions .preloader").show();
@@ -86,6 +89,8 @@ class FrogVersionsUI {
             $("#versionSelect .icon").show();
             $("#versionSelect .icon").attr("src", $activeVersionItem.find("img.icon").attr("src"));
         }
+        $(".flyout #versionSelectPlaceholder").hide();
+        $(".flyout #versionSelect").show();
         return true;
     }
 
