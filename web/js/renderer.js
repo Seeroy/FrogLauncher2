@@ -14,6 +14,7 @@ const machineUuid = require("machine-uuid");
 const packageJson = require("./../package.json");
 const Jimp = require("jimp");
 const compressing = require('compressing');
+const treeKill = require("tree-kill");
 
 const {exec} = require('node:child_process');
 

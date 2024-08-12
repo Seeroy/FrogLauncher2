@@ -31,6 +31,19 @@
     animation-duration: .24s !important;
 }
 
+.flyout #stopGameButton {
+    background: var(--error);
+}
+
+.flyout #stopGameButton,
+.flyout #stopGameButton * {
+    color: white !important;
+}
+
+.flyout #stopGameButton:hover {
+    filter: brightness(87%);
+}
+
 /* Hide divs */
 .flyout > div.hidden {
     display: none;

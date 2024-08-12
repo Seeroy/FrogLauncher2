@@ -1,6 +1,7 @@
 let gameStarting = false;
 let assetsVerifyOffset = 0;
 let startAssetsInterval = 0;
+let gamePid = false;
 
 class FrogStarter {
     constructor(versionId, versionType, versionNumber) {
@@ -8,6 +9,14 @@ class FrogStarter {
         this.versionType = versionType;
         this.versionNumber = versionNumber;
         this.config = {};
+    }
+
+    static kill = () => {
+        if (gamePid === false || gameStarting === false) {
+            return false;
+        }
+        treeKill(gamePid);
+        return true;
     }
 
     prepare = () => {
@@ -71,7 +80,9 @@ class FrogStarter {
         FrogFlyout.changeMode("progress").then(() => {
             FrogCollector.writeLog(`Starter: UI preparation completed, starting game`);
             let launcher = new Client();
-            launcher.launch(this.config);
+            launcher.launch(this.config).then(r => {
+                gamePid = r.pid;
+            })
 
             launcher.on('debug', (e) => {
                 FrogErrorsParser.parse(e);
@@ -95,16 +106,18 @@ class FrogStarter {
                 FrogCollector.writeLog(e);
             });
             launcher.on('close', (exitCode) => {
+                gamePid = false;
                 gameStarting = false;
                 assetsVerifyOffset = 0;
                 startAssetsInterval = 0;
+                $("#stopGameButton").hide();
                 FrogUI.appearMainWindow();
                 setTimeout(() => {
                     FrogFlyout.setUIStartMode(false);
                     FrogFlyout.changeMode("idle");
                 }, 1000);
                 FrogErrorsParser.parse("", exitCode);
-                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && FrogConfig.read("consoleOnCrash") === true) {
+                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
                     FrogUI.showConsole();
                 }
                 if (global.IS_APP_IN_DEV) {
@@ -114,6 +127,7 @@ class FrogStarter {
             });
             launcher.on("arguments", (e) => {
                 gameStarting = true;
+                $("#stopGameButton").show();
                 // Показываем консоль
                 if (FrogConfig.read("consoleOnStart") === true) {
                     FrogUI.showConsole();

@@ -36,7 +36,8 @@
     "msmc": "^5.0.5",
     "open": "^8.4.2",
     "request": "^2.88.2",
-    "tomate-loaders": "^2.0.2"
+    "tomate-loaders": "^2.0.2",
+    "tree-kill": "^1.2.2"
   },
   "build": {
     "productName": "FrogLauncher",

@@ -221,7 +221,8 @@
     "flyout": {
       "account": "ACCOUNT",
       "version": "GAME VERSION",
-      "play": "Play"
+      "play": "Play",
+      "stop": "Stop"
     },
     "versions": {
       "releases": "Release versions",

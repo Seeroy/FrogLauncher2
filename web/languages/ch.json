@@ -221,7 +221,8 @@
     "flyout": {
       "account": "帳戶",
       "version": "遊戲版本",
-      "play": "遊戲"
+      "play": "遊戲",
+      "stop": "完全的"
     },
     "versions": {
       "releases": "發行版本",
