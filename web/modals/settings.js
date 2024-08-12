@@ -37,12 +37,17 @@ $(function () {
     })
 
     // Загрузка цвета в Color Picker
+    let colorMatched = false;
     $(".color-picker").each(function () {
         let color = $(this).css("background").split(")")[0] + ")";
         if (color === currentThemeData.color) {
             $(this).addClass("active");
+            colorMatched = true;
         }
     });
+    if(colorMatched === false){
+        $("#modal-settings .color-picker.custom").val(currentThemeData.color);
+    }
 
     // Загрузка настроек обоев и режима
     $(`#modal-settings .placeholder.${currentThemeData.mode}`).addClass("active");
@@ -98,7 +103,7 @@ $(function () {
     })
 
     // Смена основного цвета
-    $(".color-picker").click(function () {
+    $(".color-picker:not(.custom)").click(function () {
         if ($(this).hasClass("active")) {
             return;
         }
@@ -107,6 +112,18 @@ $(function () {
         $(this).addClass("active");
         let color = $(this).css("background").split(")")[0] + ")";
         FrogThemes.changeTheme(color);
+    })
+
+    $(".color-edit").click(() => {
+        $("input.color-picker.custom").trigger("click");
+    })
+
+    $(".color-picker.custom").on("change", function(){
+        let color = $(this).val();
+        let colorRGB = colors.hexToRgb(color);
+        FrogThemes.changeTheme(`rgb(${colorRGB.r}, ${colorRGB.g}, ${colorRGB.b})`);
+        $(".color-picker.active").removeClass("active");
+        $(this).addClass("active");
     })
 
     // Переключение табов

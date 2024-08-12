@@ -9,6 +9,32 @@
     cursor: pointer;
 }
 
+input.color-picker {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+.color-edit {
+    background: var(--theme-primaryBgLighter);
+    padding: 0;
+    margin: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    min-width: 32px;
+}
+
+.color-edit:hover {
+    filter: brightness(118%);
+    background: var(--theme-primaryBgLighter);
+}
+
+.color-edit * {
+    color: var(--text-color);
+    font-size: 10pt;
+}
+
 .color-picker:hover {
     filter: brightness(86%);
 }

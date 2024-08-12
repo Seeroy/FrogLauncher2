@@ -1,4 +1,4 @@
-button, input[type="text"], select, input[type="number"], input[type="password"], input[type="email"], textarea, dialog {
+button, input[type="text"], select, input[type="number"], input[type="color"], input[type="password"], input[type="email"], textarea, dialog {
     background: none;
     border: none;
     appearance: none;
