@@ -5,6 +5,7 @@
 
 *:not(.slider)::-webkit-scrollbar-track {
     background: var(--theme-primaryBgLight);
+    border-radius: 8px;
 }
 
 *:not(.slider)::-webkit-scrollbar {

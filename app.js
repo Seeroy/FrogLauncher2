@@ -23,8 +23,6 @@ let lastLogBack;
 // Создаём глобальные переменные для хранения BrowserWindow
 let mainWindowObject;
 let mainWindow = require("./windows/mainWindow"); // Модуль для создания главного окна
-let consoleWindowObject;
-let consoleWindow = require("./windows/consoleWindow"); // Модуль для создания окна консоли
 const DEFAULT_USER_AGENT = "FrogLauncher/v" + pjson.version;
 
 // Е-Е-Едем
@@ -69,18 +67,6 @@ app.whenReady().then(() => {
         });
     }
 
-    // Создаём консоль
-    consoleWindow.create(function (conObj) {
-        consoleWindowObject = conObj;
-        consoleWindowObject.hide();
-        consoleWindowObject.webContents.userAgent = DEFAULT_USER_AGENT;
-        consoleWindowObject.on("close", (e) => {
-            e.preventDefault();
-            consoleWindowObject.hide();
-        })
-        console.log(colors.green("Console window created"));
-    });
-
     // Создаём главное окно
     mainWindow.create(function (winObj) {
         mainWindowObject = winObj;
@@ -105,27 +91,6 @@ app.whenReady().then(() => {
     autoUpdater.on("update-downloaded", () => {
         console.log("Update download completed, waiting for restart");
         mainWindowObject.webContents.send("update-downloaded");
-    });
-
-    // Console log в консоль
-    ipcMain.on("console-log", (e, data) => {
-        lastLogBack += "\n" + data;
-        if (
-            typeof consoleWindowObject !== "undefined" &&
-            consoleWindowObject != null
-        ) {
-            consoleWindowObject.webContents.send("user-console-log", lastLogBack.slice(-8000).replace("\n", "<br>"));
-        }
-    });
-
-    // Вернуть полный console log
-    ipcMain.on("full-console-log", (e) => {
-        if (
-            typeof consoleWindowObject !== "undefined" &&
-            consoleWindowObject != null
-        ) {
-            consoleWindowObject.webContents.send("user-console-log", lastLogBack.slice(-8000).replace("\n", "<br>"));
-        }
     });
 
     // Начать установку обновления
@@ -153,26 +118,6 @@ app.whenReady().then(() => {
     ipcMain.on("launcher-ready", (e) => {
         let endTime = performance.now();
         console.log("Launcher started in", colors.yellow(((endTime - startTime) / 1000).toFixed(3) + "s"));
-    });
-
-    // Работа с окном консоли
-    ipcMain.on("close-console-window", () => {
-        consoleWindowObject.hide();
-    });
-    ipcMain.on("open-console-window", () => {
-        if (!consoleWindowObject.isVisible()) {
-            consoleWindowObject.show();
-        } else {
-            consoleWindowObject.focus();
-        }
-    });
-    ipcMain.on("hide-console-window", () => {
-        consoleWindowObject.minimize();
-    });
-
-    // Закрыть окно консоли
-    ipcMain.on("close-console-window", () => {
-        consoleWindowObject.hide();
     });
 
     // Закрыть окно лаунчера

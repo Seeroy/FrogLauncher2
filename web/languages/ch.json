@@ -327,6 +327,12 @@
         "cape": "披风"
       },
       "useButton": "FrogSkins皮肤系统"
+    },
+    "console": {
+      "title": "安慰",
+      "openDir": "打开包含日志的文件夹",
+      "copy": "复制日志",
+      "copied": "日志复制成功！"
     }
   }
 }

@@ -1,0 +1,38 @@
+#modal-console {
+    padding-left: 7vw;
+    padding-right: 7vw;
+}
+
+#modal-console .wrapper {
+    background: var(--theme-primaryBgLight);
+    overflow: auto !important;
+    width: max-content;
+    height: 82%;
+    padding: 8px;
+    margin: 16px 0;
+    border-radius: 8px;
+}
+
+#modal-console .wrapper .console-textarea {
+    width: 66vw;
+    height: max-content;
+    min-height: 100%;
+    user-select: text;
+}
+
+#modal-console .wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+#modal-console button {
+    font-size: 14pt;
+    padding: 6px 12px !important;
+    height: max-content;
+    width: max-content;
+    border-radius: 8px !important;
+}
+
+#modal-console button:last-child {
+    background: var(--success);
+    color: white !important;
+}

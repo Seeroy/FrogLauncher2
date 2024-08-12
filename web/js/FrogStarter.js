@@ -117,8 +117,8 @@ class FrogStarter {
                     FrogFlyout.changeMode("idle");
                 }, 1000);
                 FrogErrorsParser.parse("", exitCode);
-                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
-                    FrogUI.showConsole();
+                if (exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
+                    FrogModals.switchModal("console");
                 }
                 if (global.IS_APP_IN_DEV) {
                     console.log("Game exit code: " + exitCode);
@@ -130,7 +130,7 @@ class FrogStarter {
                 $("#stopGameButton").show();
                 // Показываем консоль
                 if (FrogConfig.read("consoleOnStart") === true) {
-                    FrogUI.showConsole();
+                    FrogModals.switchModal("console");
                 }
                 setTimeout(() => {
                     // Скрываем окно, если включено в настройках

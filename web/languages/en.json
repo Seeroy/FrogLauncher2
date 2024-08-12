@@ -327,6 +327,12 @@
         "cape": "Cloak"
       },
       "useButton": "FrogSkins skin system"
+    },
+    "console": {
+      "title": "Console",
+      "openDir": "Open logs folder",
+      "copy": "Copy log",
+      "copied": "Log copied successfully!"
     }
   }
 }

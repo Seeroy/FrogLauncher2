@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="modals/console.css"/>
+
+<div class="modal" id="modal-console" style="display: none;">
+    <div class="flex flex-gap-8 flex-align-center">
+        <span class="material-symbols-outlined">terminal</span>
+        <h1>{{console.title}}</h1>
+    </div>
+    <div class="wrapper">
+        <div class="console-textarea"></div>
+    </div>
+
+    <div class="flex flex-gap-4 flex-align-center">
+        <button class="openDir">
+            <span class="material-symbols-outlined">folder</span>
+            <span>{{console.openDir}}</span>
+        </button>
+        <button class="copy">
+            <span class="material-symbols-outlined">content_copy</span>
+            <span>{{console.copy}}</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        updateConsole();
+
+        $("#modal-console .copy").click(() => {
+            navigator.clipboard.writeText($("#modal-console .console-textarea").text());
+            FrogToasts.create(MESSAGES.console.copied, "content_copy");
+        })
+
+        $("#modal-console .openDir").click(() => {
+            openExternal(`${GAME_DATA}/logs`);
+        })
+    })
+
+    function updateConsole() {
+        let $console = $("#modal-console .console-textarea");
+        let $consoleWrapper = $("#modal-console .wrapper");
+        let parsedLog = LAST_LOG.trim().replaceAll("undefined", "").replaceAll("\n\n", "\n").replaceAll("\n", "<br>");
+        $console.html(parsedLog);
+        $consoleWrapper.stop();
+        $consoleWrapper.animate({ scrollTop: $consoleWrapper[0].scrollHeight }, 50);
+    }
+</script>

@@ -42,6 +42,7 @@ class FrogCollector {
         let newPart = "\n" + "[" + logDate + "] " + data.join(" ")
         global.LAST_LOG = global.LAST_LOG + newPart;
         ipcRenderer.send("console-log", newPart);
+        updateConsole();
     }
 
     static collectAndSendStats = (cb = () => {

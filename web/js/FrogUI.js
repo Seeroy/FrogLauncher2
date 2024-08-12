@@ -68,9 +68,4 @@ class FrogUI {
             }, 950);
         }, 1200);
     }
-
-    // Показать консоль
-    static showConsole = () => {
-        return ipcRenderer.send("open-console-window");
-    }
 }
