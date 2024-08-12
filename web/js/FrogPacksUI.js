@@ -3,7 +3,7 @@ let packs_currentOffset = 0;
 let packs_scrollIsLoading = false;
 
 const MODRINTH_MODS_API_URL = "https://api.modrinth.com/v2/search?";
-const MODS_FILTERS_URL = global.CDN_URL + "/FrogLauncher/filters.json";
+const MODS_FILTERS_URL = global.CDN_URL + "/filters.json";
 
 class FrogPacksUI {
     // Создать пак из UI

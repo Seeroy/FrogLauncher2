@@ -25,7 +25,7 @@ $("#modal-changelog .wrapper").scroll(function (e) {
 
 class FrogChangelogUI {
     static getReleases = (cb) => {
-        $.get(`https://api.github.com/repos/Seeroy/FrogLauncher/releases?per_page=${changelog_pageLimit}&page=${changelog_currentPage}`, cb).fail(() => {
+        $.get(`https://api.github.com/repos/Seeroy/FrogLauncher2/releases?per_page=${changelog_pageLimit}&page=${changelog_currentPage}`, cb).fail(() => {
             $(".list").html(CHANGELOG_FAILED_PLACEHOLDER);
         });
     }
@@ -39,7 +39,7 @@ class FrogChangelogUI {
             if (releases !== false && Array.isArray(releases)) {
                 releases.forEach((release) => {
                     $("#modal-changelog .list").append(CHANGELOG_ITEM_PLACEHOLDER.replaceAll("$1", release.name).replaceAll("$2", release.body.replaceAll("\n", "<br>")).replaceAll("$3", release.published_at));
-                    if (release.tag === "v1.0.0") {
+                    if (release.tag === "v2.0.0") {
                         changelog_endOfPage = true;
                     }
                 });

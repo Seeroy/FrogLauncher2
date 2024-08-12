@@ -20,4 +20,5 @@
 #modal-changelog .wrapper {
     overflow: auto;
     height: 60vh;
+    padding: 4px 12px;
 }

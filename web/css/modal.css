@@ -74,3 +74,7 @@ dialog.modal * {
     padding: 10px;
     border-radius: 8px;
 }
+
+.modal > div:nth-child(1) {
+    margin-bottom: 6px;
+}
