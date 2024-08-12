@@ -147,6 +147,12 @@
     })
 
     $(function () {
+        if(FrogConfig.read("language") !== "ru"){
+            global.NEWS_URL = CDN_URL + "/news_en.json";
+        } else {
+            global.NEWS_URL = CDN_URL + "/news.json";
+        }
+
         if (FrogConfig.read("disableAnimations", false) === true) {
             $("html").addClass("noAnimations");
         }

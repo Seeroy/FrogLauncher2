@@ -4,14 +4,14 @@ class FrogTranslator {
     // Поиск и замена значений в HTML
     static translateAllNodes = () => {
         let currentLangData = FrogTranslator.getCurrentLanguageData().translations;
-        let $selector = $("button,span:not(.material-symbols-outlined):not(.icon):not(.avatar),p,h1,h2,h3,h4,h5");
+        let $selector = $("button,span:not(.material-symbols-outlined):not(.icon):not(.avatar),p,h1,h2,h3,h4,h5,div.description");
         $selector.each(function () {
             if ((this.tagName === "BUTTON" && $(this).children().length === 0) || this.tagName !== "BUTTON") {
-                let itemText = $(this).text();
+                let itemText = $(this).html();
                 // Переводим текст
                 let translated = FrogTranslator.translateText(currentLangData, itemText);
                 if (translated !== false) {
-                    $(this).text(translated);
+                    $(this).html(translated);
                 }
             }
         })
@@ -55,7 +55,7 @@ class FrogTranslator {
         // По placeholder`у добавляем новые элементы
         Object.values(langData).forEach((lang) => {
             let preparedPlaceholder = placeholder.replaceAll("$1", lang.displayName).replaceAll("$2", lang.displayNameEnglish).replaceAll("$3", lang.author).replaceAll("$4", lang.id);
-            let $insertedElem = $("#modal-settings #languages-list").append(preparedPlaceholder);
+            $("#modal-settings #languages-list").append(preparedPlaceholder);
         })
 
         // Помечаем нужные аккаунты в списке активными

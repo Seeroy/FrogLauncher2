@@ -6,7 +6,7 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
         <span class="name">{{settings.startup.gameDirectory.title}}</span>
-        <span class="description">{{settings.startup.gameDirectory.description}}</span>
+        <div class="description">{{settings.startup.gameDirectory.description}}</div>
         <div class="flex flex-center flex-gap-8">
             <input type="text" class="lighter flex-grow" readonly id="gameDirectoryInput">
             <button class="square small" onclick='ipcRenderer.send("open-gd-dialog")'>
@@ -22,7 +22,7 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
         <span class="name">{{settings.startup.memory.title}}</span>
-        <span class="description">{{settings.startup.memory.description}}</span>
+        <div class="description">{{settings.startup.memory.description}}</div>
         <div class="flex flex-center flex-gap-8">
             <input class="flex-grow" type="range" min="0" max="100" step="512" value="20" id="xmxSlider"
                    style="width: 50%">
@@ -38,7 +38,7 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
         <span class="name">{{settings.startup.fullscreen.title}}</span>
-        <span class="description">{{settings.startup.fullscreen.description}}</span>
+        <div class="description">{{settings.startup.fullscreen.description}}</div>
     </div>
     <label class="switch" data-setting="gameInFullscreen">
         <input type="checkbox">
@@ -52,7 +52,7 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
         <span class="name">{{settings.startup.partialSplit.title}}</span>
-        <span class="description">{{settings.startup.partialSplit.description}}</span>
+        <div class="description">{{settings.startup.partialSplit.description}}</div>
     </div>
     <label class="switch" data-setting="separatedStorage">
         <input type="checkbox">
@@ -66,7 +66,7 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
         <span class="name">{{settings.startup.fullSplit.title}}</span>
-        <span class="description">{{settings.startup.fullSplit.description}}<br><b>{{settings.startup.fullSplit.description2}}<br>{{settings.startup.fullSplit.description3}}</b></span>
+        <div class="description">{{settings.startup.fullSplit.description}}<br/><b>{{settings.startup.fullSplit.description2}}<br/>{{settings.startup.fullSplit.description3}}</b></div>
     </div>
     <label class="switch" data-setting="fullySeparatedStorage">
         <input type="checkbox">
@@ -81,7 +81,7 @@
         </div>
         <div class="flex flex-grow flex-col flex-justify-center">
             <span class="name">{{settings.startup.multiplayerFix.title}}</span>
-            <span class="description">{{settings.startup.multiplayerFix.description}}<br>{{settings.startup.multiplayerFix.description2}}</span>
+            <div class="description">{{settings.startup.multiplayerFix.description}}<br/>{{settings.startup.multiplayerFix.description2}}</div>
         </div>
         <label class="switch" data-setting="multiplayerFix">
             <input type="checkbox">

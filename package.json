@@ -1,10 +1,11 @@
 {
   "name": "frogLauncher2",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Minecraft-лаунчер. Твой. Крутой",
   "main": "app.js",
   "scripts": {
     "start": "electron .",
+    "verify": "node ./verifyTranslations.js",
     "dev": "set LAUNCHER_IN_DEV=yes && electron .",
     "build-win": "electron-builder build --win --publish never",
     "build-linux": "electron-builder build --linux --publish never",

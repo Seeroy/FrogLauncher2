@@ -25,7 +25,7 @@ global.SITE_URL = "https://froglauncher.ru";
 global.CDN_URL = "https://cdn.froglauncher.ru";
 global.SKINS_API_URL = "https://skins.froglauncher.ru";
 global.STATS_URL = "https://statscol.seeeroy.ru/save_fl?savedata=";
-global.NEWS_URL = CDN_URL + "/news.json";
+//global.NEWS_URL = CDN_URL + "/news.json"; // Перемещено в index.ejs
 global.SERVERS_URL = CDN_URL + "/servers.json";
 global.AUTHLIB_INJECTOR_URL = CDN_URL + "/authlib-injector.jar";
 

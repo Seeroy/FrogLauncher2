@@ -307,7 +307,7 @@
         "go": "Ein Konto erstellen!",
         "success": {
           "title": "Registrierung erfolgreich!",
-          "description": "Fertig, Sie haben ein Konto erstellt!",
+          "description": "Fertig, Sie haben ein Konto erstellt! ",
           "button": "Bußgeld"
         }
       },
@@ -319,6 +319,11 @@
         "FILE_BITMAP_TOO_BIG": "Die Datei ist zu groß oder zu groß",
         "UNKNOWN": "Beim Ausführen der Aktion ist ein Fehler aufgetreten",
         "ALREADY_EXISTS": "Dieser Benutzer existiert bereits. Bitte wählen Sie einen anderen Spitznamen"
+      },
+      "skin": {
+        "title": "Anpassen des Erscheinungsbilds",
+        "skin": "Haut",
+        "cape": "Mantel"
       },
       "useButton": "FrogSkins-Hautsystem"
     }

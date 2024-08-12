@@ -320,7 +320,12 @@
         "UNKNOWN": "An error occurred while performing the action",
         "ALREADY_EXISTS": "This user already exists, please select a different nickname"
       },
-      "useButton": "Use FrogSkins"
+      "skin": {
+        "title": "Customizing the appearance",
+        "skin": "Skin",
+        "cape": "Cloak"
+      },
+      "useButton": "FrogSkins skin system"
     }
   }
 }
