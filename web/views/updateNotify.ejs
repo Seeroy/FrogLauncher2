@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="views/updateNotify.css"/>
+
+<div class="chip large pill" id="updateNotify" style="display: none">
+    <span class="material-symbols-outlined">update</span>
+    <div class="flex flex-grow flex-col">
+        <span class="caption">{{updater.available}}</span>
+        <span class="description">{{updater.downloading}}</span>
+    </div>
+    <button class="transparent pill small"
+            onclick="openExternal('https://github.com/Seeroy/FrogLauncher2/releases/latest')">
+        <div class="link">
+            <span class="material-symbols-outlined">open_in_new</span>
+            <span>{{updater.changelog}}</span>
+        </div>
+    </button>
+    <button class="pill small" style="display: none" onclick="FrogUpdater.installUpdate()">Установить</button>
+</div>

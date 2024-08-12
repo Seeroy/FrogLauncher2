@@ -1,0 +1,27 @@
+#updateNotify {
+    width: 100%;
+    border-radius: 10px;
+    gap: 12px;
+}
+
+#updateNotify .caption {
+    font-size: 15pt;
+    font-weight: 700;
+}
+
+#updateNotify .description {
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--text-sub);
+}
+
+#updateNotify button {
+    font-size: 14pt;
+    padding: 8px 21px !important;
+    border-radius: 32px !important;
+    height: max-content !important;
+}
+
+#updateNotify .link * {
+    font-size: 13pt;
+}

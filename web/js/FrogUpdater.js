@@ -11,22 +11,22 @@ class FrogUpdater {
 
     // При нахождении обновления - показать уведомление
     static onUpdateAvailable = () => {
-        let $notifyElem = $(".update-notify");
+        let $notifyElem = $("#updateNotify");
         let $notifyElemBtn = $notifyElem.find("button:not(.transparent)");
         let $notifyElemText = $notifyElem.find(".description");
         FrogCollector.writeLog(`Updater: New version found`);
         $notifyElem.show();
-        $notifyElem.addClass("animate__animated animate__fadeInDown");
+        $notifyElem.addClass("animate__animated animate__fadeIn");
         $notifyElemBtn.hide();
         $notifyElemText.text();
         setTimeout(() => {
-            $notifyElem.removeClass("animate__animated animate__fadeInDown");
+            $notifyElem.removeClass("animate__animated animate__fadeIn");
         }, 1000);
     }
 
     // После скачивания обновления - изменить уведомление
     static onUpdateDownloaded = () => {
-        let $notifyElem = $(".update-notify");
+        let $notifyElem = $("#updateNotify");
         let $notifyElemBtn = $notifyElem.find("button:not(.transparent)");
         let $notifyElemText = $notifyElem.find(".description");
         FrogCollector.writeLog(`Updater: New version downloaded, ready to restart`);
