@@ -25,6 +25,10 @@ class FrogVersionsUI {
                 placeholder = placeholder.replace(' placeholder', "");
                 // По placeholder`у добавляем новые элементы
 
+                // Если включено избранное
+                let favoritesAllowed = FrogVersionsManager.getFavoriteVersions();
+                let onlyFavorites = FrogVersionsUI.getVersionsTypeSelected().includes("favorite");
+
                 Object.values(versions).forEach((ver) => {
                     let versionIcon = "assets/versions/" + ver.type + ".webp";
                     let displayName = ver.displayName;
@@ -34,13 +38,15 @@ class FrogVersionsUI {
                             versionIcon = modpackData.icon;
                         }
 
-                        if(displayName.indexOf(modpackData.baseVersion.number) === -1){
+                        if (displayName.indexOf(modpackData.baseVersion.number) === -1) {
                             // Добавляем в название версию игры, если её там нет
                             displayName += ` (${modpackData.baseVersion.number})`;
                         }
                     }
-                    let preparedPlaceholder = placeholder.replaceAll("$1", displayName).replaceAll("$2", ver.type).replaceAll("$3", ver.id).replaceAll("$4", ver.installed).replaceAll("$5", versionIcon);
-                    $("#modal-versions .versions-list").append(preparedPlaceholder);
+                    if (!onlyFavorites || (onlyFavorites && favoritesAllowed.includes(ver.id))) {
+                        let preparedPlaceholder = placeholder.replaceAll("$1", displayName).replaceAll("$2", ver.type).replaceAll("$3", ver.id).replaceAll("$4", ver.installed).replaceAll("$5", versionIcon);
+                        $("#modal-versions .versions-list").append(preparedPlaceholder);
+                    }
                 })
 
                 // Помечаем нужные аккаунты в списке активными
@@ -48,6 +54,9 @@ class FrogVersionsUI {
                     if (!$(this).hasClass("placeholder")) {
                         if ($(this).data("version") === activeVersion) {
                             $(this).addClass("active");
+                        }
+                        if(favoritesAllowed.includes($(this).data("version"))){
+                            $(this).children(".favorite").addClass("active");
                         }
                         $(this).show();
                     }
@@ -60,6 +69,18 @@ class FrogVersionsUI {
                     FrogVersionsManager.setActiveVersion($(this).data("version"));
                     FrogVersionsUI.clearSearch();
                     FrogModals.hideModal("versions");
+                })
+
+                $("#modal-versions .versions-list .item .favorite").click(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    let versionId = $(this).parent().data("version");
+                    FrogVersionsManager.addOrRemoveFavorite(versionId);
+                    if(!$(this).hasClass("active")){
+                        $(this).addClass("active");
+                    } else {
+                        $(this).removeClass("active");
+                    }
                 })
 
                 $("#modal-versions .preloader").hide();
@@ -84,7 +105,7 @@ class FrogVersionsUI {
                     return FrogVersionsManager.setActiveVersion("none");
                 }
             }
-            if($activeVersionItem.length < 2){
+            if ($activeVersionItem.length < 2) {
                 $("#versionSelect .title").text($activeVersionItem.find("span.title").text());
             }
             $("#versionSelect .icon").show();

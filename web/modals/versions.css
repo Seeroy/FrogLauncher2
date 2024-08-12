@@ -50,6 +50,18 @@
     width: 100%;
 }
 
+#modal-versions .versions-list .item .favorite {
+    cursor: pointer;
+}
+
+#modal-versions .versions-list .item .favorite:hover {
+    filter: brightness(75%);
+}
+
+#modal-versions .versions-list .item .favorite.active {
+    color: var(--warning);
+}
+
 #modal-versions .versions-list .item .title {
     flex-grow: 1;
 }

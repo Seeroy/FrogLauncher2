@@ -127,6 +127,22 @@ class FrogVersionsManager {
         return fs.readdirSync(verDataPath);
     }
 
+    // Получить избранные версии
+    static getFavoriteVersions = () => {
+        return FrogConfig.read("favoriteVersions", []);
+    }
+
+    // Добавить/удалить версию из избранного
+    static addOrRemoveFavorite = (versionId) => {
+        let favorites = FrogVersionsManager.getFavoriteVersions();
+        if(favorites.includes(versionId)){
+            favorites.splice(favorites.indexOf(versionId),1);
+        } else {
+            favorites.push(versionId);
+        }
+        return FrogConfig.write("favoriteVersions", favorites);
+    }
+
     // Получить полностью подготовленный для UI список версий
     static getPreparedVersions = () => {
         fullListPerformance1 = performance.now();
