@@ -65,7 +65,7 @@ body > .layout > .title-wrapper {
 }
 
 body > .layout > .title-wrapper .title,
-body > .layout > .title-wrapper .title * {
+body > .layout > .title-wrapper .title *:not(img) {
     -webkit-app-region: drag;
     color: white;
 }

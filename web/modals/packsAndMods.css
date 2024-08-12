@@ -153,6 +153,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding-right: 8px;
 }
 
 /* Pack item */

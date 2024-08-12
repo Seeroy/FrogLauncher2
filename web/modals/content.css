@@ -1,12 +1,19 @@
 #modal-content {
-    overflow-y: auto;
     max-height: 73vh;
     background: var(--theme-primaryBg);
-    padding: 18px;
+    padding: 12px;
     border-radius: 12px;
+    z-index: 1;
 }
 
-#modal-content > * {
+#modal-content .scroll-wrap {
+    overflow-y: auto;
+    max-height: 73vh;
+    gap: 12px;
+    padding: 10px;
+}
+
+#modal-content .scroll-wrap > *:not(:first-child) {
     margin: 16px 0;
 }
 

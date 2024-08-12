@@ -86,6 +86,8 @@
 
     <!-- Пул для уведомлений -->
     <div id="toasts-pool"></div>
+
+    <span id="audio"></span>
 </div>
 </body>
 </html>
@@ -158,6 +160,9 @@
 
             // Блокировка драга картинок
             $('img').on('dragstart', function(event) { event.preventDefault(); });
+
+            // Пасхалко
+            FrogUI.bindEasterEgg();
         }, 500);
 
         $("html").show();

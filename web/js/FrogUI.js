@@ -1,3 +1,5 @@
+let isEggPlaying = false;
+
 class FrogUI {
     // Скрыть главное окно
     static disappearMainWindow() {
@@ -67,5 +69,37 @@ class FrogUI {
                 });
             }, 950);
         }, 1200);
+    }
+
+    // Сделать пасхалко
+    static bindEasterEgg = () => {
+        $("img").each(function(){
+            let imgSrc = $(this).attr("src").toString();
+            if(imgSrc.match(/assets\/icon\.png/mig) !== null){
+                $(this).click(function(){
+                    if (isEggPlaying === false) {
+                        isEggPlaying = true;
+                        $(this).addClass("animate__animated animate__tada");
+                        $(this)[0].addEventListener(
+                            "animationend",
+                            () => {
+                                $(this).removeClass(
+                                    "animate__animated animate__tada"
+                                );
+                                isEggPlaying = false;
+                                $('#audio').html('');
+                            },
+                            {
+                                once: true,
+                            }
+                        );
+                        var sound = new Howl({
+                            src: ['assets/idle1.wav']
+                        });
+                        sound.play();
+                    }
+                })
+            }
+        });
     }
 }

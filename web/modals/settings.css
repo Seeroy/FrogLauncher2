@@ -80,6 +80,7 @@ html.light #modal-settings .settings-item img.icon {
     overflow-y: auto;
     height: 60vh;
     width: 100%;
+    padding-right: 8px;
 }
 
 /* Micro placeholder for dark mode switch */
