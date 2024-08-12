@@ -77,14 +77,8 @@
         <%- include('modals/frogLogin'); %>
         <%- include('modals/frogRegister'); %>
         <%- include('modals/frogSkin'); %>
+        <%- include('modals/content'); %>
         <!-- Модальные окна КОНЕЦ-->
-
-        <div class="content-inner animate__animated animate__zoomIn animate__faster">
-            <!-- Уведомление об обновлении -->
-            <%- include('views/updateNotify'); %>
-            <%- include('views/news'); %>
-            <%- include('views/versionsPosters'); %>
-        </div>
     </div>
 
     <!-- Флайаут (нижняя панель) -->
@@ -182,6 +176,9 @@
 
         // Загружаем сервера
         FrogServersUI.loadList();
+
+        // Показываем modal content
+        FrogModals.showModal("content");
 
         // Отправляем ipc о готовности лаунчера
         ipcRenderer.send("launcher-ready");

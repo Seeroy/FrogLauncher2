@@ -45,42 +45,16 @@ class FrogModals {
         })
     }
 
-    // Показать контент
-    static showContent = () => {
-        return new Promise((resolve) => {
-            $(".content .content-inner").show();
-            animateCSSNode($(".content .content-inner")[0], "fadeInUp").then(() => {
-                resolve(true);
-            });
-        });
-    }
-
-    // Скрыть контент
-    static hideContent = () => {
-        return new Promise((resolve) => {
-            $(".content .content-inner").removeClass("animate__animated animate__zoomIn animate__faster");
-            animateCSSNode($(".content .content-inner")[0], "fadeOutDown").then(() => {
-                $(".content .content-inner").hide();
-                resolve(true);
-            });
-        });
-    }
-
     // Переключить окно (если сейчас показано какое-либо)
     static switchModal = (modalName) => {
         FrogFlyout.lockFlymenu();
         return new Promise((resolve) => {
-            if (FrogModals.isModalShown()) {
-                FrogModals.hideCurrentModal().then(() => {
-                    FrogModals.showModal(modalName).then(resolve);
+            FrogModals.hideCurrentModal().then(() => {
+                FrogModals.showModal(modalName).then(() => {
                     FrogFlyout.unlockFlymenu();
-                })
-            } else {
-                FrogModals.hideContent().then(() => {
-                    FrogModals.showModal(modalName).then(resolve);
-                    FrogFlyout.unlockFlymenu();
-                })
-            }
+                    return resolve();
+                });
+            })
         });
     }
 

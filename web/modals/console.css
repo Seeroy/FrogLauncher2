@@ -18,6 +18,8 @@
     height: max-content;
     min-height: 100%;
     user-select: text;
+    font-family: "Fira Code";
+    font-size: 11pt;
 }
 
 #modal-console .wrapper::-webkit-scrollbar {

@@ -2,7 +2,7 @@
 
 <div class="flymenu animate__animated animate__fadeInLeft animate__faster">
     <div class="menu-wrapped">
-        <div class="item active" data-modal="none" data-text="{{flymenu.home}}">
+        <div class="item active" data-modal="content" data-text="{{flymenu.home}}">
             <span class="material-symbols-outlined">home</span>
         </div>
         <div class="item" data-modal="settings" data-text="{{flymenu.settings}}">
@@ -33,13 +33,7 @@
         $(this).addClass("active");
         let modalName = $(this).data("modal");
 
-        if (modalName === "none") {
-            FrogModals.hideCurrentModal().then(() => {
-                FrogModals.showContent();
-            });
-        } else {
-            FrogModals.switchModal(modalName);
-        }
+        FrogModals.switchModal(modalName);
     })
 
     $(".flymenu .item").mouseenter(function () {

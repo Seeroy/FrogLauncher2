@@ -32,6 +32,11 @@
     src: url("../assets/fonts/Manrope.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "Fira Code";
+    src: url("../assets/fonts/FiraCode.ttf") format("truetype");
+}
+
 body,
 html {
     padding: 0;
