@@ -140,8 +140,11 @@ class FrogThemes {
     // Выбрать кастомные обои
     static selectCustomWallpaper = () => {
         return new Promise(resolve => {
-            ipcRenderer.send("select-bg-dialog");
-            ipcRenderer.once("get-bg-result", (event, imgPath) => {
+            ipcRenderer.invoke("open-dialog", {
+                properties: ["dontAddToRecent"],
+                filters: [{name: "Изображение", extensions: ["png", "jpg", "jpeg", "gif", "webp"]}],
+            }).then(result => {
+                let imgPath = result[0];
                 if (imgPath !== false) {
                     let fileExt = path.extname(imgPath);
                     let directoryPath = path.join(global.USERDATA_PATH, "AppCache");

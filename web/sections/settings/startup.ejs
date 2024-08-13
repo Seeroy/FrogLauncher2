@@ -9,7 +9,7 @@
         <div class="description">{{settings.startup.gameDirectory.description}}</div>
         <div class="flex flex-center flex-gap-8">
             <input type="text" class="lighter flex-grow" readonly id="gameDirectoryInput">
-            <button class="square small" onclick='ipcRenderer.send("open-gd-dialog")'>
+            <button class="square small" onclick='changeGameDirectory()'>
                 <span class="material-symbols-outlined">folder</span>
             </button>
         </div>
@@ -116,16 +116,21 @@
         $("#gameDirectoryInput").val(global.GAME_DATA);
     })
 
-    // При смене директории игры
-    ipcRenderer.on("get-gd-result", (e, result) => {
-        let pathResult = path.normalize(result);
-        global.GAME_DATA = pathResult;
-        FrogConfig.write("gameDirectory", pathResult);
-        FrogVersionsUI.loadVersions();
-        FrogAccountsUI.reloadAccountSelect();
-        FrogAccountsUI.reloadAccountsManager();
-        $("#gameDirectoryInput").val(pathResult);
-    })
+    function changeGameDirectory(){
+        ipcRenderer.invoke("open-dialog", {
+            properties: ["openDirectory", "dontAddToRecent"],
+            buttonLabel: "Выбрать",
+            title: "Выберите папку для хранения файлов игры",
+        }).then(result => {
+            let pathResult = path.normalize(result[0]);
+            global.GAME_DATA = pathResult;
+            FrogConfig.write("gameDirectory", pathResult);
+            FrogVersionsUI.loadVersions();
+            FrogAccountsUI.reloadAccountSelect();
+            FrogAccountsUI.reloadAccountsManager();
+            $("#gameDirectoryInput").val(pathResult);
+        })
+    }
 
     // Изменение слайдера
     startup_xmxSlider.on("input", () => {

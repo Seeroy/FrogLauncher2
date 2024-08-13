@@ -327,9 +327,14 @@ class FrogPacks {
     // Импортировать пак с Modrinth (.mrpack) через диалог выбора
     static importModrinthPackDialog = () => {
         return new Promise(resolve => {
-            ipcRenderer.send("load-modrinth-pack-dialog");
-            ipcRenderer.once("get-modrinth-pack-result", (event, archivePath) => {
-                FrogPacks.importModrinthPack(archivePath).then(resolve);
+            ipcRenderer.invoke("open-dialog", {
+                properties: ["dontAddToRecent"],
+                filters: [{name: ".mrpack", extensions: ["mrpack"]}],
+            }).then(result => {
+                if(result === false){
+                    return resolve(false);
+                }
+                FrogPacks.importModrinthPack(result[0]).then(resolve);
             })
         })
     }

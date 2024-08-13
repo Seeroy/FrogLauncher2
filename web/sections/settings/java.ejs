@@ -20,7 +20,7 @@
         <span class="name">{{settings.java.user}}</span>
         <div class="flex flex-center flex-gap-8">
             <input type="text" class="lighter flex-grow" readonly id="javaDirectoryInput">
-            <button class="square small" onclick='ipcRenderer.send("open-java-dialog")'>
+            <button class="square small" onclick='changeJava()'>
                 <span class="material-symbols-outlined">folder</span>
             </button>
         </div>
@@ -39,10 +39,15 @@
         $("#javaDirectoryInput").val(FrogConfig.read("selectedJava", ""));
     })
 
-    // При выборе Java
-    ipcRenderer.on("get-java-result", (e, result) => {
-        let pathResult = path.normalize(result);
-        FrogConfig.write("selectedJava", pathResult);
-        $("#javaDirectoryInput").val(pathResult);
-    })
+    function changeJava(){
+        ipcRenderer.invoke("open-dialog", {
+            properties: ["dontAddToRecent"],
+            title: "Выберите файл java.exe",
+            filters: [{name: "java.exe", extensions: ["exe"]}],
+        }).then(result => {
+            let pathResult = path.normalize(result[0]);
+            FrogConfig.write("selectedJava", pathResult);
+            $("#javaDirectoryInput").val(pathResult);
+        })
+    }
 </script>

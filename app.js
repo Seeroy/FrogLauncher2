@@ -164,86 +164,22 @@ app.whenReady().then(() => {
         mainWindowObject.focus();
     });
 
-    // Выбрать папку для игры
-    ipcMain.on("open-gd-dialog", (event) => {
-        let dialogRet = dialog.showOpenDialogSync({
-            properties: ["openDirectory", "dontAddToRecent"],
-            buttonLabel: "Выбрать",
-            title: "Выберите папку для хранения файлов игры",
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-gd-result", dialogRet[0]);
-        } else {
-            event.sender.send("get-gd-result", false);
+    // Диалог открытия файлов
+    ipcMain.handle("open-dialog", async (event, options) => {
+        let result = await dialog.showOpenDialog(options);
+        if(result.canceled === true){
+            return false;
         }
+        return result.filePaths || result.filePath;
     });
 
-    // Выбрать Java
-    ipcMain.on("open-java-dialog", (event) => {
-        let dialogRet = dialog.showOpenDialogSync({
-            properties: ["dontAddToRecent"],
-            buttonLabel: "Выбрать",
-            title: "Выберите файл java.exe",
-            filters: [{name: "java.exe", extensions: ["exe"]}],
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-java-result", dialogRet[0]);
-        } else {
-            event.sender.send("get-java-result", false);
+    // Диалог сохранения файлов
+    ipcMain.handle("save-dialog", async (event, options) => {
+        let result = await dialog.showSaveDialog(options);
+        if(result.canceled === true){
+            return false;
         }
-    });
-
-    // Сохранение пака
-    ipcMain.on("save-modpack-dialog", (event, data) => {
-        let dialogRet = dialog.showSaveDialogSync({
-            properties: ["dontAddToRecent"],
-            defaultPath: data,
-            filters: [{name: "FrogPack", extensions: ["frogpack"]}],
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-modpack-save-result", dialogRet);
-        } else {
-            event.sender.send("get-modpack-save-result", false);
-        }
-    });
-
-    // Загрузка пака
-    ipcMain.on("load-modpack-dialog", (event) => {
-        let dialogRet = dialog.showOpenDialogSync({
-            properties: ["dontAddToRecent"],
-            filters: [{name: "FrogPack", extensions: ["frogpack"]}],
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-modpack-load-result", dialogRet[0]);
-        } else {
-            event.sender.send("get-modpack-load-result", false);
-        }
-    });
-
-    // Выбор обоев
-    ipcMain.on("select-bg-dialog", (event) => {
-        let dialogRet = dialog.showOpenDialogSync({
-            properties: ["dontAddToRecent"],
-            filters: [{name: "Изображение", extensions: ["png", "jpg", "jpeg", "gif", "webp"]}],
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-bg-result", dialogRet[0]);
-        } else {
-            event.sender.send("get-bg-result", false);
-        }
-    });
-
-    // Загрузка пака .mrpack
-    ipcMain.on("load-modrinth-pack-dialog", (event) => {
-        let dialogRet = dialog.showOpenDialogSync({
-            properties: ["dontAddToRecent"],
-            filters: [{name: ".mrpack", extensions: ["mrpack"]}],
-        });
-        if (dialogRet !== undefined) {
-            event.sender.send("get-modrinth-pack-result", dialogRet[0]);
-        } else {
-            event.sender.send("get-modrinth-pack-result", false);
-        }
+        return result.filePath;
     });
 
     // Авторизация через Microsoft
