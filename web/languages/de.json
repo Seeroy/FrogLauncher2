@@ -337,6 +337,30 @@
     "selectWorld": {
       "title": "Wähle eine Welt",
       "installHere": "Hier installieren"
+    },
+    "packManager": {
+      "gamemodes": {
+        "0": "Überleben",
+        "1": "Kreativ",
+        "2": "Abenteuer"
+      },
+      "difficulty": {
+        "0": "Friedlich",
+        "1": "Normal",
+        "2": "Schwierig",
+        "3": "Hardcore"
+      },
+      "tabs": {
+        "worlds": "Welten",
+        "install": "Installieren",
+        "addFile": "Datei hinzufügen",
+        "updates": "Aktualisierungen"
+      },
+      "installed": "Erfolgreich installiert!",
+      "failedWorld": "Frieden konnte nicht hergestellt werden",
+      "successWorld": "Der Frieden wurde erfolgreich hergestellt!",
+      "deleting": "Modpack wird entfernt",
+      "deleted": "Modpack-Entfernung abgeschlossen!"
     }
   }
 }

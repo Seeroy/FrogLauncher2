@@ -337,6 +337,30 @@
     "selectWorld": {
       "title": "Choose a world",
       "installHere": "Install here"
+    },
+    "packManager": {
+      "gamemodes": {
+        "0": "Survival",
+        "1": "Creative",
+        "2": "Adventure"
+      },
+      "difficulty": {
+        "0": "Peaceful",
+        "1": "Normal",
+        "2": "Difficult",
+        "3": "Hardcore"
+      },
+      "tabs": {
+        "worlds": "Worlds",
+        "install": "Install",
+        "addFile": "Add file",
+        "updates": "Updates"
+      },
+      "installed": "Successfully installed!",
+      "failedWorld": "Failed to establish peace",
+      "successWorld": "Peace has been successfully established!",
+      "deleting": "Modpack is being removed",
+      "deleted": "Modpack removal complete!"
     }
   }
 }

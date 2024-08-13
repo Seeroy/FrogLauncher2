@@ -337,6 +337,30 @@
     "selectWorld": {
       "title": "选择一个世界",
       "installHere": "安装在这里"
+    },
+    "packManager": {
+      "gamemodes": {
+        "0": "生存",
+        "1": "有创造力的",
+        "2": "冒险"
+      },
+      "difficulty": {
+        "0": "和平",
+        "1": "普通的",
+        "2": "难的",
+        "3": "硬核"
+      },
+      "tabs": {
+        "worlds": "世界赛",
+        "install": "安装",
+        "addFile": "添加文件",
+        "updates": "更新"
+      },
+      "installed": "安装成功！",
+      "failedWorld": "未能建立和平",
+      "successWorld": "和平已成功建立！",
+      "deleting": "模组包正在被删除",
+      "deleted": "模组包删除完成！"
     }
   }
 }
