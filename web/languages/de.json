@@ -333,6 +333,10 @@
       "openDir": "Öffnen Sie den Ordner mit den Protokollen",
       "copy": "Protokoll kopieren",
       "copied": "Protokoll erfolgreich kopiert!"
+    },
+    "selectWorld": {
+      "title": "Wähle eine Welt",
+      "installHere": "Hier installieren"
     }
   }
 }

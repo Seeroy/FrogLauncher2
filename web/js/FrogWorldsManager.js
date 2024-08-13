@@ -99,7 +99,7 @@ class FrogWorldsManager {
                 return resolve(false);
             }
             if(!fs.existsSync(iconPath)){
-                iconPath = false;
+                iconPath = "assets/world.webp";
             }
 
             let nbtData = new NBT();

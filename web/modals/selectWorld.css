@@ -1,0 +1,47 @@
+#modal-selectWorld {
+    width: max-content;
+    min-width: 32vw;
+    height: max-content;
+    background: var(--theme-primaryBg);
+}
+
+#modal-selectWorld .worlds-list-wrapper {
+    background: var(--theme-primaryBgDark);
+    padding: 8px;
+    overflow-y: auto;
+    max-height: 50vh;
+    border-radius: 8px;
+}
+
+#modal-selectWorld .worlds-list {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 100%;
+    height: max-content;
+    gap: 8px;
+}
+
+#modal-selectWorld .worlds-list .item {
+    width: 100%;
+    height: max-content;
+    background: var(--theme-primaryBg);
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0s;
+}
+
+#modal-selectWorld .worlds-list .item.active {
+    border: 2px solid var(--theme-primary);
+}
+
+#modal-selectWorld .worlds-list .item.sub {
+    padding-left: 32px;
+    width: 90%;
+    cursor: pointer;
+}
+
+#modal-selectWorld .select {
+    width: 100%;
+    margin-top: 10px;
+}

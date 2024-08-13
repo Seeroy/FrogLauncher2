@@ -333,6 +333,10 @@
       "openDir": "打开包含日志的文件夹",
       "copy": "复制日志",
       "copied": "日志复制成功！"
+    },
+    "selectWorld": {
+      "title": "选择一个世界",
+      "installHere": "安装在这里"
     }
   }
 }

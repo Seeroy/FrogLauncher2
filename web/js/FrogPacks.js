@@ -270,7 +270,7 @@ class FrogPacks {
     }
 
     // Скачать ресурс по ID версии
-    static downloadByVersionID = (versionId, buttonElement = false) => {
+    static downloadByVersionID = (versionId, buttonElement = false, installPath = "") => {
         let iconUrl = false;
         if (buttonElement !== false) {
             iconUrl = $(buttonElement).parent().parent().parent().parent().find("img.icon").attr("src")
@@ -285,6 +285,9 @@ class FrogPacks {
             $.get(`https://api.modrinth.com/v2/version/${versionId}`, (response) => {
                 // Если не модпак - просто скачиваем файл
                 let fileItem = response.files[0];
+                if(installPath !== ""){
+                    downloadPath = installPath;
+                }
                 downloadPath = path.join(downloadPath, fileItem.filename);
                 FrogFlyout.setProgress(0);
                 FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);

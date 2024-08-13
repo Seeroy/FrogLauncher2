@@ -331,16 +331,20 @@ class FrogPacksUI {
 
                 // Загружаем его
                 result.forEach((item) => {
-                    let mappedLoaders = item.loaders.map(function(e) {
+                    let mappedLoaders = item.loaders.map(function (e) {
                         e = FrogUtils.capitalizeWord(e);
                         return e;
                     });
 
                     if ((FrogUtils.compareArrays(selectedVersions, item.game_versions).length > 0 || selectedVersions.length === 0) && (FrogUtils.compareArrays(selectedLoaders, item.loaders).length > 0 || selectedLoaders.length === 0)) {
+                        let installFunction = `FrogPacks.downloadByVersionID('${item.id}', this)`;
+                        if (item.loaders[0] === "datapack") {
+                            installFunction = `FrogUI.selectWorld().then(result => FrogPacks.downloadByVersionID('${item.id}', this, path.join(result, 'datapacks')))`;
+                        }
                         $versionList.append(`<div class="item">
 <span class="title">${item.name}</span>
 <div class="flex flex-align-center flex-gap-4 versions">${mappedLoaders.join(", ")} <div class="microdot"><div style="background: var(--theme-primaryBg)" class="dot"></div></div> ${item.game_versions.join(", ")}</div>
-${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small pill" onclick="FrogPacks.downloadByVersionID('${item.id}', this)">${MESSAGES.commons.install}</button>` : `<span class="material-symbols-outlined">download_done</span>`}
+${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small pill" onclick="${installFunction}">${MESSAGES.commons.install}</button>` : `<span class="material-symbols-outlined">download_done</span>`}
 </div>`);
                     }
                 })
@@ -351,7 +355,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
 
     // Проверить, установлен ли уже этот файл
     static isFileInstalled = (filename) => {
-        if(packs_currentMode === "modpacks"){
+        if (packs_currentMode === "modpacks") {
             let preparedId = FrogPacks.modpackCleanID(filename.replace(".mrpack", ""));
             return FrogPacks.isModpackExists(preparedId);
         }
@@ -379,7 +383,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                 placeholder = placeholder.replace(' placeholder', "");
                 // По placeholder`у добавляем новые элементы
                 result.hits.forEach((item) => {
-                    if(item.icon_url === ""){
+                    if (item.icon_url === "") {
                         item.icon_url = "assets/modIcon.webp";
                     }
                     let preparedPlaceholder = placeholder.replaceAll("$1", item.icon_url).replaceAll("$2", item.title).replaceAll("$3", item.description).replaceAll("$4", kFormatter(item.downloads)).replaceAll("$5", kFormatter(item.follows)).replaceAll("$6", item.slug);
@@ -394,8 +398,8 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                 })
 
                 // Анимация плашки с каждым модов
-                if(FrogConfig.read("disableAnimations", false) !== true){
-                    $("#modal-packs .packs-list .item").each(function(index){
+                if (FrogConfig.read("disableAnimations", false) !== true) {
+                    $("#modal-packs .packs-list .item").each(function (index) {
                         $(this).css("opacity", 0);
                         setTimeout(() => {
                             animateCSSNode($(this)[0], "fadeIn").then(() => {

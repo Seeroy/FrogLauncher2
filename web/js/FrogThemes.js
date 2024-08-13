@@ -69,17 +69,19 @@ class FrogThemes {
         let hslValue = colors.RGBToHSL(r, g, b);
         let primaryDarker = `hsl(${hslValue.h}, 100%, 35%)`;
         let primaryLighter = `hsl(${hslValue.h}, 100%, 60%)`;
-        let primaryBg, primaryBgLight, primaryBgLighter, primaryBgShadow;
+        let primaryBg, primaryBgLight, primaryBgLighter, primaryBgShadow, primaryBgDark;
         if (darkMode === true) {
             primaryBg = `hsl(${hslValue.h}, 50%, 10%)`;
             primaryBgShadow = `hsla(${hslValue.h}, 50%, 10%, 0.3)`;
             primaryBgLight = `hsl(${hslValue.h}, 50%, 16%)`;
             primaryBgLighter = `hsl(${hslValue.h}, 50%, 21%)`;
+            primaryBgDark = `hsl(${hslValue.h}, 50%, 5%)`;
         } else {
             primaryBg = `hsl(${hslValue.h}, 100%, 100%)`;
             primaryBgShadow = `hsla(${hslValue.h}, 100%, 100%, 0.3)`;
             primaryBgLight = `hsl(${hslValue.h}, 30%, 95%)`;
             primaryBgLighter = `hsl(${hslValue.h}, 30%, 89%)`;
+            primaryBgDark = `hsl(${hslValue.h}, 30%, 84%)`;
         }
 
         let primaryHex = colors.rgbToHex(r, g, b);
@@ -96,6 +98,7 @@ class FrogThemes {
             primaryBgLight: primaryBgLight,
             primaryBgLighter: primaryBgLighter,
             primaryBgShadow: primaryBgShadow,
+            primaryBgDark: primaryBgDark,
             hue: hslValue.h,
             text: textColor
         }

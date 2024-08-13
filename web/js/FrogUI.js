@@ -73,10 +73,10 @@ class FrogUI {
 
     // Сделать пасхалко
     static bindEasterEgg = () => {
-        $("img").each(function(){
+        $("img").each(function () {
             let imgSrc = $(this).attr("src").toString();
-            if(imgSrc.match(/assets\/icon\.png/mig) !== null){
-                $(this).click(function(){
+            if (imgSrc.match(/assets\/icon\.png/mig) !== null) {
+                $(this).click(function () {
                     if (isEggPlaying === false) {
                         isEggPlaying = true;
                         $(this).addClass("animate__animated animate__tada");
@@ -101,5 +101,46 @@ class FrogUI {
                 })
             }
         });
+    }
+
+    // Диалог выбора мира и получить результат
+    static selectWorld = () => {
+        return new Promise(resolve => {
+            // Загружаем миры в список
+            FrogWorldsManager.getAllWorlds().then(worlds => {
+                worlds.forEach(world => {
+                    if (world.worlds.length > 0) {
+                        let subWorlds = "";
+                        world.worlds.forEach(item => {
+                            subWorlds += `<div class='item sub' data-path="${item.path}">${item.name}</div>`;
+                        });
+                        let worldShortPath = world.path.replace(GAME_DATA + path.sep, "");
+                        $(".worlds-list").append(`<div class='item'>${worldShortPath}</div>${subWorlds}`);
+                    }
+                })
+                // Выбор активного
+                $("#modal-selectWorld .worlds-list .item.sub").click(function () {
+                    if (!$(this).hasClass("active")) {
+                        $("#modal-selectWorld .worlds-list .item.active").removeClass("active");
+                        $(this).addClass("active");
+                    }
+                })
+            })
+
+            // Возвращаем результат
+            $("#modal-selectWorld .select").one("click", function () {
+                let $activeItem = $("#modal-selectWorld .worlds-list .item.active");
+                if ($activeItem.length === 1) {
+                    FrogModals.hideModal("selectWorld");
+                    return resolve($activeItem.data("path"));
+                }
+            })
+
+            $("#modal-selectWorld .square").one("click", function () {
+                return resolve(false);
+            })
+
+            FrogModals.showModal("selectWorld");
+        })
     }
 }

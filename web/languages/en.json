@@ -333,6 +333,10 @@
       "openDir": "Open logs folder",
       "copy": "Copy log",
       "copied": "Log copied successfully!"
+    },
+    "selectWorld": {
+      "title": "Choose a world",
+      "installHere": "Install here"
     }
   }
 }
