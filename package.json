@@ -32,6 +32,7 @@
     "jimp": "^0.22.12",
     "jquery": "^3.7.1",
     "machine-uuid": "^1.2.0",
+    "mcnbt": "^2.0.3",
     "minecraft-launcher-core": "^3.18.1",
     "msmc": "^5.0.5",
     "open": "^8.4.2",

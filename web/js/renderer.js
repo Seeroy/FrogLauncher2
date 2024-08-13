@@ -15,6 +15,7 @@ const packageJson = require("./../package.json");
 const Jimp = require("jimp");
 const compressing = require('compressing');
 const treeKill = require("tree-kill");
+const NBT = require('mcnbt');
 
 const {exec} = require('node:child_process');
 
