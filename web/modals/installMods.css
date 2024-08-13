@@ -1,47 +1,47 @@
 /* Tabs */
-#modal-packs .tabs > .tab {
+#modal-installMods .tabs > .tab {
     flex-grow: 1;
     padding: 8px;
 }
 
-#modal-packs .tabs {
+#modal-installMods .tabs {
     height: 32px;
 }
 
-#modal-packs .layout-tab {
+#modal-installMods .layout-tab {
     display: flex;
     flex-direction: column;
     gap: 16px 0;
 }
 
-#modal-packs .layout-tab:not(.active) {
+#modal-installMods .layout-tab:not(.active) {
     display: none;
 }
 
 /* Sub tabs */
-#modal-packs .tabs.sub {
+#modal-installMods .tabs.sub {
     height: max-content;
 }
 
-#modal-packs .tabs.sub .tab {
+#modal-installMods .tabs.sub .tab {
     height: 32px;
     padding: 4px;
     flex-direction: row !important;
 }
 
-html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) {
+html.light #modal-installMods .tabs.sub .tab.active *:not(.material-symbols-outlined) {
     color: var(--theme-primary);
 }
 
 /* Modal */
-#modal-packs {
+#modal-installMods {
     gap: 12px;
     display: flex;
     flex-direction: column;
     padding: 24px;
 }
 
-#modal-packs .preloader {
+#modal-installMods .preloader {
     width: 100%;
     height: 100%;
     display: flex;
@@ -51,7 +51,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     gap: 12px;
 }
 
-#modal-packs select {
+#modal-installMods select {
     height: 48px;
     flex-grow: 1;
     padding: 0 16px;
@@ -60,7 +60,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
 }
 
 /* Modal layout */
-#modal-packs .modal-layout {
+#modal-installMods .modal-layout {
     display: grid;
     grid-template-columns: 272px 1fr 25%;
     grid-template-rows: max-content 48px 1fr;
@@ -76,13 +76,13 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     height: 100%;
 }
 
-#modal-packs .modal-layout .search {
+#modal-installMods .modal-layout .search {
     grid-area: search;
     height: 48px;
     padding: 8px;
 }
 
-#modal-packs .modal-layout .installedList {
+#modal-installMods .modal-layout .installedList {
     grid-area: installedList;
 
     background: var(--theme-primaryBgLight);
@@ -93,7 +93,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     overflow: auto;
 }
 
-#modal-packs .modal-layout .filters {
+#modal-installMods .modal-layout .filters {
     grid-area: filters;
 
     background: var(--theme-primaryBgLight);
@@ -104,7 +104,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     overflow: auto;
 }
 
-#modal-packs .modal-layout .installTo {
+#modal-installMods .modal-layout .installTo {
     grid-area: installTo;
     width: 100%;
     height: max-content;
@@ -115,24 +115,24 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     gap: 6px;
 }
 
-#modal-packs .modal-layout .installTo input {
+#modal-installMods .modal-layout .installTo input {
     flex-grow: 1;
 }
 
 /* Filters */
-#modal-packs .modal-layout .filters__scroll-wrapper {
+#modal-installMods .modal-layout .filters__scroll-wrapper {
     height: max-content;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-#modal-packs .modal-layout .filters .scroll-wrap {
+#modal-installMods .modal-layout .filters .scroll-wrap {
     max-height: 50vh;
     overflow: auto;
 }
 
-#modal-packs .modal-layout .filters .scroll-wrap > div {
+#modal-installMods .modal-layout .filters .scroll-wrap > div {
     height: max-content;
     display: flex;
     flex-direction: column;
@@ -143,12 +143,12 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     border-radius: 8px;
 }
 
-#modal-packs .modal-layout .packs-wrapper {
+#modal-installMods .modal-layout .packs-wrapper {
     grid-area: mods;
     overflow: auto;
 }
 
-#modal-packs .packs-list {
+#modal-installMods .packs-list {
     height: max-content;
     display: flex;
     flex-direction: column;
@@ -157,7 +157,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
 }
 
 /* Pack item */
-#modal-packs .packs-list .item {
+#modal-installMods .packs-list .item {
     background: var(--theme-primaryBgLight);
     padding: 6px 12px;
     border-radius: 8px;
@@ -174,7 +174,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     "icon specs button";
 }
 
-#modal-packs .packs-list .item .icon {
+#modal-installMods .packs-list .item .icon {
     justify-self: center;
     align-self: center;
     grid-area: icon;
@@ -183,7 +183,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     border-radius: 8px;
 }
 
-#modal-packs .packs-list .item .button {
+#modal-installMods .packs-list .item .button {
     justify-self: center;
     align-self: center;
     grid-area: button;
@@ -195,13 +195,13 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     gap: 4px;
 }
 
-#modal-packs .packs-list .item .button button {
+#modal-installMods .packs-list .item .button button {
     font-size: 12pt;
     padding: 8px 16px;
     height: max-content;
 }
 
-#modal-packs .packs-list .item .button .link * {
+#modal-installMods .packs-list .item .button .link * {
     color: var(--theme-primaryLighter);
     font-size: 11pt;
 
@@ -211,49 +211,49 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     flex-direction: row;
 }
 
-#modal-packs .packs-list .item .button .link * {
+#modal-installMods .packs-list .item .button .link * {
     display: inline-block !important;
 }
 
-#modal-packs .packs-list .item .button .link,
-#modal-packs .packs-list .item .button .link * {
+#modal-installMods .packs-list .item .button .link,
+#modal-installMods .packs-list .item .button .link * {
     text-decoration: none !important;
 }
 
-#modal-packs .packs-list .item .button .link:hover * {
+#modal-installMods .packs-list .item .button .link:hover * {
     color: var(--theme-primary);
 }
 
-#modal-packs .packs-list .item .title {
+#modal-installMods .packs-list .item .title {
     grid-area: title;
     font-size: 16pt;
     font-weight: 700;
 }
 
-#modal-packs .packs-list .item .description {
+#modal-installMods .packs-list .item .description {
     grid-area: description;
     font-size: 11pt;
     opacity: 0.95;
 }
 
-#modal-packs .packs-list .item .specs {
+#modal-installMods .packs-list .item .specs {
     grid-area: specs;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-#modal-packs .packs-list .item .specs * {
+#modal-installMods .packs-list .item .specs * {
     color: var(--text-sub);
     font-size: 12pt;
 }
 
 /* Versions list */
-#modal-packs .packs-list .item:not(.opened) .versions-scroll {
+#modal-installMods .packs-list .item:not(.opened) .versions-scroll {
     display: none !important;
 }
 
-#modal-packs .packs-list .item .versions-list {
+#modal-installMods .packs-list .item .versions-list {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -261,14 +261,14 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     width: 100%;
 }
 
-#modal-packs .packs-list .item .versions-scroll {
+#modal-installMods .packs-list .item .versions-scroll {
     grid-area: versionsList;
     max-height: 30vh;
     width: 100%;
     overflow: auto;
 }
 
-#modal-packs .packs-list .item.opened {
+#modal-installMods .packs-list .item.opened {
     grid-template-rows: max-content max-content max-content max-content max-content;
     grid-template-areas:
     "icon title button"
@@ -279,7 +279,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     max-height: 60vh;
 }
 
-#modal-packs .packs-list .item .versions-list .item {
+#modal-installMods .packs-list .item .versions-list .item {
     background: var(--theme-primaryBgLighter);
     padding: 6px 32px;
     border-radius: 8px;
@@ -295,16 +295,16 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     "versions button";
 }
 
-#modal-packs .packs-list .item .versions-list .item .title {
+#modal-installMods .packs-list .item .versions-list .item .title {
     grid-area: title;
 }
 
-#modal-packs .packs-list .item .versions-list .item .versions {
+#modal-installMods .packs-list .item .versions-list .item .versions {
     grid-area: versions;
 }
 
-#modal-packs .packs-list .item .versions-list .item button,
-#modal-packs .packs-list .item .versions-list .item .material-symbols-outlined {
+#modal-installMods .packs-list .item .versions-list .item button,
+#modal-installMods .packs-list .item .versions-list .item .material-symbols-outlined {
     align-self: center;
     justify-self: center;
 
@@ -314,14 +314,14 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     grid-area: button;
 }
 
-#modal-packs .packs-list .item .versions-list .item button {
+#modal-installMods .packs-list .item .versions-list .item button {
     padding: 8px 16px;
     font-size: 12pt;
     border-radius: 32px !important;
 }
 
 /* Installed list */
-#modal-packs .installedList .scroll-wrap {
+#modal-installMods .installedList .scroll-wrap {
     display: flex;
     flex-direction: column;
     height: max-content;
@@ -329,7 +329,7 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     gap: 4px;
 }
 
-#modal-packs .installedList .scroll-wrap .item {
+#modal-installMods .installedList .scroll-wrap .item {
     width: 100%;
     height: max-content;
     padding: 8px;
@@ -341,20 +341,20 @@ html.light #modal-packs .tabs.sub .tab.active *:not(.material-symbols-outlined) 
     background: var(--theme-primaryBgLighter);
 }
 
-#modal-packs .installedList .scroll-wrap .item .icon {
+#modal-installMods .installedList .scroll-wrap .item .icon {
     font-size: 24px;
     width: 24px;
     height: 24px;
 }
 
-#modal-packs .installedList .scroll-wrap .item .name {
+#modal-installMods .installedList .scroll-wrap .item .name {
     text-overflow: ellipsis;
     text-wrap: nowrap;
     font-size: 10pt;
     width: 75%;
 }
 
-#modal-packs .installedList .scroll-wrap .item button {
+#modal-installMods .installedList .scroll-wrap .item button {
     width: 32px;
     height: 32px;
     padding: 0;

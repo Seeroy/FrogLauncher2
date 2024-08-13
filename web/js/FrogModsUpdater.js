@@ -13,10 +13,10 @@ class FrogModsUpdater {
         mods__packList = [];
         mods__currentChecking = 0;
 
-        $("#modal-packs .updateTab .selectMode").hide();
-        $("#modal-packs .updateTab .updateMode").show();
+        $("#modal-packManager .updateTab .selectMode").hide();
+        $("#modal-packManager .updateTab .updateMode").show();
         mods__promise = new Promise(resolve => {
-            let modpackManifest = FrogPacks.getModpackManifest(modpackId);
+            let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);
             if (modpackManifest === false) {
                 return resolve(false);
             }
@@ -35,57 +35,56 @@ class FrogModsUpdater {
         if (typeof mods__packList[mods__currentChecking] === "undefined") {
             return mods__promiseResolve(mods__resultList);
         }
-        $("#modal-packs .updateTab .updateMode .text").text(`${MESSAGES.packs.updatePackM.checking} (${mods__currentChecking}/${Object.values(mods__packList).length})`);
 
-        let projectId = mods__packList[mods__currentChecking].url.split("/")[4];
-        let fileName = mods__packList[mods__currentChecking].name;
+        let fullPath = path.join(GAME_DATA, "modpacks", mods__currentModpackId, mods__packList[mods__currentChecking].path);
+        if(!fs.existsSync(fullPath)){
+            return FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
+        }
 
-        let currentVersion = false;
-        let latestVersion = false;
-        $.get(`https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${mcLoader}%22]`, (result) => {
-            result.forEach((item) => {
-                if (item.files[0].filename === fileName) {
-                    currentVersion = item.version_number;
-                }
-                if (item.version_type === "release" && latestVersion === false) {
-                    latestVersion = {
-                        version: item.version_number,
-                        file: item.files[0],
-                        name: item.name
-                    };
-                }
-            })
-            if (currentVersion !== latestVersion.version && currentVersion !== false && latestVersion !== false) {
-                $.get(`https://api.modrinth.com/v2/project/${projectId}`, (projectData) => {
+        $("#modal-packManager .updateTab .updateMode .text").text(`${MESSAGES.packs.updatePackM.checking} (${mods__currentChecking}/${Object.values(mods__packList).length})`);
+        FrogAssetsParsers.readModInfo(fullPath).then(resultLocal => {
+            if (resultLocal === false || mods__packList[mods__currentChecking].url.match(/https:\/\/cdn\.modrinth\.com\//mig) === null) {
+                return FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
+            }
+            $("#modal-packManager .updateTab .updateMode .mod").text(resultLocal.name);
+            let projectId = mods__packList[mods__currentChecking].url.split("/")[4];
+            let currentVersion = resultLocal.version;
+            let latestVersion = false;
+            $.get(`https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${mcLoader}%22]`, (result) => {
+                result.forEach((item) => {
+                    if (item.version_type === "release" && latestVersion === false) {
+                        latestVersion = {
+                            version: item.version_number,
+                            file: item.files[0],
+                            name: item.name
+                        };
+                    }
+                })
+                if (currentVersion !== latestVersion.version && currentVersion !== false && latestVersion !== false) {
                     mods__resultList.push({
                         projectId: projectId,
                         mcVersion: mcVersion,
-                        projectName: projectData.title,
+                        projectName: resultLocal.name,
                         current: currentVersion,
-                        currentFileName: fileName,
-                        latest: latestVersion
+                        currentFileName: mods__packList[mods__currentChecking].name,
+                        latest: latestVersion,
+                        icon: resultLocal.icon
                     })
-                    $("#modal-packs .updateTab .updateMode .mod").text(projectData.title);
-                    setTimeout(() => {
-                        FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
-                    }, 1600);
-                });
-            } else {
-                $("#modal-packs .updateTab .updateMode .mod").text("");
+                }
                 setTimeout(() => {
                     FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
-                }, 1600);
-            }
-        })
+                }, 650);
+            })
+        });
     }
 
     // Обновить все моды из списка обновлений
     static updateAllFromList = () => {
-        $("#modal-packs .updateTab .foundUpdateMode").hide();
-        $("#modal-packs .updateTab .foundUpdateMode .updatesList").html("");
-        $("#modal-packs .updateTab .updateMode .mod").text("");
-        $("#modal-packs .updateTab .updateMode .text").text(MESSAGES.packs.updatePackM.installing);
-        $("#modal-packs .updateTab .updateMode").show();
+        $("#modal-packManager .updateTab .foundUpdateMode").hide();
+        $("#modal-packManager .updateTab .foundUpdateMode .updatesList").html("");
+        $("#modal-packManager .updateTab .updateMode .mod").text("");
+        $("#modal-packManager .updateTab .updateMode .text").text(MESSAGES.packs.updatePackM.installing);
+        $("#modal-packManager .updateTab .updateMode").show();
         return new Promise(resolve => {
             let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);
             if (modpackManifest === false) {
@@ -119,8 +118,8 @@ class FrogModsUpdater {
             FrogPacks.writeModpackManifest(mods__currentModpackId, modpackManifest);
             // Запускаем проверку модов
             FrogPacks.verifyAndInstall(mods__currentModpackId).then(() => {
-                $("#modal-packs .updateTab .updateMode").hide();
-                $("#modal-packs .updateTab .selectMode").show();
+                $("#modal-packManager .updateTab .updateMode").hide();
+                $("#modal-packManager .updateTab .selectMode").show();
                 FrogFlyout.changeMode("idle");
                 FrogFlyout.setUIStartMode(false);
                 return resolve(true);
@@ -128,15 +127,18 @@ class FrogModsUpdater {
         })
     }
 
-    // Получить ID пака из select и начать проверку
-    static checkUpdatesBySelect = () => {
-        let modpackId = $("#mods-update-pack-select").val();
-        FrogModsUpdater.checkPackUpdatesAvailable(modpackId).then(list => {
-            $("#modal-packs .updateTab .foundUpdateMode .updatesList").html("");
-            $("#modal-packs .updateTab .foundUpdateMode").show();
-            $("#modal-packs .updateTab .updateMode").hide();
+    // Начать проверку обновлений
+    static checkUpdates = () => {
+        FrogModsUpdater.checkPackUpdatesAvailable(packman__currentModpack.id).then(list => {
+            $("#modal-packManager .updateTab .foundUpdateMode .updatesList").html("");
+            $("#modal-packManager .updateTab .foundUpdateMode").show();
+            $("#modal-packManager .updateTab .updateMode").hide();
             list.forEach((item) => {
-                $("#modal-packs .updateTab .foundUpdateMode .updatesList").append(`<div class="item"><h2>${item.projectName}</h2><div class="flex flex-align-center flex-gap-4"><span>${item.current}</span> <span class="material-symbols-outlined">arrow_forward</span> <span>${item.latest.version}</span></div></div>`);
+                $("#modal-packManager .updateTab .updates-list").append(`<div class='item custom-select icon-and-description'>
+                    <img class="icon" src="data:image/png;base64,${item.icon}" />
+                    <span class="title">${item.projectName}</span>
+                    <div class="flex flex-align-center flex-gap-4 description"><span>${item.current}</span> <span class="material-symbols-outlined">arrow_forward</span> <span>${item.latest.version}</span></div>
+                    </div>`);
             });
         });
     }

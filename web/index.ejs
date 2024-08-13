@@ -22,6 +22,7 @@
     <script src="./js/FrogAccountsUI.js"></script>
     <script src="./js/FrogAlerts.js"></script>
     <script src="./js/FrogAssets.js"></script>
+    <script src="./js/FrogAssetsParsers.js"></script>
     <script src="./js/FrogDownloader.js"></script>
     <script src="./js/FrogErrorsParser.js"></script>
     <script src="./js/FrogElybyManager.js"></script>
@@ -70,7 +71,8 @@
         <!-- Модальные окна НАЧАЛО-->
         <%- include('modals/settings'); %>
         <%- include('modals/changelog'); %>
-        <%- include('modals/packsAndMods'); %>
+        <%- include('modals/installMods'); %>
+        <%- include('modals/packs'); %>
         <%- include('modals/servers'); %>
         <%- include('modals/console'); %>
         <%- include('modals/content'); %>
@@ -194,6 +196,9 @@
         // Отправляем ipc о готовности лаунчера
         ipcRenderer.send("launcher-ready");
         FrogCollector.writeLog("IPC: Launcher ready");
+
+        // Очищаем старый кэш ассетов
+        FrogAssetsParsers.clearAssetsCache();
 
         // Начинаем тестирование
         if (global.IS_APP_IN_TEST) {

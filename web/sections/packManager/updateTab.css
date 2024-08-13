@@ -1,0 +1,51 @@
+#modal-packManager .updateTab,
+#modal-packManager .updateTab .updateMode,
+#modal-packManager .updateTab .foundUpdateMode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-packManager .updateTab > div,
+#modal-packManager .updateTab .scroll-wrap{
+    width: 100%;
+}
+
+#modal-packManager .updateTab .scroll-wrap {
+    max-height: 47vh;
+}
+
+#modal-packManager .updateTab .updateMode,
+#modal-packManager .updateTab .foundUpdateMode {
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Updates list mode */
+#modal-packManager .updateTab .foundUpdateMode .updatesListWrapper {
+    width: 100%;
+    overflow: auto;
+}
+
+#modal-packManager .updateTab .foundUpdateMode .updatesList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    height: max-content;
+}
+
+#modal-packManager .updateTab .foundUpdateMode .updatesList .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 4px;
+    border-radius: 8px;
+
+    width: 100%;
+    height: max-content;
+    padding: 12px;
+
+    background: var(--theme-primaryBgLight);
+}

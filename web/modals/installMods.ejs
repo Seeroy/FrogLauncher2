@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="modals/installMods.css"/>
+
+<div class="modal" id="modal-installMods" style="display: none;">
+    <div class="modal-layout">
+        <div class="installTo">
+            <span>{{packs.installTo}} </span>
+
+            <select class="custom-select" id="packs_dirList">
+                <option value="default" selected>{{packs.defaultDir}}</option>
+            </select>
+        </div>
+
+        <!-- Фильтры -->
+        <%- include('../sections/packsAndMods/filters.ejs'); %>
+
+        <!-- Поле для поиска -->
+        <input type="text" placeholder="{{commons.search}}" class="search"/>
+
+        <!-- Враппер списка сборок (для скролла) -->
+        <%- include('../sections/packsAndMods/wrappedModsList.ejs'); %>
+
+        <!-- Список установленных -->
+        <div class="installedList">
+            <div class="scroll-wrap"></div>
+        </div>
+    </div>
+</div>
+
+<script src="modals/installMods.js"></script>

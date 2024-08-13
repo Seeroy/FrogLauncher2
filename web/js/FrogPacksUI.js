@@ -9,7 +9,7 @@ class FrogPacksUI {
     // Создать пак из UI
     static createPack = () => {
         let packVersion = FrogVersionsManager.getActiveVersion();
-        let $packNameInput = $("#modal-packs .newPackTab input");
+        let $packNameInput = $("#modal-installMods .newPackTab input");
         let packName = $packNameInput.val();
         if (packName !== "" && packVersion !== "none") {
             $packNameInput.val("");
@@ -32,9 +32,9 @@ class FrogPacksUI {
     // Загрузить список установленных
     static loadInstalledList = () => {
         const scanDirectories = ["mods", "shaderpacks", "resourcepacks"];
-        let $installedList = $("#modal-packs .installedList .scroll-wrap");
+        let $installedList = $("#modal-installMods .installedList .scroll-wrap");
         $installedList.html("");
-        let modpackId = $("#modal-packs select").val();
+        let modpackId = $("#modal-installMods select").val();
 
         let listResult = {};
         let isModpack = false;
@@ -116,19 +116,19 @@ class FrogPacksUI {
 
     // Включить фильтры по ID модпака
     static loadFiltersByModpackID = () => {
-        if ($("#modal-packs select").val() === "default") {
+        if ($("#modal-installMods select").val() === "default") {
             // Убираем все отмеченные чекбоксы
-            $(`#modal-packs .filters__scroll-wrapper input[type="checkbox"]`).removeAttr("checked").removeProp("checked");
+            $(`#modal-installMods .filters__scroll-wrapper input[type="checkbox"]`).removeAttr("checked").removeProp("checked");
             return false;
         }
-        let modpackId = $("#modal-packs select").val();
+        let modpackId = $("#modal-installMods select").val();
         if (!FrogPacks.isModpackExists(modpackId)) {
             return false;
         }
         let packData = FrogPacks.getModpackManifest(modpackId);
 
         // Убираем все отмеченные чекбоксы
-        $(`#modal-packs .filters__scroll-wrapper input[type="checkbox"]`).removeAttr("checked").removeProp("checked");
+        $(`#modal-installMods .filters__scroll-wrapper input[type="checkbox"]`).removeAttr("checked").removeProp("checked");
 
         // Отмечаем нужные
         $(`.filters__scroll-wrapper input[value="${packData.baseVersion.type}"]`).attr("checked", true);
@@ -294,10 +294,10 @@ class FrogPacksUI {
 
     // Прогрузить список далее
     static loadMore = () => {
-        let savedScroll = $("#modal-packs .packs-wrapper").scrollTop();
+        let savedScroll = $("#modal-installMods .packs-wrapper").scrollTop();
         packs_currentOffset += 20;
         FrogPacksUI.reloadAll(false, false, false).then(() => {
-            $("#modal-packs .packs-wrapper").scrollTop(savedScroll - 16);
+            $("#modal-installMods .packs-wrapper").scrollTop(savedScroll - 16);
             packs_scrollIsLoading = false;
         });
     }
@@ -305,8 +305,8 @@ class FrogPacksUI {
     // Загрузить список версий для проекта
     static loadVersionsList = (projectId) => {
         return new Promise(resolve => {
-            let $versionList = $(`#modal-packs .packs-list .item[data-id="${projectId}"] .versions-list`);
-            let $itemElem = $(`#modal-packs .packs-list .item[data-id="${projectId}"]`);
+            let $versionList = $(`#modal-installMods .packs-list .item[data-id="${projectId}"] .versions-list`);
+            let $itemElem = $(`#modal-installMods .packs-list .item[data-id="${projectId}"]`);
 
             // Показываем UI загрузки
             $itemElem.addClass("opened");
@@ -359,7 +359,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
             let preparedId = FrogPacks.modpackCleanID(filename.replace(".mrpack", ""));
             return FrogPacks.isModpackExists(preparedId);
         }
-        let modpackId = $("#modal-packs select").val();
+        let modpackId = $("#modal-installMods select").val();
         if (!FrogPacks.isModpackExists(modpackId)) {
             return fs.existsSync(path.join(global.GAME_DATA, "mods", filename)) || fs.existsSync(path.join(global.GAME_DATA, "shaderpacks", filename)) || fs.existsSync(path.join(global.GAME_DATA, "resourcepacks", filename));
         }
@@ -370,16 +370,16 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
     static loadModsList = (clearBefore = true) => {
         return new Promise(resolve => {
             if (clearBefore) {
-                $("#modal-packs .packs-list .item:not(.placeholder)").remove();
+                $("#modal-installMods .packs-list .item:not(.placeholder)").remove();
             }
-            $("#modal-packs .packs-list").hide();
-            $("#modal-packs .preloader").show();
-            let query = $("#modal-packs input.search").val();
+            $("#modal-installMods .packs-list").hide();
+            $("#modal-installMods .preloader").show();
+            let query = $("#modal-installMods input.search").val();
             let facets = FrogPacksUI.filtersToFacets();
             let modrinthUrl = FrogPacksUI.generateURL(MODRINTH_MODS_API_URL, query, facets);
             $.get(modrinthUrl, result => {
                 // Получаем код placeholder`а
-                let placeholder = $("#modal-packs .item.placeholder")[0].outerHTML;
+                let placeholder = $("#modal-installMods .item.placeholder")[0].outerHTML;
                 placeholder = placeholder.replace(' placeholder', "");
                 // По placeholder`у добавляем новые элементы
                 result.hits.forEach((item) => {
@@ -387,11 +387,11 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                         item.icon_url = "assets/modIcon.webp";
                     }
                     let preparedPlaceholder = placeholder.replaceAll("$1", item.icon_url).replaceAll("$2", item.title).replaceAll("$3", item.description).replaceAll("$4", kFormatter(item.downloads)).replaceAll("$5", kFormatter(item.follows)).replaceAll("$6", item.slug);
-                    $("#modal-packs .packs-list").append(preparedPlaceholder);
+                    $("#modal-installMods .packs-list").append(preparedPlaceholder);
                 })
 
                 // Помечаем нужные аккаунты в списке активными
-                $("#modal-packs .packs-list .item").each(function () {
+                $("#modal-installMods .packs-list .item").each(function () {
                     if (!$(this).hasClass("placeholder")) {
                         $(this).show();
                     }
@@ -399,7 +399,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
 
                 // Анимация плашки с каждым модов
                 if (FrogConfig.read("disableAnimations", false) !== true) {
-                    $("#modal-packs .packs-list .item").each(function (index) {
+                    $("#modal-installMods .packs-list .item").each(function (index) {
                         $(this).css("opacity", 0);
                         setTimeout(() => {
                             animateCSSNode($(this)[0], "fadeIn").then(() => {
@@ -408,8 +408,8 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                         }, 20 * index)
                     })
                 }
-                $("#modal-packs .packs-list").show();
-                $("#modal-packs .preloader").hide();
+                $("#modal-installMods .packs-list").show();
+                $("#modal-installMods .preloader").hide();
                 return resolve(true);
             })
         })
@@ -441,21 +441,32 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
     // Обновить список папок для выбора места установки
     static refreshDirectorySelect = () => {
         let $select = $("#packs_dirList");
-        let $updateSelect = $("#mods-update-pack-select");
+        let $packsList = $("#modal-packs .grid");
         let selectedOption = $select.val();
         $select.html("");
-        $updateSelect.html("");
+        $packsList.html("");
         $select.append(`<option value="default">${MESSAGES.packs.defaultDir}</option>`);
         let myPacks = FrogPacks.getPacksList();
         let isAnyActiveSet = false;
+        $("#modal-packs .grid .item").off("click");
         myPacks.forEach((pack) => {
             let packData = FrogPacks.getModpackManifest(pack);
             if (packData.id === selectedOption) {
                 isAnyActiveSet = true;
             }
-            $updateSelect.append(`<option value="${packData.id}" ${packData.id === selectedOption ? "selected" : ""}>${packData.displayName}</option>`);
             $select.append(`<option value="${packData.id}" ${packData.id === selectedOption ? "selected" : ""}>${packData.displayName}</option>`);
+            $packsList.append(`
+                        <div class="item" data-id="${packData.id}">
+                <div class="img-wrap">
+                    <img src="${packData.icon}" />
+                </div>
+                <h2>${packData.displayName}</h2>
+                <span class="version">${FrogVersionsManager.versionToDisplayName(packData.baseVersion.full)}</span>
+            </div>`)
         });
+        $("#modal-packs .grid .item").click(function(){
+            FrogPackManagerUI.loadAndShow($(this).data("id"));
+        })
         if (!isAnyActiveSet) {
             $select.val("default");
         }

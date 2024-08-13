@@ -1,6 +1,6 @@
 {
   "name": "frogLauncher2",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Minecraft-лаунчер. Твой. Крутой",
   "main": "app.js",
   "scripts": {
@@ -38,6 +38,7 @@
     "open": "^8.4.2",
     "request": "^2.88.2",
     "tomate-loaders": "^2.0.2",
+    "toml": "^3.0.0",
     "tree-kill": "^1.2.2"
   },
   "build": {

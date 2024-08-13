@@ -108,7 +108,6 @@ class FrogWorldsManager {
                     console.log(err);
                     return resolve(false);
                 }
-                console.log(nbtData.root[""].value.Data.value);
                 return resolve({
                     icon: iconPath,
                     name: nbtData.root[""].value.Data.value.LevelName.value,

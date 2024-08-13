@@ -16,8 +16,8 @@ const Jimp = require("jimp");
 const compressing = require('compressing');
 const treeKill = require("tree-kill");
 const NBT = require('mcnbt');
-
 const {exec} = require('node:child_process');
+let toml = require('toml');
 
 // Версия лаунчера
 global.LAUNCHER_VERSION = packageJson.version;

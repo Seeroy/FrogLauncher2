@@ -276,7 +276,7 @@ class FrogPacks {
             iconUrl = $(buttonElement).parent().parent().parent().parent().find("img.icon").attr("src")
         }
         return new Promise(resolve => {
-            let modpackId = $("#modal-packs select").val();
+            let modpackId = packman__currentModpack.id;
             let downloadPath = path.join(global.GAME_DATA, packs_currentMode);
             if (FrogPacks.isModpackExists(modpackId)) {
                 downloadPath = path.join(global.GAME_DATA, "modpacks", modpackId, packs_currentMode);

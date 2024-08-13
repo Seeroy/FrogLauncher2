@@ -1,0 +1,50 @@
+#modal-packs .wrapper .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+#modal-packs .wrapper .grid .item {
+    width: max-content;
+    height: 100%;
+
+    max-width: 242px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--theme-primaryBgLight);
+    padding: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#modal-packs .wrapper .grid .item .version {
+    font-size: 12pt;
+    color: var(--text-sub);
+}
+
+#modal-packs .wrapper .grid .item:hover {
+    background: var(--theme-primaryBgLighter);
+}
+
+#modal-packs .wrapper .grid .item .img-wrap img {
+    width: 96px;
+    height: 96px;
+    border-radius: 18px;
+}
+
+#modal-packs .wrapper .grid .item .img-wrap {
+    width: 210px;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--theme-primaryBgLighter);
+    border-radius: 16px;
+}
+
+#modal-packs .wrapper {
+    height: 98%;
+    overflow-y: auto;
+}

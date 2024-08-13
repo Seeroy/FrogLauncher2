@@ -8,20 +8,42 @@ $(function () {
             $(this).addClass("active");
 
             packman__currentMode = $(this).data("tab");
-            FrogPackManagerUI.reloadAll();
+
+            if (packman__currentMode === "updates" && mods__currentModpackId !== packman__currentModpack.id) {
+                FrogModsUpdater.checkUpdates();
+            }
+
+            let $tab = $(`#modal-packManager .layout-tab[data-tab="${packman__currentMode}"]`);
+            $("#modal-packManager .layout-tab.active").removeClass("active");
+            $tab.addClass("active");
+            animateCSSNode($tab[0], "fadeIn");
+
+            // Анимация плашки с каждой настройкой
+            if (FrogConfig.read("disableAnimations", false) !== true) {
+                $tab.find(".item").each(function (index) {
+                    $(this).css("opacity", 0);
+                    setTimeout(() => {
+                        animateCSSNode($(this)[0], "fadeIn").then(() => {
+                            $(this).css("opacity", 1);
+                        })
+                    }, 45 * index)
+                })
+            }
+
+            FrogPackManagerUI.reloadAll(false);
         }
     })
 
     // Установить из репозитория
     $("#modal-packManager .tabs button.install").click(function () {
-        $("#modal-packs .search").val("");
+        $("#modal-installMods .search").val("");
         FrogPacksUI.refreshDirectorySelect();
-        $(`#modal-packs #packs_dirList`).val(packman__currentModpack.id);
+        $(`#modal-installMods #packs_dirList`).val(packman__currentModpack.id);
         FrogPacksUI.setCurrentMode(packman__currentMode);
         FrogPacksUI.loadFiltersByModpackID();
         FrogPacksUI.reloadAll(true, false, true);
         FrogModals.hideModal("packManager");
-        FrogModals.switchModal("packs");
+        FrogModals.switchModal("installMods");
     })
 
     // Выбрать файл
@@ -35,7 +57,7 @@ $(function () {
             }
         }
         ipcRenderer.invoke("open-dialog", properties).then(result => {
-            if(result === false){
+            if (result === false) {
                 return;
             }
             let fileName = path.basename(result[0]);
@@ -58,7 +80,7 @@ $(function () {
                     } else {
                         FrogToasts.create(fileName, "download_done", MESSAGES.packManager.successWorld);
                     }
-                    return FrogPackManagerUI.reloadAll();
+                    return FrogPackManagerUI.loadWorldsList();
                 })
             }
         })
@@ -67,12 +89,180 @@ $(function () {
 
 class FrogPackManagerUI {
     // Перезагрузить всё
-    static reloadAll = () => {
+    static reloadAll = (reloadLists = true) => {
         if (packman__currentMode === "worlds") {
             $("#modal-packManager .tabs button.install").hide();
         } else {
             $("#modal-packManager .tabs button.install").show();
         }
+        if (reloadLists) {
+            FrogPackManagerUI.loadModsList();
+            FrogPackManagerUI.loadWorldsList();
+            FrogPackManagerUI.loadShadersList();
+            setTimeout(() => {
+                FrogPackManagerUI.loadRPList();
+            }, 250);
+        }
+    }
+
+    // Загрузить список ресурс-паков в UI
+    static loadRPList = () => {
+        let $rpList = $("#modal-packManager .layout-tab .rps-list");
+        let rpsPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "resourcepacks");
+        if (!fs.existsSync(rpsPath)) {
+            return false;
+        }
+        let rpList = fs.readdirSync(rpsPath);
+
+        let currentRp = -1;
+
+        $rpList.html("");
+        loadNextRp();
+
+        function loadNextRp() {
+            currentRp++;
+            if (typeof rpList[currentRp] !== "undefined") {
+                let rpFullPath = path.join(rpsPath, rpList[currentRp]);
+                if (fs.existsSync(rpFullPath) && (path.parse(rpFullPath).ext === ".zip")) {
+                    FrogAssetsParsers.readResourcePackV2(rpFullPath).then(result => {
+                        let icon = "assets/modIcon.webp";
+                        let description = "";
+                        if (result !== false) {
+                            icon = "data:image/png;base64," + result.icon;
+                            description = FrogUtils.removeColorsFromString(result.mcmeta.description);
+                        }
+                        $rpList.append(`<div data-filename="${rpList[currentRp]}" class='item custom-select icon-and-description'>
+                    <img class="icon" src="${icon}" />
+                    <span class="title">${path.parse(rpList[currentRp]).base}</span>
+                    ${description !== "" ? `<span class="description">${description}</span>` : ""}
+                    <button class="square small button" onclick="FrogPackManagerUI.removeFile(this)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    </div>`);
+                        loadNextRp();
+                    })
+                }
+            }
+        }
+    }
+
+    // Загрузить список модов в UI
+    static loadModsList = () => {
+        let $modsList = $("#modal-packManager .layout-tab .mods-list");
+        let modsPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "mods");
+        if (!fs.existsSync(modsPath)) {
+            return false;
+        }
+        let modList = fs.readdirSync(modsPath);
+
+        let currentMod = -1;
+
+        $modsList.html("");
+        loadNextMod();
+
+        function loadNextMod() {
+            currentMod++;
+            if (typeof modList[currentMod] !== "undefined") {
+                let modFullPath = path.join(modsPath, modList[currentMod]);
+                if (fs.existsSync(modFullPath) && (path.parse(modFullPath).ext === ".jar" || path.parse(modFullPath).ext === ".dis")) {
+                    FrogAssetsParsers.readModInfo(modFullPath).then(result => {
+                        let icon = "assets/modIcon.webp";
+                        let description = "";
+                        let title = path.parse(modList[currentMod]).base;
+                        let titleChips = "";
+                        let $switch = `<label class="switch">
+        <input type="checkbox" onchange="FrogPackManagerUI.toggleMod(this)" checked>
+        <span class="inner"></span>
+    </label>`;
+                        if(path.parse(modFullPath).ext === ".dis"){
+                            $switch = $switch.replace(" checked", "");
+                        }
+                        if (result !== false) {
+                            icon = "data:image/png;base64," + result.icon;
+                            description = FrogUtils.removeColorsFromString(result.description);
+                            title = result.name;
+                            let authorsList = [];
+                            result?.authors?.forEach((author) => {
+                                authorsList.push(author?.name || author);
+                            })
+                            authorsList.length === 0 ? authorsList = "" : authorsList;
+
+                            titleChips = `<div class="chip small">${result.version}</div>
+                            <div class="chip small">${authorsList}</div>`;
+                        }
+                        $modsList.append(`<div data-filename="${modList[currentMod]}" class='item custom-select icon-and-description'>
+                    <img class="icon" src="${icon}" />
+                    ${$switch}
+                    <div class="title flex flex-gap-4 flex-align-center">
+                        <span>${title}</span>
+                        ${titleChips}
+                    </div>
+                    ${description !== "" ? `<span class="description">${description}</span>` : ""}
+                    <button class="square small button" onclick="FrogPackManagerUI.removeFile(this)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    </div>`);
+                        loadNextMod();
+                    })
+                } else {
+                    loadNextMod();
+                }
+            }
+        }
+    }
+
+    // Загрузить список миров в UI
+    static loadWorldsList = () => {
+        let $worldsList = $("#modal-packManager .layout-tab .worlds-list");
+        let worldsPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "saves");
+        if (!fs.existsSync(worldsPath)) {
+            return false;
+        }
+        $worldsList.html("");
+        FrogWorldsManager.savesFromDirectory(worldsPath).then(result => {
+            if (result !== false) {
+                result.forEach(item => {
+                    let icon = "assets/modIcon.webp";
+                    if (item.icon !== false) {
+                        icon = item.icon;
+                    }
+                    $worldsList.append(`<div class='item custom-select icon-and-description'>
+                    <img class="icon" src="${icon}" />
+                    <span class="title">${item.name}</span>
+                    <div class="description flex flex-align-center flex-gap-8">
+                        <span>${MESSAGES.packManager.gamemodes[item.gamemode]}</span>
+                        <div class="microdot"><div class="dot"></div></div>
+                        <span>${MESSAGES.packManager.difficulty[item.difficulty]}</span>
+                        <div class="microdot"><div class="dot"></div></div>
+                        <span>${item.version}</span>
+                    </div>
+                    <button class="square small button">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    </div>`);
+                })
+            }
+        });
+    }
+
+    // Загрузить список шейдеров
+    static loadShadersList = () => {
+        let $list = $("#modal-packManager .layout-tab .shaders-list");
+        let shadersPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "shaderpacks");
+        if (!fs.existsSync(shadersPath)) {
+            return false;
+        }
+        let shadersList = fs.readdirSync(shadersPath);
+        $list.html("");
+        shadersList.forEach(item => {
+            $list.append(`<div data-filename="${item}" class='item custom-select icon-and-description'>
+                    <img class="icon" src="assets/modIcon.webp" />
+                    <span class="title">${path.parse(item).base}</span>
+                    <button class="square small button" onclick="FrogPackManagerUI.removeFile(this)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                    </div>`);
+        })
     }
 
     // Загрузить пак в модальное окно
@@ -115,5 +305,40 @@ class FrogPackManagerUI {
         });
 
         return true;
+    }
+
+    // Удалить файл по кнопке
+    static removeFile = (elem) => {
+        let filename = $(elem).parent().data("filename");
+        let fullPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, packman__currentMode, filename);
+        let fullPathDis = fullPath + ".dis";
+        if(fs.existsSync(fullPath)){
+            fs.unlinkSync(fullPath);
+        }
+        if(fs.existsSync(fullPathDis)){
+            fs.unlinkSync(fullPathDis);
+        }
+        $(elem).parent().remove();
+    }
+
+    // Включить/выключить мод
+    static toggleMod = (elem) => {
+        let filename = $(elem).parent().parent().data("filename");
+        let fullPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, packman__currentMode, filename.replace(".dis", ""));
+        let fullPathDis = fullPath + ".dis";
+        if(fs.existsSync(fullPath)){
+            try {
+                fs.renameSync(fullPath, fullPathDis);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+        if(fs.existsSync(fullPathDis)){
+            try {
+                fs.renameSync(fullPathDis, fullPath);
+            } catch(e) {
+                console.log(e);
+            }
+        }
     }
 }

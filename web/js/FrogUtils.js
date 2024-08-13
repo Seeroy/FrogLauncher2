@@ -166,4 +166,9 @@ class FrogUtils {
         }
         return result;
     }
+
+    // Удалить игровые цвета из строки
+    static removeColorsFromString = (str) => {
+        return str.replaceAll(/§[0-9A-FK-OR]/gim, "");
+    }
 }
