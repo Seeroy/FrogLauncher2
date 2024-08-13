@@ -75,3 +75,26 @@ button.sub {
 button.sub:hover {
     filter: brightness(90%);
 }
+
+/* Outline-кнопка */
+button.outline {
+    color: var(--text-sub);
+    background: transparent;
+    border: 2px solid var(--text-sub) !important;
+    opacity: 0.77;
+}
+
+button.outline,
+button.outline * {
+    color: var(--text-sub);
+}
+
+button.outline:hover {
+    border-color: var(--text-color);
+    opacity: 1;
+}
+
+button.outline:hover,
+button.outline:hover * {
+    color: var(--text-color);
+}

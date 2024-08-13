@@ -3,21 +3,21 @@ class FrogPackManagerUI {
     static loadPackByManifest = (manifest) => {
         return new Promise(resolve => {
             // Название и иконка
-            $("#modal-packManager > div .icon").attr("src", manifest.icon);
+            $("#modal-packManager .title-wrapper .icon").attr("src", manifest.icon);
             let versionDisplayName = FrogVersionsManager.versionToDisplayName(manifest.baseVersion.full);
-            $("#modal-packManager > div .title").text(manifest.displayName);
-            $("#modal-packManager > div .description").text(versionDisplayName);
+            $("#modal-packManager .title-wrapper .title").text(manifest.displayName);
+            $("#modal-packManager .title-wrapper .description").text(versionDisplayName);
 
             // Бинды кнопок
-            $("#modal-packManager > div button").off("click");
-            $("#modal-packManager > div button.delete").click(() => {
+            $("#modal-packManager .title-wrapper button").off("click");
+            $("#modal-packManager .title-wrapper button.delete").click(() => {
 
             })
-            $("#modal-packManager > div button.folder").click(() => {
+            $("#modal-packManager .title-wrapper button.folder").click(() => {
                 let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);
                 openExternal(folderPath);
             })
-            $("#modal-packManager > div button.play").click(() => {
+            $("#modal-packManager .title-wrapper button.play").click(() => {
                 FrogStarter.simpleStart("pack-" + manifest.id);
                 FrogModals.hideModal("packManager");
             })

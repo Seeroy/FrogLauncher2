@@ -2,23 +2,42 @@
     width: 90vw;
     height: 90vh;
     padding: 21px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-#modal-packManager > div .icon {
+#modal-packManager .title-wrapper .icon {
     width: 64px;
     height: 64px;
     border-radius: 8px;
 }
 
-#modal-packManager > div .description {
+#modal-packManager .title-wrapper .description {
     font-size: 12pt;
     color: var(--text-sub);
 }
 
-#modal-packManager > div .delete {
+#modal-packManager .title-wrapper .delete {
     background: var(--error);
 }
 
-#modal-packManager > div .play {
+#modal-packManager .title-wrapper .play {
     background: var(--success);
+}
+
+#modal-packManager .tabs .tab {
+    padding: 12px;
+}
+
+#modal-packManager .tabs button {
+    padding: 0 10px !important;
+    height: 40px;
+    width: max-content;
+    min-width: max-content;
+}
+
+#modal-packManager .tabs button span {
+    font-size: 13pt;
 }

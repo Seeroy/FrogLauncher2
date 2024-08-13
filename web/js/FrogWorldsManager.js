@@ -27,7 +27,7 @@ class FrogWorldsManager {
     // Получить список сейвов из директории с данными о них
     static savesFromDirectory = (directory) => {
         return new Promise(resolve => {
-            if(!fs.existsSync(directory)){
+            if (!fs.existsSync(directory)) {
                 return resolve(false);
             }
 
@@ -38,12 +38,12 @@ class FrogWorldsManager {
 
             nextWorld();
 
-            function nextWorld(){
+            function nextWorld() {
                 currentWorld++;
-                if(typeof saves[currentWorld] !== "undefined"){
+                if (typeof saves[currentWorld] !== "undefined") {
                     var fullWorldPath = path.join(directory, saves[currentWorld]);
                     FrogWorldsManager.getWorldInfo(fullWorldPath).then(data => {
-                        if(data !== false){
+                        if (data !== false) {
                             data.path = fullWorldPath;
                             result.push(data);
                         }
@@ -60,7 +60,7 @@ class FrogWorldsManager {
     static getAllWorlds = () => {
         return new Promise(resolve => {
             let savesDirectories = FrogWorldsManager.getSavesDirectories();
-            if(savesDirectories.length === 0){
+            if (savesDirectories.length === 0) {
                 return resolve([]);
             }
 
@@ -70,11 +70,11 @@ class FrogWorldsManager {
 
             nextSave();
 
-            function nextSave(){
+            function nextSave() {
                 currentSave++;
-                if(typeof savesDirectories[currentSave] !== "undefined"){
+                if (typeof savesDirectories[currentSave] !== "undefined") {
                     FrogWorldsManager.savesFromDirectory(savesDirectories[currentSave]).then(saves => {
-                        if(saves === false){
+                        if (saves === false) {
                             saves = [];
                         }
                         result.push({
@@ -98,7 +98,7 @@ class FrogWorldsManager {
             if (!fs.existsSync(levelDat)) {
                 return resolve(false);
             }
-            if(!fs.existsSync(iconPath)){
+            if (!fs.existsSync(iconPath)) {
                 iconPath = "assets/world.webp";
             }
 
@@ -118,6 +118,43 @@ class FrogWorldsManager {
                     version: nbtData.root[""].value.Data.value.Version.value.Name.value,
                     gamemode: nbtData.root[""].value.Data.value.Player.value.playerGameType.value
                 });
+            });
+        })
+    }
+
+    // Установить мир из zip-архива
+    static installFromZip = (savesDirectory, zipPath) => {
+        return new Promise(resolve => {
+            if (!fs.existsSync(savesDirectory) || !fs.existsSync(zipPath)) {
+                return resolve(false);
+            }
+
+            let zipName = path.parse(zipPath).name;
+            let tempDir = path.join(savesDirectory, "tmptmptmp_fl");
+            let worldDir = path.join(savesDirectory, zipName);
+            fs.mkdirSync(worldDir, {recursive: true});
+
+            FrogUtils.unpackArchive(zipPath, tempDir).then(() => {
+                // Читаем папку
+                let rdTemp = fs.readdirSync(tempDir);
+                if (rdTemp.length === 1 && fs.lstatSync(path.join(tempDir, rdTemp[0])).isDirectory()) {
+                    // Если внутри ещё одна папка - перемещаем все файлы из неё
+                    let rdInner = fs.readdirSync(path.join(tempDir, rdTemp[0]));
+                    rdInner.forEach(item => {
+                        let oldPath = path.join(tempDir, rdTemp[0], item);
+                        let newPath = path.join(worldDir, item);
+                        if(!fs.existsSync(path.dirname(newPath))) {
+                            fs.mkdirSync(path.dirname(newPath), {recursive: true});
+                        }
+                        fsExtra.moveSync(oldPath, newPath);
+                    })
+                    fs.rmdirSync(tempDir, {recursive: true});
+                    return resolve(true);
+                } else {
+                    // Если внутри сразу мир, то просто переименовываем папку
+                    fs.renameSync(tempDir, worldDir);
+                    return resolve(true);
+                }
             });
         })
     }
