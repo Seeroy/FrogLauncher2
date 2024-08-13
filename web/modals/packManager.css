@@ -1,0 +1,24 @@
+#modal-packManager {
+    width: 90vw;
+    height: 90vh;
+    padding: 21px;
+}
+
+#modal-packManager > div .icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+}
+
+#modal-packManager > div .description {
+    font-size: 12pt;
+    color: var(--text-sub);
+}
+
+#modal-packManager > div .delete {
+    background: var(--error);
+}
+
+#modal-packManager > div .play {
+    background: var(--success);
+}

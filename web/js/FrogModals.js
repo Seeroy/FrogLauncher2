@@ -48,6 +48,8 @@ class FrogModals {
     // Переключить окно (если сейчас показано какое-либо)
     static switchModal = (modalName) => {
         FrogFlyout.lockFlymenu();
+        $(`.flymenu .item[data-modal="${FrogModals.currentModalName()}"]`).removeClass("active");
+        $(`.flymenu .item[data-modal="${modalName}"]`).addClass("active");
         return new Promise((resolve) => {
             FrogModals.hideCurrentModal().then(() => {
                 FrogModals.showModal(modalName).then(() => {
@@ -67,12 +69,28 @@ class FrogModals {
         })
     }
 
+    // Получить название modal на переднем плане
+    static currentModalName = () => {
+        let $currentModal = $(`.modal[style!="display: none;"]:not(.overlay)`);
+        return $currentModal[0].id.replace("modal-", "");
+    }
+
     // Показано ли модальное окно (если "", то любое из окон)
     static isModalShown = (modalName = "") => {
         if (modalName !== "") {
             return $(`.modal#modal-${modalName}`).css("display") !== "none";
         } else {
             return $(`.modal[style!="display: none;"]:not(.overlay)`).length > 0;
+        }
+    }
+
+    // Скрыть все и переключиться на контент
+    static switchToContent = () => {
+        $(".modal.overlay").each(function() {
+            FrogModals.hideModal($(this)[0].id.replace("modal-", ""));
+        })
+        if($(`.modal[style!="display: none;"]:not(.overlay)`)[0].id !== "modal-content"){
+            FrogModals.switchModal("content");
         }
     }
 }

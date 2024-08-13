@@ -88,6 +88,7 @@ body > .layout .flymenu {
 body > .layout .content {
     grid-area: content;
     overflow: visible;
+    min-height: 73vh;
 }
 
 body > .layout .windowButtons {

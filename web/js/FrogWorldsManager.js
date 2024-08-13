@@ -108,13 +108,15 @@ class FrogWorldsManager {
                     console.log(err);
                     return resolve(false);
                 }
+                console.log(nbtData.root[""].value.Data.value);
                 return resolve({
                     icon: iconPath,
                     name: nbtData.root[""].value.Data.value.LevelName.value,
                     dataPacks: nbtData.root[""].value.Data.value.DataPacks.value,
                     dataVersion: nbtData.root[""].value.Data.value.DataVersion.value,
                     difficulty: nbtData.root[""].value.Data.value.Difficulty.value,
-                    version: nbtData.root[""].value.Data.value.Version.value.Name.value
+                    version: nbtData.root[""].value.Data.value.Version.value.Name.value,
+                    gamemode: nbtData.root[""].value.Data.value.Player.value.playerGameType.value
                 });
             });
         })

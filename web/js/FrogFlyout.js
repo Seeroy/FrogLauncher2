@@ -39,17 +39,7 @@ class FrogFlyout {
 
     // Перевести UI в режим запуска игры (скрыть/заблокировать ненужные элементы)
     static setUIStartMode = (startMode) => {
-        if (FrogModals.isModalShown("accounts")) {
-            FrogModals.hideModal("accounts");
-        }
-        if (FrogModals.isModalShown("versions")) {
-            FrogModals.hideModal("versions");
-        }
-        if (FrogModals.isModalShown()) {
-            FrogModals.hideCurrentModal().then(() => {
-                FrogModals.showContent();
-            });
-        }
+        FrogModals.switchToContent();
         // Скрываем все кнопки Play в списке версий на главном экране
         startMode ? $(".versionsPosters").addClass("start-mode") : $(".versionsPosters").removeClass("start-mode");
         FrogCollector.writeLog(`Flyout: UI in start mode: ${startMode}`);
