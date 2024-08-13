@@ -22,13 +22,8 @@
     margin: auto;
 }
 
-dialog.modal::backdrop {
-    backdrop-filter: blur(2px) brightness(80%);
-}
-
-dialog.modal,
-dialog.modal * {
-    color: var(--text-color)
+body:has(.modal.overlay:not([style*="display: none;"])) > .layout {
+    filter: blur(2px) brightness(67%);
 }
 
 .modal .content {

@@ -72,27 +72,27 @@
         <%- include('modals/changelog'); %>
         <%- include('modals/packsAndMods'); %>
         <%- include('modals/servers'); %>
-        <%- include('modals/accounts'); %>
         <%- include('modals/console'); %>
-        <%- include('modals/versions'); %>
-        <%- include('modals/elybyLogin'); %>
-        <%- include('modals/frogLogin'); %>
-        <%- include('modals/frogRegister'); %>
-        <%- include('modals/frogSkin'); %>
         <%- include('modals/content'); %>
-        <%- include('modals/selectWorld'); %>
-        <%- include('modals/packManager'); %>
         <!-- Модальные окна КОНЕЦ-->
     </div>
 
     <!-- Флайаут (нижняя панель) -->
     <%- include('views/flyout'); %>
-
-    <!-- Пул для уведомлений -->
-    <div id="toasts-pool"></div>
-
-    <span id="audio"></span>
 </div>
+
+<!-- Пул для уведомлений -->
+<div id="toasts-pool"></div>
+
+<!-- Внешние модальные окна поверх всех -->
+<%- include('modals/accounts'); %>
+<%- include('modals/versions'); %>
+<%- include('modals/elybyLogin'); %>
+<%- include('modals/frogLogin'); %>
+<%- include('modals/frogRegister'); %>
+<%- include('modals/frogSkin'); %>
+<%- include('modals/selectWorld'); %>
+<%- include('modals/packManager'); %>
 </body>
 </html>
 <script>
@@ -130,7 +130,7 @@
     })
 
     $(function () {
-        if(FrogConfig.read("language") !== "ru"){
+        if (FrogConfig.read("language") !== "ru") {
             global.NEWS_URL = CDN_URL + "/news_en.json";
         } else {
             global.NEWS_URL = CDN_URL + "/news.json";
@@ -163,7 +163,9 @@
             FrogTranslator.loadLanguagesList();
 
             // Блокировка драга картинок
-            $('img').on('dragstart', function(event) { event.preventDefault(); });
+            $('img').on('dragstart', function (event) {
+                event.preventDefault();
+            });
 
             // Пасхалко
             FrogUI.bindEasterEgg();
