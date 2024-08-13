@@ -135,8 +135,8 @@ class FrogVersionsManager {
     // Добавить/удалить версию из избранного
     static addOrRemoveFavorite = (versionId) => {
         let favorites = FrogVersionsManager.getFavoriteVersions();
-        if(favorites.includes(versionId)){
-            favorites.splice(favorites.indexOf(versionId),1);
+        if (favorites.includes(versionId)) {
+            favorites.splice(favorites.indexOf(versionId), 1);
         } else {
             favorites.push(versionId);
         }

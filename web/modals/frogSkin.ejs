@@ -39,7 +39,7 @@
         let $error = $("#modal-frogSkin .error");
 
         // Настройка drag and drop
-        $("#modal-frogSkin .layout .dragzone").each(function() {
+        $("#modal-frogSkin .layout .dragzone").each(function () {
             $(this).on("dragenter", (e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -57,7 +57,7 @@
                 $(this).removeClass("dragged");
             })
 
-            $(this).on("drop", function(e){
+            $(this).on("drop", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
                 textureUploadType = $(this).data("mode");

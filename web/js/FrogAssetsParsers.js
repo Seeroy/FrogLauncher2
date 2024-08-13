@@ -46,7 +46,7 @@ class FrogAssetsParsers {
     static readResourcePackV2 = (zipFile) => {
         return new Promise(mainResolve => {
             let unpackPath = path.join(GAME_DATA, "cache", "unpacked", path.parse(zipFile).name);
-            if(!fs.existsSync(unpackPath)){
+            if (!fs.existsSync(unpackPath)) {
                 fs.mkdirSync(unpackPath, {recursive: true});
             }
             FrogUtils.unpackArchive(zipFile, unpackPath).then(result => {
@@ -75,7 +75,7 @@ class FrogAssetsParsers {
     static readModInfo = (jarFile) => {
         return new Promise(mainResolve => {
             let unpackPath = path.join(GAME_DATA, "cache", "unpacked", path.parse(jarFile).name);
-            if(!fs.existsSync(unpackPath)){
+            if (!fs.existsSync(unpackPath)) {
                 fs.mkdirSync(unpackPath, {recursive: true});
             }
             FrogUtils.unpackArchive(jarFile, unpackPath).then(result => {

@@ -66,7 +66,8 @@
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
         <span class="name">{{settings.startup.fullSplit.title}}</span>
-        <div class="description">{{settings.startup.fullSplit.description}}<br/><b>{{settings.startup.fullSplit.description2}}<br/>{{settings.startup.fullSplit.description3}}</b></div>
+        <div class="description">{{settings.startup.fullSplit.description}}<br/><b>{{settings.startup.fullSplit.description2}}<br/>{{settings.startup.fullSplit.description3}}</b>
+        </div>
     </div>
     <label class="switch" data-setting="fullySeparatedStorage">
         <input type="checkbox">
@@ -81,7 +82,8 @@
         </div>
         <div class="flex flex-grow flex-col flex-justify-center">
             <span class="name">{{settings.startup.multiplayerFix.title}}</span>
-            <div class="description">{{settings.startup.multiplayerFix.description}}<br/>{{settings.startup.multiplayerFix.description2}}</div>
+            <div class="description">{{settings.startup.multiplayerFix.description}}<br/>{{settings.startup.multiplayerFix.description2}}
+            </div>
         </div>
         <label class="switch" data-setting="multiplayerFix">
             <input type="checkbox">
@@ -116,7 +118,7 @@
         $("#gameDirectoryInput").val(global.GAME_DATA);
     })
 
-    function changeGameDirectory(){
+    function changeGameDirectory() {
         ipcRenderer.invoke("open-dialog", {
             properties: ["openDirectory", "dontAddToRecent"],
             buttonLabel: "Выбрать",

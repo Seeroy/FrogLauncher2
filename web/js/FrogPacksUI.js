@@ -9,12 +9,13 @@ class FrogPacksUI {
     // Создать пак из UI
     static createPack = () => {
         let packVersion = FrogVersionsManager.getActiveVersion();
-        let $packNameInput = $("#modal-installMods .newPackTab input");
+        let $packNameInput = $("#modal-createPack input");
         let packName = $packNameInput.val();
         if (packName !== "" && packVersion !== "none") {
             $packNameInput.val("");
             FrogPacks.createPack(packVersion, packName);
             FrogAlerts.create("Ok!", MESSAGES.packs.created, MESSAGES.commons.close, "check_circle");
+            FrogModals.hideModal("createPack")
             FrogPacksUI.refreshDirectorySelect();
         }
     }
@@ -444,7 +445,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
         let $packsList = $("#modal-packs .grid");
         let selectedOption = $select.val();
         $select.html("");
-        $packsList.html("");
+        $("#modal-packs .grid .item:not(.add)").remove();
         $select.append(`<option value="default">${MESSAGES.packs.defaultDir}</option>`);
         let myPacks = FrogPacks.getPacksList();
         let isAnyActiveSet = false;
@@ -458,13 +459,13 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
             $packsList.append(`
                         <div class="item" data-id="${packData.id}">
                 <div class="img-wrap">
-                    <img src="${packData.icon}" />
+                    <img src="${packData.icon || "assets/icon.png"}" />
                 </div>
                 <h2>${packData.displayName}</h2>
                 <span class="version">${FrogVersionsManager.versionToDisplayName(packData.baseVersion.full)}</span>
             </div>`)
         });
-        $("#modal-packs .grid .item").click(function(){
+        $("#modal-packs .grid .item").click(function () {
             FrogPackManagerUI.loadAndShow($(this).data("id"));
         })
         if (!isAnyActiveSet) {

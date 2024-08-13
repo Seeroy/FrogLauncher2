@@ -142,7 +142,7 @@ class FrogWorldsManager {
                     rdInner.forEach(item => {
                         let oldPath = path.join(tempDir, rdTemp[0], item);
                         let newPath = path.join(worldDir, item);
-                        if(!fs.existsSync(path.dirname(newPath))) {
+                        if (!fs.existsSync(path.dirname(newPath))) {
                             fs.mkdirSync(path.dirname(newPath), {recursive: true});
                         }
                         fsExtra.moveSync(oldPath, newPath);

@@ -39,7 +39,7 @@
         $("#javaDirectoryInput").val(FrogConfig.read("selectedJava", ""));
     })
 
-    function changeJava(){
+    function changeJava() {
         ipcRenderer.invoke("open-dialog", {
             properties: ["dontAddToRecent"],
             title: "Выберите файл java.exe",

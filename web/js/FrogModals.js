@@ -86,10 +86,10 @@ class FrogModals {
 
     // Скрыть все и переключиться на контент
     static switchToContent = () => {
-        $(".modal.overlay").each(function() {
+        $(".modal.overlay").each(function () {
             FrogModals.hideModal($(this)[0].id.replace("modal-", ""));
         })
-        if($(`.modal[style!="display: none;"]:not(.overlay)`)[0].id !== "modal-content"){
+        if ($(`.modal[style!="display: none;"]:not(.overlay)`)[0].id !== "modal-content") {
             FrogModals.switchModal("content");
         }
     }

@@ -45,7 +45,7 @@ $(function () {
             colorMatched = true;
         }
     });
-    if(colorMatched === false){
+    if (colorMatched === false) {
         $("#modal-settings .color-picker.custom").val(currentThemeData.color);
     }
 
@@ -118,7 +118,7 @@ $(function () {
         $("input.color-picker.custom").trigger("click");
     })
 
-    $(".color-picker.custom").on("change", function(){
+    $(".color-picker.custom").on("change", function () {
         let color = $(this).val();
         let colorRGB = colors.hexToRgb(color);
         FrogThemes.changeTheme(`rgb(${colorRGB.r}, ${colorRGB.g}, ${colorRGB.b})`);
@@ -147,8 +147,8 @@ $(function () {
         animateCSSNode(tabElem[0], "fadeIn");
 
         // Анимация плашки с каждой настройкой
-        if(FrogConfig.read("disableAnimations", false) !== true){
-            $(tabElem).find(".settings-item:not(#aboutItem)").each(function(index){
+        if (FrogConfig.read("disableAnimations", false) !== true) {
+            $(tabElem).find(".settings-item:not(#aboutItem)").each(function (index) {
                 $(this).css("opacity", 0);
                 setTimeout(() => {
                     animateCSSNode($(this)[0], "fadeIn").then(() => {

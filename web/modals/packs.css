@@ -1,14 +1,13 @@
 #modal-packs .wrapper .grid {
+    margin-top: 8px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
 }
 
 #modal-packs .wrapper .grid .item {
-    width: max-content;
+    width: 256px;
     height: 100%;
-
-    max-width: 242px;
 
     display: flex;
     flex-direction: column;
@@ -17,6 +16,15 @@
     padding: 16px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+#modal-packs .wrapper .grid .item.add {
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-packs .wrapper .grid .item.add button {
+    width: 100%;
 }
 
 #modal-packs .wrapper .grid .item .version {
@@ -35,8 +43,8 @@
 }
 
 #modal-packs .wrapper .grid .item .img-wrap {
-    width: 210px;
-    height: 210px;
+    width: 100%;
+    height: 145px;
     display: flex;
     align-items: center;
     justify-content: center;

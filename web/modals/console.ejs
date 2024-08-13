@@ -41,6 +41,6 @@
         let parsedLog = LAST_LOG.trim().replaceAll("undefined", "").replaceAll("\n\n", "\n").replaceAll("\n", "<br>");
         $console.html(parsedLog);
         $consoleWrapper.stop();
-        $consoleWrapper.animate({ scrollTop: $consoleWrapper[0].scrollHeight }, 50);
+        $consoleWrapper.animate({scrollTop: $consoleWrapper[0].scrollHeight}, 50);
     }
 </script>

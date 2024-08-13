@@ -89,7 +89,7 @@ class FrogAccountsManager {
                 return cb(authData);
             });
         } else if (accountData.type === "microsoft") {
-            if(accountData.data.meta.exp <= Date.now()){
+            if (accountData.data.meta.exp <= Date.now()) {
                 FrogAccountsManager.deleteAccount(accountId);
                 FrogAlerts.create("Microsoft/Mojang", MESSAGES.elyby.repeat, MESSAGES.commons.login, "settings_account_box", () => {
                     FrogAccountsUI.addMicrosoftAccount();
@@ -100,7 +100,7 @@ class FrogAccountsManager {
         } else if (accountData.type === "frog") {
             return cb({
                 access_token: accountData.accessToken,
-                client_token:accountData.clientToken,
+                client_token: accountData.clientToken,
                 uuid: accountData.uuid,
                 name: accountData.nickname,
                 meta: {

@@ -55,7 +55,7 @@ class FrogVersionsUI {
                         if ($(this).data("version") === activeVersion) {
                             $(this).addClass("active");
                         }
-                        if(favoritesAllowed.includes($(this).data("version"))){
+                        if (favoritesAllowed.includes($(this).data("version"))) {
                             $(this).children(".favorite").addClass("active");
                         }
                         $(this).show();
@@ -71,12 +71,12 @@ class FrogVersionsUI {
                     FrogModals.hideModal("versions");
                 })
 
-                $("#modal-versions .versions-list .item .favorite").click(function(e) {
+                $("#modal-versions .versions-list .item .favorite").click(function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     let versionId = $(this).parent().data("version");
                     FrogVersionsManager.addOrRemoveFavorite(versionId);
-                    if(!$(this).hasClass("active")){
+                    if (!$(this).hasClass("active")) {
                         $(this).addClass("active");
                     } else {
                         $(this).removeClass("active");

@@ -182,7 +182,7 @@ class FrogSkinsUI {
     static uploadTexture = (type, file = "") => {
         let $error = $("#modal-frogSkin .error");
         let formData;
-        if(file === ""){
+        if (file === "") {
             formData = new FormData($("#texture-image-form")[0]);
         } else {
             formData = new FormData();
@@ -193,9 +193,9 @@ class FrogSkinsUI {
             type: "POST",
             data: formData,
             success: function (response) {
-                    FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
-                    FrogSkinsUI.refreshAllProfiles();
-                    FrogAccountsUI.reloadAccountSelect();
+                FrogSkinsUI.refreshSkinUI(currentAccountInEditor.uuid);
+                FrogSkinsUI.refreshAllProfiles();
+                FrogAccountsUI.reloadAccountSelect();
             },
             error: function (e) {
                 console.log(e);

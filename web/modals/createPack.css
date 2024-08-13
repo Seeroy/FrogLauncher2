@@ -1,0 +1,15 @@
+/* Common stylings */
+#modal-createPack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 40vw;
+    height: max-content;
+    gap: 8px;
+}
+
+#modal-createPack > * {
+    width: 100%;
+}

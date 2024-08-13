@@ -35,7 +35,7 @@ $(function () {
     })
 
     // Установить из репозитория
-    $("#modal-packManager .tabs button.install").click(function () {
+    $("#modal-packManager button.install").click(function () {
         $("#modal-installMods .search").val("");
         FrogPacksUI.refreshDirectorySelect();
         $(`#modal-installMods #packs_dirList`).val(packman__currentModpack.id);
@@ -47,7 +47,7 @@ $(function () {
     })
 
     // Выбрать файл
-    $("#modal-packManager .tabs button.add").click(function () {
+    $("#modal-packManager button.add").click(function () {
         let properties = {
             filters: [{name: "Zip file", extensions: ["zip"]}]
         }
@@ -171,10 +171,10 @@ class FrogPackManagerUI {
                         let title = path.parse(modList[currentMod]).base;
                         let titleChips = "";
                         let $switch = `<label class="switch">
-        <input type="checkbox" onchange="FrogPackManagerUI.toggleMod(this)" checked>
+        <input type="checkbox" checked onchange="FrogPackManagerUI.toggleMod(this)">
         <span class="inner"></span>
     </label>`;
-                        if(path.parse(modFullPath).ext === ".dis"){
+                        if (path.parse(modFullPath).ext === ".dis") {
                             $switch = $switch.replace(" checked", "");
                         }
                         if (result !== false) {
@@ -236,9 +236,6 @@ class FrogPackManagerUI {
                         <div class="microdot"><div class="dot"></div></div>
                         <span>${item.version}</span>
                     </div>
-                    <button class="square small button">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
                     </div>`);
                 })
             }
@@ -270,7 +267,7 @@ class FrogPackManagerUI {
         packman__currentModpack = manifest;
         return new Promise(resolve => {
             // Название и иконка
-            $("#modal-packManager .title-wrapper .icon").attr("src", manifest.icon);
+            $("#modal-packManager .title-wrapper .icon").attr("src", manifest.icon || "assets/icon.png");
             let versionDisplayName = FrogVersionsManager.versionToDisplayName(manifest.baseVersion.full);
             $("#modal-packManager .title-wrapper .title").text(manifest.displayName);
             $("#modal-packManager .title-wrapper .description").text(versionDisplayName);
@@ -278,7 +275,17 @@ class FrogPackManagerUI {
             // Бинды кнопок
             $("#modal-packManager .title-wrapper button").off("click");
             $("#modal-packManager .title-wrapper button.delete").click(() => {
-
+                FrogModals.hideModal("packManager");
+                FrogFlyout.setText(MESSAGES.packManager.deleting);
+                FrogFlyout.changeMode("spinner").then(() => {
+                    let modpackPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id);
+                    fsExtra.remove(modpackPath, (err) => {
+                        if (err) return console.error(err);
+                        FrogFlyout.changeMode("idle");
+                        FrogPacksUI.refreshDirectorySelect();
+                        FrogToasts.create(MESSAGES.packManager.deleted, "delete", packman__currentModpack.displayName);
+                    });
+                });
             })
             $("#modal-packManager .title-wrapper button.folder").click(() => {
                 let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);
@@ -312,10 +319,10 @@ class FrogPackManagerUI {
         let filename = $(elem).parent().data("filename");
         let fullPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, packman__currentMode, filename);
         let fullPathDis = fullPath + ".dis";
-        if(fs.existsSync(fullPath)){
+        if (fs.existsSync(fullPath)) {
             fs.unlinkSync(fullPath);
         }
-        if(fs.existsSync(fullPathDis)){
+        if (fs.existsSync(fullPathDis)) {
             fs.unlinkSync(fullPathDis);
         }
         $(elem).parent().remove();
@@ -324,21 +331,14 @@ class FrogPackManagerUI {
     // Включить/выключить мод
     static toggleMod = (elem) => {
         let filename = $(elem).parent().parent().data("filename");
+
         let fullPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, packman__currentMode, filename.replace(".dis", ""));
         let fullPathDis = fullPath + ".dis";
-        if(fs.existsSync(fullPath)){
-            try {
-                fs.renameSync(fullPath, fullPathDis);
-            } catch(e) {
-                console.log(e);
-            }
+        if ($(elem).is(":checked") && fs.existsSync(fullPathDis)) {
+            fs.renameSync(fullPathDis, fullPath);
         }
-        if(fs.existsSync(fullPathDis)){
-            try {
-                fs.renameSync(fullPathDis, fullPath);
-            } catch(e) {
-                console.log(e);
-            }
+        if (!$(elem).is(":checked") && fs.existsSync(fullPath)) {
+            fs.renameSync(fullPath, fullPathDis);
         }
     }
 }

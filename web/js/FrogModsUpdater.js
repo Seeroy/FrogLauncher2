@@ -37,7 +37,7 @@ class FrogModsUpdater {
         }
 
         let fullPath = path.join(GAME_DATA, "modpacks", mods__currentModpackId, mods__packList[mods__currentChecking].path);
-        if(!fs.existsSync(fullPath)){
+        if (!fs.existsSync(fullPath)) {
             return FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
         }
 

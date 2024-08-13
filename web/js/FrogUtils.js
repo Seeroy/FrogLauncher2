@@ -124,12 +124,12 @@ class FrogUtils {
 
     // Обёртка для compressing
     static unpackArchive(archivePath, unpackPath) {
-        return new Promise((resolve ,reject) => {
+        return new Promise((resolve, reject) => {
             let archiveType = "zip";
-            if(path.extname(archivePath) === ".tar"){
+            if (path.extname(archivePath) === ".tar") {
                 archiveType = "tar";
             }
-            if(path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz" ){
+            if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
                 archiveType = "tgz";
             }
             compressing[archiveType].uncompress(archivePath, unpackPath)
@@ -140,12 +140,12 @@ class FrogUtils {
 
     // Обёртка для compressing
     static compressDirectory(archivePath, directoryPath) {
-        return new Promise((resolve ,reject) => {
+        return new Promise((resolve, reject) => {
             let archiveType = "zip";
-            if(path.extname(archivePath) === ".tar"){
+            if (path.extname(archivePath) === ".tar") {
                 archiveType = "tar";
             }
-            if(path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz" ){
+            if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
                 archiveType = "tgz";
             }
             compressing[archiveType].compressDir(directoryPath, archivePath)

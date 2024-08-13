@@ -254,9 +254,9 @@ class FrogPacks {
     static installDependenciesList = (deps, gameVersion) => {
         var currentDepInstalling = -1;
         return new Promise(resolve => {
-            function installNextDep(){
+            function installNextDep() {
                 currentDepInstalling++;
-                if(typeof deps[currentDepInstalling] !== "undefined"){
+                if (typeof deps[currentDepInstalling] !== "undefined") {
                     $.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`, (depVersions) => {
                         // Получаем нужную нам последнюю версию и ставим её
                         FrogPacks.downloadByVersionID(depVersions[0].id).then(installNextDep);
@@ -265,6 +265,7 @@ class FrogPacks {
                     return resolve(true);
                 }
             }
+
             installNextDep();
         })
     }
@@ -285,7 +286,7 @@ class FrogPacks {
             $.get(`https://api.modrinth.com/v2/version/${versionId}`, (response) => {
                 // Если не модпак - просто скачиваем файл
                 let fileItem = response.files[0];
-                if(installPath !== ""){
+                if (installPath !== "") {
                     downloadPath = installPath;
                 }
                 downloadPath = path.join(downloadPath, fileItem.filename);
@@ -293,7 +294,7 @@ class FrogPacks {
                 FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
                 FrogFlyout.changeMode("progress").then(() => {
                     FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename).then(() => {
-                        if(typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true){
+                        if (typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true) {
                             FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0]).then(resolve);
                             return;
                         }
@@ -331,7 +332,7 @@ class FrogPacks {
                 properties: ["dontAddToRecent"],
                 filters: [{name: ".mrpack", extensions: ["mrpack"]}],
             }).then(result => {
-                if(result === false){
+                if (result === false) {
                     return resolve(false);
                 }
                 FrogPacks.importModrinthPack(result[0]).then(resolve);
