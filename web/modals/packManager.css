@@ -1,7 +1,7 @@
 /* Main window */
 #modal-packManager {
-    width: 90vw;
-    height: 90vh;
+    width: 94vw;
+    height: 94vh;
     padding: 21px;
 
     display: flex;
@@ -77,6 +77,15 @@
 
 #modal-packManager .layout-tab:not(.active) {
     display: none;
+}
+
+/* Item */
+#modal-packManager .layout-tab .custom-select.icon-and-description:hover {
+    filter: none;
+    cursor: default;
+}
+#modal-packManager .layout-tab .custom-select.icon-and-description button:hover {
+    filter: brightness(115%);
 }
 
 #modal-packManager .layout-tab .custom-select.icon-and-description {

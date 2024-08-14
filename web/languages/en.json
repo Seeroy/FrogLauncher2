@@ -70,7 +70,8 @@
       "installing": "Installation",
       "news": "News",
       "bigUpdates": "Major updates",
-      "create": "Create"
+      "create": "Create",
+      "clickOrDrop": "Click or drop file here"
     },
     "packs": {
       "importing": "Modpack import in progress",
@@ -360,7 +361,8 @@
       "failedWorld": "Failed to establish peace",
       "successWorld": "Peace has been successfully established!",
       "deleting": "Modpack is being removed",
-      "deleted": "Modpack removal complete!"
+      "deleted": "Modpack removal complete!",
+      "worldDeleted": "The world has been successfully deleted!"
     }
   }
 }

@@ -226,7 +226,7 @@ class FrogPackManagerUI {
                     if (item.icon !== false) {
                         icon = item.icon;
                     }
-                    $worldsList.append(`<div class='item custom-select icon-and-description'>
+                    $worldsList.append(`<div data-filename="${item.path}" class='item custom-select icon-and-description'>
                     <img class="icon" src="${icon}" />
                     <span class="title">${item.name}</span>
                     <div class="description flex flex-align-center flex-gap-8">
@@ -236,6 +236,9 @@ class FrogPackManagerUI {
                         <div class="microdot"><div class="dot"></div></div>
                         <span>${item.version}</span>
                     </div>
+                    <button class="square small button" onclick="FrogPackManagerUI.removeFile(this)">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
                     </div>`);
                 })
             }
@@ -317,6 +320,14 @@ class FrogPackManagerUI {
     // Удалить файл по кнопке
     static removeFile = (elem) => {
         let filename = $(elem).parent().data("filename");
+        if(packman__currentMode === "worlds"){
+            $(elem).parent().remove();
+            fsExtra.remove(filename, (err) => {
+                if (err) return console.error(err);
+                FrogFlyout.changeMode("idle");
+                FrogToasts.create(MESSAGES.packManager.worldDeleted, "delete", path.basename(filename));
+            });
+        }
         let fullPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, packman__currentMode, filename);
         let fullPathDis = fullPath + ".dis";
         if (fs.existsSync(fullPath)) {

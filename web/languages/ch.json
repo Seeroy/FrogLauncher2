@@ -70,7 +70,8 @@
       "installing": "安裝",
       "news": "新聞",
       "bigUpdates": "主要更新",
-      "create": "建立"
+      "create": "建立",
+      "clickOrDrop": "单击此处或拖放文件"
     },
     "packs": {
       "importing": "模組匯入中",
@@ -360,7 +361,8 @@
       "failedWorld": "未能建立和平",
       "successWorld": "和平已成功建立！",
       "deleting": "模组包正在被删除",
-      "deleted": "模组包删除完成！"
+      "deleted": "模组包删除完成！",
+      "worldDeleted": "世界已成功删除！"
     }
   }
 }

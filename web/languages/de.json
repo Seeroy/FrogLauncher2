@@ -70,7 +70,8 @@
       "installing": "Einrichtung",
       "news": "Nachrichten",
       "bigUpdates": "Wichtige Aktualisierungen",
-      "create": "erstellen."
+      "create": "erstellen",
+      "clickOrDrop": "Klicken Sie hier oder ziehen Sie die Datei per Drop"
     },
     "packs": {
       "importing": "Modpack-Import im Gange",
@@ -360,7 +361,8 @@
       "failedWorld": "Frieden konnte nicht hergestellt werden",
       "successWorld": "Der Frieden wurde erfolgreich hergestellt!",
       "deleting": "Modpack wird entfernt",
-      "deleted": "Modpack-Entfernung abgeschlossen!"
+      "deleted": "Modpack-Entfernung abgeschlossen!",
+      "worldDeleted": "Die Welt wurde erfolgreich gelöscht!"
     }
   }
 }
