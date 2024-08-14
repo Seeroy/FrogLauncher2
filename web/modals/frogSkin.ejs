@@ -71,8 +71,7 @@
 
             let inputElement = $("#modal-frogSkin #texture-image");
             inputElement.trigger("click");
-            inputElement.off("change");
-            inputElement.on("change", () => {
+            inputElement.one("change", () => {
                 FrogSkinsUI.uploadTexture(textureUploadType);
             });
         });
