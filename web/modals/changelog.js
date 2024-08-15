@@ -1,4 +1,4 @@
-const changelog_pageLimit = 15;
+const changelog_pageLimit = 25;
 let changelog_currentPage = 1;
 let changelog_endOfPage = false;
 
@@ -17,7 +17,6 @@ $(function () {
 $("#modal-changelog .wrapper").scroll(function (e) {
     let wrapper = $("#modal-changelog .wrapper")[0];
     if (wrapper.offsetHeight + wrapper.scrollTop >= wrapper.scrollHeight) {
-        FrogChangelogUI.addPlaceholder();
         changelog_currentPage++;
         FrogChangelogUI.loadReleases();
     }
@@ -35,11 +34,12 @@ class FrogChangelogUI {
             return;
         }
 
+        FrogChangelogUI.addPlaceholder();
         FrogChangelogUI.getReleases((releases) => {
             if (releases !== false && Array.isArray(releases)) {
                 releases.forEach((release) => {
                     $("#modal-changelog .list").append(CHANGELOG_ITEM_PLACEHOLDER.replaceAll("$1", release.name).replaceAll("$2", release.body.replaceAll("\n", "<br>")).replaceAll("$3", release.published_at));
-                    if (release.tag === "v2.0.0") {
+                    if (release.tag_name === "v2.0.0") {
                         changelog_endOfPage = true;
                     }
                 });

@@ -6,6 +6,7 @@ let packs_currentDownloading = 0;
 class FrogPacks {
     // Создать пак
     static createPack = (baseVersion, displayName) => {
+        displayName = FrogUtils.translit(displayName);
         let modpackId = displayName.replace(/\W/g, '_');
         let modpackPath = path.join(global.GAME_DATA, "modpacks", modpackId);
 
