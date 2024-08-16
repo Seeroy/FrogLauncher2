@@ -252,19 +252,31 @@ class FrogPacks {
     }
 
     // Установить зависимости для мода
-    static installDependenciesList = (deps, gameVersion) => {
+    static installDependenciesList = (deps, gameVersion, downloadPath) => {
         var currentDepInstalling = -1;
+
         return new Promise(resolve => {
+            let depsResolve = resolve;
+
             function installNextDep() {
                 currentDepInstalling++;
-                if (typeof deps[currentDepInstalling] !== "undefined") {
-                    $.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`, (depVersions) => {
-                        // Получаем нужную нам последнюю версию и ставим её
-                        FrogPacks.downloadByVersionID(depVersions[0].id).then(installNextDep);
-                    });
-                } else {
-                    return resolve(true);
+                if (typeof deps[currentDepInstalling] === "undefined") {
+                    return depsResolve(true);
                 }
+
+                $.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`, (depVersions) => {
+                    // Получаем манифест версии
+                    $.get(`https://api.modrinth.com/v2/version/${depVersions[0].id}`, (response) => {
+                        // Если не модпак - просто скачиваем файл
+                        let fileItem = response.files[0];
+                        let fullDownloadPath = path.join(downloadPath, fileItem.filename);
+                        FrogFlyout.setProgress(0);
+                        FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
+                        FrogDownloader.downloadFile(fileItem.url, fullDownloadPath, fileItem.filename).then(() => {
+                            return installNextDep();
+                        });
+                    })
+                });
             }
 
             installNextDep();
@@ -280,8 +292,10 @@ class FrogPacks {
         return new Promise(resolve => {
             let modpackId = packman__currentModpack.id;
             let downloadPath = path.join(global.GAME_DATA, packs_currentMode);
+            let directoryDlPath;
             if (FrogPacks.isModpackExists(modpackId)) {
                 downloadPath = path.join(global.GAME_DATA, "modpacks", modpackId, packs_currentMode);
+                directoryDlPath = downloadPath;
             }
             // Получаем манифест версии
             $.get(`https://api.modrinth.com/v2/version/${versionId}`, (response) => {
@@ -296,8 +310,11 @@ class FrogPacks {
                 FrogFlyout.changeMode("progress").then(() => {
                     FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename).then(() => {
                         if (typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true) {
-                            FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0]).then(resolve);
-                            return;
+                            return FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0], directoryDlPath).then(() => {
+                                FrogFlyout.changeMode("idle");
+                                FrogPacksUI.reloadAll();
+                                return resolve();
+                            });
                         }
                         if (packs_currentMode !== "modpacks") {
                             // Возвращем стандартный режим
@@ -319,7 +336,6 @@ class FrogPacks {
                                 });
                             });
                         }
-
                     });
                 })
             })
@@ -396,7 +412,7 @@ class FrogPacks {
     // Сменить иконку пака
     static changePackIcon = (modpackId) => {
         return new Promise(resolve => {
-            if(!FrogPacks.isModpackExists(modpackId)){
+            if (!FrogPacks.isModpackExists(modpackId)) {
                 return resolve(false);
             }
 
