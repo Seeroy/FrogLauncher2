@@ -48,6 +48,7 @@ class FrogPacks {
 
     // Существует ли такой пак
     static isModpackExists = (modpackId) => {
+        if (typeof modpackId !== "string") return false;
         return fs.existsSync(path.join(global.GAME_DATA, "modpacks", modpackId, "manifest.json"));
     }
 
@@ -196,7 +197,11 @@ class FrogPacks {
                     fs.rmdirSync(decompPath, {recursive: true});
                     return resolve(false, "exists");
                 }
-                fsExtra.moveSync(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
+                if (fs.existsSync(path.join(decompPath, "overrides"))) {
+                    fsExtra.moveSync(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
+                } else {
+                    fs.mkdirSync(path.join(modpacksPath, modpackId));
+                }
 
                 // Получаем тип и версию игры
                 let baseVersionType = "vanilla";
@@ -245,7 +250,6 @@ class FrogPacks {
                 fsExtra.moveSync(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
                 FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
                 fs.rmdirSync(decompPath, {recursive: true});
-                FrogVersionsUI.loadVersions();
                 return resolve(true);
             })
         })
@@ -309,14 +313,15 @@ class FrogPacks {
                 FrogFlyout.setText(MESSAGES.commons.downloaing, response.name);
                 FrogFlyout.changeMode("progress").then(() => {
                     FrogDownloader.downloadFile(fileItem.url, downloadPath, fileItem.filename).then(() => {
-                        if (typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true) {
-                            return FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0], directoryDlPath).then(() => {
-                                FrogFlyout.changeMode("idle");
-                                FrogPacksUI.reloadAll();
-                                return resolve();
-                            });
-                        }
                         if (packs_currentMode !== "modpacks") {
+                            if (typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true) {
+                                return FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0], directoryDlPath).then(() => {
+                                    FrogFlyout.changeMode("idle");
+                                    FrogPacksUI.reloadAll();
+                                    return resolve();
+                                });
+                            }
+
                             // Возвращем стандартный режим
                             FrogFlyout.changeMode("idle");
                             FrogPacksUI.reloadAll();
@@ -328,8 +333,8 @@ class FrogPacks {
                                 FrogPacks.importModrinthPack(downloadPath, iconUrl).then(() => {
                                     fs.unlinkSync(downloadPath);
                                     // Возвращем стандартный режим
-                                    FrogVersionsUI.loadVersions().then(() => {
-                                        FrogFlyout.changeMode("idle");
+                                    FrogFlyout.changeMode("idle").then(() => {
+                                        FrogVersionsUI.loadVersions();
                                         FrogPacksUI.reloadAll();
                                         return resolve();
                                     });

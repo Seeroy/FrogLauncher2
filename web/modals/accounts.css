@@ -5,7 +5,9 @@
     padding: 12px;
 
     width: 25vw;
-    height: 56vh;
+    height: max-content;
+    min-height: 50vh;
+    max-height: 80vh;
 
     bottom: calc(12% + 24px);
     left: calc(3% + 6px);
@@ -47,7 +49,7 @@
 #modal-accounts .acc-list-wrapper {
     flex-grow: 1;
     overflow: auto;
-    height: 77%;
+    height: max-content;
 }
 
 /* Accounts list item */

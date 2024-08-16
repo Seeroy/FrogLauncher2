@@ -50,13 +50,13 @@ html {
 }
 
 html.noEffects,
-html.noEffects *:not(.icon img):not(.progress-pill):not(.progress-pill *) {
+html.noEffects *:not(.icon img):not(.progress-pill):not(.progress-pill *):not(.line-spinner) {
     filter: none !important;
     box-shadow: none !important;
 }
 
 html.noAnimations,
-html.noAnimations *:not(.spinner):not(.progress-pill):not(.progress-pill *) {
+html.noAnimations *:not(.spinner):not(.progress-pill):not(.progress-pill *):not(.line-spinner) {
     transition: 0s !important;
     animation-duration: 0.001s !important;
 }

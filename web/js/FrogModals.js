@@ -69,6 +69,16 @@ class FrogModals {
         })
     }
 
+    // Скрыть модальное overlay окно, которое сейчас открыто
+    static hideCurrentOverlay = () => {
+        return new Promise((resolve) => {
+            let currentModalElement = $(`.modal.overlay[style!="display: none;"]`);
+            if(currentModalElement.length === 0) return resolve(false);
+            let currentModalName = $(currentModalElement).attr("id").replace("modal-", "");
+            FrogModals.hideModal(currentModalName).then(resolve);
+        })
+    }
+
     // Получить название modal на переднем плане
     static currentModalName = () => {
         let $currentModal = $(`.modal[style!="display: none;"]:not(.overlay)`);
@@ -81,6 +91,15 @@ class FrogModals {
             return $(`.modal#modal-${modalName}`).css("display") !== "none";
         } else {
             return $(`.modal[style!="display: none;"]:not(.overlay)`).length > 0;
+        }
+    }
+
+    // Показано ли overlay модальное окно (если "", то любое из окон)
+    static isOverlayModalShown = (modalName = "") => {
+        if (modalName !== "") {
+            return FrogModals.isModalShown(modalName);
+        } else {
+            return $(`.modal.overlay[style!="display: none;"]`).length > 0;
         }
     }
 

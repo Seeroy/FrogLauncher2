@@ -33,6 +33,8 @@ class FrogVersionsUI {
                     let versionIcon = "assets/versions/" + ver.type + ".webp";
                     let displayName = ver.displayName;
                     if (ver.type === "pack") {
+                        versionIcon = "assets/icon.png";
+
                         let modpackData = FrogPacks.getModpackManifest(ver.id.replace("pack-", ""));
                         if (typeof modpackData.icon !== "undefined" && modpackData.icon !== false) {
                             versionIcon = modpackData.icon;

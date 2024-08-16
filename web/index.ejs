@@ -160,6 +160,12 @@
             FrogCollector.writeLog("DEVMODE: No start animation");
         }
 
+        $(document).keydown(e => {
+            if (e.originalEvent.key === "Escape") {
+                FrogModals.hideCurrentOverlay();
+            }
+        })
+
         setTimeout(() => {
             // Переводим все ноды в DOM
             FrogTranslator.translateAllNodes();
