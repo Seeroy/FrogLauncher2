@@ -9,7 +9,7 @@
     gap: 12px;
 }
 
-#modal-packManager .title-wrapper .icon {
+#modal-packManager .title-wrapper img.icon {
     width: 64px;
     height: 64px;
     border-radius: 8px;
@@ -26,6 +26,10 @@
 
 #modal-packManager .title-wrapper .play {
     background: var(--success);
+}
+
+#modal-packManager .title-wrapper button.icon {
+    background: var(--theme-primaryBgLighter);
 }
 
 /* Tabs */

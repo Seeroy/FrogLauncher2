@@ -392,4 +392,33 @@ class FrogPacks {
             })
         })
     }
+
+    // Сменить иконку пака
+    static changePackIcon = (modpackId) => {
+        return new Promise(resolve => {
+            if(!FrogPacks.isModpackExists(modpackId)){
+                return resolve(false);
+            }
+
+            ipcRenderer.invoke("open-dialog", {
+                properties: ["dontAddToRecent"],
+                filters: [{name: ".png", extensions: ["png"]}],
+            }).then(result => {
+                if (result === false) {
+                    return resolve(false);
+                }
+
+                let modpackData = FrogPacks.getModpackManifest(modpackId);
+                modpackData.icon = "pack";
+                FrogPacks.writeModpackManifest(modpackId, modpackData);
+
+                let iconPath = path.join(GAME_DATA, "modpacks", modpackId, "icon.png");
+
+                fs.copyFileSync(result[0], iconPath);
+                FrogPackManagerUI.loadModpackIcon(modpackData);
+                FrogPacksUI.refreshDirectorySelect();
+                return resolve(true);
+            })
+        })
+    }
 }

@@ -265,12 +265,21 @@ class FrogPackManagerUI {
         })
     }
 
+    // Загрузить иконку модпака
+    static loadModpackIcon = (manifest) => {
+        if(manifest.icon === "pack"){
+            manifest.icon = path.join(GAME_DATA, "modpacks", manifest.id, "icon.png");
+        }
+        $("#modal-packManager .title-wrapper img.icon").attr("src", manifest.icon || "assets/icon.png");
+        return true;
+    }
+
     // Загрузить пак в модальное окно
     static loadPackByManifest = (manifest) => {
         packman__currentModpack = manifest;
         return new Promise(resolve => {
             // Название и иконка
-            $("#modal-packManager .title-wrapper .icon").attr("src", manifest.icon || "assets/icon.png");
+            FrogPackManagerUI.loadModpackIcon(manifest);
             let versionDisplayName = FrogVersionsManager.versionToDisplayName(manifest.baseVersion.full);
             $("#modal-packManager .title-wrapper .title").text(manifest.displayName);
             $("#modal-packManager .title-wrapper .description").text(versionDisplayName);
@@ -289,6 +298,9 @@ class FrogPackManagerUI {
                         FrogToasts.create(MESSAGES.packManager.deleted, "delete", packman__currentModpack.displayName);
                     });
                 });
+            })
+            $("#modal-packManager .title-wrapper button.icon").click(() => {
+                FrogPacks.changePackIcon(packman__currentModpack.id);
             })
             $("#modal-packManager .title-wrapper button.folder").click(() => {
                 let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);

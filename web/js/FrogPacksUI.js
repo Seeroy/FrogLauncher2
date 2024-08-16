@@ -456,6 +456,9 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                 isAnyActiveSet = true;
             }
             $select.append(`<option value="${packData.id}" ${packData.id === selectedOption ? "selected" : ""}>${packData.displayName}</option>`);
+            if(packData.icon === "pack"){
+                packData.icon = path.join(GAME_DATA, "modpacks", packData.id, "icon.png");
+            }
             $packsList.append(`
                         <div class="item" data-id="${packData.id}">
                 <div class="img-wrap">
