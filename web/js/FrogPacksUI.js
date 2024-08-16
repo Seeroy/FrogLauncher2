@@ -263,7 +263,7 @@ class FrogPacksUI {
         query = "",
         facets = "",
         offset = packs_currentOffset,
-        limit = 20,
+        limit = (20 + packs_currentOffset),
         sort = "downloads"
     ) {
         let fullUrl = urlStart;
