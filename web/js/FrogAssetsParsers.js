@@ -91,10 +91,10 @@ class FrogAssetsParsers {
                     let iconPath = path.join(unpackPath, fabricJson.icon);
                     let iconData = new Buffer(fs.readFileSync(iconPath)).toString('base64');
                     returnResult = {
-                        name: fabricJson.name.trim(),
-                        version: fabricJson.version.trim(),
-                        description: fabricJson.description.trim(),
-                        authors: fabricJson.authors,
+                        name: fabricJson?.name?.trim() ?? "",
+                        version: fabricJson?.version?.trim() ?? "",
+                        description: fabricJson?.description?.trim() ?? "",
+                        authors: fabricJson?.authors ?? [],
                         icon: iconData.trim()
                     }
                 }
@@ -104,10 +104,10 @@ class FrogAssetsParsers {
                     modsToml = fs.readFileSync(modsTomlPath).toString();
                     modsToml = toml.parse(modsToml);
                     returnResult = {
-                        name: modsToml.mods[0].displayName.trim(),
-                        version: modsToml.mods[0].version.trim(),
-                        description: modsToml.mods[0].description.trim(),
-                        authors: modsToml.mods[0].authors,
+                        name: modsToml.mods[0]?.displayName?.trim() ?? "",
+                        version: modsToml.mods[0]?.version?.trim() ?? "",
+                        description: modsToml.mods[0]?.description?.trim() ?? "",
+                        authors: modsToml.mods[0]?.authors ?? [],
                         icon: false
                     }
                 }

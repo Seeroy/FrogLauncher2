@@ -291,7 +291,10 @@ class FrogPacks {
     static downloadByVersionID = (versionId, buttonElement = false, installPath = "") => {
         let iconUrl = false;
         if (buttonElement !== false) {
-            iconUrl = $(buttonElement).parent().parent().parent().parent().find("img.icon").attr("src")
+            console.log($(buttonElement));
+            $(buttonElement).hide();
+            $(buttonElement).parent().parent().hide();
+            iconUrl = $(buttonElement).parent().parent().parent().parent().find("img.icon").attr("src");
         }
         return new Promise(resolve => {
             let modpackId = packman__currentModpack.id;
@@ -317,14 +320,12 @@ class FrogPacks {
                             if (typeof response.dependencies !== "undefined" && response.dependencies.length > 0 && FrogConfig.read("autoInstallDeps") === true) {
                                 return FrogPacks.installDependenciesList(response.dependencies, response.game_versions[0], directoryDlPath).then(() => {
                                     FrogFlyout.changeMode("idle");
-                                    FrogPacksUI.reloadAll();
                                     return resolve();
                                 });
                             }
 
                             // Возвращем стандартный режим
                             FrogFlyout.changeMode("idle");
-                            FrogPacksUI.reloadAll();
                             return resolve();
                         } else {
                             // Ставим модпак

@@ -149,12 +149,15 @@ class FrogPackManagerUI {
     // Загрузить список модов в UI
     static loadModsList = () => {
         let $modsList = $("#modal-packManager .layout-tab .mods-list");
-        let modsPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "mods");
+        let modsPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id);
         if (!fs.existsSync(modsPath)) {
             return false;
         }
-        let modList = fs.readdirSync(modsPath);
-
+        let modList = packman__currentModpack.files;
+        let modList2 = fs.readdirSync(path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "mods"));
+        modList2.forEach((item) => {
+            modList.push({path: "mods/" + item});
+        })
         let currentMod = -1;
 
         $modsList.html("");
@@ -162,13 +165,22 @@ class FrogPackManagerUI {
 
         function loadNextMod() {
             currentMod++;
-            if (typeof modList[currentMod] !== "undefined") {
-                let modFullPath = path.join(modsPath, modList[currentMod]);
+            if (typeof modList[currentMod] !== "undefined" && modList[currentMod].path.indexOf("mods/") !== -1) {
+                let modFullPath = path.join(modsPath, modList[currentMod].path);
+                if(!fs.existsSync(modFullPath)){
+                    $modsList.append(`<div data-filename="${modList[currentMod].path}" class='item custom-select icon-and-description'>
+                    <img class="icon" src="assets/modIcon.webp" />
+                    <div class="title flex flex-gap-4 flex-align-center">
+                        <span>${path.basename(modList[currentMod].path)}</span>
+                    </div>
+                    </div>`);
+                    return loadNextMod();
+                }
                 if (fs.existsSync(modFullPath) && (path.parse(modFullPath).ext === ".jar" || path.parse(modFullPath).ext === ".dis")) {
                     FrogAssetsParsers.readModInfo(modFullPath).then(result => {
                         let icon = "assets/modIcon.webp";
                         let description = "";
-                        let title = path.parse(modList[currentMod]).base;
+                        let title = path.parse(modList[currentMod].path).base;
                         let titleChips = "";
                         let $switch = `<label class="switch">
         <input type="checkbox" checked onchange="FrogPackManagerUI.toggleMod(this)">
@@ -179,18 +191,26 @@ class FrogPackManagerUI {
                         }
                         if (result !== false) {
                             icon = "data:image/png;base64," + result.icon;
+                            if(!result.icon){
+                                icon = "assets/modIcon.webp";
+                            }
                             description = FrogUtils.removeColorsFromString(result.description);
                             title = result.name;
                             let authorsList = [];
-                            result?.authors?.forEach((author) => {
-                                authorsList.push(author?.name || author);
-                            })
+                            if(typeof result.authors === "string"){
+                                authorsList = result.authors;
+                            } else if(Array.isArray(result.authors)){
+                                result.authors.forEach((author) => {
+                                    authorsList.push(author?.name || author);
+                                })
+                                authorsList = authorsList.join(" ,");
+                            }
                             authorsList.length === 0 ? authorsList = "" : authorsList;
 
                             titleChips = `<div class="chip small">${result.version}</div>
                             <div class="chip small">${authorsList}</div>`;
                         }
-                        $modsList.append(`<div data-filename="${modList[currentMod]}" class='item custom-select icon-and-description'>
+                        $modsList.append(`<div data-filename="${modList[currentMod].path}" class='item custom-select icon-and-description'>
                     <img class="icon" src="${icon}" />
                     ${$switch}
                     <div class="title flex flex-gap-4 flex-align-center">
