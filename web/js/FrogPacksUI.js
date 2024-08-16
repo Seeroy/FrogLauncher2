@@ -449,14 +449,14 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
         $select.append(`<option value="default">${MESSAGES.packs.defaultDir}</option>`);
         let myPacks = FrogPacks.getPacksList();
         let isAnyActiveSet = false;
-        $("#modal-packs .grid .item").off("click");
+        $("#modal-packs .grid .item:not(.add)").off("click");
         myPacks.forEach((pack) => {
             let packData = FrogPacks.getModpackManifest(pack);
             if (packData.id === selectedOption) {
                 isAnyActiveSet = true;
             }
             $select.append(`<option value="${packData.id}" ${packData.id === selectedOption ? "selected" : ""}>${packData.displayName}</option>`);
-            if(packData.icon === "pack"){
+            if (packData.icon === "pack") {
                 packData.icon = path.join(GAME_DATA, "modpacks", packData.id, "icon.png");
             }
             $packsList.append(`
@@ -468,7 +468,7 @@ ${!FrogPacksUI.isFileInstalled(item.files[0].filename) ? `<button class="small p
                 <span class="version">${FrogVersionsManager.versionToDisplayName(packData.baseVersion.full)}</span>
             </div>`)
         });
-        $("#modal-packs .grid .item").click(function () {
+        $("#modal-packs .grid .item:not(.add)").click(function () {
             FrogPackManagerUI.loadAndShow($(this).data("id"));
         })
         if (!isAnyActiveSet) {

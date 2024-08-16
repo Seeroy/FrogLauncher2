@@ -117,7 +117,7 @@ class FrogStarter {
                     FrogFlyout.changeMode("idle");
                 }, 1000);
                 FrogErrorsParser.parse("", exitCode);
-                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1  && FrogConfig.read("consoleOnCrash") === true) {
+                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
                     FrogModals.switchModal("console");
                 }
                 if (global.IS_APP_IN_DEV) {

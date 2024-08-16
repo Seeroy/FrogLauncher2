@@ -37,7 +37,7 @@ class FrogVersionsUI {
                         if (typeof modpackData.icon !== "undefined" && modpackData.icon !== false) {
                             versionIcon = modpackData.icon;
 
-                            if(modpackData.icon === "pack"){
+                            if (modpackData.icon === "pack") {
                                 versionIcon = path.join(GAME_DATA, "modpacks", modpackData.id, "icon.png");
                             }
                         }

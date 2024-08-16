@@ -355,14 +355,26 @@
         "worlds": "Worlds",
         "install": "Install",
         "addFile": "Add file",
-        "updates": "Updates"
+        "updates": "Updates",
+        "import": "Import"
+      },
+      "buttons": {
+        "export": "Export",
+        "folder": "Open folder",
+        "icon": "Change icon",
+        "play": "Play",
+        "delete": "Delete"
       },
       "installed": "Successfully installed!",
       "failedWorld": "Failed to establish peace",
       "successWorld": "Peace has been successfully established!",
       "deleting": "Modpack is being removed",
       "deleted": "Modpack removal complete!",
-      "worldDeleted": "The world has been successfully deleted!"
+      "worldDeleted": "The world has been successfully deleted!",
+      "exportStarted": "Export started",
+      "exportCompleted": "Export completed successfully!",
+      "importStarted": "Import started",
+      "importCompleted": "Import completed successfully!"
     }
   }
 }

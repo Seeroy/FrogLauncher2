@@ -267,7 +267,7 @@ class FrogPackManagerUI {
 
     // Загрузить иконку модпака
     static loadModpackIcon = (manifest) => {
-        if(manifest.icon === "pack"){
+        if (manifest.icon === "pack") {
             manifest.icon = path.join(GAME_DATA, "modpacks", manifest.id, "icon.png");
         }
         $("#modal-packManager .title-wrapper img.icon").attr("src", manifest.icon || "assets/icon.png");
@@ -302,6 +302,9 @@ class FrogPackManagerUI {
             $("#modal-packManager .title-wrapper button.icon").click(() => {
                 FrogPacks.changePackIcon(packman__currentModpack.id);
             })
+            $("#modal-packManager .title-wrapper button.export").click(() => {
+                FrogPacks.exportModpack(packman__currentModpack.id);
+            })
             $("#modal-packManager .title-wrapper button.folder").click(() => {
                 let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);
                 openExternal(folderPath);
@@ -332,7 +335,7 @@ class FrogPackManagerUI {
     // Удалить файл по кнопке
     static removeFile = (elem) => {
         let filename = $(elem).parent().data("filename");
-        if(packman__currentMode === "worlds"){
+        if (packman__currentMode === "worlds") {
             $(elem).parent().remove();
             fsExtra.remove(filename, (err) => {
                 if (err) return console.error(err);

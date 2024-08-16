@@ -17,4 +17,8 @@ $(function () {
         FrogPacksUI.reloadAll(true, true, true);
         FrogModals.showModal("createPack");
     })
+
+    $("#modal-packs .item.add button.import").click(function () {
+        FrogPacks.importModpack();
+    })
 })

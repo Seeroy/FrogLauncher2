@@ -6,6 +6,12 @@ class FrogTranslator {
         let currentLangData = FrogTranslator.getCurrentLanguageData().translations;
         let $selector = $("button,span:not(.material-symbols-outlined):not(.icon):not(.avatar),p,h1,h2,h3,h4,h5,div.description");
         $selector.each(function () {
+            if (this.tagName === "BUTTON") {
+                let title = $(this).attr("title");
+                if (typeof title === "string" && title !== "") {
+                    $(this).attr("title", FrogTranslator.translateText(currentLangData, title));
+                }
+            }
             if ((this.tagName === "BUTTON" && $(this).children().length === 0) || this.tagName !== "BUTTON") {
                 let itemText = $(this).html();
                 // Переводим текст

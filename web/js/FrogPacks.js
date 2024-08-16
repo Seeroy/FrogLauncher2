@@ -357,54 +357,42 @@ class FrogPacks {
         })
     }
 
-    // Экспортировать пак в файл (DEPRECATED/UNUSED)
+    // Экспортировать пак в zip-файл
     static exportModpack = (modpackId) => {
-        // DEPRECATED
-        return false;
-
         return new Promise(resolve => {
-            let mpManifest = FrogPacks.getModpackManifest(modpackId);
-            if (mpManifest === false) {
-                return resolve(false);
-            }
-
-            ipcRenderer.send("save-modpack-dialog", `${modpackId}.frogpack`);
-            ipcRenderer.once("get-modpack-save-result", (event, result) => {
-                fs.writeFileSync(result, JSON.stringify(mpManifest));
-                FrogToasts.create("Экспорт модпака завершён!", "save", "Нажмите здесь для открытия папки", 7000, "", () => {
-                    openExternal(path.dirname(result));
-                });
-                return resolve(true);
+            ipcRenderer.invoke("save-dialog", {
+                properties: ["dontAddToRecent"],
+                filters: [{name: ".zip", extensions: ["zip"]}],
+            }).then(result => {
+                if (result === false) {
+                    return resolve(false);
+                }
+                let modpackPath = path.join(GAME_DATA, "modpacks", modpackId);
+                console.log(result);
+                FrogToasts.create(MESSAGES.packManager.exportStarted, "upgrade", path.basename(result));
+                FrogUtils.compressDirectory(result, modpackPath).then(() => {
+                    FrogToasts.create(MESSAGES.packManager.exportCompleted, "upgrade", path.basename(result));
+                })
             })
         })
     }
 
-    // Импортировать пак из файла (DEPRECATED/UNUSED)
+    // Импортировать пак из файла
     static importModpack = () => {
-        // DEPRECATED
-        return false;
-
         return new Promise(resolve => {
-            ipcRenderer.send("load-modpack-dialog");
-            ipcRenderer.once("get-modpack-load-result", (event, result) => {
-                FrogToasts.create("Идёт импорт модпака", "publish", path.parse(result).name);
-                let manifestData = JSON.parse(fs.readFileSync(result));
-                if (typeof manifestData !== "undefined" && typeof manifestData.id !== "undefined" && typeof manifestData.baseVersion !== "undefined") {
-                    let modpackId = manifestData.id;
-                    if (FrogPacks.isModpackExists(modpackId)) {
-                        FrogToasts.create("Импорт модпака неудачен", "error", "Такой пак уже установлен!");
-                        return resolve(false, "exists");
-                    }
-                    let modpackPath = path.join(global.GAME_DATA, "modpacks", modpackId);
-                    fs.mkdirSync(modpackPath, {recursive: true});
-                    fs.mkdirSync(path.join(modpackPath, "mods"), {recursive: true});
-                    FrogPacks.writeModpackManifest(modpackId, manifestData);
-                    FrogToasts.create("Импорт модпака завершён!", "check", manifestData.displayName);
-                    FrogVersionsUI.loadVersions();
-                    return resolve(true);
+            ipcRenderer.invoke("open-dialog", {
+                properties: ["dontAddToRecent"],
+                filters: [{name: ".zip", extensions: ["zip"]}],
+            }).then(result => {
+                if (result === false) {
+                    return resolve(false);
                 }
-                FrogToasts.create("Импорт модпака неудачен", "error", "Файл повреждён");
-                return resolve(false, "invalid");
+                let unpackPath = path.join(GAME_DATA, "modpacks");
+                FrogToasts.create(MESSAGES.packManager.importStarted, "download", path.basename(result[0]));
+                FrogUtils.unpackArchive(result[0], unpackPath).then(() => {
+                    FrogToasts.create(MESSAGES.packManager.importCompleted, "download", path.basename(result[0]));
+                    FrogPacksUI.reloadAll(true, true, true);
+                })
             })
         })
     }

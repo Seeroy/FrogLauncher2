@@ -355,14 +355,26 @@
         "worlds": "Welten",
         "install": "Installieren",
         "addFile": "Datei hinzufügen",
-        "updates": "Aktualisierungen"
+        "updates": "Aktualisierungen",
+        "import": "Import"
+      },
+      "buttons": {
+        "export": "Baugruppe exportieren",
+        "folder": "Ordner öffnen",
+        "icon": "Symbol ändern",
+        "play": "Build ausführen",
+        "delete": "Löschen"
       },
       "installed": "Erfolgreich installiert!",
       "failedWorld": "Frieden konnte nicht hergestellt werden",
       "successWorld": "Der Frieden wurde erfolgreich hergestellt!",
       "deleting": "Modpack wird entfernt",
       "deleted": "Modpack-Entfernung abgeschlossen!",
-      "worldDeleted": "Die Welt wurde erfolgreich gelöscht!"
+      "worldDeleted": "Die Welt wurde erfolgreich gelöscht!",
+      "exportStarted": "Der Export wurde gestartet",
+      "exportCompleted": "Export erfolgreich abgeschlossen!",
+      "importStarted": "Der Import wurde gestartet",
+      "importCompleted": "Import erfolgreich abgeschlossen!"
     }
   }
 }

@@ -28,6 +28,10 @@
     background: var(--success);
 }
 
+#modal-packManager .title-wrapper .export {
+    background: var(--info);
+}
+
 #modal-packManager .title-wrapper button.icon {
     background: var(--theme-primaryBgLighter);
 }
@@ -88,6 +92,7 @@
     filter: none;
     cursor: default;
 }
+
 #modal-packManager .layout-tab .custom-select.icon-and-description button:hover {
     filter: brightness(115%);
 }
