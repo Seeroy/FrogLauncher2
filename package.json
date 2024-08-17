@@ -1,6 +1,6 @@
 {
   "name": "frogLauncher2",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "Minecraft-лаунчер. Твой. Крутой",
   "main": "app.js",
   "scripts": {
