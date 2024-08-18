@@ -42,7 +42,7 @@ class FrogElybyManager {
                 }).done((data) => {
                     return resolve([true, data, clientToken]);
                 }).fail((err) => {
-                    return resolve([false, err.responseJSON.errorMessage, clientToken]);
+                    return resolve([false, err.toString(), clientToken]);
                 })
             });
         })
@@ -116,8 +116,13 @@ class FrogElybyManager {
                 fs.mkdirSync(path.dirname(filePath));
             }
             Jimp.read(fileUrl, (err, image) => {
-                image.crop(8, 8, 8, 8).resize(48, 48, Jimp.RESIZE_NEAREST_NEIGHBOR).write(filePath);
-                return resolve(filePath);
+                let imgWidth = image.bitmap.width;
+                let headWidth = imgWidth / 8;
+                let headResizeSize;
+                headWidth > 40 ? headResizeSize = headWidth : headResizeSize = 40;
+                image.crop(headWidth, headWidth, headWidth, headWidth).resize(headResizeSize, headResizeSize, Jimp.RESIZE_NEAREST_NEIGHBOR).writeAsync(filePath).then(() => {
+                    return resolve(filePath);
+                });
             });
         });
     }

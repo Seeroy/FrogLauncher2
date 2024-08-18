@@ -74,7 +74,7 @@ class FrogUI {
     // Сделать пасхалко
     static bindEasterEgg = () => {
         $("img").each(function () {
-            let imgSrc = $(this).attr("src").toString();
+            let imgSrc = $(this)?.attr("src")?.toString() ?? "";
             if (imgSrc.match(/assets\/icon\.png/mig) !== null) {
                 $(this).click(function () {
                     if (isEggPlaying === false) {

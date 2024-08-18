@@ -45,7 +45,9 @@ class FrogElybyLoginUI {
 
                     let accountsList = FrogAccountsManager.getAccounts();
                     accountsList[data.selectedProfile.id] = accountData;
-                    FrogAccountsManager.saveAccounts(accountsList);
+                    FrogElybyManager.getHeadURLByPlayerNickname(data.selectedProfile.name).then(() => {
+                        FrogAccountsManager.saveAccounts(accountsList);
+                    });
 
                     $("#modal-elybyLogin input").val("");
                     FrogModals.hideModal("elybyLogin").then(() => {

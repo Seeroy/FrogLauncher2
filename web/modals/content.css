@@ -1,5 +1,5 @@
 #modal-content {
-    max-height: 73vh;
+    max-height: 100%;
     background: var(--theme-primaryBg);
     padding: 12px;
     border-radius: 12px;
