@@ -144,7 +144,7 @@ class FrogSkinsUI {
                         refreshNext();
                     });
                 } else if(accItem.type === "elyby"){
-                    FrogElybyManager.getHeadURLByPlayerNickname(accountsList[keysEachList[currentAccount]].nickname);
+                    FrogElybyManager.getHeadURLByPlayerNickname(accountsList[keysEachList[currentAccount]].nickname).then(refreshNext);
                 } else {
                     refreshNext();
                 }
