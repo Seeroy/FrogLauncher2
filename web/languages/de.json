@@ -208,7 +208,13 @@
         "telegram": "Telegram-Kanal",
         "vk": "VKontakte Gruppe",
         "debug": "Debug-Archiv sammeln",
-        "history": "Verlauf der Launcher-Aktualisierung"
+        "history": "Verlauf der Launcher-Aktualisierung",
+        "eula": "Benutzervereinbarung",
+        "privacyPolicy": "Datenschutzrichtlinie",
+        "lessDataCollection": {
+          "title": "Sammeln Sie weniger Daten",
+          "description": "Wenn diese Option aktiviert ist, werden nur die Launcher-Version und Ihre ID (erforderlich für den technischen Support) an den Server gesendet. "
+        }
       }
     },
     "flymenu": {

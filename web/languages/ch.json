@@ -208,7 +208,13 @@
         "telegram": "Telegram 頻道",
         "vk": "VKontakte 群組",
         "debug": "收集除錯存檔",
-        "history": "啟動器更新歷史"
+        "history": "啟動器更新歷史",
+        "eula": "用户协议",
+        "privacyPolicy": "隐私政策",
+        "lessDataCollection": {
+          "title": "收集更少的数据",
+          "description": "启用此选项后，只有启动器版本和您的 ID（技术支持所需）才会发送到服务器。"
+        }
       }
     },
     "flymenu": {

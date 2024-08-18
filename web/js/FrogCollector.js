@@ -75,6 +75,13 @@ class FrogCollector {
                 versionsInstalledCount: FrogVersionsManager.getInstalledVersionsList().length,
                 versions: process.versions
             };
+            if(FrogConfig.read("lessDataCollection", false) === true){
+                // Меньше собираем данные
+                collectedStats = {
+                    uniqueID: uniqueId,
+                    version: LAUNCHER_VERSION
+                }
+            }
             $.get(
                 STATS_URL + encodeURIComponent(JSON.stringify(collectedStats)),
                 () => {

@@ -208,7 +208,13 @@
         "telegram": "Telegram channel",
         "vk": "Vkontakte community",
         "debug": "Build a debug archive",
-        "history": "Launcher update history"
+        "history": "Launcher update history",
+        "eula": "User Agreement",
+        "privacyPolicy": "Privacy Policy",
+        "lessDataCollection": {
+          "title": "Collect less data",
+          "description": "When this option is enabled, only the launcher version and your ID (required for technical support) will be sent to the server. "
+        }
       }
     },
     "flymenu": {
