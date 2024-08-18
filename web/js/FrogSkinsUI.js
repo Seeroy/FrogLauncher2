@@ -142,8 +142,11 @@ class FrogSkinsUI {
                             accountsList[keysEachList[currentAccount]].nickname = result.username;
                         }
                         refreshNext();
+                    }).fail(function (e) {
+                        console.log(e);
+                        refreshNext();
                     });
-                } else if(accItem.type === "elyby"){
+                } else if (accItem.type === "elyby") {
                     FrogElybyManager.getHeadURLByPlayerNickname(accountsList[keysEachList[currentAccount]].nickname).then(refreshNext);
                 } else {
                     refreshNext();
