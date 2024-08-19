@@ -154,7 +154,11 @@ class FrogPackManagerUI {
             return false;
         }
         let modList = packman__currentModpack.files;
-        let modList2 = fs.readdirSync(path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "mods"));
+        let modsPathFull = path.join(GAME_DATA, "modpacks", packman__currentModpack.id, "mods");
+        if (!fs.existsSync(modsPathFull)) {
+            return false;
+        }
+        let modList2 = fs.readdirSync(modsPathFull);
         modList2.forEach((item) => {
             modList.push({path: "mods/" + item});
         })
