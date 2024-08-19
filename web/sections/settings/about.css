@@ -18,6 +18,12 @@
     max-width: 100vw !important;
 }
 
+#aboutItem .description h3 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 13vw;
+}
+
 #aboutItem .description,
 #aboutItem .description * {
     font-weight: 500;
@@ -55,11 +61,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-/* Version chip */
-#aboutItem .chip .dot {
-    background: white;
 }
 
 @keyframes gradAnim {
