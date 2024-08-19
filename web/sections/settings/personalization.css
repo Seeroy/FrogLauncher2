@@ -4,6 +4,12 @@
     grid-gap: 0.5em;
 }
 
+#languages-list .item .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+}
+
 #languages-list .item .text > span:first-child {
     font-weight: 600;
 }
