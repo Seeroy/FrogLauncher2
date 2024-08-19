@@ -97,11 +97,11 @@
       "newPack": {
         "title": "新建築",
         "input": "輸入組合的名稱",
-        "description": "在主版本清單中，選擇您要用作建立基礎的版本"
+        "description": "從主清單中選擇您要建立專案所依據的版本。"
       },
       "updatePackM": {
         "title": "更新模組",
-        "disclaimer": "目前 MOD 更新僅可用於手動模式和測試。若要測試更新，您需要選擇一個版本：",
+        "disclaimer": "Mod 更新現在只能以手動模式進行測試。選擇要測試的版本。",
         "check": "檢查更新",
         "checking": "檢查更新",
         "installing": "安裝更新",
@@ -111,7 +111,7 @@
     },
     "servers": {
       "title": "伺服器",
-      "disclaimer": "Launcher 開發者不對遊戲品質和列表中伺服器的誠實性負責。",
+      "disclaimer": "Launcher 開發商不保證遊戲的品質或伺服器的誠實性。",
       "ipCopied": "IP 已被複製！",
       "link": "如何添加您的伺服器？"
     },
@@ -213,7 +213,7 @@
         "privacyPolicy": "隐私政策",
         "lessDataCollection": {
           "title": "收集更少的数据",
-          "description": "启用此选项后，只有启动器版本和您的 ID（技术支持所需）才会发送到服务器。"
+          "description": "為了提供技術支援，當此選項啟用時，最低限度的一組資料會傳送到伺服器：您的程式版本和您的唯一識別碼。禁用此選項時所收集資料的完整清單，詳見我們的隱私權政策。請放心，我們非常重視您的隱私。"
         }
       }
     },
@@ -234,6 +234,8 @@
     "versions": {
       "releases": "發行版本",
       "snapshots": "快照",
+      "favourites": "收藏夹",
+      "installed": "已安装",
       "pack": "組裝"
     },
     "versionsPosters": [
@@ -307,33 +309,33 @@
     },
     "frogAuth": {
       "login": {
-        "title": "登录 | FrogID"
+        "title": "FrogID | 授權"
       },
       "register": {
         "title": "注册 | FrogID",
-        "repeatPassword": "再次输入您的密码",
-        "go": "创建一个帐户！",
+        "repeatPassword": "再次輸入密碼",
+        "go": "建立帳戶！",
         "success": {
-          "title": "注册成功！",
-          "description": "完成，您已经创建了一个帐户！",
+          "title": "註冊成功",
+          "description": "完成，您已建立帳戶！現在您需要使用註冊時指定的資料通過授權",
           "button": "美好的"
         }
       },
       "goRegister": "我没有账户",
       "goLogin": "我已经有一个帐户",
       "errors": {
-        "WRONG_CREDENTIALS": "登录名或密码无效",
-        "PNG_REQUIRED": "需要选择 PNG 文件",
-        "FILE_BITMAP_TOO_BIG": "文件太大或太大",
+        "WRONG_CREDENTIALS": "登入或密碼無效",
+        "PNG_REQUIRED": "需要選擇 PNG 檔案",
+        "FILE_BITMAP_TOO_BIG": "檔案的解析度或重量過大",
         "UNKNOWN": "执行操作时发生错误",
         "ALREADY_EXISTS": "该用户已存在，请选择其他昵称"
       },
       "skin": {
-        "title": "自定义外观",
+        "title": "自訂外觀",
         "skin": "皮肤",
         "cape": "披风"
       },
-      "useButton": "FrogSkins皮肤系统"
+      "useButton": "FrogSkins 皮膚系統"
     },
     "console": {
       "title": "安慰",

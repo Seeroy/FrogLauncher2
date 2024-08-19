@@ -97,11 +97,11 @@
       "newPack": {
         "title": "Neubau",
         "input": "Geben Sie den Namen der Baugruppe ein",
-        "description": "Wählen Sie in der Hauptversionsliste die Version aus, die Sie als Basis für den Build verwenden möchten"
+        "description": "Wählen Sie in der Hauptliste die Version aus, auf deren Grundlage Sie das Projekt erstellen möchten."
       },
       "updatePackM": {
         "title": "Mods aktualisieren",
-        "disclaimer": "Im Moment sind Mod-Updates nur im manuellen Modus und zum Testen verfügbar. Um Updates zu testen, müssen Sie ein Build auswählen:",
+        "disclaimer": "Mod-Updates sind jetzt nur noch im manuellen Modus zum Testen verfügbar. Wählen Sie ein Build zum Testen aus.",
         "check": "Suchen Sie nach Aktualisierungen.",
         "checking": "Prüfen auf Aktualisierungen",
         "installing": "Installation von Updates",
@@ -111,7 +111,7 @@
     },
     "servers": {
       "title": "Server",
-      "disclaimer": "Launcher-Entwickler ist nicht verantwortlich für die Qualität des Gameplays und Ehrlichkeit der Server in der Liste präsentiert",
+      "disclaimer": "Der Launcher-Entwickler übernimmt keine Garantie für die Qualität der Spiele oder die Ehrlichkeit der Server.",
       "ipCopied": "Die IP wurde kopiert!",
       "link": "Wie füge ich meinen Server hinzu?"
     },
@@ -213,7 +213,7 @@
         "privacyPolicy": "Datenschutzrichtlinie",
         "lessDataCollection": {
           "title": "Sammeln Sie weniger Daten",
-          "description": "Wenn diese Option aktiviert ist, werden nur die Launcher-Version und Ihre ID (erforderlich für den technischen Support) an den Server gesendet. "
+          "description": "Um technische Unterstützung zu leisten, wird bei aktivierter Option ein Mindestsatz an Daten an den Server übertragen: die Version Ihres Programms und Ihre eindeutige Kennung. Die vollständige Liste der Daten, die bei deaktivierter Option erfasst werden, finden Sie in unserer Datenschutzrichtlinie. Seien Sie versichert, dass wir uns um Ihre Privatsphäre kümmern."
         }
       }
     },
@@ -234,6 +234,8 @@
     "versions": {
       "releases": "Versionen freigeben",
       "snapshots": "Schnappschüsse",
+      "favourites": "Favoriten",
+      "installed": "Installiert",
       "pack": "Montage"
     },
     "versionsPosters": [
@@ -307,25 +309,25 @@
     },
     "frogAuth": {
       "login": {
-        "title": "Anmelden | FrogID"
+        "title": "Autorisierung | FrogID"
       },
       "register": {
         "title": "Registrierung | FrogID",
-        "repeatPassword": "Geben Sie Ihr Passwort erneut ein",
-        "go": "Ein Konto erstellen!",
+        "repeatPassword": "Geben Sie das Passwort erneut ein",
+        "go": "Erstellen Sie ein Konto!",
         "success": {
           "title": "Registrierung erfolgreich!",
-          "description": "Fertig, Sie haben ein Konto erstellt! ",
+          "description": "FGeschafft, Sie haben ein Konto erstellt! Nun müssen Sie die Autorisierung mit den bei der Registrierung angegebenen Daten vornehmen",
           "button": "Bußgeld"
         }
       },
       "goRegister": "Ich habe kein Konto",
       "goLogin": "Ich habe bereits ein Konto",
       "errors": {
-        "WRONG_CREDENTIALS": "Ungültiger Benutzername oder Passwort",
+        "WRONG_CREDENTIALS": "Ungültiges Login oder Passwort",
         "PNG_REQUIRED": "Erforderlich, um eine PNG-Datei auszuwählen",
         "FILE_BITMAP_TOO_BIG": "Die Datei ist zu groß oder zu groß",
-        "UNKNOWN": "Beim Ausführen der Aktion ist ein Fehler aufgetreten",
+        "UNKNOWN": "Bei der Durchführung einer Aktion ist ein Fehler aufgetreten",
         "ALREADY_EXISTS": "Dieser Benutzer existiert bereits. Bitte wählen Sie einen anderen Spitznamen"
       },
       "skin": {

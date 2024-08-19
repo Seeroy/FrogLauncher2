@@ -97,11 +97,11 @@
       "newPack": {
         "title": "New modpack",
         "input": "Enter the name of the assembly",
-        "description": "In the main list of versions, select the one you want to use as a base for the build"
+        "description": "Select the version from the main list on the basis of which you want to build the project."
       },
       "updatePackM": {
         "title": "Mod update",
-        "disclaimer": "At the moment, mod updates are only available in manual mode and for testing",
+        "disclaimer": "Mod updates are now only available in manual mode for testing. Select a build to test.",
         "check": "Check for updates",
         "checking": "Checking for updates",
         "installing": "Installing updates",
@@ -111,7 +111,7 @@
     },
     "servers": {
       "title": "Servers",
-      "disclaimer": "Launcher developer is not responsible for the quality of gameplay and honesty of the servers presented in the list",
+      "disclaimer": "Launcher developer does not guarantee the quality of the games or the honesty of the servers.",
       "ipCopied": "IP copied!",
       "link": "How to add my server here?"
     },
@@ -213,7 +213,7 @@
         "privacyPolicy": "Privacy Policy",
         "lessDataCollection": {
           "title": "Collect less data",
-          "description": "When this option is enabled, only the launcher version and your ID (required for technical support) will be sent to the server. "
+          "description": "To provide technical support, with this option enabled, a minimal set of data will be transmitted to the server: your program version and your unique identifier. The full list of data collected when this option is disabled is detailed in our Privacy Policy. Rest assured that we care about your privacy."
         }
       }
     },
@@ -234,6 +234,8 @@
     "versions": {
       "releases": "Release versions",
       "snapshots": "Snapshots",
+      "favourites": "Favorites",
+      "installed": "Installed",
       "pack": "Assembly"
     },
     "versionsPosters": [

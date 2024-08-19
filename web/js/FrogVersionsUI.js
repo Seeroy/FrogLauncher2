@@ -27,6 +27,7 @@ class FrogVersionsUI {
 
                 // Если включено избранное
                 let favoritesAllowed = FrogVersionsManager.getFavoriteVersions();
+                let installedOnly = FrogVersionsUI.getVersionsTypeSelected().includes("installed");
                 let onlyFavorites = FrogVersionsUI.getVersionsTypeSelected().includes("favorite");
 
                 Object.values(versions).forEach((ver) => {
@@ -49,7 +50,7 @@ class FrogVersionsUI {
                             displayName += ` (${modpackData.baseVersion.number})`;
                         }
                     }
-                    if (!onlyFavorites || (onlyFavorites && favoritesAllowed.includes(ver.id))) {
+                    if ((!onlyFavorites || (onlyFavorites && favoritesAllowed.includes(ver.id))) && (!installedOnly || (installedOnly && ver.installed === true))) {
                         let preparedPlaceholder = placeholder.replaceAll("$1", displayName).replaceAll("$2", ver.type).replaceAll("$3", ver.id).replaceAll("$4", ver.installed).replaceAll("$5", versionIcon);
                         $("#modal-versions .versions-list").append(preparedPlaceholder);
                     }
