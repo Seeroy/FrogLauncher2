@@ -47,20 +47,10 @@
 
 #modal-settings .grid-wrapper {
     display: grid;
-    grid-auto-columns: 1fr;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0 16px;
-    grid-template-areas:
-    ". .";
+    gap: 0.4em;
     width: 100%;
     height: 100%;
-}
-
-#modal-settings .grid-wrapper > div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
 }
 
 @keyframes gradAnim {

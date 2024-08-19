@@ -1,12 +1,13 @@
 #modal-packs .wrapper .grid {
     margin-top: 8px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(100px, 256px));
     gap: 12px;
+    justify-content: center;
 }
 
 #modal-packs .wrapper .grid .item {
-    width: 256px;
+    width: 100%;
     height: 100%;
 
     display: flex;

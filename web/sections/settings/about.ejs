@@ -43,84 +43,80 @@
 </div>
 
 <div class="grid-wrapper">
-    <div>
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://froglauncher.seeeroy.ru')">
-            <div class="icon">
-                <span class="material-symbols-outlined">open_in_new</span>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.site}}</span>
-            </div>
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://froglauncher.seeeroy.ru')">
+        <div class="icon">
+            <span class="material-symbols-outlined">open_in_new</span>
         </div>
-
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://github.com/Seeroy/FrogLauncher')">
-            <div class="icon">
-                <img src="assets/github.png"/>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.sources}}</span>
-            </div>
-        </div>
-
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://t.me/froglauncher_minecraft')">
-            <div class="icon">
-                <img src="assets/telegram.png"/>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.telegram}}</span>
-            </div>
-        </div>
-
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://froglauncher.ru/eula')">
-            <div class="icon">
-                <span class="material-symbols-outlined">developer_guide</span>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.eula}}</span>
-            </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.site}}</span>
         </div>
     </div>
-    <div>
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://vk.com/froglauncher_minecraft')">
-            <div class="icon">
-                <img src="assets/vk.png"/>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.vk}}</span>
-            </div>
-        </div>
 
-        <div class="flex flex-center flex-gap-8 settings-item clickable" onclick="FrogCollector.collectDebugData()">
-            <div class="icon">
-                <span class="material-symbols-outlined">bug_report</span>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.debug}}</span>
-            </div>
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://github.com/Seeroy/FrogLauncher')">
+        <div class="icon">
+            <img src="assets/github.png"/>
         </div>
-
-        <div class="flex flex-center flex-gap-8 settings-item clickable" onclick="FrogModals.switchModal('changelog')">
-            <div class="icon">
-                <span class="material-symbols-outlined">history</span>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.history}}</span>
-            </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.sources}}</span>
         </div>
+    </div>
 
-        <div class="flex flex-center flex-gap-8 settings-item clickable"
-             onclick="openExternal('https://froglauncher.ru/privacy-policy')">
-            <div class="icon">
-                <span class="material-symbols-outlined">security</span>
-            </div>
-            <div class="flex flex-grow flex-col flex-justify-center">
-                <span class="name">{{settings.about.privacyPolicy}}</span>
-            </div>
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://t.me/froglauncher_minecraft')">
+        <div class="icon">
+            <img src="assets/telegram.png"/>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.telegram}}</span>
+        </div>
+    </div>
+
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://froglauncher.ru/eula')">
+        <div class="icon">
+            <span class="material-symbols-outlined">developer_guide</span>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.eula}}</span>
+        </div>
+    </div>
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://vk.com/froglauncher_minecraft')">
+        <div class="icon">
+            <img src="assets/vk.png"/>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.vk}}</span>
+        </div>
+    </div>
+
+    <div class="flex flex-center flex-gap-8 settings-item clickable" onclick="FrogCollector.collectDebugData()">
+        <div class="icon">
+            <span class="material-symbols-outlined">bug_report</span>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.debug}}</span>
+        </div>
+    </div>
+
+    <div class="flex flex-center flex-gap-8 settings-item clickable" onclick="FrogModals.switchModal('changelog')">
+        <div class="icon">
+            <span class="material-symbols-outlined">history</span>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.history}}</span>
+        </div>
+    </div>
+
+    <div class="flex flex-center flex-gap-8 settings-item clickable"
+         onclick="openExternal('https://froglauncher.ru/privacy-policy')">
+        <div class="icon">
+            <span class="material-symbols-outlined">security</span>
+        </div>
+        <div class="flex flex-grow flex-col flex-justify-center">
+            <span class="name">{{settings.about.privacyPolicy}}</span>
         </div>
     </div>
 </div>
