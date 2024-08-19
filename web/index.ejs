@@ -83,6 +83,9 @@
     <%- include('views/flyout'); %>
 </div>
 
+<!-- Оверлей для фона модальных окон -->
+<div class="modal-overlay"></div>
+
 <!-- Пул для уведомлений -->
 <div id="toasts-pool"></div>
 
@@ -178,6 +181,11 @@
 
             // Пасхалко
             FrogUI.bindEasterEgg();
+
+            // Закрытие overlay modal по клику за пределы
+            $(".modal-overlay").click(function(){
+                FrogModals.hideCurrentOverlay();
+            })
         }, 500);
 
         $("html").show();
