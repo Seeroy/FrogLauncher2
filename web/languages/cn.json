@@ -126,7 +126,8 @@
       "available": "提供新的更新",
       "downloading": "下載",
       "ready": "重新啟動 Launcher 之後，更新將會安裝。",
-      "changelog": "變更清單"
+      "changelog": "變更清單",
+      "install": "安裝"
     },
     "settings": {
       "title": "設定",
@@ -148,7 +149,8 @@
           "title": "自動選擇 Java 版本",
           "description": "版本是根據官方的 Mojang 宣言來選擇和安裝的"
         },
-        "user": "自訂 Java 版本"
+        "user": "自訂 Java 版本",
+        "selectJavaExe": "選擇可執行檔java.exe"
       },
       "personalization": {
         "language": "啟動語言",
@@ -335,7 +337,9 @@
         "skin": "皮肤",
         "cape": "披风"
       },
-      "useButton": "FrogSkins 皮膚系統"
+      "useButton": "FrogSkins 皮膚系統",
+      "fieldsError": "欄位未填寫/填寫錯誤",
+      "passwordsComp": "密碼不匹配"
     },
     "console": {
       "title": "安慰",

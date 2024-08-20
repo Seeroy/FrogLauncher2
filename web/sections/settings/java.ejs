@@ -42,7 +42,7 @@
     function changeJava() {
         ipcRenderer.invoke("open-dialog", {
             properties: ["dontAddToRecent"],
-            title: "Выберите файл java.exe",
+            title: MESSAGES.settings.java.selectJavaExe,
             filters: [{name: "java.exe", extensions: ["exe"]}],
         }).then(result => {
             let pathResult = path.normalize(result[0]);

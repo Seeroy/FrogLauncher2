@@ -126,7 +126,8 @@
       "available": "Ein neues Update ist verfügbar",
       "downloading": "Herunterladen von",
       "ready": "Nach einem Neustart des Launcher wird das Update installiert",
-      "changelog": "Liste der Änderungen"
+      "changelog": "Liste der Änderungen",
+      "install": "Installieren"
     },
     "settings": {
       "title": "Einstellungen",
@@ -148,7 +149,8 @@
           "title": "Automatisch die Java-Version auswählen",
           "description": "Die Version wird auf der Grundlage des offiziellen Mojang-Manifests ausgewählt und installiert"
         },
-        "user": "Benutzerdefinierte Version von Java"
+        "user": "Benutzerdefinierte Version von Java",
+        "selectJavaExe": "Wählen Sie die ausführbare Datei java.exe aus"
       },
       "personalization": {
         "language": "Sprache des Launcher",
@@ -335,7 +337,9 @@
         "skin": "Haut",
         "cape": "Mantel"
       },
-      "useButton": "FrogSkins-Hautsystem"
+      "useButton": "FrogSkins-Hautsystem",
+      "fieldsError": "Felder sind nicht/falsch ausgefüllt",
+      "passwordsComp": "Passwörter stimmen nicht überein"
     },
     "console": {
       "title": "Konsole",

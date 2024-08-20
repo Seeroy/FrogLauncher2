@@ -20,45 +20,51 @@ class FrogSkinsUI {
         let login = $("#modal-frogRegister input.login").val().trim();
         let password = $("#modal-frogRegister input.password").val().trim();
         let repPassword = $("#modal-frogRegister input.password-repeat").val().trim();
-
         let $error = $("#modal-frogRegister .error");
 
-        if (login !== "" && password !== "" && password === repPassword && login.match(NICKNAME_REGEX) !== null) {
-            $("#modal-frogRegister .loginBtn").hide();
-            $error.hide();
-
-            $.get(`${global.SKINS_API_URL}/register?username=${login}&password=${password}`, (result) => {
-                if (result.success) {
-                    $("#modal-frogRegister input.login").val("");
-                    $("#modal-frogRegister input.password").val("");
-                    $("#modal-frogRegister input.password-repeat").val("");
-                    FrogModals.hideModal("frogRegister");
-                    FrogAlerts.create(MESSAGES.frogAuth.register.success.title,
-                        MESSAGES.frogAuth.register.success.description,
-                        MESSAGES.frogAuth.register.success.button,
-                        "how_to_reg", () => {
-                            FrogSkinsUI.goLogin()
-                        });
-                }
-            }).fail((e) => {
-                console.log(e);
-                $("#modal-frogRegister .loginBtn").show();
-                $error.show();
-                let response = e.responseJSON || e.responseText;
-
-                if (typeof response.success !== "undefined" && response.success === false) {
-                    let errorMessage = response.error || e.responseJSON.errorMessage;
-                    if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
-                        return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
-                    }
-                    return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
-                }
-                $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
-            })
-        } else {
+        if (login === "" || password === "" || login.match(NICKNAME_REGEX) === null) {
             $error.show();
-            $error.text("Поля не заполнены");
+            $error.text(MESSAGES.frogAuth.fieldsError);
+            return;
         }
+
+        if (password !== repPassword) {
+            $error.show();
+            $error.text(MESSAGES.frogAuth.passwordsComp);
+            return;
+        }
+
+        $("#modal-frogRegister .loginBtn").hide();
+        $error.hide();
+
+        $.get(`${global.SKINS_API_URL}/register?username=${login}&password=${password}`, (result) => {
+            if (result.success) {
+                $("#modal-frogRegister input.login").val("");
+                $("#modal-frogRegister input.password").val("");
+                $("#modal-frogRegister input.password-repeat").val("");
+                FrogModals.hideModal("frogRegister");
+                FrogAlerts.create(MESSAGES.frogAuth.register.success.title,
+                    MESSAGES.frogAuth.register.success.description,
+                    MESSAGES.frogAuth.register.success.button,
+                    "how_to_reg", () => {
+                        FrogSkinsUI.goLogin()
+                    });
+            }
+        }).fail((e) => {
+            console.log(e);
+            $("#modal-frogRegister .loginBtn").show();
+            $error.show();
+            let response = e.responseJSON || e.responseText;
+
+            if (typeof response.success !== "undefined" && response.success === false) {
+                let errorMessage = response.error || e.responseJSON.errorMessage;
+                if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
+                    return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
+                }
+                return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+            }
+            $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
+        })
     }
 
     // Начать процесс входа
@@ -67,57 +73,58 @@ class FrogSkinsUI {
         let password = $("#modal-frogLogin input.password").val().trim();
         let $error = $("#modal-frogLogin .error");
 
-        if (login !== "" && password !== "" && login.match(NICKNAME_REGEX) !== null) {
-            $("#modal-frogLogin .loginBtn").hide();
-            $error.hide();
-
-            $.get(`${global.SKINS_API_URL}/login?username=${login}&password=${password}`, (result) => {
-                if (result.success) {
-                    $("#modal-frogLogin input.login").val("");
-                    $("#modal-frogLogin input.password").val("");
-                    $("#modal-frogLogin input.password-repeat").val("");
-
-                    // Создаём аккаунт
-                    let accountData = {
-                        type: "frog",
-                        nickname: result.username,
-                        added: Date.now(),
-                        clientToken: result.profileId,
-                        accessToken: result.clientId,
-                        uuid: result.profileUuid,
-                        secret: result.secret,
-                        textures: result.textures
-                    }
-
-                    let accountsList = FrogAccountsManager.getAccounts();
-                    accountsList[result.profileUuid] = accountData;
-                    FrogAccountsManager.saveAccounts(accountsList);
-
-                    $("#modal-frogLogin input").val("");
-                    FrogModals.hideModal("frogLogin").then(() => {
-                        FrogToasts.create(result.username, "person", MESSAGES.commons.newAccountAdded);
-                    });
-                    return true;
-                }
-            }).fail((e) => {
-                console.log(e);
-                $("#modal-frogLogin .loginBtn").show();
-                $error.show();
-                let response = e.responseJSON || e.responseText;
-
-                if (typeof response.success !== "undefined" && response.success === false) {
-                    let errorMessage = response.error || e.responseJSON.errorMessage;
-                    if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
-                        return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
-                    }
-                    return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
-                }
-                $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
-            })
-        } else {
+        if (login === "" || password === "" || login.match(NICKNAME_REGEX) === null) {
             $error.show();
-            $error.text("Поля не заполнены");
+            $error.text(MESSAGES.frogAuth.fieldsError);
+            return;
         }
+
+        $("#modal-frogLogin .loginBtn").hide();
+        $error.hide();
+
+        $.get(`${global.SKINS_API_URL}/login?username=${login}&password=${password}`, (result) => {
+            if (result.success) {
+                $("#modal-frogLogin input.login").val("");
+                $("#modal-frogLogin input.password").val("");
+                $("#modal-frogLogin input.password-repeat").val("");
+
+                // Создаём аккаунт
+                let accountData = {
+                    type: "frog",
+                    nickname: result.username,
+                    added: Date.now(),
+                    clientToken: result.profileId,
+                    accessToken: result.clientId,
+                    uuid: result.profileUuid,
+                    secret: result.secret,
+                    textures: result.textures
+                }
+
+                let accountsList = FrogAccountsManager.getAccounts();
+                accountsList[result.profileUuid] = accountData;
+                FrogAccountsManager.saveAccounts(accountsList);
+
+                $("#modal-frogLogin input").val("");
+                FrogModals.hideModal("frogLogin").then(() => {
+                    FrogToasts.create(result.username, "person", MESSAGES.commons.newAccountAdded);
+                });
+                return true;
+            }
+        }).fail((e) => {
+            console.log(e);
+            $("#modal-frogLogin .loginBtn").show();
+            $error.show();
+            let response = e.responseJSON || e.responseText;
+
+            if (typeof response.success !== "undefined" && response.success === false) {
+                let errorMessage = response.error || e.responseJSON.errorMessage;
+                if (typeof MESSAGES.frogAuth.errors[errorMessage] !== "undefined") {
+                    return $error.text(MESSAGES.frogAuth.errors[errorMessage]);
+                }
+                return $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + errorMessage);
+            }
+            $error.text(MESSAGES.frogAuth.errors.UNKNOWN + ": " + e.responseText);
+        })
     }
 
     // Обновить профили у всех аккаунтов

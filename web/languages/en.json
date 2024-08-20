@@ -126,7 +126,8 @@
       "available": "New update available",
       "downloading": "Downloading in progress",
       "ready": "After restarting the launcher, the update will be installed",
-      "changelog": "List of changes"
+      "changelog": "List of changes",
+      "install": "Install"
     },
     "settings": {
       "title": "Settings",
@@ -148,7 +149,8 @@
           "title": "Automatically select Java version",
           "description": "The version is selected and installed based on the official Mojang manifest"
         },
-        "user": "Custom Java version"
+        "user": "Custom Java version",
+        "selectJavaExe": "Select the executable file java.exe"
       },
       "personalization": {
         "language": "Launcher language",
@@ -335,7 +337,9 @@
         "skin": "Skin",
         "cape": "Cloak"
       },
-      "useButton": "FrogSkins skin system"
+      "useButton": "FrogSkins skin system",
+      "fieldsError": "Fields are not filled in/filled in incorrectly",
+      "passwordsComp": "Passwords don't match"
     },
     "console": {
       "title": "Console",

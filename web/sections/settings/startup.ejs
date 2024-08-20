@@ -120,9 +120,7 @@
 
     function changeGameDirectory() {
         ipcRenderer.invoke("open-dialog", {
-            properties: ["openDirectory", "dontAddToRecent"],
-            buttonLabel: "Выбрать",
-            title: "Выберите папку для хранения файлов игры",
+            properties: ["openDirectory", "dontAddToRecent"]
         }).then(result => {
             let pathResult = path.normalize(result[0]);
             global.GAME_DATA = pathResult;
