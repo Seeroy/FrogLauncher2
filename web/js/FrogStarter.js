@@ -23,6 +23,9 @@ class FrogStarter {
         return new Promise((resolve, reject) => {
             FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
 
+            let accData = FrogAccountsManager.getAccount(FrogAccountsManager.getActiveAccount());
+            FrogCollector.writeLog(`Starter: Account [type=${accData.type}] [username=${accData.nickname}]`);
+
             // Получить версию игры для пака
             if (this.versionType === "pack") {
                 let verSplit = this.versionId.toString().split("-");
