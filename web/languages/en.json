@@ -212,7 +212,7 @@
         "eula": "User Agreement",
         "privacyPolicy": "Privacy Policy",
         "lessDataCollection": {
-          "title": "Collect less data",
+          "title": "Paranoia Mode",
           "description": "To provide technical support, with this option enabled, a minimal set of data will be transmitted to the server: your program version and your unique identifier. The full list of data collected when this option is disabled is detailed in our Privacy Policy. Rest assured that we care about your privacy."
         }
       }

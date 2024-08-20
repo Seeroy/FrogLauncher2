@@ -1,6 +1,6 @@
 {
   "name": "frogLauncher2",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "Minecraft-лаунчер. Твой. Крутой",
   "main": "app.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "bugs": "https://github.com/Seeroy/FrogLauncher2/issues",
   "repository": "https://github.com/Seeroy/FrogLauncher2",
   "devDependencies": {
-    "electron": "^31.4.0",
+    "electron": "^32.0.0",
     "electron-builder": "^24.13.3",
     "electron-reloader": "^1.2.3"
   },

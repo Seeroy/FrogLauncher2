@@ -212,7 +212,7 @@
         "eula": "Benutzervereinbarung",
         "privacyPolicy": "Datenschutzrichtlinie",
         "lessDataCollection": {
-          "title": "Sammeln Sie weniger Daten",
+          "title": "Paranoia-Modus",
           "description": "Um technische Unterstützung zu leisten, wird bei aktivierter Option ein Mindestsatz an Daten an den Server übertragen: die Version Ihres Programms und Ihre eindeutige Kennung. Die vollständige Liste der Daten, die bei deaktivierter Option erfasst werden, finden Sie in unserer Datenschutzrichtlinie. Seien Sie versichert, dass wir uns um Ihre Privatsphäre kümmern."
         }
       }
