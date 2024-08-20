@@ -121,7 +121,7 @@ class FrogAssetsParsers {
     static clearAssetsCache = () => {
         let dirPath = path.join(GAME_DATA, "cache", "unpacked");
         if (!fs.existsSync(dirPath)) {
-            return fs.mkdirSync(dirPath);
+            return fs.mkdirSync(dirPath, {recursive: true});
         }
         fsExtra.removeSync(dirPath);
         return fs.mkdirSync(dirPath);
