@@ -21,22 +21,26 @@ class FrogStarter {
 
     prepare = () => {
         return new Promise((resolve, reject) => {
+            FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
+
             // Получить версию игры для пака
             if (this.versionType === "pack") {
                 let verSplit = this.versionId.toString().split("-");
                 verSplit.shift();
                 let modpackData = FrogPacks.getModpackManifest(verSplit.join("-"));
+                FrogCollector.writeLog(`Starter: Starting pack [data=${JSON.stringify(modpackData)}`);
                 this.versionNumber = modpackData.baseVersion.number;
                 this.versionId = modpackData.baseVersion.full;
                 this.versionType = modpackData.baseVersion.type;
             }
             // Готовим UI
-            FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
+            FrogCollector.writeLog(`Starter: id=${this.versionId}; version=${this.versionNumber} type=${this.versionType}`);
             FrogFlyout.setUIStartMode(true);
             let versionDisplayName = FrogVersionsManager.versionToDisplayName();
             FrogFlyout.setText(MESSAGES.starter.configuring, versionDisplayName);
             FrogFlyout.changeMode("spinner").then(() => {
                 // Получаем версию Java
+                FrogCollector.writeLog(`Starter: Gathering Java`);
                 FrogJavaManager.gameVersionToJavaVersion(this.versionNumber).then((javaVersion) => {
                     FrogCollector.writeLog(`Starter: Using Java ${javaVersion}`);
                     if (javaVersion === false) {
@@ -51,6 +55,7 @@ class FrogStarter {
                         // Установка Java завершена, получаем к ней путь
                         let javaPath = FrogJavaManager.getPath(javaVersion);
                         if (javaPath === false) {
+                            FrogCollector.writeLog(`Starter: Java installation failed! ${javaPath}`);
                             return reject(false);
                         }
 
