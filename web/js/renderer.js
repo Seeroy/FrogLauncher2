@@ -51,7 +51,7 @@ global.CONFIG_PATH = path.join(global.USERDATA_PATH, "config.json");
 if (process.platform === "win32") {
     global.DOT_MC_PATH = path.join(os.homedir(), "AppData", "Roaming", ".minecraft");
 } else {
-    global.DOT_MC_PATH = path.join(__dirname, "minecraft");
+    global.DOT_MC_PATH = path.join(os.homedir(), ".minecraft");
 }
 
 const animateCSS = (element, animation, fast = true, prefix = "animate__") => {

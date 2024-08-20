@@ -45,6 +45,9 @@ class FrogConfig {
 
     // Существует ли ключ в конфиге
     static isKeyExists = (key) => {
+        if(typeof mainConfig === "undefined"){
+            return false;
+        }
         return typeof mainConfig[key] !== "undefined";
     }
 }
