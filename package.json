@@ -6,10 +6,10 @@
   "scripts": {
     "start": "electron .",
     "verify": "node ./verifyTranslations.js",
-    "dev": "set LAUNCHER_IN_DEV=yes && electron .",
+    "dev": "cross-env LAUNCHER_IN_DEV=yes electron .",
     "build-win": "electron-builder build --win --publish never",
     "build-linux": "electron-builder build --linux --publish never",
-    "test": "set LAUNCHER_IN_DEV=yes && set LAUNCHER_IN_TEST=yes && electron ."
+    "test": "cross-env LAUNCHER_IN_DEV=yes LAUNCHER_IN_TEST=yeselectron ."
   },
   "author": "Seeroy",
   "license": "GPL-3.0",
@@ -17,6 +17,7 @@
   "bugs": "https://github.com/Seeroy/FrogLauncher2/issues",
   "repository": "https://github.com/Seeroy/FrogLauncher2",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "electron": "^32.0.0",
     "electron-builder": "^24.13.3",
     "electron-reloader": "^1.2.3"
