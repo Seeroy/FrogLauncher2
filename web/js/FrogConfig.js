@@ -24,7 +24,6 @@ class FrogConfig {
             global.CONFIG_PATH,
             JSON.stringify(config, null, "\t")
         );
-        FrogCollector.writeLog("Main configuration saved");
         return true;
     }
 
