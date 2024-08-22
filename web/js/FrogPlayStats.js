@@ -8,6 +8,15 @@ class FrogPlayStats {
         return gameStatsData;
     }
 
+    // Получить статистику по версии
+    static getByID = (versionId) => {
+        if(typeof gameStatsData[versionId] === "undefined") {
+            return false;
+        }
+
+        return gameStatsData[versionId];
+    }
+
     // Получить список версий отсортированный по последнему времени запуска
     static getByLastStarted = () => {
         if (Object.values(gameStatsData).length === 0) return [];
