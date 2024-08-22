@@ -8,16 +8,17 @@
   },
   "translations": {
     "errors": {
-      "title": "Oh no, something happened!",
+      "title": "Something went wrong!",
       "exitCode": "Game ended with exit code",
       "list": [
-        "This version of the game is not compatible with the version of Java you are using. If you are using automatic Java version detection, please contact the developer to correct the error.",
-        "Looks like the Java version and the Forge version are not compatible! If you are using automatic Java version detection, please contact the developer to correct the error.",
-        "Failed to allocate required amount of memory for Java Try reducing the amount of memory in the launcher settings",
-        "It looks like the game's executable JAR file has been lost.  Try restarting the launcher",
-        "The launcher cannot find the Java executable file! If you are using automatic Java version detection, please contact the developer to correct the error.",
-        "The game configuration or files may be corrupted or created by a newer version of the game. ",
-        "Try restarting the game again, if that doesn’t help, a complete reinstallation of the game is recommended."
+        "This version of the game or your mods are not compatible with the version of Java you are using",
+        "Looks like the Java version and the Forge version are not compatible!",
+        "Failed to allocate required amount of memory for Java",
+        "The game's executable JAR file could not be launched",
+        "The launcher cannot find the Java executable file!",
+        "The game configuration or files may be corrupted or created by a newer version of the game",
+        "Try restarting the game again, if that doesn’t help, a complete reinstallation of the game is recommended",
+        "When starting the game, some Java classes could not be found"
       ]
     },
     "accounts": {

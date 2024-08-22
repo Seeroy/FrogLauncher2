@@ -18,7 +18,7 @@
   "repository": "https://github.com/Seeroy/FrogLauncher2",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "^32.0.0",
+    "electron": "^32.0.1",
     "electron-builder": "^24.13.3",
     "electron-reloader": "^1.2.3"
   },

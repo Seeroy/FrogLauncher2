@@ -8,16 +8,17 @@
   },
   "translations": {
     "errors": {
-      "title": "Oh, nein, es ist etwas passiert!",
-      "exitCode": "Das Spiel endete mit einem Exit-Code",
+      "title": "Etwas ist schief gelaufen!",
+      "exitCode": "Das Spiel endete mit dem Exit-Code",
       "list": [
-        "Diese Version des Spiels ist nicht mit der von Ihnen verwendeten Java-Version kompatibel. Wenn Sie die automatische Java-Versionserkennung verwenden, wenden Sie sich bitte an den Entwickler, um den Fehler zu beheben",
-        "Es sieht so aus, als ob die Java-Version und die Forge-Version nicht kompatibel sind! Wenn Sie die automatische Java-Versionserkennung verwenden, wenden Sie sich bitte an den Entwickler, um den Fehler zu beheben",
-        "Der erforderliche Speicherplatz für Java konnte nicht zugewiesen werden Versuchen Sie, den Speicherplatz in den Einstellungen des Launchers zu verringern",
-        "Sieht so aus, als ob die ausführbare JAR-Datei des Spiels verloren gegangen ist Versuchen Sie, den Launcher neu zu starten",
-        "Launcher kann keine ausführbare Java-Datei finden! Wenn Sie die automatische Java-Versionserkennung verwenden, kontaktieren Sie bitte den Entwickler, um den Fehler zu beheben",
-        "Die Konfigurations- oder Spieldateien sind möglicherweise beschädigt oder wurden von einer neueren Version des Spiels erstellt. Wir empfehlen eine saubere Neuinstallation des Spiels, indem Sie den Pfad zum Ordner in den Einstellungen des Launchers ändern",
-        "Versuchen Sie, das Spiel noch einmal neu zu starten, wenn das nicht hilft - eine vollständige Neuinstallation des Spiels wird empfohlen"
+        "Diese Version des Spiels oder Ihrer Mods ist nicht mit der von Ihnen verwendeten Java-Version kompatibel",
+        "Offenbar sind die Java-Version und die Forge-Version nicht kompatibel!",
+        "Die erforderliche Speichermenge für Java konnte nicht zugewiesen werden",
+        "Die ausführbare JAR-Datei des Spiels konnte nicht gestartet werden",
+        "Der Launcher kann die ausführbare Java-Datei nicht finden!",
+        "Die Spielkonfiguration oder -dateien sind möglicherweise beschädigt oder wurden von einer neueren Version des Spiels erstellt",
+        "Versuchen Sie, das Spiel erneut zu starten. Wenn das nicht hilft, wird eine vollständige Neuinstallation des Spiels empfohlen",
+        "Beim Starten des Spiels konnten einige Java-Klassen nicht gefunden werden"
       ]
     },
     "accounts": {
