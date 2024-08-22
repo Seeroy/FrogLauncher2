@@ -36,6 +36,7 @@
     <script src="./js/FrogNews.js"></script>
     <script src="./js/FrogPacks.js"></script>
     <script src="./js/FrogPacksUI.js"></script>
+    <script src="./js/FrogPlayStats.js"></script>
     <script src="./js/FrogServersUI.js"></script>
     <script src="./js/FrogSkinsUI.js"></script>
     <script src="./js/FrogStarter.js"></script>
@@ -103,6 +104,7 @@
 </body>
 </html>
 <script>
+    FrogPlayStats.getAllStats();
     FrogCollector.setupLogHijacking();
     FrogCollector.writeLog("Launcher started at", Date.now());
 

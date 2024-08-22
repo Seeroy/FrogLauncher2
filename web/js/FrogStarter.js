@@ -118,6 +118,7 @@ class FrogStarter {
                 gameStarting = false;
                 assetsVerifyOffset = 0;
                 startAssetsInterval = 0;
+                FrogPlayStats.onGameClose();
                 $("#stopGameButton").hide();
                 FrogUI.appearMainWindow();
                 setTimeout(() => {
@@ -135,6 +136,7 @@ class FrogStarter {
             });
             launcher.on("arguments", (e) => {
                 gameStarting = true;
+                FrogPlayStats.onGameLaunch(FrogVersionsManager.getActiveVersion());
                 $("#stopGameButton").show();
                 // Показываем консоль
                 if (FrogConfig.read("consoleOnStart") === true) {
