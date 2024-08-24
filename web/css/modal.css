@@ -18,7 +18,7 @@
     right: 0;
     bottom: 0;
     top: 0;
-    z-index: 2;
+    z-index: 4;
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(2px) brightness(85%);
@@ -37,6 +37,10 @@ body:has(.modal.overlay:not([style*="display: none;"])) > .modal-overlay {
     top: 0;
     z-index: 10;
     margin: auto;
+}
+
+.modal.top {
+    z-index: 5 !important;
 }
 
 .modal .content {
