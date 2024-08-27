@@ -245,6 +245,7 @@ function renderSkinInUI(skinPath = "", capePath = "") {
         skinViewer.autoRotate = true;
         skinViewer.loadSkin(path.normalize(skinPath));
         skinViewer.animation = new skinview3d.WalkingAnimation();
+        skinViewer.autoRotate = true;
     }
 
     if (capePath !== "") {
