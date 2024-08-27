@@ -45,7 +45,7 @@
       "login": "Anmeldung eingeben",
       "password": "Geben Sie Ihr Passwort ein",
       "totp": "Geben Sie den TOTP-Code ein",
-      "totpNotify": "Wenn Sie nicht wissen, was ein TOTP-Code ist oder Sie keine Zwei-Faktor-Autorisierung aktiviert haben, füllen Sie dieses Feld nicht aus.",
+      "totpNotify": "Wenn Sie nicht wissen, was ein TOTP-Code ist oder Sie keine Zwei-Faktor-Autorisierung aktiviert haben, füllen Sie dieses Feld nicht aus",
       "INVALID_CREDENTIALS": "Ungültiges Login oder Passwort",
       "REQUIRES_TOTP": "Nicht angegeben TOTP-Token",
       "repeat": "Sie müssen eine neue Genehmigung erteilen"
@@ -98,12 +98,12 @@
       "newPack": {
         "title": "Neubau",
         "input": "Geben Sie den Namen der Baugruppe ein",
-        "description": "Wählen Sie in der Hauptliste die Version aus, auf deren Grundlage Sie das Projekt erstellen möchten."
+        "description": "Wählen Sie in der Hauptliste die Version aus, auf deren Grundlage Sie das Projekt erstellen möchten"
       },
       "updatePackM": {
         "title": "Mods aktualisieren",
-        "disclaimer": "Mod-Updates sind jetzt nur noch im manuellen Modus zum Testen verfügbar. Wählen Sie ein Build zum Testen aus.",
-        "check": "Suchen Sie nach Aktualisierungen.",
+        "disclaimer": "Mod-Updates sind jetzt nur noch im manuellen Modus zum Testen verfügbar. Wählen Sie ein Build zum Testen aus",
+        "check": "Suchen Sie nach Aktualisierungen",
         "checking": "Prüfen auf Aktualisierungen",
         "installing": "Installation von Updates",
         "found": "Gefunden: ",
@@ -112,7 +112,7 @@
     },
     "servers": {
       "title": "Server",
-      "disclaimer": "Der Launcher-Entwickler übernimmt keine Garantie für die Qualität der Spiele oder die Ehrlichkeit der Server.",
+      "disclaimer": "Der Launcher-Entwickler übernimmt keine Garantie für die Qualität der Spiele oder die Ehrlichkeit der Server",
       "ipCopied": "Die IP wurde kopiert!",
       "link": "Wie füge ich meinen Server hinzu?"
     },
@@ -201,7 +201,7 @@
         },
         "multiplayerFix": {
           "title": "Behebung eines Netzwerkspiels (experimentell)",
-          "description": "Die Einstellung zielt darauf ab, den Fehler \"Netzwerkspiel ist nicht verfügbar\" zu beheben, wenn Vanilla-Versionen >= 1.16.5 verwendet werden.",
+          "description": "Die Einstellung zielt darauf ab, den Fehler \"Netzwerkspiel ist nicht verfügbar\" zu beheben, wenn Vanilla-Versionen >= 1.16.5 verwendet werden",
           "description2": "Wenn Sie Probleme mit Skins und Mods haben, empfiehlt es sich, diese Einstellung zu deaktivieren"
         }
       },
@@ -216,7 +216,7 @@
         "privacyPolicy": "Datenschutzrichtlinie",
         "lessDataCollection": {
           "title": "Paranoia-Modus",
-          "description": "Um technische Unterstützung zu leisten, wird bei aktivierter Option ein Mindestsatz an Daten an den Server übertragen: die Version Ihres Programms und Ihre eindeutige Kennung. Die vollständige Liste der Daten, die bei deaktivierter Option erfasst werden, finden Sie in unserer Datenschutzrichtlinie. Seien Sie versichert, dass wir uns um Ihre Privatsphäre kümmern."
+          "description": "Um technische Unterstützung zu leisten, wird bei aktivierter Option ein Mindestsatz an Daten an den Server übertragen: die Version Ihres Programms und Ihre eindeutige Kennung. Die vollständige Liste der Daten, die bei deaktivierter Option erfasst werden, finden Sie in unserer Datenschutzrichtlinie. Seien Sie versichert, dass wir uns um Ihre Privatsphäre kümmern"
         }
       }
     },
@@ -284,7 +284,7 @@
       },
       {
         "version": "1.11",
-        "description": "Forschungs-Update."
+        "description": "Forschungs-Update"
       }
     ],
     "units": {
