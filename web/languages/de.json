@@ -4,7 +4,7 @@
     "id": "de",
     "displayName": "Deutsch",
     "displayNameEnglish": "German",
-    "author": "Bansa"
+    "author": "Bansa, Seeroy"
   },
   "translations": {
     "errors": {
@@ -18,7 +18,8 @@
         "Der Launcher kann die ausführbare Java-Datei nicht finden!",
         "Die Spielkonfiguration oder -dateien sind möglicherweise beschädigt oder wurden von einer neueren Version des Spiels erstellt",
         "Versuchen Sie, das Spiel erneut zu starten. Wenn das nicht hilft, wird eine vollständige Neuinstallation des Spiels empfohlen",
-        "Beim Starten des Spiels konnten einige Java-Klassen nicht gefunden werden"
+        "Beim Starten des Spiels konnten einige Java-Klassen nicht gefunden werden",
+        "Es konnten keine Metadaten vom Skin-System abgerufen werden. Versuchen Sie, das Spiel später zu starten, oder ändern Sie Ihr Konto vorübergehend auf ein anderes"
       ]
     },
     "accounts": {

@@ -4,7 +4,7 @@
     "id": "cn",
     "displayName": "中文",
     "displayNameEnglish": "China",
-    "author": "Bansa"
+    "author": "Bansa, Seeroy"
   },
   "translations": {
     "errors": {
@@ -18,7 +18,8 @@
         "启动器找不到 Java 可执行文件！",
         "游戏配置或文件可能已损坏或由较新版本的游戏创建。",
         "尝试重新启动游戏，如果没有帮助，建议完全重新安装游戏。",
-        "启动游戏时，找不到一些Java类。"
+        "启动游戏时，找不到一些Java类。",
+        "無法從皮膚系統取得元資料。請嘗試稍後啟動遊戲或暫時將您的帳戶變更為另一個帳戶"
       ]
     },
     "accounts": {

@@ -16,7 +16,8 @@ const ERRORS_MESSAGES = {
     "java.io.IOException: error reading": ERRORS_DESCRIPTIONS[5],
     "ava.lang.NoClassDefFoundError: com/mojang/authlib/properties/PropertyMap": ERRORS_DESCRIPTIONS[6],
     "Failed to start due to Error: ENOENT: no such file or directory": ERRORS_DESCRIPTIONS[6],
-    "java.lang.NoSuchMethodError": ERRORS_DESCRIPTIONS[7]
+    "java.lang.NoSuchMethodError": ERRORS_DESCRIPTIONS[7],
+    "[authlib-injector] [ERROR] Failed to fetch metadata": ERRORS_DESCRIPTIONS[8]
 };
 
 class FrogErrorsParser {

@@ -18,7 +18,8 @@
         "The launcher cannot find the Java executable file!",
         "The game configuration or files may be corrupted or created by a newer version of the game",
         "Try restarting the game again, if that doesn’t help, a complete reinstallation of the game is recommended",
-        "When starting the game, some Java classes could not be found"
+        "When starting the game, some Java classes could not be found",
+        "Failed to fetch metadata from skin system. Try launching the game later or temporarily change your account to another one"
       ]
     },
     "accounts": {
