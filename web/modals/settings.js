@@ -8,33 +8,6 @@ function loadSettingsUI() {
             $(this).attr("checked", true);
         }
     })
-}
-
-$(function () {
-    loadSettingsUI();
-
-    // Сохранение настроек при изменении
-    $("#modal-settings input[type='checkbox']").on("change", function () {
-        let setting = $(this).parent().data("setting");
-        let currentValue = $(this).is(":checked");
-        FrogConfig.write(setting, currentValue);
-
-        if (setting === "disableAnimations") {
-            if (currentValue === true) {
-                $("html").addClass("noAnimations");
-            } else {
-                $("html").removeClass("noAnimations");
-            }
-        }
-
-        if (setting === "disableCssEffects") {
-            if (currentValue === true) {
-                $("html").addClass("noEffects");
-            } else {
-                $("html").removeClass("noEffects");
-            }
-        }
-    })
 
     // Загрузка цвета в Color Picker
     let colorMatched = false;
@@ -62,6 +35,34 @@ $(function () {
             $("#modal-settings .wp-item.placeholder").css("background-image", `url(${customWpPath.replaceAll("\\", "/")})`);
         }
     }
+
+    // Директория игры
+    $("#gameDirectoryInput").val(GAME_DATA);
+}
+
+$(function () {
+    // Сохранение настроек при изменении
+    $("#modal-settings input[type='checkbox']").on("change", function () {
+        let setting = $(this).parent().data("setting");
+        let currentValue = $(this).is(":checked");
+        FrogConfig.write(setting, currentValue);
+
+        if (setting === "disableAnimations") {
+            if (currentValue === true) {
+                $("html").addClass("noAnimations");
+            } else {
+                $("html").removeClass("noAnimations");
+            }
+        }
+
+        if (setting === "disableCssEffects") {
+            if (currentValue === true) {
+                $("html").addClass("noEffects");
+            } else {
+                $("html").removeClass("noEffects");
+            }
+        }
+    })
 
     // Смена обоев
     $("#modal-settings .wp-item").click(function () {

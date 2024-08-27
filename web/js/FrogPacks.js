@@ -8,7 +8,7 @@ class FrogPacks {
     static createPack = (baseVersion, displayName) => {
         displayName = FrogUtils.translit(displayName);
         let modpackId = displayName.replace(/\W/g, '_');
-        let modpackPath = path.join(global.GAME_DATA, "modpacks", modpackId);
+        let modpackPath = path.join(GAME_DATA, "modpacks", modpackId);
 
         fs.mkdirSync(modpackPath, {recursive: true});
         fs.mkdirSync(path.join(modpackPath, "mods"), {recursive: true});
@@ -32,14 +32,14 @@ class FrogPacks {
     // Получить манифест пака
     static getModpackManifest = (modpackId) => {
         if (FrogPacks.isModpackExists(modpackId)) {
-            return JSON.parse(fs.readFileSync(path.join(global.GAME_DATA, "modpacks", modpackId, "manifest.json")))
+            return JSON.parse(fs.readFileSync(path.join(GAME_DATA, "modpacks", modpackId, "manifest.json")))
         }
         return false;
     }
 
     // Сохранить манифест пака
     static writeModpackManifest = (modpackId, manifestData) => {
-        let modpackPath = path.join(global.GAME_DATA, "modpacks", modpackId);
+        let modpackPath = path.join(GAME_DATA, "modpacks", modpackId);
         if (!fs.existsSync(modpackPath)) {
             fs.mkdirSync(modpackPath, {recursive: true});
         }
@@ -49,7 +49,7 @@ class FrogPacks {
     // Существует ли такой пак
     static isModpackExists = (modpackId) => {
         if (typeof modpackId !== "string") return false;
-        return fs.existsSync(path.join(global.GAME_DATA, "modpacks", modpackId, "manifest.json"));
+        return fs.existsSync(path.join(GAME_DATA, "modpacks", modpackId, "manifest.json"));
     }
 
     // Удалить файл из модпака
@@ -138,7 +138,7 @@ class FrogPacks {
             }
 
             filesList.forEach((item) => {
-                let filePath = path.join(global.GAME_DATA, "modpacks", modpackId, item.path);
+                let filePath = path.join(GAME_DATA, "modpacks", modpackId, item.path);
                 if (!fs.existsSync(filePath) || !FrogAssets.verifyFile(filePath, item.hashes.sha1)) {
                     packs_downloadList.push({
                         path: filePath,
@@ -153,7 +153,7 @@ class FrogPacks {
 
     // Получить список паков
     static getPacksList = () => {
-        let packsPath = path.join(global.GAME_DATA, "modpacks");
+        let packsPath = path.join(GAME_DATA, "modpacks");
         if (!fs.existsSync(packsPath)) {
             return [];
         }
@@ -178,81 +178,79 @@ class FrogPacks {
     }
 
     // Импортировать пак с Modrinth (.mrpack)
-    static importModrinthPack = (archivePath, iconUrl = false) => {
-        return new Promise(resolve => {
-            FrogToasts.create(MESSAGES.packs.importing, "publish", path.parse(archivePath).name, 2500);
+    static importModrinthPack = async (archivePath, iconUrl = false) => {
+        FrogToasts.create(MESSAGES.packs.importing, "publish", path.parse(archivePath).name, 2500);
 
-            // Создаём нужные директории
-            let modpacksPath = path.join(global.GAME_DATA, "modpacks");
-            let decompPath = path.join(modpacksPath, "TMP");
-            fs.mkdirSync(path.join(decompPath), {recursive: true});
+        // Создаём нужные директории
+        let modpacksPath = path.join(GAME_DATA, "modpacks");
+        let decompPath = path.join(modpacksPath, "TMP");
+        fs.mkdirSync(path.join(decompPath), {recursive: true});
 
-            // Распаковываем архив
-            FrogUtils.unpackArchive(archivePath, decompPath).then(() => {
-                // Читаем индекс и генерируем переменные
-                let modrinthIndex = JSON.parse(fs.readFileSync(path.join(decompPath, "modrinth.index.json")));
-                let modpackId = `${modrinthIndex.name} ${modrinthIndex.versionId}`.replace(/\W/g, '_').trim();
-                if (FrogPacks.isModpackExists(modpackId)) {
-                    FrogToasts.create(MESSAGES.packs.importFailed, "error", MESSAGES.packs.alreadyExists);
-                    fs.rmdirSync(decompPath, {recursive: true});
-                    return resolve(false, "exists");
-                }
-                if (fs.existsSync(path.join(decompPath, "overrides"))) {
-                    fsExtra.moveSync(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
-                } else {
-                    fs.mkdirSync(path.join(modpacksPath, modpackId));
-                }
+        // Распаковываем архив
+        await FrogUtils.unpackArchive(archivePath, decompPath);
 
-                // Получаем тип и версию игры
-                let baseVersionType = "vanilla";
-                if (Object.keys(modrinthIndex.dependencies).includes("fabric-loader") || Object.keys(modrinthIndex.dependencies).includes("fabric-api")) {
-                    baseVersionType = "fabric";
-                }
-                if (Object.keys(modrinthIndex.dependencies).includes("forge")) {
-                    baseVersionType = "forge";
-                }
-                if (Object.keys(modrinthIndex.dependencies).includes("neoforge")) {
-                    baseVersionType = "neoforge";
-                }
-                if (Object.keys(modrinthIndex.dependencies).includes("quilt") || Object.keys(modrinthIndex.dependencies).includes("quilt-loader")) {
-                    baseVersionType = "quilt";
-                }
+        // Читаем индекс и генерируем переменные
+        let modrinthIndex = JSON.parse(fs.readFileSync(path.join(decompPath, "modrinth.index.json")));
+        let modpackId = `${modrinthIndex.name} ${modrinthIndex.versionId}`.replace(/\W/g, '_').trim();
+        if (FrogPacks.isModpackExists(modpackId)) {
+            FrogToasts.create(MESSAGES.packs.importFailed, "error", MESSAGES.packs.alreadyExists);
+            await fs.rmdir(decompPath, {recursive: true});
+            return false;
+        }
+        if (fs.existsSync(path.join(decompPath, "overrides"))) {
+            await fsExtra.move(path.join(decompPath, "overrides"), path.join(modpacksPath, modpackId));
+        } else {
+            fs.mkdirSync(path.join(modpacksPath, modpackId));
+        }
 
-                // Готовим список файлов
-                let preparedFilesList = [];
-                modrinthIndex.files.forEach(item => {
-                    if (typeof item?.env?.client === "undefined" || item?.env?.client === "required") {
-                        preparedFilesList.push({
-                            hashes: item.hashes,
-                            path: item.path,
-                            name: path.basename(item.path),
-                            url: item.downloads[0],
-                            size: item.fileSize,
-                            displayName: path.parse(item.path).name
-                        })
-                    }
+        // Получаем тип и версию игры
+        let baseVersionType = "vanilla";
+        if (Object.keys(modrinthIndex.dependencies).includes("fabric-loader") || Object.keys(modrinthIndex.dependencies).includes("fabric-api")) {
+            baseVersionType = "fabric";
+        }
+        if (Object.keys(modrinthIndex.dependencies).includes("forge")) {
+            baseVersionType = "forge";
+        }
+        if (Object.keys(modrinthIndex.dependencies).includes("neoforge")) {
+            baseVersionType = "neoforge";
+        }
+        if (Object.keys(modrinthIndex.dependencies).includes("quilt") || Object.keys(modrinthIndex.dependencies).includes("quilt-loader")) {
+            baseVersionType = "quilt";
+        }
+
+        // Готовим список файлов
+        let preparedFilesList = [];
+        modrinthIndex.files.forEach(item => {
+            if (typeof item?.env?.client === "undefined" || item?.env?.client === "required") {
+                preparedFilesList.push({
+                    hashes: item.hashes,
+                    path: item.path,
+                    name: path.basename(item.path),
+                    url: item.downloads[0],
+                    size: item.fileSize,
+                    displayName: path.parse(item.path).name
                 })
-
-                // Создаём и сохраняем свой манифест
-                let manifestJson = {
-                    id: modpackId,
-                    uuid: crypto.randomUUID(),
-                    displayName: `${modrinthIndex.name} ${modrinthIndex.versionId}`,
-                    baseVersion: {
-                        full: `${baseVersionType}-${modrinthIndex.dependencies.minecraft}`,
-                        type: baseVersionType,
-                        number: modrinthIndex.dependencies.minecraft
-                    },
-                    files: preparedFilesList,
-                    icon: iconUrl
-                };
-                FrogPacks.writeModpackManifest(modpackId, manifestJson);
-                fsExtra.moveSync(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
-                FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
-                fs.rmdirSync(decompPath, {recursive: true});
-                return resolve(true);
-            })
+            }
         })
+
+        // Создаём и сохраняем свой манифест
+        let manifestJson = {
+            id: modpackId,
+            uuid: crypto.randomUUID(),
+            displayName: `${modrinthIndex.name} ${modrinthIndex.versionId}`,
+            baseVersion: {
+                full: `${baseVersionType}-${modrinthIndex.dependencies.minecraft}`,
+                type: baseVersionType,
+                number: modrinthIndex.dependencies.minecraft
+            },
+            files: preparedFilesList,
+            icon: iconUrl
+        };
+        FrogPacks.writeModpackManifest(modpackId, manifestJson);
+        await fsExtra.move(path.join(decompPath, "modrinth.index.json"), path.join(modpacksPath, modpackId, "modrinth.index.json"));
+        FrogToasts.create(MESSAGES.packs.imported, "check", `${modrinthIndex.name} ${modrinthIndex.versionId}`);
+        await fs.rmdir(decompPath, {recursive: true});
+        return true;
     }
 
     // Установить зависимости для мода
@@ -295,10 +293,10 @@ class FrogPacks {
         }
         return new Promise(resolve => {
             let modpackId = packman__currentModpack.id;
-            let downloadPath = path.join(global.GAME_DATA, packs_currentMode);
+            let downloadPath = path.join(GAME_DATA, packs_currentMode);
             let directoryDlPath;
             if (FrogPacks.isModpackExists(modpackId)) {
-                downloadPath = path.join(global.GAME_DATA, "modpacks", modpackId, packs_currentMode);
+                downloadPath = path.join(GAME_DATA, "modpacks", modpackId, packs_currentMode);
                 directoryDlPath = downloadPath;
             }
             // Получаем манифест версии
@@ -348,86 +346,74 @@ class FrogPacks {
     }
 
     // Импортировать пак с Modrinth (.mrpack) через диалог выбора
-    static importModrinthPackDialog = () => {
-        return new Promise(resolve => {
-            ipcRenderer.invoke("open-dialog", {
-                properties: ["dontAddToRecent"],
-                filters: [{name: ".mrpack", extensions: ["mrpack"]}],
-            }).then(result => {
-                if (result === false) {
-                    return resolve(false);
-                }
-                FrogPacks.importModrinthPack(result[0]).then(resolve);
-            })
-        })
+    static importModrinthPackDialog = async () => {
+        let result = await ipcRenderer.invoke("open-dialog", {
+            properties: ["dontAddToRecent"],
+            filters: [{name: ".mrpack", extensions: ["mrpack"]}],
+        });
+        if (result === false) {
+            return false;
+        }
+        return await FrogPacks.importModrinthPack(result[0]);
     }
 
     // Экспортировать пак в zip-файл
-    static exportModpack = (modpackId) => {
-        return new Promise(resolve => {
-            ipcRenderer.invoke("save-dialog", {
-                properties: ["dontAddToRecent"],
-                filters: [{name: ".zip", extensions: ["zip"]}],
-            }).then(result => {
-                if (result === false) {
-                    return resolve(false);
-                }
-                let modpackPath = path.join(GAME_DATA, "modpacks", modpackId);
-                console.log(result);
-                FrogToasts.create(MESSAGES.packManager.exportStarted, "upgrade", path.basename(result));
-                FrogUtils.compressDirectory(result, modpackPath).then(() => {
-                    FrogToasts.create(MESSAGES.packManager.exportCompleted, "upgrade", path.basename(result));
-                })
-            })
-        })
+    static exportModpack = async (modpackId) => {
+        let result = await ipcRenderer.invoke("save-dialog", {
+            properties: ["dontAddToRecent"],
+            filters: [{name: ".zip", extensions: ["zip"]}],
+        });
+        if (result === false) {
+            return false;
+        }
+        let modpackPath = path.join(GAME_DATA, "modpacks", modpackId);
+        FrogToasts.create(MESSAGES.packManager.exportStarted, "upgrade", path.basename(result));
+        await FrogUtils.compressDirectory(result, modpackPath);
+        FrogToasts.create(MESSAGES.packManager.exportCompleted, "upgrade", path.basename(result));
+        return true;
     }
 
     // Импортировать пак из файла
-    static importModpack = () => {
-        return new Promise(resolve => {
-            ipcRenderer.invoke("open-dialog", {
-                properties: ["dontAddToRecent"],
-                filters: [{name: ".zip", extensions: ["zip"]}],
-            }).then(result => {
-                if (result === false) {
-                    return resolve(false);
-                }
-                let unpackPath = path.join(GAME_DATA, "modpacks");
-                FrogToasts.create(MESSAGES.packManager.importStarted, "download", path.basename(result[0]));
-                FrogUtils.unpackArchive(result[0], unpackPath).then(() => {
-                    FrogToasts.create(MESSAGES.packManager.importCompleted, "download", path.basename(result[0]));
-                    FrogPacksUI.reloadAll(true, true, true);
-                })
-            })
-        })
+    static importModpack = async () => {
+        let result = await ipcRenderer.invoke("open-dialog", {
+            properties: ["dontAddToRecent"],
+            filters: [{name: ".zip", extensions: ["zip"]}],
+        });
+        if (result === false) {
+            return false;
+        }
+        let unpackPath = path.join(GAME_DATA, "modpacks");
+        FrogToasts.create(MESSAGES.packManager.importStarted, "download", path.basename(result[0]));
+        await FrogUtils.unpackArchive(result[0], unpackPath);
+        FrogToasts.create(MESSAGES.packManager.importCompleted, "download", path.basename(result[0]));
+        await FrogPacksUI.reloadAll(true, true, true);
+        return true;
     }
 
     // Сменить иконку пака
-    static changePackIcon = (modpackId) => {
-        return new Promise(resolve => {
-            if (!FrogPacks.isModpackExists(modpackId)) {
-                return resolve(false);
-            }
+    static changePackIcon = async (modpackId) => {
+        if (!FrogPacks.isModpackExists(modpackId)) {
+            return resolve(false);
+        }
 
-            ipcRenderer.invoke("open-dialog", {
-                properties: ["dontAddToRecent"],
-                filters: [{name: ".png", extensions: ["png"]}],
-            }).then(result => {
-                if (result === false) {
-                    return resolve(false);
-                }
+        let result = await ipcRenderer.invoke("open-dialog", {
+            properties: ["dontAddToRecent"],
+            filters: [{name: ".png", extensions: ["png"]}],
+        });
 
-                let modpackData = FrogPacks.getModpackManifest(modpackId);
-                modpackData.icon = "pack";
-                FrogPacks.writeModpackManifest(modpackId, modpackData);
+        if (result === false) {
+            return false;
+        }
 
-                let iconPath = path.join(GAME_DATA, "modpacks", modpackId, "icon.png");
+        let modpackData = FrogPacks.getModpackManifest(modpackId);
+        modpackData.icon = "pack";
+        FrogPacks.writeModpackManifest(modpackId, modpackData);
 
-                fs.copyFileSync(result[0], iconPath);
-                FrogPackManagerUI.loadModpackIcon(modpackData);
-                FrogPacksUI.refreshDirectorySelect();
-                return resolve(true);
-            })
-        })
+        let iconPath = path.join(GAME_DATA, "modpacks", modpackId, "icon.png");
+
+        await fs.copyFile(result[0], iconPath);
+        FrogPackManagerUI.loadModpackIcon(modpackData);
+        FrogPacksUI.refreshDirectorySelect();
+        return true;
     }
 }

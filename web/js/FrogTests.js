@@ -22,11 +22,11 @@ class FrogTests {
         let logDate = new Date().toISOString();
         let newPart = "\n" + "[" + logDate + "] " + data.join(" ")
         console.log(data.join(" "));
-        fs.appendFileSync(path.join(global.USERDATA_PATH, "testLogs", "FULLTEST.log"), newPart);
+        fs.appendFileSync(path.join(USERDATA_PATH, "testLogs", "FULLTEST.log"), newPart);
     }
 
     static writeVersionLog = (data, versionId) => {
-        fs.appendFileSync(path.join(global.USERDATA_PATH, "testLogs", versionId + ".log"), "\n" + data);
+        fs.appendFileSync(path.join(USERDATA_PATH, "testLogs", versionId + ".log"), "\n" + data);
     }
 
     static nextTestingVersion = () => {

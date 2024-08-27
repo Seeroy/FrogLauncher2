@@ -138,30 +138,27 @@ class FrogThemes {
     }
 
     // Выбрать кастомные обои
-    static selectCustomWallpaper = () => {
-        return new Promise(resolve => {
-            ipcRenderer.invoke("open-dialog", {
-                properties: ["dontAddToRecent"],
-                filters: [{name: "Изображение", extensions: ["png", "jpg", "jpeg", "gif", "webp"]}],
-            }).then(result => {
-                let imgPath = result[0];
-                if (imgPath !== false) {
-                    let fileExt = path.extname(imgPath);
-                    let directoryPath = path.join(global.USERDATA_PATH, "AppCache");
-                    if (!fs.existsSync(directoryPath)) {
-                        fs.mkdirSync(directoryPath, {recursive: true});
-                    }
-                    let bgId = FrogUtils.getRandomInt(1000000000);
-                    fs.copyFileSync(
-                        imgPath,
-                        path.join(directoryPath, bgId + fileExt)
-                    );
-                    FrogConfig.write("currentWallpaper", "custom");
-                    FrogConfig.write("customWallpaperPath", path.join(directoryPath, bgId + fileExt));
-                    return resolve(path.join(directoryPath, bgId + fileExt));
-                }
-                return resolve(false);
-            })
-        })
+    static selectCustomWallpaper = async () => {
+        let result = await ipcRenderer.invoke("open-dialog", {
+            properties: ["dontAddToRecent"],
+            filters: [{name: "Изображение", extensions: ["png", "jpg", "jpeg", "gif", "webp"]}],
+        });
+        let imgPath = result[0];
+        if (imgPath !== false) {
+            let fileExt = path.extname(imgPath);
+            let directoryPath = path.join(USERDATA_PATH, "AppCache");
+            if (!fs.existsSync(directoryPath)) {
+                fs.mkdirSync(directoryPath, {recursive: true});
+            }
+            let bgId = FrogUtils.getRandomInt(1000000000);
+            fs.copyFileSync(
+                imgPath,
+                path.join(directoryPath, bgId + fileExt)
+            );
+            FrogConfig.write("currentWallpaper", "custom");
+            FrogConfig.write("customWallpaperPath", path.join(directoryPath, bgId + fileExt));
+            return path.join(directoryPath, bgId + fileExt);
+        }
+        return false;
     }
 }

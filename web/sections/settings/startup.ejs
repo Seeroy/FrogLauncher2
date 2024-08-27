@@ -113,9 +113,6 @@
         startup_xmxSlider.attr("max", startup_maxMemory);
         startup_xmxSlider.attr("value", startup_currentMemory);
         startup_xmxText.val(startup_currentMemory);
-
-        // Директория игры
-        $("#gameDirectoryInput").val(global.GAME_DATA);
     })
 
     function changeGameDirectory() {
@@ -123,7 +120,7 @@
             properties: ["openDirectory", "dontAddToRecent"]
         }).then(result => {
             let pathResult = path.normalize(result[0]);
-            global.GAME_DATA = pathResult;
+            GAME_DATA = pathResult;
             FrogConfig.write("gameDirectory", pathResult);
             FrogVersionsUI.loadVersions();
             FrogAccountsUI.reloadAccountSelect();

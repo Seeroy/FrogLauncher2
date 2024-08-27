@@ -2,8 +2,8 @@ const changelog_pageLimit = 25;
 let changelog_currentPage = 1;
 let changelog_endOfPage = false;
 
-const CHANGELOG_PRELOADER_PLACEHOLDER = `<h3 class='placeholder'>${global.MESSAGES.loading.progress}</h3>`;
-const CHANGELOG_FAILED_PLACEHOLDER = `<h3 class='placeholder'>${global.MESSAGES.loading.failed}</h3>`;
+const CHANGELOG_PRELOADER_PLACEHOLDER = `<h3 class='placeholder'>${MESSAGES.loading.progress}</h3>`;
+const CHANGELOG_FAILED_PLACEHOLDER = `<h3 class='placeholder'>${MESSAGES.loading.failed}</h3>`;
 const CHANGELOG_ITEM_PLACEHOLDER = `<div class="item"><h1>$1</h1><h3>$2</h3><h5>$3</h5></div>`;
 
 $(function () {

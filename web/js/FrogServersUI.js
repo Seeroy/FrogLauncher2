@@ -2,7 +2,7 @@ class FrogServersUI {
     // Загрузить список серверов
     static loadList = () => {
         return new Promise(resolve => {
-            $.get(global.SERVERS_URL, (servers) => {
+            $.get(SERVERS_URL + "?_=" + Date.now(), (servers) => {
                 // Очищаем список
                 $("#modal-servers .serversList .item:not(.placeholder)").remove();
 

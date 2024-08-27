@@ -23,7 +23,7 @@ $(function () {
     // Прогрузка при скролле
     $("#modal-installMods .packs-wrapper").scroll(function (e) {
         let wrapper = $(this)[0];
-        if(wrapper.offsetHeight === wrapper.scrollHeight || packs_scrollIsLoading){
+        if (wrapper.offsetHeight === wrapper.scrollHeight || packs_scrollIsLoading) {
             return false;
         }
         if (wrapper.offsetHeight + wrapper.scrollTop >= wrapper.scrollHeight) {

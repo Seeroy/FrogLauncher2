@@ -16,7 +16,7 @@ class FrogAccountsUI {
             let imageUrl = `https://minotar.net/avatar/${acc.nickname}/44`;
             let editButtonVisible = "none";
             if (acc.type === "elyby") {
-                imageUrl = path.join(global.USERDATA_PATH, "elybySkins", `${acc.nickname}.png`);
+                imageUrl = path.join(USERDATA_PATH, "elybySkins", `${acc.nickname}.png`);
             }
             if (acc.type === "frog") {
                 imageUrl = acc.textures.head || imageUrl;

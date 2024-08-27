@@ -2,7 +2,7 @@ let fullListPerformance1, fullListPerformance2;
 
 class FrogVersionsManager {
     // Получить все ванильные доступные версии
-    static getVanillaVersionsAvailable = (alllowedType = ["release"]) => {
+    static getVanillaVersionsAvailable = async (alllowedType = ["release"]) => {
         const allowedVersionTypes = ["release", "snapshot", "old_beta", "old_alpha"];
         alllowedType = alllowedType || ["release"];
 
@@ -15,112 +15,84 @@ class FrogVersionsManager {
         }
 
         // Делаем вещи
-        return new Promise((resolve, reject) => {
-            let result = [];
-            vanilla.getVersionManifest().then((manifest) => {
-                manifest.versions.forEach((versionItem) => {
-                    if (alllowedType.includes(versionItem.type)) {
-                        result.push(versionItem.id);
-                    }
-                });
-                resolve(result);
-            }, reject);
+        let result = [];
+        let manifest = await vanilla.getVersionManifest();
+        manifest.versions.forEach((versionItem) => {
+            if (alllowedType.includes(versionItem.type)) {
+                result.push(versionItem.id);
+            }
         });
+        return result;
     }
 
     // Получить все доступные версии Fabric
-    static getFabricVersionsAvailable = () => {
-        return new Promise((resolve, reject) => {
-            let result = [];
-            fabric.listSupportedVersions().then((manifest) => {
-                manifest.forEach((versionItem) => {
-                    if (versionItem.stable === true) {
-                        result.push(versionItem.version);
-                    }
-                });
-                resolve(result);
-            }, reject);
+    static getFabricVersionsAvailable = async () => {
+        let result = [];
+        let manifest = await fabric.listSupportedVersions();
+        manifest.forEach((versionItem) => {
+            if (versionItem.stable === true) {
+                result.push(versionItem.version);
+            }
         });
+        return result;
     }
 
     // Получить все доступные версии Quilt
-    static getQuiltVersionsAvailable = () => {
-        return new Promise((resolve, reject) => {
-            let result = [];
-            quilt.listSupportedVersions().then((manifest) => {
-                manifest.forEach((versionItem) => {
-                    if (versionItem.stable === true) {
-                        result.push(versionItem.version);
-                    }
-                });
-                resolve(result);
-            }, reject);
+    static getQuiltVersionsAvailable = async () => {
+        let result = [];
+        let manifest = await quilt.listSupportedVersions();
+        manifest.forEach((versionItem) => {
+            if (versionItem.stable === true) {
+                result.push(versionItem.version);
+            }
         });
+        return result;
     }
 
     // Получить все доступные версии Forge
-    static getForgeVersionsAvailable = () => {
-        return new Promise((resolve, reject) => {
-            let result = [];
-            forge.listSupportedVersions().then((manifest) => {
-                manifest.forEach((versionItem) => {
-                    if (versionItem.stable === true) {
-                        result.push(versionItem.version);
-                    }
-                });
-                resolve(result);
-            }, reject);
+    static getForgeVersionsAvailable = async () => {
+        let result = [];
+        let manifest = await forge.listSupportedVersions();
+        manifest.forEach((versionItem) => {
+            if (versionItem.stable === true) {
+                result.push(versionItem.version);
+            }
         });
+        return result;
     }
 
     // Получить все доступные версии NeoForge
-    static getNeoForgeVersionsAvailable = () => {
-        return new Promise((resolve, reject) => {
-            let result = [];
-            neoforge.listSupportedVersions().then((manifest) => {
-                manifest.forEach((versionItem) => {
-                    if (versionItem.stable === true) {
-                        result.push(versionItem.version);
-                    }
-                });
-                resolve(result);
-            }, reject);
+    static getNeoForgeVersionsAvailable = async () => {
+        let result = [];
+        let manifest = await neoforge.listSupportedVersions();
+        manifest.forEach((versionItem) => {
+            if (versionItem.stable === true) {
+                result.push(versionItem.version);
+            }
         });
+        return result;
     }
 
     // Получить все доступные версии игры всех загрузчиков
-    static getAllVersionsAvailable = (vanillaVersionsType = ["release"]) => {
-        // R = result
-        let vanillaR, fabricR, forgeR, neoforgeR, quiltR;
-        return new Promise((resolve) => {
-            FrogVersionsManager.getVanillaVersionsAvailable(vanillaVersionsType).then(vanilla => {
-                vanillaR = vanilla;
-                return FrogVersionsManager.getFabricVersionsAvailable();
-            }).then(fabric => {
-                fabricR = fabric;
-                return FrogVersionsManager.getForgeVersionsAvailable();
-            }).then(forge => {
-                forgeR = forge;
-                return FrogVersionsManager.getNeoForgeVersionsAvailable();
-            }).then(neoforge => {
-                neoforgeR = neoforge;
-                return FrogVersionsManager.getQuiltVersionsAvailable()
-            }).then(quilt => {
-                quiltR = quilt;
-                resolve({
-                    vanilla: vanillaR,
-                    fabric: fabricR,
-                    forge: forgeR,
-                    neoforge: neoforgeR,
-                    quilt: quiltR
-                })
-            })
-        });
+    static getAllVersionsAvailable = async (vanillaVersionsType = ["release"]) => {
+        let vanillaVersions = await FrogVersionsManager.getVanillaVersionsAvailable(vanillaVersionsType);
+        let fabricVersions = await FrogVersionsManager.getFabricVersionsAvailable();
+        let forgeVersions = await FrogVersionsManager.getForgeVersionsAvailable();
+        let neoforgeVersions = await FrogVersionsManager.getNeoForgeVersionsAvailable();
+        let quiltVersions = await FrogVersionsManager.getQuiltVersionsAvailable()
+
+        return {
+            vanilla: vanillaVersions,
+            fabric: fabricVersions,
+            forge: forgeVersions,
+            neoforge: neoforgeVersions,
+            quilt: quiltVersions
+        }
     }
 
     // Получить список установленных версий
     static getInstalledVersionsList = () => {
-        let verDataPath = path.join(global.GAME_DATA, "versions")
+        let verDataPath = path.join(GAME_DATA, "versions")
         if (!fs.existsSync(verDataPath)) {
             return [];
         }
@@ -144,7 +116,7 @@ class FrogVersionsManager {
     }
 
     // Получить полностью подготовленный для UI список версий
-    static getPreparedVersions = () => {
+    static getPreparedVersions = async () => {
         fullListPerformance1 = performance.now();
         FrogCollector.writeLog(`VersionManager: Preparing full versions list`);
         let resultList = [];
@@ -166,40 +138,37 @@ class FrogVersionsManager {
             })
         }
 
-        return new Promise((resolve, reject) => {
-            FrogVersionsManager.getAllVersionsAvailable(vanillaVersionsType).then(result => {
-                // Обработка каждого из видов
-                result.vanilla.forEach((item) => {
-                    // Добавляем ванильную версию
-                    let vanillaId = `vanilla-${item}`;
-                    resultList.push({
-                        id: vanillaId,
-                        version: item,
-                        type: "vanilla",
-                        displayName: FrogVersionsManager.versionToDisplayName(vanillaId),
-                        installed: installedVersions.includes(item)
-                    })
+        let result = await FrogVersionsManager.getAllVersionsAvailable(vanillaVersionsType);
+        // Обработка каждого из видов
+        result.vanilla.forEach((item) => {
+            // Добавляем ванильную версию
+            let vanillaId = `vanilla-${item}`;
+            resultList.push({
+                id: vanillaId,
+                version: item,
+                type: "vanilla",
+                displayName: FrogVersionsManager.versionToDisplayName(vanillaId),
+                installed: installedVersions.includes(item)
+            })
 
-                    // Ищем все остальные совпадающие версии и добавляем в список
-                    Object.keys(result).forEach(key => {
-                        if (result[key].includes(item) && key !== "vanilla") {
-                            let verId = `${key}-${item}`;
-                            resultList.push({
-                                id: verId,
-                                version: item,
-                                type: key,
-                                displayName: FrogVersionsManager.versionToDisplayName(verId),
-                                installed: installedVersions.includes(verId)
-                            })
-                        }
-                    });
-                })
-                fullListPerformance2 = performance.now();
-                FrogCollector.writeLog(`VersionManager: Full list ready in ${fullListPerformance2 - fullListPerformance1} ms`);
-                // Возвращаем готовый список
-                resolve(resultList);
+            // Ищем все остальные совпадающие версии и добавляем в список
+            Object.keys(result).forEach(key => {
+                if (result[key].includes(item) && key !== "vanilla") {
+                    let verId = `${key}-${item}`;
+                    resultList.push({
+                        id: verId,
+                        version: item,
+                        type: key,
+                        displayName: FrogVersionsManager.versionToDisplayName(verId),
+                        installed: installedVersions.includes(verId)
+                    })
+                }
             });
-        });
+        })
+        fullListPerformance2 = performance.now();
+        FrogCollector.writeLog(`VersionManager: Full list ready in ${fullListPerformance2 - fullListPerformance1} ms`);
+        // Возвращаем готовый список
+        return resultList;
     };
 
     // Перевести ID версии в её название
@@ -253,7 +222,7 @@ class FrogVersionsManager {
 
     // Получить манифест локальной версии (для 3rdparty)
     static getLocalVersionManifest = (versionName) => {
-        let manifestPath = path.join(global.GAME_DATA, "versions", versionName, `${versionName}.json`);
+        let manifestPath = path.join(GAME_DATA, "versions", versionName, `${versionName}.json`);
         if (!fs.existsSync(manifestPath)) {
             return false;
         }
@@ -261,30 +230,25 @@ class FrogVersionsManager {
     }
 
     // Получить манифест по версии
-    static getVersionManifest = (version) => {
+    static getVersionManifest = async (version) => {
         let isSuccess = false;
         let verUrl = false;
-        return new Promise(resolve => {
-            vanilla.getVersionManifest().then(manifest => {
-                manifest.versions.forEach((item) => {
-                    if (item.id === version) {
-                        isSuccess = true;
-                        verUrl = item.url
-                    }
-                });
-                if (isSuccess === true && verUrl !== false) {
-                    $.get(verUrl, (pkgData) => {
-                        if (pkgData !== false) {
-                            resolve(pkgData);
-                        } else {
-                            resolve(false);
-                        }
-                    });
-                } else {
-                    resolve(false);
-                }
-            })
+
+        let manifest = await vanilla.getVersionManifest();
+        manifest.versions.forEach((item) => {
+            if (item.id === version) {
+                isSuccess = true;
+                verUrl = item.url
+            }
         });
+
+        if (isSuccess === true && verUrl !== false) {
+            let pkgData = await FrogRequests.get(verUrl);
+            if (pkgData !== false) {
+                return pkgData;
+            }
+        }
+        return false;
     }
 
     // Парсинг ID версии

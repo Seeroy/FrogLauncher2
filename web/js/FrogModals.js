@@ -1,82 +1,68 @@
 class FrogModals {
     // Показать модальное окно
-    static showModal = (modalName) => {
+    static showModal = async (modalName) => {
         FrogCollector.writeLog(`Modal: Show "${modalName}"`);
 
         document.dispatchEvent(new CustomEvent("showModalEvent", {
             detail: {modal: modalName}
         }));
-        return new Promise((resolve) => {
-            if (!FrogModals.isModalShown(modalName)) {
-                let modalElem = $(`.modal#modal-${modalName}`);
-                modalElem.show();
-                if (modalElem[0].tagName === "DIALOG") {
-                    modalElem[0].showModal();
-                }
-                animateCSSNode(modalElem[0], "fadeInUp").then(() => {
-                    resolve(true);
-                });
-            } else {
-                resolve(false);
-            }
-        })
+        if (FrogModals.isModalShown(modalName)) {
+            return false;
+        }
+        let modalElem = $(`.modal#modal-${modalName}`);
+        modalElem.show();
+        if (modalElem[0].tagName === "DIALOG") {
+            modalElem[0].showModal();
+        }
+        await animateCSSNode(modalElem[0], "fadeInUp");
+        return true;
     }
 
     // Скрыть модальное окно
-    static hideModal = (modalName) => {
+    static hideModal = async (modalName) => {
         FrogCollector.writeLog(`Modal: Hide "${modalName}"`);
 
         document.dispatchEvent(new CustomEvent("hideModalEvent", {
             detail: {modal: modalName}
         }));
-        return new Promise((resolve) => {
-            if (FrogModals.isModalShown(modalName)) {
-                let modalElem = $(`.modal#modal-${modalName}`);
-                animateCSSNode(modalElem[0], "fadeOutDown").then(() => {
-                    modalElem.hide();
-                    if (modalElem[0].tagName === "DIALOG") {
-                        modalElem[0].close();
-                    }
-                    resolve(true);
-                });
-            } else {
-                resolve(false);
-            }
-        })
+        if (!FrogModals.isModalShown(modalName)) {
+            return false;
+        }
+        let modalElem = $(`.modal#modal-${modalName}`);
+        await animateCSSNode(modalElem[0], "fadeOutDown");
+        modalElem.hide();
+        if (modalElem[0].tagName === "DIALOG") {
+            modalElem[0].close();
+        }
+        return true;
     }
 
     // Переключить окно (если сейчас показано какое-либо)
-    static switchModal = (modalName) => {
+    static switchModal = async (modalName) => {
         FrogFlyout.lockFlymenu();
         $(`.flymenu .item[data-modal="${FrogModals.currentModalName()}"]`).removeClass("active");
         $(`.flymenu .item[data-modal="${modalName}"]`).addClass("active");
-        return new Promise((resolve) => {
-            FrogModals.hideCurrentModal().then(() => {
-                FrogModals.showModal(modalName).then(() => {
-                    FrogFlyout.unlockFlymenu();
-                    return resolve();
-                });
-            })
-        });
+        await FrogModals.hideCurrentModal();
+        await FrogModals.showModal(modalName);
+        FrogFlyout.unlockFlymenu();
+        return true;
     }
 
     // Скрыть модальное окно, которое сейчас открыто
-    static hideCurrentModal = () => {
-        return new Promise((resolve) => {
-            let currentModalElement = $(`.modal[style!="display: none;"]:not(.overlay)`);
-            let currentModalName = $(currentModalElement).attr("id").replace("modal-", "");
-            FrogModals.hideModal(currentModalName).then(resolve);
-        })
+    static hideCurrentModal = async () => {
+        let currentModalElement = $(`.modal[style!="display: none;"]:not(.overlay)`);
+        let currentModalName = $(currentModalElement).attr("id").replace("modal-", "");
+        await FrogModals.hideModal(currentModalName);
+        return true;
     }
 
     // Скрыть модальное overlay окно, которое сейчас открыто
-    static hideCurrentOverlay = () => {
-        return new Promise((resolve) => {
-            let currentModalElement = $(`.modal.overlay[style!="display: none;"]`);
-            if(currentModalElement.length === 0) return resolve(false);
-            let currentModalName = $(currentModalElement).attr("id").replace("modal-", "");
-            FrogModals.hideModal(currentModalName).then(resolve);
-        })
+    static hideCurrentOverlay = async () => {
+        let currentModalElement = $(`.modal.overlay[style!="display: none;"]`);
+        if (currentModalElement.length === 0) return false;
+        let currentModalName = $(currentModalElement).attr("id").replace("modal-", "");
+        await FrogModals.hideModal(currentModalName);
+        return true;
     }
 
     // Получить название modal на переднем плане

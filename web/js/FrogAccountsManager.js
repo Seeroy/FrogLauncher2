@@ -1,4 +1,4 @@
-let accountsFilePath = path.join(global.USERDATA_PATH, "accounts.json");
+let accountsFilePath = path.join(USERDATA_PATH, "accounts.json");
 const NICKNAME_REGEX = /^[a-zA-Z0-9_]{2,16}$/gm;
 
 class FrogAccountsManager {
@@ -14,8 +14,8 @@ class FrogAccountsManager {
     }
 
     // Сохранить данные аккаунтов
-    static saveAccounts = (accounts) => {
-        fs.writeFileSync(
+    static saveAccounts = async (accounts) => {
+        await fsPromises.writeFile(
             accountsFilePath,
             JSON.stringify(accounts, null, "\t")
         );
@@ -77,28 +77,26 @@ class FrogAccountsManager {
     }
 
     // Получить данные аккаунта для конфигурации MCLC
-    static getAccountMCLCData = (accountId, cb) => {
+    static getAccountMCLCData = async (accountId) => {
         if (!FrogAccountsManager.isAccountExists(accountId)) {
-            return cb(false);
+            return false;
         }
 
         let accountData = FrogAccountsManager.getAccount(accountId);
 
         if (accountData.type === "local") {
-            Authenticator.getAuth(accountData.nickname).then((authData) => {
-                return cb(authData);
-            });
+            return Authenticator.getAuth(accountData.nickname);
         } else if (accountData.type === "microsoft") {
             if (accountData.data.meta.exp <= Date.now()) {
                 FrogAccountsManager.deleteAccount(accountId);
                 FrogAlerts.create("Microsoft/Mojang", MESSAGES.elyby.repeat, MESSAGES.commons.login, "settings_account_box", () => {
                     FrogAccountsUI.addMicrosoftAccount();
                 });
-                return cb(false);
+                return false;
             }
-            return cb(accountData.data);
+            return accountData.data;
         } else if (accountData.type === "frog") {
-            return cb({
+            return {
                 access_token: accountData.accessToken,
                 client_token: accountData.clientToken,
                 uuid: accountData.uuid,
@@ -106,13 +104,11 @@ class FrogAccountsManager {
                 meta: {
                     type: "mojang"
                 }
-            });
+            }
         } else if (accountData.type === "elyby") {
-            FrogElybyManager.getAccountForAuth(accountId).then(result => {
-                return cb(result);
-            })
+            return FrogElybyManager.getAccountForAuth(accountId);
         } else {
-            return cb(false);
+            return false;
         }
     }
 

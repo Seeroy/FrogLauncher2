@@ -123,35 +123,27 @@ class FrogUtils {
     }
 
     // Обёртка для compressing
-    static unpackArchive(archivePath, unpackPath) {
-        return new Promise((resolve, reject) => {
-            let archiveType = "zip";
-            if (path.extname(archivePath) === ".tar") {
-                archiveType = "tar";
-            }
-            if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
-                archiveType = "tgz";
-            }
-            compressing[archiveType].uncompress(archivePath, unpackPath)
-                .then(resolve)
-                .catch(reject);
-        })
+    static unpackArchive = async (archivePath, unpackPath) => {
+        let archiveType = "zip";
+        if (path.extname(archivePath) === ".tar") {
+            archiveType = "tar";
+        }
+        if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
+            archiveType = "tgz";
+        }
+        return await compressing[archiveType].uncompress(archivePath, unpackPath);
     }
 
     // Обёртка для compressing
-    static compressDirectory(archivePath, directoryPath) {
-        return new Promise((resolve, reject) => {
-            let archiveType = "zip";
-            if (path.extname(archivePath) === ".tar") {
-                archiveType = "tar";
-            }
-            if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
-                archiveType = "tgz";
-            }
-            compressing[archiveType].compressDir(directoryPath, archivePath)
-                .then(resolve)
-                .catch(reject);
-        })
+    static compressDirectory = async (archivePath, directoryPath) => {
+        let archiveType = "zip";
+        if (path.extname(archivePath) === ".tar") {
+            archiveType = "tar";
+        }
+        if (path.extname(archivePath) === ".tar.gz" || path.extname(archivePath) === ".tgz") {
+            archiveType = "tgz";
+        }
+        return await compressing[archiveType].compressDir(directoryPath, archivePath);
     }
 
     // Генерация рандомной строки
@@ -259,13 +251,13 @@ class FrogUtils {
     // Секунды -> ч. м. с.
     static toHHMMSS = (secs) => {
         var sec_num = parseInt(secs, 10)
-        var hours   = Math.floor(sec_num / 3600)
+        var hours = Math.floor(sec_num / 3600)
         var minutes = Math.floor(sec_num / 60) % 60
         var seconds = sec_num % 60
 
-        return [hours,minutes,seconds]
+        return [hours, minutes, seconds]
             .map(v => v < 10 ? "0" + v : v)
-            .filter((v,i) => v !== "00" || i > 0)
+            .filter((v, i) => v !== "00" || i > 0)
             .join(":")
     }
 }

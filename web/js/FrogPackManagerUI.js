@@ -171,7 +171,7 @@ class FrogPackManagerUI {
             currentMod++;
             if (typeof modList[currentMod] !== "undefined" && modList[currentMod].path.indexOf("mods/") !== -1) {
                 let modFullPath = path.join(modsPath, modList[currentMod].path);
-                if(!fs.existsSync(modFullPath)){
+                if (!fs.existsSync(modFullPath)) {
                     $modsList.append(`<div data-filename="${modList[currentMod].path}" class='item custom-select icon-and-description'>
                     <img class="icon" src="assets/modIcon.webp" />
                     <div class="title flex flex-gap-4 flex-align-center">
@@ -195,15 +195,15 @@ class FrogPackManagerUI {
                         }
                         if (result !== false) {
                             icon = "data:image/png;base64," + result.icon;
-                            if(!result.icon){
+                            if (!result.icon) {
                                 icon = "assets/modIcon.webp";
                             }
                             description = FrogUtils.removeColorsFromString(result.description);
                             title = result.name;
                             let authorsList = [];
-                            if(typeof result.authors === "string"){
+                            if (typeof result.authors === "string") {
                                 authorsList = result.authors;
-                            } else if(Array.isArray(result.authors)){
+                            } else if (Array.isArray(result.authors)) {
                                 result.authors.forEach((author) => {
                                     authorsList.push(author?.name || author);
                                 })
@@ -301,45 +301,43 @@ class FrogPackManagerUI {
     // Загрузить пак в модальное окно
     static loadPackByManifest = (manifest) => {
         packman__currentModpack = manifest;
-        return new Promise(resolve => {
-            // Название и иконка
-            FrogPackManagerUI.loadModpackIcon(manifest);
-            let versionDisplayName = FrogVersionsManager.versionToDisplayName(manifest.baseVersion.full);
-            $("#modal-packManager .title-wrapper .title").text(manifest.displayName);
-            $("#modal-packManager .title-wrapper .description").text(versionDisplayName);
+        // Название и иконка
+        FrogPackManagerUI.loadModpackIcon(manifest);
+        let versionDisplayName = FrogVersionsManager.versionToDisplayName(manifest.baseVersion.full);
+        $("#modal-packManager .title-wrapper .title").text(manifest.displayName);
+        $("#modal-packManager .title-wrapper .description").text(versionDisplayName);
 
-            // Бинды кнопок
-            $("#modal-packManager .title-wrapper button").off("click");
-            $("#modal-packManager .title-wrapper button.delete").click(() => {
-                FrogModals.hideModal("packManager");
-                FrogFlyout.setText(MESSAGES.packManager.deleting);
-                FrogFlyout.changeMode("spinner").then(() => {
-                    let modpackPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id);
-                    fsExtra.remove(modpackPath, (err) => {
-                        if (err) return console.error(err);
-                        FrogFlyout.changeMode("idle");
-                        FrogPacksUI.refreshDirectorySelect();
-                        FrogToasts.create(MESSAGES.packManager.deleted, "delete", packman__currentModpack.displayName);
-                    });
+        // Бинды кнопок
+        $("#modal-packManager .title-wrapper button").off("click");
+        $("#modal-packManager .title-wrapper button.delete").click(() => {
+            FrogModals.hideModal("packManager");
+            FrogFlyout.setText(MESSAGES.packManager.deleting);
+            FrogFlyout.changeMode("spinner").then(() => {
+                let modpackPath = path.join(GAME_DATA, "modpacks", packman__currentModpack.id);
+                fsExtra.remove(modpackPath, (err) => {
+                    if (err) return console.error(err);
+                    FrogFlyout.changeMode("idle");
+                    FrogPacksUI.refreshDirectorySelect();
+                    FrogToasts.create(MESSAGES.packManager.deleted, "delete", packman__currentModpack.displayName);
                 });
-            })
-            $("#modal-packManager .title-wrapper button.icon").click(() => {
-                FrogPacks.changePackIcon(packman__currentModpack.id);
-            })
-            $("#modal-packManager .title-wrapper button.export").click(() => {
-                FrogPacks.exportModpack(packman__currentModpack.id);
-            })
-            $("#modal-packManager .title-wrapper button.folder").click(() => {
-                let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);
-                openExternal(folderPath);
-            })
-            $("#modal-packManager .title-wrapper button.play").click(() => {
-                FrogStarter.simpleStart("pack-" + manifest.id);
-                FrogModals.hideModal("packManager");
-            })
-            FrogPackManagerUI.reloadAll();
-            return resolve(true);
+            });
         })
+        $("#modal-packManager .title-wrapper button.icon").click(() => {
+            FrogPacks.changePackIcon(packman__currentModpack.id);
+        })
+        $("#modal-packManager .title-wrapper button.export").click(() => {
+            FrogPacks.exportModpack(packman__currentModpack.id);
+        })
+        $("#modal-packManager .title-wrapper button.folder").click(() => {
+            let folderPath = path.join(GAME_DATA, "modpacks", manifest.id);
+            openExternal(folderPath);
+        })
+        $("#modal-packManager .title-wrapper button.play").click(() => {
+            FrogStarter.simpleStart("pack-" + manifest.id);
+            FrogModals.hideModal("packManager");
+        })
+        FrogPackManagerUI.reloadAll();
+        return true;
     }
 
     // Загрузить пак и показать окно

@@ -93,7 +93,7 @@ class FrogUI {
                                 once: true,
                             }
                         );
-                        var sound = new Howl({
+                        let sound = new Howl({
                             src: ['assets/idle1.wav']
                         });
                         sound.play();
@@ -104,43 +104,42 @@ class FrogUI {
     }
 
     // Диалог выбора мира и получить результат
-    static selectWorld = () => {
-        return new Promise(resolve => {
-            // Загружаем миры в список
-            FrogWorldsManager.getAllWorlds().then(worlds => {
-                worlds.forEach(world => {
-                    if (world.worlds.length > 0) {
-                        let subWorlds = "";
-                        world.worlds.forEach(item => {
-                            subWorlds += `<div class='item sub' data-path="${item.path}">${item.name}</div>`;
-                        });
-                        let worldShortPath = world.path.replace(GAME_DATA + path.sep, "");
-                        $(".worlds-list").append(`<div class='item'>${worldShortPath}</div>${subWorlds}`);
-                    }
-                })
-                // Выбор активного
-                $("#modal-selectWorld .worlds-list .item.sub").click(function () {
-                    if (!$(this).hasClass("active")) {
-                        $("#modal-selectWorld .worlds-list .item.active").removeClass("active");
-                        $(this).addClass("active");
-                    }
-                })
-            })
-
-            // Возвращаем результат
-            $("#modal-selectWorld .select").one("click", function () {
-                let $activeItem = $("#modal-selectWorld .worlds-list .item.active");
-                if ($activeItem.length === 1) {
-                    FrogModals.hideModal("selectWorld");
-                    return resolve($activeItem.data("path"));
-                }
-            })
-
-            $("#modal-selectWorld .square").one("click", function () {
-                return resolve(false);
-            })
-
-            FrogModals.showModal("selectWorld");
+    static selectWorld = async () => {
+        // Загружаем миры в список
+        let worlds = await FrogWorldsManager.getAllWorlds();
+        worlds.forEach(world => {
+            if (world.worlds.length > 0) {
+                let subWorlds = "";
+                world.worlds.forEach(item => {
+                    subWorlds += `<div class='item sub' data-path="${item.path}">${item.name}</div>`;
+                });
+                let worldShortPath = world.path.replace(GAME_DATA + path.sep, "");
+                $(".worlds-list").append(`<div class='item'>${worldShortPath}</div>${subWorlds}`);
+            }
         })
+
+        // Выбор активного
+        $("#modal-selectWorld .worlds-list .item.sub").click(function () {
+            if (!$(this).hasClass("active")) {
+                $("#modal-selectWorld .worlds-list .item.active").removeClass("active");
+                $(this).addClass("active");
+            }
+        })
+
+        // Возвращаем результат
+        $("#modal-selectWorld .select").one("click", function () {
+            let $activeItem = $("#modal-selectWorld .worlds-list .item.active");
+            if ($activeItem.length === 1) {
+                FrogModals.hideModal("selectWorld");
+                return $activeItem.data("path");
+            }
+        })
+
+        // Отмена выбора
+        $("#modal-selectWorld .square").one("click", function () {
+            return false;
+        })
+
+        await FrogModals.showModal("selectWorld");
     }
 }

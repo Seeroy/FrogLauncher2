@@ -10,7 +10,7 @@ class FrogPlayStats {
 
     // Получить статистику по версии
     static getByID = (versionId) => {
-        if(typeof gameStatsData[versionId] === "undefined") {
+        if (typeof gameStatsData[versionId] === "undefined") {
             return false;
         }
 

@@ -1,6 +1,6 @@
 class FrogAssetsParsers {
     // Прочитать данные о ресурспаке
-    static readResourcepack = (zipFile) => {
+    static readResourcepack = async (zipFile) => {
         return new Promise(mainResolve => {
             FrogAssetsParsers.clearAssetsCache();
             let icon = "";

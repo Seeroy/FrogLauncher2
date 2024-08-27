@@ -143,10 +143,10 @@
     let cpuName = os.cpus()[0].model.trim().split("@")[0].replaceAll("Processor", "");
     $("#about_cpuName").text(cpuName);
     // Задаём версию лаунчера
-    $("#launcherVersion .ver").text(global.LAUNCHER_VERSION);
+    $("#launcherVersion .ver").text(LAUNCHER_VERSION);
 
     // DEV or RELEASE mode?
-    if (global.IS_APP_IN_DEV) {
+    if (IS_APP_IN_DEV) {
         $("#launcherVersion .inDev").show();
     } else {
         $("#launcherVersion .inRelease").show();

@@ -12,7 +12,7 @@ class FrogCollector {
                 path.join(archiveDirPath, "data.json")
             ];
             fs.mkdirSync(archiveDirPath);
-            fs.writeFileSync(filesList[0], global.LAST_LOG);
+            fs.writeFileSync(filesList[0], LAST_LOG);
             fs.writeFileSync(filesList[1], Date.now().toString());
             fs.writeFileSync(filesList[2], JSON.stringify(window.localStorage));
             fs.writeFileSync(filesList[3], JSON.stringify({
@@ -45,8 +45,7 @@ class FrogCollector {
         updateConsole();
     }
 
-    static collectAndSendStats = (cb = () => {
-    }) => {
+    static collectAndSendStats = async () => {
         FrogCollector.writeLog("Collecting stats");
         machineUuid().then((uniqueId) => {
             let platformInfo = {
@@ -75,7 +74,7 @@ class FrogCollector {
                 versionsInstalledCount: FrogVersionsManager.getInstalledVersionsList().length,
                 versions: process.versions
             };
-            if(FrogConfig.read("lessDataCollection", false) === true){
+            if (FrogConfig.read("lessDataCollection", false) === true) {
                 // Меньше собираем данные
                 collectedStats = {
                     uniqueID: uniqueId,
@@ -86,7 +85,7 @@ class FrogCollector {
                 STATS_URL + encodeURIComponent(JSON.stringify(collectedStats)),
                 () => {
                     FrogCollector.writeLog("Stats sent successfully");
-                    cb();
+                    return true;
                 }
             );
         });
@@ -134,5 +133,6 @@ class FrogCollector {
             FrogCollector.writeLog("BROWSER:", ...log);
         };
         window.console = newConsole;
+        return true;
     }
 }

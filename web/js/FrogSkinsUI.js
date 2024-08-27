@@ -37,7 +37,7 @@ class FrogSkinsUI {
         $("#modal-frogRegister .loginBtn").hide();
         $error.hide();
 
-        $.get(`${global.SKINS_API_URL}/register?username=${login}&password=${password}`, (result) => {
+        $.get(`${SKINS_API_URL}/register?username=${login}&password=${password}`, (result) => {
             if (result.success) {
                 $("#modal-frogRegister input.login").val("");
                 $("#modal-frogRegister input.password").val("");
@@ -82,7 +82,7 @@ class FrogSkinsUI {
         $("#modal-frogLogin .loginBtn").hide();
         $error.hide();
 
-        $.get(`${global.SKINS_API_URL}/login?username=${login}&password=${password}`, (result) => {
+        $.get(`${SKINS_API_URL}/login?username=${login}&password=${password}`, (result) => {
             if (result.success) {
                 $("#modal-frogLogin input.login").val("");
                 $("#modal-frogLogin input.password").val("");
@@ -143,7 +143,7 @@ class FrogSkinsUI {
             let accItem = accountsList[keysEachList[currentAccount]];
             if (typeof accItem !== "undefined") {
                 if (accItem.type === "frog") {
-                    $.get(`${global.SKINS_API_URL}/profile?secret=${accItem.secret}`, (result) => {
+                    $.get(`${SKINS_API_URL}/profile?secret=${accItem.secret}`, (result) => {
                         if (result.success === true) {
                             accountsList[keysEachList[currentAccount]].textures = result.textures;
                             accountsList[keysEachList[currentAccount]].nickname = result.username;
@@ -159,8 +159,9 @@ class FrogSkinsUI {
                     refreshNext();
                 }
             } else {
-                FrogAccountsManager.saveAccounts(accountsList);
-                return promiseResolve();
+                FrogAccountsManager.saveAccounts(accountsList).then(r => {
+                    return promiseResolve(true);
+                });
             }
         }
     }
@@ -178,7 +179,7 @@ class FrogSkinsUI {
 
     // Очистить кэш скинов
     static clearSkinsCache = () => {
-        let cachePath = `${global.GAME_DATA}/assets/skins`;
+        let cachePath = `${GAME_DATA}/assets/skins`;
         if (!fs.existsSync(cachePath)) {
             return true;
         }
@@ -201,7 +202,7 @@ class FrogSkinsUI {
             formData.append('texture-image', file);
         }
         $.ajax({
-            url: `${global.SKINS_API_URL}/${type}/upload?secret=${currentAccountInEditor.secret}`,
+            url: `${SKINS_API_URL}/${type}/upload?secret=${currentAccountInEditor.secret}`,
             type: "POST",
             data: formData,
             success: function (response) {

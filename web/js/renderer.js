@@ -1,5 +1,6 @@
 window.$ = window.jQuery = require("jquery");
 const fs = require("fs");
+const fsPromises = require("fs/promises");
 const fsExtra = require("fs-extra");
 const path = require("path");
 const os = require("os");

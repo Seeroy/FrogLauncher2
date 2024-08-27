@@ -79,67 +79,64 @@ class FrogModsUpdater {
     }
 
     // Обновить все моды из списка обновлений
-    static updateAllFromList = () => {
+    static updateAllFromList = async () => {
         $("#modal-packManager .updateTab .foundUpdateMode").hide();
         $("#modal-packManager .updateTab .foundUpdateMode .updatesList").html("");
         $("#modal-packManager .updateTab .updateMode .mod").text("");
         $("#modal-packManager .updateTab .updateMode .text").text(MESSAGES.packs.updatePackM.installing);
         $("#modal-packManager .updateTab .updateMode").show();
-        return new Promise(resolve => {
-            let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);
-            if (modpackManifest === false) {
-                return false;
-            }
-            modpackManifest.files.forEach((filesItem, manifestIndex) => {
-                // Ищем нужный файл в списке
-                let filename = filesItem.name;
-                let modItemIndex = -1;
-                // Ищем ID мода в списке
-                mods__resultList.forEach((modItem, index) => {
-                    if (modItem.currentFileName === filename) {
-                        modItemIndex = index;
-                    }
-                })
-                if (modItemIndex !== -1) {
-                    // Удаляем старый мод и обновляем конфиг
-                    let fullModPath = path.join(global.GAME_DATA, "modpacks", mods__currentModpackId, modpackManifest.files[manifestIndex].path);
-                    if (fs.existsSync(fullModPath)) {
-                        fs.unlinkSync(fullModPath);
-                    }
-                    modpackManifest.files[manifestIndex].hashes = mods__resultList[modItemIndex].latest.file.hashes;
-                    modpackManifest.files[manifestIndex].url = mods__resultList[modItemIndex].latest.file.url;
-                    modpackManifest.files[manifestIndex].name = mods__resultList[modItemIndex].latest.file.filename;
-                    modpackManifest.files[manifestIndex].size = mods__resultList[modItemIndex].latest.file.size;
-                    modpackManifest.files[manifestIndex].path = "mods/" + mods__resultList[modItemIndex].latest.file.filename;
-                    modpackManifest.files[manifestIndex].displayName = path.parse(mods__resultList[modItemIndex].latest.file.filename).base;
+
+        let modpackManifest = FrogPacks.getModpackManifest(mods__currentModpackId);
+        if (modpackManifest === false) {
+            return false;
+        }
+        modpackManifest.files.forEach((filesItem, manifestIndex) => {
+            // Ищем нужный файл в списке
+            let filename = filesItem.name;
+            let modItemIndex = -1;
+            // Ищем ID мода в списке
+            mods__resultList.forEach((modItem, index) => {
+                if (modItem.currentFileName === filename) {
+                    modItemIndex = index;
                 }
-            });
-            // Записываем изменения
-            FrogPacks.writeModpackManifest(mods__currentModpackId, modpackManifest);
-            // Запускаем проверку модов
-            FrogPacks.verifyAndInstall(mods__currentModpackId).then(() => {
-                $("#modal-packManager .updateTab .updateMode").hide();
-                $("#modal-packManager .updateTab .selectMode").show();
-                FrogFlyout.changeMode("idle");
-                FrogFlyout.setUIStartMode(false);
-                return resolve(true);
-            });
-        })
+            })
+            if (modItemIndex !== -1) {
+                // Удаляем старый мод и обновляем конфиг
+                let fullModPath = path.join(GAME_DATA, "modpacks", mods__currentModpackId, modpackManifest.files[manifestIndex].path);
+                if (fs.existsSync(fullModPath)) {
+                    fs.unlinkSync(fullModPath);
+                }
+                modpackManifest.files[manifestIndex].hashes = mods__resultList[modItemIndex].latest.file.hashes;
+                modpackManifest.files[manifestIndex].url = mods__resultList[modItemIndex].latest.file.url;
+                modpackManifest.files[manifestIndex].name = mods__resultList[modItemIndex].latest.file.filename;
+                modpackManifest.files[manifestIndex].size = mods__resultList[modItemIndex].latest.file.size;
+                modpackManifest.files[manifestIndex].path = "mods/" + mods__resultList[modItemIndex].latest.file.filename;
+                modpackManifest.files[manifestIndex].displayName = path.parse(mods__resultList[modItemIndex].latest.file.filename).base;
+            }
+        });
+        // Записываем изменения
+        FrogPacks.writeModpackManifest(mods__currentModpackId, modpackManifest);
+        // Запускаем проверку модов
+        await FrogPacks.verifyAndInstall(mods__currentModpackId);
+        $("#modal-packManager .updateTab .updateMode").hide();
+        $("#modal-packManager .updateTab .selectMode").show();
+        await FrogFlyout.changeMode("idle");
+        FrogFlyout.setUIStartMode(false);
+        return true;
     }
 
     // Начать проверку обновлений
-    static checkUpdates = () => {
-        FrogModsUpdater.checkPackUpdatesAvailable(packman__currentModpack.id).then(list => {
-            $("#modal-packManager .updateTab .foundUpdateMode .updatesList").html("");
-            $("#modal-packManager .updateTab .foundUpdateMode").show();
-            $("#modal-packManager .updateTab .updateMode").hide();
-            list.forEach((item) => {
-                $("#modal-packManager .updateTab .updates-list").append(`<div class='item custom-select icon-and-description'>
+    static checkUpdates = async () => {
+        let updatesList = await FrogModsUpdater.checkPackUpdatesAvailable(packman__currentModpack.id);
+        $("#modal-packManager .updateTab .foundUpdateMode .updatesList").html("");
+        $("#modal-packManager .updateTab .foundUpdateMode").show();
+        $("#modal-packManager .updateTab .updateMode").hide();
+        updatesList.forEach((item) => {
+            $("#modal-packManager .updateTab .updates-list").append(`<div class='item custom-select icon-and-description'>
                     <img class="icon" src="data:image/png;base64,${item.icon}" />
                     <span class="title">${item.projectName}</span>
                     <div class="flex flex-align-center flex-gap-4 description"><span>${item.current}</span> <span class="material-symbols-outlined">arrow_forward</span> <span>${item.latest.version}</span></div>
                     </div>`);
-            });
         });
     }
 }

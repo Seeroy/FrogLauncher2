@@ -41,75 +41,72 @@ class FrogAssets {
     }
 
     // Получить полный список файлов, которые нужно скачивать для запуска игры
-    static verifyAssets(version, changeUI = true) {
+    static verifyAssets = async (version, changeUI = true) => {
         if (changeUI) {
             FrogFlyout.setUIStartMode(true);
             FrogFlyout.setText("Проверка ассетов");
-            FrogFlyout.changeMode("spinner");
+            await FrogFlyout.changeMode("spinner");
         }
-        return new Promise(resolve => {
-            let downloadsList = [];
-            let assetsPath = path.resolve(path.join(global.GAME_DATA, "assets"));
-            let librariesPath = path.resolve(path.join(global.GAME_DATA, "libraries"));
-            FrogVersionsManager.getVersionManifest(version).then(vPkg => {
-                // Создаём все папки, если их нет
-                if (!fs.existsSync(assetsPath)) {
-                    fs.mkdirSync(assetsPath, {recursive: true});
+        let downloadsList = [];
+        let assetsPath = path.resolve(path.join(GAME_DATA, "assets"));
+        let librariesPath = path.resolve(path.join(GAME_DATA, "libraries"));
+        let vPkg = await FrogVersionsManager.getVersionManifest(version);
+        // Создаём все папки, если их нет
+        if (!fs.existsSync(assetsPath)) {
+            fs.mkdirSync(assetsPath, {recursive: true});
+        }
+        if (!fs.existsSync(librariesPath)) {
+            fs.mkdirSync(librariesPath, {recursive: true});
+        }
+        let currentOs = os.platform().replace("win32", "windows");
+        // Библиотеки
+        vPkg.libraries.forEach((library) => {
+            if (!library.downloads || !library.downloads.classifiers) return;
+            //if (FrogAssets.parseLibraryRule(library)) return;
+
+            let libraryArtifact = this.getOS() === 'osx'
+                ? library.downloads.classifiers['natives-osx'] || library.downloads.classifiers['natives-macos']
+                : library.downloads.classifiers[`natives-${this.getOS()}`];
+
+            let arch = os.arch() === "x64" ? "64" : "32";
+            if (typeof libraryArtifact === "undefined" && typeof library.downloads.classifiers[`natives-${this.getOS()}-${arch}`] !== "undefined") {
+                libraryArtifact = library.downloads.classifiers[`natives-${this.getOS()}-${arch}`]
+            }
+
+            let libraryPath = path.resolve(path.join(librariesPath, libraryArtifact.path));
+            let libraryRule, libraryRuleAction;
+            if (typeof library.rules !== "undefined" && library.rules.length > 1) {
+                library.rules.forEach((rule) => {
+                    if (typeof rule.os !== "undefined") {
+                        libraryRule = rule;
+                        libraryRuleAction = rule.action;
+                    }
+                })
+            }
+            if ((typeof library.rules === "undefined") || (typeof library.rules !== "undefined" && libraryRuleAction === "allow" && libraryRule.os.name === currentOs) || (typeof library.rules !== "undefined" && libraryRuleAction === "deny" && libraryRule.os.name !== currentOs)) {
+                if (!FrogAssets.verifyFile(libraryPath, libraryArtifact.sha1)) {
+                    downloadsList.push({
+                        url: libraryArtifact.url,
+                        path: libraryPath
+                    })
                 }
-                if (!fs.existsSync(librariesPath)) {
-                    fs.mkdirSync(librariesPath, {recursive: true});
+            }
+        });
+        // Ассеты
+        $.get(vPkg.assetIndex.url, (vAssets) => {
+            Object.values(vAssets.objects).forEach((asset) => {
+                let hash = asset.hash;
+                let subHash = hash.substring(0, 2);
+                let assetPath = path.resolve(path.join(assetsPath, "objects", subHash, hash));
+                if (!FrogAssets.verifyFile(assetPath, hash)) {
+                    downloadsList.push({
+                        url: MC_ASSETS_URL + "/" + hash + subHash,
+                        path: assetPath
+                    })
                 }
-                let currentOs = os.platform().replace("win32", "windows");
-                // Библиотеки
-                vPkg.libraries.forEach((library) => {
-                    if (!library.downloads || !library.downloads.classifiers) return;
-                    //if (FrogAssets.parseLibraryRule(library)) return;
-
-                    let libraryArtifact = this.getOS() === 'osx'
-                        ? library.downloads.classifiers['natives-osx'] || library.downloads.classifiers['natives-macos']
-                        : library.downloads.classifiers[`natives-${this.getOS()}`];
-
-                    let arch = os.arch() === "x64" ? "64" : "32";
-                    if (typeof libraryArtifact === "undefined" && typeof library.downloads.classifiers[`natives-${this.getOS()}-${arch}`] !== "undefined") {
-                        libraryArtifact = library.downloads.classifiers[`natives-${this.getOS()}-${arch}`]
-                    }
-
-                    let libraryPath = path.resolve(path.join(librariesPath, libraryArtifact.path));
-                    let libraryRule, libraryRuleAction;
-                    if (typeof library.rules !== "undefined" && library.rules.length > 1) {
-                        library.rules.forEach((rule) => {
-                            if (typeof rule.os !== "undefined") {
-                                libraryRule = rule;
-                                libraryRuleAction = rule.action;
-                            }
-                        })
-                    }
-                    if ((typeof library.rules === "undefined") || (typeof library.rules !== "undefined" && libraryRuleAction === "allow" && libraryRule.os.name === currentOs) || (typeof library.rules !== "undefined" && libraryRuleAction === "deny" && libraryRule.os.name !== currentOs)) {
-                        if (!FrogAssets.verifyFile(libraryPath, libraryArtifact.sha1)) {
-                            downloadsList.push({
-                                url: libraryArtifact.url,
-                                path: libraryPath
-                            })
-                        }
-                    }
-                });
-                // Ассеты
-                $.get(vPkg.assetIndex.url, (vAssets) => {
-                    Object.values(vAssets.objects).forEach((asset) => {
-                        let hash = asset.hash;
-                        let subHash = hash.substring(0, 2);
-                        let assetPath = path.resolve(path.join(assetsPath, "objects", subHash, hash));
-                        if (!FrogAssets.verifyFile(assetPath, hash)) {
-                            downloadsList.push({
-                                url: MC_ASSETS_URL + "/" + hash + subHash,
-                                path: assetPath
-                            })
-                        }
-                    });
-                    return resolve(downloadsList);
-                });
             });
-        })
+            return resolve(downloadsList);
+        });
     }
 
     // Проверить файл по хешу SHA-1

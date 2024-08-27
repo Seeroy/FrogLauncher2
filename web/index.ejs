@@ -37,6 +37,7 @@
     <script src="./js/FrogPacks.js"></script>
     <script src="./js/FrogPacksUI.js"></script>
     <script src="./js/FrogPlayStats.js"></script>
+    <script src="./js/FrogRequests.js"></script>
     <script src="./js/FrogServersUI.js"></script>
     <script src="./js/FrogSkinsUI.js"></script>
     <script src="./js/FrogStarter.js"></script>
@@ -104,45 +105,47 @@
 </body>
 </html>
 <script>
-    FrogPlayStats.getAllStats();
-    FrogCollector.setupLogHijacking();
-    FrogCollector.writeLog("Launcher started at", Date.now());
+    let currentThemeData, loadedThemeData;
+    $(async function () {
+        // Создание директорию для игры
+        FrogUtils.createMissingDirectories(DOT_MC_PATH);
+        global.GAME_DATA = FrogConfig.read("gameDirectory", DOT_MC_PATH);
 
-    // Обновления и сбор статистики
-    if (!global.IS_APP_IN_DEV) {
-        FrogUpdater.bindUpdate();
-        FrogCollector.collectAndSendStats();
-    } else {
-        FrogCollector.writeLog("DEVMODE: No updated and stats");
-    }
+        // Начинаем запуск
+        FrogPlayStats.getAllStats();
+        FrogCollector.setupLogHijacking();
+        FrogCollector.writeLog("Launcher started at", Date.now());
 
-    // Инициализация темы
-    let currentThemeData = FrogConfig.read("theme");
-    let loadedThemeData = {};
-    FrogThemes.changeTheme(false, false);
-    FrogThemes.changeWallpaper(FrogConfig.read("currentWallpaper", "1"));
-    FrogCollector.writeLog("Theme initialized");
-
-    // Создание директорию для игры
-    FrogUtils.createMissingDirectories(global.DOT_MC_PATH);
-    global.GAME_DATA = FrogConfig.read("gameDirectory", global.DOT_MC_PATH);
-
-    // Инициализация менеджера Java
-    FrogJavaManager.init();
-    FrogCollector.writeLog("JavaManager initialized");
-
-    // Настраиваем кнопку для сбора debug data
-    $(document).keyup((e) => {
-        if (e.originalEvent.code === "F12") {
-            FrogCollector.collectDebugData();
-        }
-    })
-
-    $(function () {
-        if (FrogConfig.read("language") !== "ru") {
-            global.NEWS_URL = CDN_URL + "/news_en.json";
+        // Обновления и сбор статистики
+        if (!IS_APP_IN_DEV) {
+            FrogUpdater.bindUpdate();
+            await FrogCollector.collectAndSendStats();
         } else {
-            global.NEWS_URL = CDN_URL + "/news.json";
+            FrogCollector.writeLog("DEVMODE: No updated and stats");
+        }
+
+        // Инициализация темы
+        currentThemeData = FrogConfig.read("theme");
+        loadedThemeData = {};
+        FrogThemes.changeTheme(false, false);
+        FrogThemes.changeWallpaper(FrogConfig.read("currentWallpaper", "1"));
+        FrogCollector.writeLog("Theme initialized");
+
+        // Инициализация менеджера Java
+        FrogJavaManager.init();
+        FrogCollector.writeLog("JavaManager initialized");
+
+        // Настраиваем кнопку для сбора debug data
+        $(document).keyup((e) => {
+            if (e.originalEvent.code === "F12") {
+                FrogCollector.collectDebugData();
+            }
+        })
+
+        if (FrogConfig.read("language") !== "ru") {
+            NEWS_URL = CDN_URL + "/news_en.json";
+        } else {
+            NEWS_URL = CDN_URL + "/news.json";
         }
 
         if (FrogConfig.read("disableAnimations", false) === true) {
@@ -153,7 +156,7 @@
             $("html").addClass("noEffects");
         }
 
-        if (!global.IS_APP_IN_DEV) {
+        if (!IS_APP_IN_DEV) {
             // Запустить загрузочную анимацию
             FrogUI.startLoadScreenAnimation();
             // Показываем окно
@@ -166,12 +169,14 @@
             FrogCollector.writeLog("DEVMODE: No start animation");
         }
 
+        // Скрытие модалок по Esc
         $(document).keydown(e => {
             if (e.originalEvent.key === "Escape") {
                 FrogModals.hideCurrentOverlay();
             }
         })
 
+        // Ожидание для загрузки всех нод
         setTimeout(() => {
             // Переводим все ноды в DOM
             FrogTranslator.translateAllNodes();
@@ -186,18 +191,18 @@
             FrogUI.bindEasterEgg();
 
             // Закрытие overlay modal по клику за пределы
-            $(".modal-overlay").click(function(){
+            $(".modal-overlay").click(function () {
                 FrogModals.hideCurrentOverlay();
             })
         }, 500);
 
+        // Показываем HTML
         $("html").show();
 
         // Загружаем список аккаунтов
-        FrogSkinsUI.refreshAllProfiles().then(() => {
-            FrogAccountsUI.reloadAccountsManager();
-            FrogAccountsUI.reloadAccountSelect();
-        })
+        await FrogSkinsUI.refreshAllProfiles();
+        FrogAccountsUI.reloadAccountsManager();
+        FrogAccountsUI.reloadAccountSelect();
 
         // Загружаем список версий
         FrogVersionsUI.loadVersions();
@@ -218,14 +223,15 @@
         // Очищаем старый кэш ассетов
         FrogAssetsParsers.clearAssetsCache();
 
+        loadSettingsUI();
+
         // Начинаем тестирование
-        if (global.IS_APP_IN_TEST) {
+        if (IS_APP_IN_TEST) {
             FrogCollector.writeLog("TESTMODE: Starting tests");
             FrogFlyout.setUIStartMode(true);
-            FrogFlyout.changeMode("spinner").then(() => {
-                FrogFlyout.setText("Начинается тестирование");
-            })
-            FrogTests.startTest(4);
+            await FrogFlyout.changeMode("spinner");
+            FrogFlyout.setText("Начинается тестирование");
+            FrogTests.startTest(0);
         }
     })
 </script>

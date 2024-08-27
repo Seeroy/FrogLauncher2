@@ -2,43 +2,37 @@ let javaInstallationDirectory;
 
 class FrogJavaManager {
     // Установить версию Java
-    static install = (version, restoreStartMode = false) => {
-        return new Promise(resolve => {
-            if (FrogJavaManager.isInstalled(version)) {
-                return resolve(true);
-            }
-            // Готовим UI
-            FrogFlyout.setUIStartMode(true);
-            FrogFlyout.setText();
-            FrogFlyout.setProgress(-1);
-            FrogFlyout.changeMode("spinner").then(() => {
-                // Получаем информацию
-                let info = FrogJavaManager.getByVersion(version);
-                // Скачиваем
-                FrogDownloader.downloadFile(info.url, info.downloadPath, `Java ${version}`).then(() => {
-                    // Меняем UI
-                    FrogFlyout.changeMode("spinner").then(() => {
-                        FrogFlyout.setText(`${MESSAGES.java.unpacking} ${version}`);
-
-                        // Распаковываем
-                        FrogUtils.unpackArchive(info.downloadPath, info.unpackPath).then(() => {
-                            fs.unlinkSync(info.downloadPath);
-                            if (restoreStartMode) {
-                                FrogFlyout.setUIStartMode(false);
-                                FrogFlyout.changeMode("idle");
-                            }
-                            FrogToasts.create(`Java ${version}`, "info", MESSAGES.java.installed);
-                            return resolve(true);
-                        })
-                    });
-                });
-            });
-        })
+    static install = async (version, restoreStartMode = false) => {
+        if (FrogJavaManager.isInstalled(version)) {
+            return true;
+        }
+        // Готовим UI
+        FrogFlyout.setUIStartMode(true);
+        FrogFlyout.setText();
+        FrogFlyout.setProgress(-1);
+        await FrogFlyout.changeMode("spinner");
+        // Получаем информацию
+        let info = FrogJavaManager.getByVersion(version);
+        // Скачиваем
+        await FrogDownloader.downloadFile(info.url, info.downloadPath, `Java ${version}`);
+        // Меняем UI
+        await FrogFlyout.changeMode("spinner");
+        FrogFlyout.setText(`${MESSAGES.java.unpacking} ${version}`);
+        // Распаковываем
+        await FrogUtils.unpackArchive(info.downloadPath, info.unpackPath);
+        // Удаляем temp файлы
+        fs.unlinkSync(info.downloadPath);
+        if (restoreStartMode) {
+            FrogFlyout.setUIStartMode(false);
+            FrogFlyout.changeMode("idle");
+        }
+        FrogToasts.create(`Java ${version}`, "info", MESSAGES.java.installed);
+        return true;
     }
 
     // Инициализация директории
     static init = () => {
-        javaInstallationDirectory = path.join(global.GAME_DATA, "javaDownloads");
+        javaInstallationDirectory = path.join(GAME_DATA, "javaDownloads");
         FrogUtils.createMissingDirectories(javaInstallationDirectory);
     };
 
@@ -111,7 +105,7 @@ class FrogJavaManager {
 
     // Получить список доступных на сервере версий Java
     static getDownloadableVersions = (cb) => {
-        $.get(global.JAVA_LIST_URL, (data) => {
+        $.get(JAVA_LIST_URL, (data) => {
             if (data !== false) {
                 let availReleases = data.available_releases;
                 availReleases.forEach((release, i) => {
@@ -151,19 +145,16 @@ class FrogJavaManager {
     }
 
     // Версия игры -> версия Java
-    static gameVersionToJavaVersion = (version) => {
-        return new Promise(resolve => {
-            FrogVersionsManager.getVersionManifest(version).then(manifest => {
-                if (manifest !== false) {
-                    if ((manifest.id.split(".")[1] <= 6 || manifest.id.match(/-rd/gim)) && typeof manifest.javaVersion === "undefined") {
-                        resolve(8);
-                    } else {
-                        resolve(manifest.javaVersion.majorVersion);
-                    }
-                } else {
-                    resolve(false);
-                }
-            })
-        });
+    static gameVersionToJavaVersion = async (version) => {
+        let manifest = await FrogVersionsManager.getVersionManifest(version);
+        if (manifest !== false) {
+            if ((manifest.id.split(".")[1] <= 6 || manifest.id.match(/-rd/gim)) && typeof manifest.javaVersion === "undefined") {
+                return "8";
+            } else {
+                return manifest.javaVersion.majorVersion.toString();
+            }
+        } else {
+            return false;
+        }
     }
 }

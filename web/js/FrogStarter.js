@@ -19,182 +19,173 @@ class FrogStarter {
         return true;
     }
 
-    prepare = () => {
-        return new Promise((resolve, reject) => {
-            FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
+    prepare = async () => {
+        FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
 
-            let accData = FrogAccountsManager.getAccount(FrogAccountsManager.getActiveAccount());
-            FrogCollector.writeLog(`Starter: Account [type=${accData.type}] [username=${accData.nickname}]`);
+        let accData = FrogAccountsManager.getAccount(FrogAccountsManager.getActiveAccount());
+        FrogCollector.writeLog(`Starter: Account [type=${accData.type}] [username=${accData.nickname}]`);
 
-            // Получить версию игры для пака
-            if (this.versionType === "pack") {
-                let verSplit = this.versionId.toString().split("-");
-                verSplit.shift();
-                let modpackData = FrogPacks.getModpackManifest(verSplit.join("-"));
-                FrogCollector.writeLog(`Starter: Starting pack [data=${JSON.stringify(modpackData)}`);
-                this.versionNumber = modpackData.baseVersion.number;
-                this.versionId = modpackData.baseVersion.full;
-                this.versionType = modpackData.baseVersion.type;
-            }
-            // Готовим UI
-            FrogCollector.writeLog(`Starter: id=${this.versionId}; version=${this.versionNumber} type=${this.versionType}`);
-            FrogFlyout.setUIStartMode(true);
-            let versionDisplayName = FrogVersionsManager.versionToDisplayName();
-            FrogFlyout.setText(MESSAGES.starter.configuring, versionDisplayName);
-            FrogFlyout.changeMode("spinner").then(() => {
-                // Получаем версию Java
-                FrogCollector.writeLog(`Starter: Gathering Java`);
-                FrogJavaManager.gameVersionToJavaVersion(this.versionNumber).then((javaVersion) => {
-                    FrogCollector.writeLog(`Starter: Using Java ${javaVersion}`);
-                    if (javaVersion === false) {
-                        return reject(false);
-                    }
+        // Получить версию игры для пака
+        if (this.versionType === "pack") {
+            let verSplit = this.versionId.toString().split("-");
+            verSplit.shift();
+            let modpackData = FrogPacks.getModpackManifest(verSplit.join("-"));
+            FrogCollector.writeLog(`Starter: Starting pack [data=${JSON.stringify(modpackData)}`);
+            this.versionNumber = modpackData.baseVersion.number;
+            this.versionId = modpackData.baseVersion.full;
+            this.versionType = modpackData.baseVersion.type;
+        }
 
-                    javaVersion = javaVersion.toString();
+        // Готовим UI
+        FrogCollector.writeLog(`Starter: id=${this.versionId}; version=${this.versionNumber} type=${this.versionType}`);
+        FrogFlyout.setUIStartMode(true);
+        let versionDisplayName = FrogVersionsManager.versionToDisplayName();
+        FrogFlyout.setText(MESSAGES.starter.configuring, versionDisplayName);
+        await FrogFlyout.changeMode("spinner");
 
-                    FrogCollector.writeLog(`Starter: Trying to install Java`);
-                    // Скачиваем, если нужно
-                    FrogJavaManager.install(javaVersion, false).then(() => {
-                        // Установка Java завершена, получаем к ней путь
-                        let javaPath = FrogJavaManager.getPath(javaVersion);
-                        if (javaPath === false) {
-                            FrogCollector.writeLog(`Starter: Java installation failed! ${javaPath}`);
-                            return reject(false);
-                        }
+        // Получаем версию Java
+        FrogCollector.writeLog(`Starter: Gathering Java`);
+        let javaVersion = await FrogJavaManager.gameVersionToJavaVersion(this.versionNumber);
+        if (javaVersion === false) {
+            return false;
+        }
+        FrogCollector.writeLog(`Starter: Using Java ${javaVersion}`);
+        FrogCollector.writeLog(`Starter: Trying to install Java`);
 
-                        FrogCollector.writeLog(`Starter: Java installation completed`);
+        // Скачиваем, если нужно
+        await FrogJavaManager.install(javaVersion, false);
 
-                        // Получаем конфигурацию
-                        FrogLaunchConfigurator.createConfigForVersion(this.versionId, javaVersion).then((configuration) => {
-                            this.config = configuration;
-                            FrogCollector.writeLog(`Starter: Configuration ready`);
-                            if (global.IS_APP_IN_DEV) {
-                                console.log(configuration);
-                            }
-                            return resolve(configuration);
-                        });
-                    });
-                });
-            });
-        })
+        // Установка Java завершена, получаем к ней путь
+        let javaPath = FrogJavaManager.getPath(javaVersion);
+        if (javaPath === false) {
+            FrogCollector.writeLog(`Starter: Java installation failed! ${javaPath}`);
+            return false;
+        }
+        FrogCollector.writeLog(`Starter: Java installation completed`);
+
+        // Получаем конфигурацию
+        let configuration = await FrogLaunchConfigurator.createConfigForVersion(this.versionId, javaVersion);
+        this.config = configuration;
+        FrogCollector.writeLog(`Starter: Configuration ready`);
+        if (IS_APP_IN_DEV) {
+            console.log(configuration);
+        }
+        return configuration;
     }
 
-    launch = () => {
+    launch = async () => {
         let useProgress = false;
         // Готовим UI
         FrogFlyout.setUIStartMode(true);
         let versionDisplayName = FrogVersionsManager.versionToDisplayName();
         FrogFlyout.setText(MESSAGES.starter.preparingGame, versionDisplayName);
-        FrogFlyout.changeMode("progress").then(() => {
-            FrogCollector.writeLog(`Starter: UI preparation completed, starting game`);
-            let launcher = new Client();
-            launcher.launch(this.config).then(r => {
-                gamePid = r.pid;
-            })
+        await FrogFlyout.changeMode("progress");
 
-            launcher.on('debug', (e) => {
-                FrogErrorsParser.parse(e);
-                if (global.IS_APP_IN_DEV) {
-                    console.log(e);
-                }
-                FrogCollector.writeLog(e);
-            });
-            launcher.on('data', (e) => {
-                FrogErrorsParser.parse(e);
-                if (global.IS_APP_IN_DEV) {
-                    console.log(e);
-                }
-                if (e.match(/Sound engine started/gim) !== null || e.match(/OpenAL initialized/gim) !== null || e.match(/Created\: 512x512 textures-atlas/gim) !== null) {
-                    FrogFlyout.setText(MESSAGES.starter.started, versionDisplayName);
-                }
-                if (e.match(/Stopping!/gim) !== null || e.match(/SoundSystem shutting down/gim) !== null) {
-                    FrogFlyout.setText(MESSAGES.starter.closing, versionDisplayName);
-                    FrogUI.appearMainWindow();
-                }
-                FrogCollector.writeLog(e);
-            });
-            launcher.on('close', (exitCode) => {
-                gamePid = false;
-                gameStarting = false;
-                assetsVerifyOffset = 0;
-                startAssetsInterval = 0;
-                FrogPlayStats.onGameClose();
-                $("#stopGameButton").hide();
+        // Создаём клиент игры
+        FrogCollector.writeLog(`Starter: UI preparation completed, starting game`);
+        let launcher = new Client();
+        launcher.launch(this.config).then(r => {
+            gamePid = r.pid;
+        })
+
+        launcher.on('debug', (e) => {
+            FrogErrorsParser.parse(e);
+            if (IS_APP_IN_DEV) {
+                console.log(e);
+            }
+            FrogCollector.writeLog(e);
+        });
+        launcher.on('data', (e) => {
+            FrogErrorsParser.parse(e);
+            if (IS_APP_IN_DEV) {
+                console.log(e);
+            }
+            if (e.match(/Sound engine started/gim) !== null || e.match(/OpenAL initialized/gim) !== null || e.match(/Created\: 512x512 textures-atlas/gim) !== null) {
+                FrogFlyout.setText(MESSAGES.starter.started, versionDisplayName);
+            }
+            if (e.match(/Stopping!/gim) !== null || e.match(/SoundSystem shutting down/gim) !== null) {
+                FrogFlyout.setText(MESSAGES.starter.closing, versionDisplayName);
                 FrogUI.appearMainWindow();
-                setTimeout(() => {
-                    FrogFlyout.setUIStartMode(false);
-                    FrogFlyout.changeMode("idle");
-                }, 1000);
-                FrogErrorsParser.parse("", exitCode);
-                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
-                    FrogModals.switchModal("console");
+            }
+            FrogCollector.writeLog(e);
+        });
+        launcher.on('close', (exitCode) => {
+            gamePid = false;
+            gameStarting = false;
+            assetsVerifyOffset = 0;
+            startAssetsInterval = 0;
+            FrogPlayStats.onGameClose();
+            $("#stopGameButton").hide();
+            FrogUI.appearMainWindow();
+            setTimeout(() => {
+                FrogFlyout.setUIStartMode(false);
+                FrogFlyout.changeMode("idle");
+            }, 1000);
+            FrogErrorsParser.parse("", exitCode);
+            if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
+                FrogModals.switchModal("console");
+            }
+            if (IS_APP_IN_DEV) {
+                console.log("Game exit code: " + exitCode);
+            }
+            FrogCollector.writeLog("Game exit code: " + exitCode);
+        });
+        launcher.on("arguments", (e) => {
+            gameStarting = true;
+            FrogPlayStats.onGameLaunch(FrogVersionsManager.getActiveVersion());
+            $("#stopGameButton").show();
+            // Показываем консоль
+            if (FrogConfig.read("consoleOnStart") === true) {
+                FrogModals.switchModal("console");
+            }
+            setTimeout(() => {
+                // Скрываем окно, если включено в настройках
+                if (gameStarting && FrogConfig.read("hideLauncherOnStart") === true) {
+                    FrogUI.disappearMainWindow();
                 }
-                if (global.IS_APP_IN_DEV) {
-                    console.log("Game exit code: " + exitCode);
+            }, 4000);
+            FrogFlyout.changeMode("spinner");
+            FrogFlyout.setText(MESSAGES.starter.starting, versionDisplayName);
+        });
+        launcher.on('progress', (e) => {
+            if (e.type === "assets") {
+                if (startAssetsInterval === 0) {
+                    startAssetsInterval = Date.now();
                 }
-                FrogCollector.writeLog("Game exit code: " + exitCode);
-            });
-            launcher.on("arguments", (e) => {
-                gameStarting = true;
-                FrogPlayStats.onGameLaunch(FrogVersionsManager.getActiveVersion());
-                $("#stopGameButton").show();
-                // Показываем консоль
-                if (FrogConfig.read("consoleOnStart") === true) {
-                    FrogModals.switchModal("console");
+                if (assetsVerifyOffset === 0 && (Date.now() - startAssetsInterval) > 1000) {
+                    assetsVerifyOffset = (e.task - 1);
                 }
-                setTimeout(() => {
-                    // Скрываем окно, если включено в настройках
-                    if (gameStarting && FrogConfig.read("hideLauncherOnStart") === true) {
-                        FrogUI.disappearMainWindow();
-                    }
-                }, 4000);
-                FrogFlyout.changeMode("spinner");
-                FrogFlyout.setText(MESSAGES.starter.starting, versionDisplayName);
-            });
-            launcher.on('progress', (e) => {
-                if (e.type === "assets") {
-                    if (startAssetsInterval === 0) {
-                        startAssetsInterval = Date.now();
-                    }
-                    if (assetsVerifyOffset === 0 && (Date.now() - startAssetsInterval) > 1000) {
-                        assetsVerifyOffset = (e.task - 1);
-                    }
-                } else {
-                    assetsVerifyOffset = 0;
-                }
-                if (useProgress === true) {
-                    let taskOffset = e.task - assetsVerifyOffset;
-                    let totalOffset = e.total - assetsVerifyOffset;
-                    let percent = Math.round((taskOffset * 100) / totalOffset);
-                    FrogDownloader.updateDownloadUIText(e.type, percent, taskOffset, totalOffset);
-                }
-            });
-            launcher.on('download-status', (e) => {
-                if ((e.total / 1024 / 1024) >= 4) {
-                    useProgress = false;
-                    let percent = Math.round((e.current * 100) / e.total);
-                    FrogDownloader.updateDownloadUI(e.name, percent, e.current, e.total);
-                } else {
-                    useProgress = true;
-                }
-            });
+            } else {
+                assetsVerifyOffset = 0;
+            }
+            if (useProgress === true) {
+                let taskOffset = e.task - assetsVerifyOffset;
+                let totalOffset = e.total - assetsVerifyOffset;
+                let percent = Math.round((taskOffset * 100) / totalOffset);
+                FrogDownloader.updateDownloadUIText(e.type, percent, taskOffset, totalOffset);
+            }
+        });
+        launcher.on('download-status', (e) => {
+            if ((e.total / 1024 / 1024) >= 4) {
+                useProgress = false;
+                let percent = Math.round((e.current * 100) / e.total);
+                FrogDownloader.updateDownloadUI(e.name, percent, e.current, e.total);
+            } else {
+                useProgress = true;
+            }
         });
         return true;
     }
 
     // Просто запустить версию по ID
-    static simpleStart = (versionId) => {
+    static simpleStart = async (versionId) => {
         let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
         let starter = new FrogStarter(versionId, parsedVersion.type, parsedVersion.name);
-        starter.prepare().then(() => {
-            let parsedVersion = FrogVersionsManager.parseVersionID(versionId);
-            if (parsedVersion.type === "pack") {
-                FrogPacks.verifyAndInstall(parsedVersion.name).then(() => {
-                    starter.launch();
-                })
-            } else {
-                starter.launch();
-            }
-        })
+        await starter.prepare();
+
+        if (parsedVersion.type === "pack") {
+            await FrogPacks.verifyAndInstall(parsedVersion.name);
+        }
+        return starter.launch();
     }
 }

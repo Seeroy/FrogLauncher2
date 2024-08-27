@@ -10,8 +10,8 @@ let defaultConfig = {
 class FrogConfig {
     // Прочитать конфиг-файл
     static readConfig() {
-        if (fs.existsSync(global.CONFIG_PATH)) {
-            return JSON.parse(fs.readFileSync(global.CONFIG_PATH));
+        if (fs.existsSync(CONFIG_PATH)) {
+            return JSON.parse(fs.readFileSync(CONFIG_PATH));
         } else {
             this.writeConfig(defaultConfig);
             return defaultConfig;
@@ -21,7 +21,7 @@ class FrogConfig {
     // Записать конфиг-файл
     static writeConfig(config) {
         fs.writeFileSync(
-            global.CONFIG_PATH,
+            CONFIG_PATH,
             JSON.stringify(config, null, "\t")
         );
         return true;
@@ -44,7 +44,7 @@ class FrogConfig {
 
     // Существует ли ключ в конфиге
     static isKeyExists = (key) => {
-        if(typeof mainConfig === "undefined"){
+        if (typeof mainConfig === "undefined") {
             return false;
         }
         return typeof mainConfig[key] !== "undefined";
