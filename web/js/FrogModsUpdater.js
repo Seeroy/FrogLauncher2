@@ -53,7 +53,7 @@ class FrogModsUpdater {
             FrogRequests.get(`https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${mcLoader}%22]`).then(result => {
                 let [isSuccess, response] = result;
                 if(!isSuccess){
-                    return;
+                    return FrogModsUpdater.checkNextModUpdates(mcVersion, mcLoader);
                 }
 
                 response.forEach((item) => {
