@@ -29,6 +29,7 @@
     "ejs-electron": "^3.0.0",
     "electron-updater": "^6.2.1",
     "fs-extra": "^11.2.0",
+    "gamedig": "^5.1.2",
     "jimp": "^0.22.12",
     "jquery": "^3.7.1",
     "machine-uuid": "^1.2.0",

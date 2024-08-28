@@ -51,6 +51,7 @@
     color: var(--text-sub);
 }
 
+/* Кнопки и чипы */
 #modal-servers .serversList .item .ip,
 #modal-servers .serversList .item .version {
     width: max-content;
@@ -95,6 +96,33 @@
     text-align: center;
 }
 
-html.light {
+/* Иконка со статусом */
+#modal-servers .serversList .item .icon {
+    position: relative;
+    display: inline-block;
+}
 
+#modal-servers .serversList .item .icon img {
+    object-fit: cover;
+}
+
+#modal-servers .serversList .item .icon .status {
+    border: 2px solid var(--theme-primaryBgLight);
+    position: absolute;
+    bottom: 2%;
+    right: -1%;
+    border-radius: 99999px;
+
+    width: 18px;
+    height: 18px;
+
+    background: var(--warning);
+}
+
+#modal-servers .serversList .item .icon .status.offline {
+    background: var(--error);
+}
+
+#modal-servers .serversList .item .icon .status.online {
+    background: var(--success);
 }

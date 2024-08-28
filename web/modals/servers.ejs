@@ -7,10 +7,16 @@
     </div>
     <div class="serversListWrapper">
         <div class="serversList">
-            <div class="item placeholder" style="display: none !important;">
-                <img src="$5" loading="lazy"/>
-                <div class="flex flex-col flex-justify-center flex-grow">
-                    <span class="caption">$1</span>
+            <div class="item placeholder" data-ip="$6" style="display: none !important;">
+                <div class="icon">
+                    <img alt="$1" src="$5" loading="lazy"/>
+                    <div class="status"></div>
+                </div>
+                <div class="flex flex-col flex-justify-center flex-grow cap-div">
+                    <div class="flex flex-row flex-align-center flex-gap-8 caption">
+                        <span class="caption">$1</span>
+                        <div class="chip small pill"></div>
+                    </div>
                     <span class="description">$2</span>
                 </div>
                 <div class="flex flex-col flex-justify-center flex-gap-4">
@@ -27,7 +33,7 @@
                         <span class="material-symbols-outlined"
                               onclick="FrogServersUI.copyServerIP(`$6`)">content_copy</span>
                 </div>
-                <div class="flex items-center flex-justify-center play-btn" style="display: none;">
+                <div class="flex items-center flex-justify-center play-btn">
                         <span class="material-symbols-outlined" style="font-size: 26pt;"
                               onclick="FrogServersUI.playOnServer(`$6`, `$7`)">play_arrow</span>
                 </div>

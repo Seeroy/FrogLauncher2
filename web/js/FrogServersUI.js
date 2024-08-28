@@ -30,6 +30,7 @@ class FrogServersUI {
                 $(this).show();
             }
         })
+        FrogServersUI.refreshServersInfo();
         return true;
     }
 
@@ -37,5 +38,55 @@ class FrogServersUI {
     static copyServerIP(ip) {
         navigator.clipboard.writeText(ip);
         FrogToasts.create(MESSAGES.servers.ipCopied, "share");
+    }
+
+    // Получить статус и информацию о сервере
+    static queryServer = async (ip) => {
+        let port = 25565;
+        if(ip.split(":").length === 2){
+            port = ip.split(":")[1];
+            ip = ip.split(":")[0];
+        }
+        try {
+            let query = await GameDig.query({type: "minecraft", host: ip, port: port});
+            return {
+                online: true,
+                data: query
+            }
+        } catch(e) {
+            return {
+                online: false
+            };
+        }
+    }
+
+    // Обновить информацию о серверах в списке
+    static refreshServersInfo = () => {
+        $("#modal-servers .serversList .item:not(.placeholder)").each(async function () {
+            let $status = $(this).find("div.status");
+            let $onlineChip = $(this).find("div.cap-div div.chip");
+            let ip = $(this).data("ip");
+
+            $status.removeClass("online offline");
+            $onlineChip.text("...");
+
+            let serverQuery = await FrogServersUI.queryServer(ip);
+            if(!serverQuery.online){
+                $status.addClass("offline");
+                $onlineChip.hide();
+            } else {
+                $status.addClass("online");
+                $onlineChip.show();
+                $onlineChip.text(`${serverQuery.data.numplayers} / ${serverQuery.data.maxplayers}`);
+            }
+        })
+    }
+
+    // Играть на сервере
+    static playOnServer = async (ip, versionId) => {
+        selectedServerFromList = ip;
+        FrogVersionsManager.setActiveVersion(versionId);
+        FrogFlyout.startSelectedVersion();
+        return true;
     }
 }

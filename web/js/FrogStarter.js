@@ -137,6 +137,7 @@ class FrogStarter {
         });
         launcher.on("arguments", (e) => {
             gameStarting = true;
+            selectedServerFromList = false;
             FrogPlayStats.onGameLaunch(FrogVersionsManager.getActiveVersion());
             $("#stopGameButton").show();
             // Показываем консоль

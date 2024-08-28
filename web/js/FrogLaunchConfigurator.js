@@ -80,6 +80,14 @@ class FrogLaunchConfigurator {
             configResult.overrides = {};
         }
 
+        // Настройка подключения к серверу
+        if(!!selectedServerFromList){
+            configResult.customLaunchArgs.push("--server");
+            configResult.customLaunchArgs.push(selectedServerFromList.split(":")[0]);
+            configResult.customLaunchArgs.push("--port");
+            configResult.customLaunchArgs.push(selectedServerFromList.split(":")[1]);
+        }
+
         configResult.window = {};
         // Настройка fullscreen
         configResult.window.fullscreen = FrogConfig.read("gameInFullscreen");
