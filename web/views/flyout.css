@@ -10,7 +10,7 @@
     justify-content: center;
     gap: 10px;
 
-    box-shadow: var(--theme-primaryBgShadow) 0px 2px 24px;
+    box-shadow: var(--theme-primaryBgShadow) 0 2px 24px;
 }
 
 .flyout > div, button {

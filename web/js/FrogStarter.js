@@ -2,6 +2,7 @@ let gameStarting = false;
 let assetsVerifyOffset = 0;
 let startAssetsInterval = 0;
 let gamePid = false;
+let killedManually = false;
 
 class FrogStarter {
     constructor(versionId, versionType, versionNumber) {
@@ -16,6 +17,7 @@ class FrogStarter {
             return false;
         }
         treeKill(gamePid);
+        killedManually = true;
         return true;
     }
 
@@ -121,10 +123,13 @@ class FrogStarter {
                 FrogFlyout.setUIStartMode(false);
                 FrogFlyout.changeMode("idle");
             }, 1000);
-            FrogErrorsParser.parse("", exitCode);
-            if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
-                FrogModals.switchModal("console");
+            if(!killedManually){
+                FrogErrorsParser.parse("", exitCode);
+                if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
+                    FrogModals.switchModal("console");
+                }
             }
+            killedManually = false;
             if (IS_APP_IN_DEV) {
                 console.log("Game exit code: " + exitCode);
             }

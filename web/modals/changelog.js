@@ -14,7 +14,7 @@ $(function () {
     })
 })
 
-$("#modal-changelog .wrapper").scroll(function (e) {
+$("#modal-changelog .wrapper").scroll(function () {
     let wrapper = $("#modal-changelog .wrapper")[0];
     if (wrapper.offsetHeight + wrapper.scrollTop >= wrapper.scrollHeight) {
         changelog_currentPage++;

@@ -8,10 +8,12 @@ class FrogAssetsParsers {
 
             fs.createReadStream(zipFile)
                 .on('error', (e) => {
+                    console.log(e);
                     return mainResolve(false);
                 })
                 .pipe(new compressing.zip.UncompressStream())
                 .on('error', (e) => {
+                    console.log(e);
                     return mainResolve(false);
                 })
                 .on('entry', (header, stream, next) => {

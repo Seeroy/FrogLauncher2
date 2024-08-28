@@ -93,20 +93,19 @@ class FrogAssets {
             }
         });
         // Ассеты
-        $.get(vPkg.assetIndex.url, (vAssets) => {
-            Object.values(vAssets.objects).forEach((asset) => {
-                let hash = asset.hash;
-                let subHash = hash.substring(0, 2);
-                let assetPath = path.resolve(path.join(assetsPath, "objects", subHash, hash));
-                if (!FrogAssets.verifyFile(assetPath, hash)) {
-                    downloadsList.push({
-                        url: MC_ASSETS_URL + "/" + hash + subHash,
-                        path: assetPath
-                    })
-                }
-            });
-            return resolve(downloadsList);
+        let vAssets = await FrogRequests.get(vPkg.assetIndex.url);
+        Object.values(vAssets.objects).forEach((asset) => {
+            let hash = asset.hash;
+            let subHash = hash.substring(0, 2);
+            let assetPath = path.resolve(path.join(assetsPath, "objects", subHash, hash));
+            if (!FrogAssets.verifyFile(assetPath, hash)) {
+                downloadsList.push({
+                    url: MC_ASSETS_URL + "/" + hash + subHash,
+                    path: assetPath
+                })
+            }
         });
+        return downloadsList;
     }
 
     // Проверить файл по хешу SHA-1

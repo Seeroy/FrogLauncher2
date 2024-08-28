@@ -12,16 +12,16 @@ $(function () {
         }
     })
 
-    $("#modal-installMods input.search").on("change", function (e) {
+    $("#modal-installMods input.search").on("change", function () {
         FrogPacksUI.reloadAll(true);
     })
 
-    $("#modal-installMods #packs_dirList").on("change", function (e) {
+    $("#modal-installMods #packs_dirList").on("change", function () {
         FrogPacksUI.reloadAll(true);
     })
 
     // Прогрузка при скролле
-    $("#modal-installMods .packs-wrapper").scroll(function (e) {
+    $("#modal-installMods .packs-wrapper").scroll(function () {
         let wrapper = $(this)[0];
         if (wrapper.offsetHeight === wrapper.scrollHeight || packs_scrollIsLoading) {
             return false;

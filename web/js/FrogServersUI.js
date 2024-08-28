@@ -1,35 +1,36 @@
 class FrogServersUI {
     // Загрузить список серверов
-    static loadList = () => {
-        return new Promise(resolve => {
-            $.get(SERVERS_URL + "?_=" + Date.now(), (servers) => {
-                // Очищаем список
-                $("#modal-servers .serversList .item:not(.placeholder)").remove();
+    static loadList = async () => {
+        let [isSuccess, servers] = await FrogRequests.get(SERVERS_URL);
+        if (!isSuccess) {
+            return false;
+        }
 
-                // Получаем код placeholder`а
-                let placeholder = $("#modal-servers .serversList .item.placeholder")[0].outerHTML;
-                placeholder = placeholder.replace(' placeholder', "");
-                // По placeholder`у добавляем новые элементы
-                servers.servers.forEach((srv) => {
-                    let preparedPlaceholder = placeholder.replaceAll(/\$1/gim, srv.name)
-                        .replaceAll(/\$2/gim, srv.description)
-                        .replaceAll(/\$3/gim, srv.version)
-                        .replaceAll(/\$4/gim, srv.ip)
-                        .replaceAll(/\$5/gim, srv.icon)
-                        .replaceAll(/\$6/gim, srv.ip + ":" + srv.port)
-                        .replaceAll(/\$7/gim, srv.flVersion);
-                    $("#modal-servers .serversList").append(preparedPlaceholder);
-                })
+        // Очищаем список
+        $("#modal-servers .serversList .item:not(.placeholder)").remove();
 
-                // Показываем все в списке
-                $("#modal-servers .serversList .item").each(function () {
-                    if (!$(this).hasClass("placeholder")) {
-                        $(this).show();
-                    }
-                })
-                return resolve(true);
-            })
+        // Получаем код placeholder`а
+        let placeholder = $("#modal-servers .serversList .item.placeholder")[0].outerHTML;
+        placeholder = placeholder.replace(' placeholder', "");
+        // По placeholder`у добавляем новые элементы
+        servers.servers.forEach((srv) => {
+            let preparedPlaceholder = placeholder.replaceAll(/\$1/gim, srv.name)
+                .replaceAll(/\$2/gim, srv.description)
+                .replaceAll(/\$3/gim, srv.version)
+                .replaceAll(/\$4/gim, srv.ip)
+                .replaceAll(/\$5/gim, srv.icon)
+                .replaceAll(/\$6/gim, srv.ip + ":" + srv.port)
+                .replaceAll(/\$7/gim, srv.flVersion);
+            $("#modal-servers .serversList").append(preparedPlaceholder);
         })
+
+        // Показываем все в списке
+        $("#modal-servers .serversList .item").each(function () {
+            if (!$(this).hasClass("placeholder")) {
+                $(this).show();
+            }
+        })
+        return true;
     }
 
     // Скопировать IP сервера

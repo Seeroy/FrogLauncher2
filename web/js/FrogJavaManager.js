@@ -104,18 +104,16 @@ class FrogJavaManager {
     };
 
     // Получить список доступных на сервере версий Java
-    static getDownloadableVersions = (cb) => {
-        $.get(JAVA_LIST_URL, (data) => {
-            if (data !== false) {
-                let availReleases = data.available_releases;
-                availReleases.forEach((release, i) => {
-                    availReleases[i] = release.toString();
-                });
-                cb(availReleases);
-                return;
-            }
-            cb(false);
-        });
+    static getDownloadableVersions = async () => {
+        let [isSuccess, data] = await FrogRequests.get(JAVA_LIST_URL);
+        if (isSuccess && data) {
+            let availReleases = data.available_releases;
+            availReleases.forEach((release, i) => {
+                availReleases[i] = release.toString();
+            });
+            return availReleases;
+        }
+        return false;
     };
 
     // Получить путь к скачанной версии Java (возвращает false, если версия не существует)

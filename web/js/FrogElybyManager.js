@@ -10,22 +10,23 @@ class FrogElybyManager {
         if (totpToken !== "") {
             password = password + ":" + totpToken;
         }
-        $.post(ELYBY_ENDPOINT + ELYBY_AUTH_URL, {
+        let [isSuccess, response] = await FrogRequests.post(ELYBY_ENDPOINT + ELYBY_AUTH_URL, {
             username: login,
             password: password,
             clientToken: clientToken,
             requestUser: true
-        }).done((data) => {
+        });
+        if(isSuccess){
             return [true, data, clientToken];
-        }).fail((err) => {
-            if (err.responseJSON.errorMessage.match(/Invalid credentials/gim) !== null) {
+        } else {
+            if (response.responseJSON.errorMessage.match(/Invalid credentials/gim) !== null) {
                 return [false, "INVALID_CREDENTIALS", clientToken];
-            } else if (err.responseJSON.errorMessage.match(/two factor auth/gim) !== null) {
+            } else if (response.responseJSON.errorMessage.match(/two factor auth/gim) !== null) {
                 return [false, "REQUIRES_TOTP", clientToken];
             } else {
-                return [false, err.responseJSON.errorMessage, clientToken];
+                return [false, response.responseJSON.errorMessage, clientToken];
             }
-        })
+        }
     }
 
     // Обновить access token

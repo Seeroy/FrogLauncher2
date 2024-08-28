@@ -266,9 +266,17 @@ class FrogPacks {
                     return depsResolve(true);
                 }
 
-                $.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`, (depVersions) => {
+                FrogRequests.get(`https://api.modrinth.com/v2/project/${deps[currentDepInstalling].project_id}/version?game_versions=["${gameVersion}"]`).then(result => {
+                    let [isSuccess, depVersions] = result;
+                    if(!isSuccess){
+                        return installNextDep();
+                    }
                     // Получаем манифест версии
-                    $.get(`https://api.modrinth.com/v2/version/${depVersions[0].id}`, (response) => {
+                    FrogRequests.get(`https://api.modrinth.com/v2/version/${depVersions[0].id}`).then(secondResult => {
+                        let [isSuccess, response] = secondResult;
+                        if(!isSuccess){
+                            return installNextDep();
+                        }
                         // Если не модпак - просто скачиваем файл
                         let fileItem = response.files[0];
                         let fullDownloadPath = path.join(downloadPath, fileItem.filename);
@@ -278,7 +286,7 @@ class FrogPacks {
                             return installNextDep();
                         });
                     })
-                });
+                })
             }
 
             installNextDep();
@@ -300,7 +308,14 @@ class FrogPacks {
                 directoryDlPath = downloadPath;
             }
             // Получаем манифест версии
-            $.get(`https://api.modrinth.com/v2/version/${versionId}`, (response) => {
+            FrogRequests.get(`https://api.modrinth.com/v2/version/${versionId}`).then(result => {
+                let [isSuccess, response] = result;
+                if(!isSuccess){
+                    FrogFlyout.changeMode("idle");
+                    FrogPacksUI.reloadAll(false, true, true);
+                    return resolve();
+                }
+
                 // Если не модпак - просто скачиваем файл
                 let fileItem = response.files[0];
                 if (installPath !== "") {

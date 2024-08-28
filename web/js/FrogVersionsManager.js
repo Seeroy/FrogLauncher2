@@ -243,8 +243,8 @@ class FrogVersionsManager {
         });
 
         if (isSuccess === true && verUrl !== false) {
-            let pkgData = await FrogRequests.get(verUrl);
-            if (pkgData !== false) {
+            let [isSuccess, pkgData] = await FrogRequests.get(verUrl);
+            if (isSuccess && pkgData) {
                 return pkgData;
             }
         }

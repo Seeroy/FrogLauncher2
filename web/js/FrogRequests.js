@@ -1,10 +1,10 @@
 class FrogRequests {
     static get = (url) => {
         return new Promise(resolve => {
-            $.get(url, (result) => {
-                resolve(result);
-            }).fail(error => {
-                resolve(false);
+            $.get(url, (response) => {
+                resolve([true, response]);
+            }).fail(e => {
+                resolve([false, e]);
             })
         })
     }
@@ -15,12 +15,12 @@ class FrogRequests {
                 url: url,
                 type: "POST",
                 data: data,
-                success: function (response) {
-                    resolve(response);
+                success: (response) => {
+                    resolve([true, response]);
                 },
-                error: function (e) {
+                error: (e) => {
                     console.error(e);
-                    resolve(false);
+                    resolve([false, e]);
                 },
                 processData: processData,
                 contentType: contentType

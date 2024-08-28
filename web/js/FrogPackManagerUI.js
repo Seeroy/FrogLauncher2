@@ -341,16 +341,14 @@ class FrogPackManagerUI {
     }
 
     // Загрузить пак и показать окно
-    static loadAndShow = (packId) => {
+    static loadAndShow = async (packId) => {
         if (!FrogPacks.isModpackExists(packId)) {
             return false;
         }
 
         let modpackManifest = FrogPacks.getModpackManifest(packId);
-        FrogPackManagerUI.loadPackByManifest(modpackManifest).then(() => {
-            FrogModals.showModal("packManager");
-        });
-
+        FrogPackManagerUI.loadPackByManifest(modpackManifest);
+        await FrogModals.showModal("packManager");
         return true;
     }
 

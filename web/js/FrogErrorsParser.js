@@ -38,7 +38,6 @@ class FrogErrorsParser {
                     );
                     isMCErrorShown = true;
                 }
-                errorHappend = true;
             } else {
                 FrogCollector.writeLog(`Crash: Force terminated with code ${exitCode}`);
             }

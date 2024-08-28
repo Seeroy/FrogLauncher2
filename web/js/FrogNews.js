@@ -1,23 +1,7 @@
 class FrogNews {
     // Получить новости
-    static getNews = () => {
-        return new Promise(resolve => {
-            $.ajax
-            (
-                {
-                    type: "GET",
-                    url: NEWS_URL + "?_=" + Date.now(),
-                    cache: false,
-                    dataType: 'json',
-                    success: (result) => {
-                        return resolve(result);
-                    },
-                    error: function (xhr, textStatus, thrownError) {
-                        console.log("Can`t get news:", textStatus);
-                    }
-                }
-            );
-        })
+    static getNews = async () => {
+        return await FrogRequests.get(NEWS_URL);
     }
 
     // Загрузить новости в UI
@@ -26,7 +10,10 @@ class FrogNews {
         $(".news .news-list").hide();
         $(".news .news-list").html("");
 
-        let news = await FrogNews.getNews();
+        let [isSuccess, news] = await FrogNews.getNews();
+        if(!isSuccess || !news){
+            return false;
+        }
         let placeholder = $(".news .placeholder")[0].outerHTML;
         placeholder = placeholder.replace(' placeholder"', "");
         // По placeholder`у добавляем новые элементы

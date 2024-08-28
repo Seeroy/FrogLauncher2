@@ -50,8 +50,13 @@ class FrogModsUpdater {
             let projectId = mods__packList[mods__currentChecking].url.split("/")[4];
             let currentVersion = resultLocal.version;
             let latestVersion = false;
-            $.get(`https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${mcLoader}%22]`, (result) => {
-                result.forEach((item) => {
+            FrogRequests.get(`https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${mcLoader}%22]`).then(result => {
+                let [isSuccess, response] = result;
+                if(!isSuccess){
+                    return;
+                }
+
+                response.forEach((item) => {
                     if (item.version_type === "release" && latestVersion === false) {
                         latestVersion = {
                             version: item.version_number,

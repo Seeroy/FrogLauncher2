@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="modals/accounts.css"/>
 
-<div class="modal overlay top" id="modal-accounts" style="display: none;">
+<div class="modal overlay" id="modal-accounts" style="display: none;">
     <div class="add-local hidden" style="display: none;">
         <input type="text" placeholder="{{accounts.input}}"/>
         <button class="transparent square small" onclick="FrogAccountsUI.addLocalAccount()">
@@ -41,11 +41,11 @@
         <button onclick="FrogAccountsUI.showAddLocalAccountUI()">
             {{accounts.offline}}
         </button>
-        <button onclick="FrogModals.showModal('elybyLogin')">
+        <button onclick="FrogModals.hideCurrentOverlay(); FrogModals.showModal('elybyLogin')">
             Ely.by
         </button>
     </div>
-    <button class="addFrog" onclick="FrogModals.showModal('frogLogin')">{{frogAuth.useButton}}</button>
+    <button class="addFrog" onclick="FrogModals.hideCurrentOverlay(); FrogModals.showModal('frogLogin')">{{frogAuth.useButton}}</button>
 </div>
 
 <script>

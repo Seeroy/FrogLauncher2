@@ -6,7 +6,7 @@
     z-index: 3;
 
     border-radius: 16px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 10px 36px 0, rgba(0, 0, 0, 0.06) 0 0 0 1px;
     padding: 3%;
 
     max-height: 73vh;
@@ -35,12 +35,12 @@ body:has(.modal.overlay:not([style*="display: none;"])) > .modal-overlay {
     right: 0;
     bottom: 0;
     top: 0;
-    z-index: 10;
     margin: auto;
+    z-index: 10;
 }
 
-.modal.top {
-    z-index: 5 !important;
+.modal.overlay:not(.centered) {
+    z-index: 11 !important;
 }
 
 .modal .content {

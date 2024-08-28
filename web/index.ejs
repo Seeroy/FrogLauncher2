@@ -143,10 +143,11 @@
         })
 
         if (FrogConfig.read("language") !== "ru") {
-            NEWS_URL = CDN_URL + "/news_en.json";
+            global.NEWS_URL = CDN_URL + "/news_en.json";
         } else {
-            NEWS_URL = CDN_URL + "/news.json";
+            global.NEWS_URL = CDN_URL + "/news.json";
         }
+        global.NEWS_URL += `?_=${Date.now()}`;
 
         if (FrogConfig.read("disableAnimations", false) === true) {
             $("html").addClass("noAnimations");
