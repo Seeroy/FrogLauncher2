@@ -15,9 +15,9 @@ class FrogElybyManager {
             password: password,
             clientToken: clientToken,
             requestUser: true
-        });
+        }, "json", true);
         if(isSuccess){
-            return [true, data, clientToken];
+            return [true, response, clientToken];
         } else {
             if (response.responseJSON.errorMessage.match(/Invalid credentials/gim) !== null) {
                 return [false, "INVALID_CREDENTIALS", clientToken];
