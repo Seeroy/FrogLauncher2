@@ -110,6 +110,7 @@ class FrogStarter {
             if (IS_APP_IN_DEV) {
                 console.log(e);
             }
+            // Проверки для смены статуса запуска
             if (e.match(/Sound engine started/gim) !== null || e.match(/OpenAL initialized/gim) !== null || e.match(/Created\: 512x512 textures-atlas/gim) !== null) {
                 FrogFlyout.setText(MESSAGES.starter.started, versionDisplayName);
             }
@@ -129,6 +130,8 @@ class FrogStarter {
             gameStarting = false;
             assetsVerifyOffset = 0;
             startAssetsInterval = 0;
+
+            // Показываем все нужные элементы
             FrogPlayStats.onGameClose();
             $("#stopGameButton").hide();
             FrogUI.appearMainWindow();
@@ -136,6 +139,8 @@ class FrogStarter {
                 FrogFlyout.setUIStartMode(false);
                 FrogFlyout.changeMode("idle");
             }, 1000);
+
+            // Если лаунчер не убит вручную - проверяем стоп-код
             if(!killedManually){
                 FrogErrorsParser.parse("", exitCode);
                 if (exitCode > 0 && exitCode !== 127 && exitCode !== 255 && exitCode !== 1 && FrogConfig.read("consoleOnCrash") === true) {
