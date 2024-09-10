@@ -10,6 +10,7 @@ class FrogStarter {
         this.versionType = versionType;
         this.versionNumber = versionNumber;
         this.config = {};
+        this.gameRoot = "";
     }
 
     static kill = () => {
@@ -22,6 +23,7 @@ class FrogStarter {
     }
 
     prepare = async () => {
+        this.gameRoot = FrogUtils.getGameRoot(this.versionId);
         FrogCollector.writeLog(`Starter: Preparing UI to start / prepare()`);
 
         let accData = FrogAccountsManager.getAccount(FrogAccountsManager.getActiveAccount());
@@ -69,6 +71,12 @@ class FrogStarter {
         let configuration = await FrogLaunchConfigurator.createConfigForVersion(this.versionId, javaVersion);
         this.config = configuration;
         FrogCollector.writeLog(`Starter: Configuration ready`);
+
+        // Если версия ForgeOptiFine - скачиваем/переносим файл в моды
+        if(this.versionType === "forgeOptiFine"){
+            await FrogAssets.setupOptiFine(this.versionNumber, this.gameRoot);
+        }
+
         if (IS_APP_IN_DEV) {
             console.log(configuration);
         }
@@ -112,6 +120,11 @@ class FrogStarter {
             FrogCollector.writeLog(e);
         });
         launcher.on('close', (exitCode) => {
+            // Удаляем OptiFine
+            if(this.versionType === "forgeOptiFine"){
+                FrogAssets.removeOptiFine(this.versionNumber, this.gameRoot);
+            }
+
             gamePid = false;
             gameStarting = false;
             assetsVerifyOffset = 0;

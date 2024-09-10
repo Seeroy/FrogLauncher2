@@ -1,4 +1,5 @@
 let fullListPerformance1, fullListPerformance2;
+let manifestData = false;
 
 class FrogVersionsManager {
     // Получить все ванильные доступные версии
@@ -73,6 +74,22 @@ class FrogVersionsManager {
         return result;
     }
 
+    // Получить все доступные версии ForgeOptiFine
+    static getOptiFineVersionsAvailable = async () => {
+        let result = [];
+        if(!manifestData){
+            let [isSuccess, reqData] = await FrogRequests.get(CDN_URL + "/assets/data.json");
+            if(!isSuccess){
+                return result;
+            }
+            manifestData = reqData;
+        }
+        for (const [key, value] of Object.entries(manifestData.optifine)) {
+            result.push(key);
+        }
+        return result;
+    }
+
     // Получить все доступные версии игры всех загрузчиков
     static getAllVersionsAvailable = async (vanillaVersionsType = ["release"]) => {
         let vanillaVersions = await FrogVersionsManager.getVanillaVersionsAvailable(vanillaVersionsType);
@@ -80,13 +97,15 @@ class FrogVersionsManager {
         let forgeVersions = await FrogVersionsManager.getForgeVersionsAvailable();
         let neoforgeVersions = await FrogVersionsManager.getNeoForgeVersionsAvailable();
         let quiltVersions = await FrogVersionsManager.getQuiltVersionsAvailable()
+        let forgeOptiFineVersions = await FrogVersionsManager.getOptiFineVersionsAvailable();
 
         return {
             vanilla: vanillaVersions,
             fabric: fabricVersions,
             forge: forgeVersions,
             neoforge: neoforgeVersions,
-            quilt: quiltVersions
+            quilt: quiltVersions,
+            forgeOptiFine: forgeOptiFineVersions
         }
     }
 
@@ -184,6 +203,9 @@ class FrogVersionsManager {
         switch (parsed.type) {
             case "forge":
                 displayType = "Forge";
+                break;
+            case "forgeOptiFine":
+                displayType = "ForgeOptiFine";
                 break;
             case "neoforge":
                 displayType = "NeoForge";

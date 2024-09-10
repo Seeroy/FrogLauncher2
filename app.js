@@ -167,7 +167,7 @@ app.whenReady().then(() => {
     // Диалог открытия файлов
     ipcMain.handle("open-dialog", async (event, options) => {
         let result = await dialog.showOpenDialog(options);
-        if(result.canceled === true){
+        if (result.canceled === true) {
             return false;
         }
         return result.filePaths || result.filePath;
@@ -176,7 +176,7 @@ app.whenReady().then(() => {
     // Диалог сохранения файлов
     ipcMain.handle("save-dialog", async (event, options) => {
         let result = await dialog.showSaveDialog(options);
-        if(result.canceled === true){
+        if (result.canceled === true) {
             return false;
         }
         return result.filePath;
@@ -211,6 +211,13 @@ app.whenReady().then(() => {
                     root: gameData
                 });
             case "forge":
+                return forge.getMCLCLaunchConfig({
+                    gameVersion: version,
+                    rootPath: gameData
+                }).then((result) => {
+                    event.sender.send("get-mclc-config", result);
+                });
+            case "forgeOptiFine":
                 return forge.getMCLCLaunchConfig({
                     gameVersion: version,
                     rootPath: gameData

@@ -260,4 +260,20 @@ class FrogUtils {
             .filter((v, i) => v !== "00" || i > 0)
             .join(":")
     }
+
+    // Получить директорию игры из versionId
+    static getGameRoot = (versionId) => {
+        let isDirSplitEnabled = FrogConfig.read("separatedStorage") === true || FrogConfig.read("fullySeparatedStorage") === true;
+
+        let parsedVersionId = FrogVersionsManager.parseVersionID(versionId);
+        // Если это не модпак
+        if(parsedVersionId.type !== "pack"){
+            if(isDirSplitEnabled){
+                return path.join(GAME_DATA, "home", versionId);
+            }
+            return path.join(GAME_DATA);
+        } else {
+            return path.join(GAME_DATA, "modpacks", parsedVersionId.name);
+        }
+    }
 }

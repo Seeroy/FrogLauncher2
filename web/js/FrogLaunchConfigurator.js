@@ -27,10 +27,13 @@ class FrogLaunchConfigurator {
             resultConfig.javaPath = FrogConfig.read("selectedJava");
         }
 
-        FrogCollector.writeLog(`Config: Created successfully, resolving promise`);
+        FrogCollector.writeLog(`Config: Prepared first version`);
         let moddedLaunchConfig = await FrogLaunchConfigurator.getModdedLaunchConfig(versionParsed.type, versionParsed.name);
+        FrogCollector.writeLog(`Config: Prepared modded launch config`);
         resultConfig = {...moddedLaunchConfig, ...resultConfig};
         resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
+        FrogCollector.writeLog(`Config: Fixes applied`);
+        FrogCollector.writeLog(`Config: Setup of authlib-injector and resolving promises`);
 
         // Настраиваем authlib-injector
         return FrogLaunchConfigurator.setupAuthlib(resultConfig, activeAccount);

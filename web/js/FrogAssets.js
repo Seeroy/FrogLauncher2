@@ -147,4 +147,57 @@ class FrogAssets {
                 return 'linux';
         }
     }
+
+    // Скачать/перенести нужный файл OptiFine
+    static setupOptiFine = async (ofVersion, gamePath) => {
+        let ofUrl = manifestData?.optifine[ofVersion];
+        if(!ofUrl){
+            return false;
+        }
+        // Готовим все переменные
+        let ofFile = FrogUtils.getFilenameFromURL(ofUrl);
+        let ofCachePath = path.join(GAME_DATA, "cache", "of", ofFile);
+        let ofCacheDirname = path.dirname(ofCachePath);
+        let ofPath = path.join(gamePath, "mods", ofFile);
+
+        if(fs.existsSync(ofCachePath) && fs.existsSync(ofPath)){
+            // Если файл уже есть в кэше и в игре
+            return true;
+        } else if(fs.existsSync(ofCachePath) && !fs.existsSync(ofPath)){
+            // Есть в кэше, но нет в игре - копируем в моды
+            fs.copyFileSync(ofCachePath, ofPath);
+            return true;
+        }
+
+        // Если нет папки под кэш
+        if(!fs.existsSync(path.dirname(ofCacheDirname))){
+            fs.mkdirSync(ofCacheDirname, {recursive: true});
+        }
+
+        // Скачиваем файл
+        let dlResult = await FrogDownloader.downloadFile(ofUrl, ofCachePath, `OptiFine ${ofVersion}`, true);
+        if(!dlResult){
+            return false;
+        }
+
+        // Копируем в моды
+        fs.copyFileSync(ofCachePath, ofPath);
+        return true;
+    }
+
+    // Удалить OptiFine (после завершения игры)
+    static removeOptiFine = (ofVersion, gamePath) => {
+        let ofUrl = manifestData?.optifine[ofVersion];
+        if(!ofUrl){
+            return false;
+        }
+        // Готовим все переменные
+        let ofFile = FrogUtils.getFilenameFromURL(ofUrl);
+        let ofPath = path.join(gamePath, "mods", ofFile);
+
+        if(fs.existsSync(ofPath)){
+            fs.unlinkSync(ofPath);
+        }
+        return true;
+    }
 }
