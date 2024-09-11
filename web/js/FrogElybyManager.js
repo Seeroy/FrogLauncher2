@@ -32,15 +32,15 @@ class FrogElybyManager {
     // Обновить access token
     static refreshAccessToken = async (authToken) => {
         let clientToken = await machineUuid();
-        $.post(ELYBY_ENDPOINT + ELYBY_REFRESH_URL, {
-            authToken: authToken,
+        let [isSuccess, result] = await FrogRequests.post(ELYBY_ENDPOINT + ELYBY_REFRESH_URL, {
+            accessToken: authToken,
             clientToken: clientToken,
             requestUser: true,
-        }).done((data) => {
-            return [true, data, clientToken];
-        }).fail((err) => {
-            return [false, err.toString(), clientToken];
-        })
+        }, "json", true);
+        if(!isSuccess){
+            return [false, result.toString(), clientToken];
+        }
+        return [true, result, clientToken];
     }
 
     // Валидировать access token
@@ -61,8 +61,8 @@ class FrogElybyManager {
         let validationResult = await FrogElybyManager.validateAccessToken(accountData.accessToken);
         if (!validationResult) {
             // Заново генерируем токен
-            let refreshResult = await FrogElybyManager.refreshAccessToken(accountData.authToken);
-            if (!refreshResult[0]) {
+            let [isRefreshSuccess, refreshResult] = await FrogElybyManager.refreshAccessToken(accountData.accessToken);
+            if (!isRefreshSuccess) {
                 // Если ошибка генерации - удаляем акк и просим добавить заново
                 $("#modal-elybyLogin .error").text(MESSAGES.elyby.repeat);
                 await FrogModals.showModal("elybyLogin");

@@ -19,6 +19,10 @@ class FrogLaunchConfigurator {
         let activeAccount = FrogAccountsManager.getActiveAccount();
         // Добавляем данные авторизации
         resultConfig.authorization = await FrogAccountsManager.getAccountMCLCData(activeAccount);
+        if(!resultConfig.authorization){
+            FrogCollector.writeLog(`Configurator: authorization config data is NULL!`);
+            return false;
+        }
 
         // Добавляем данные Java
         if (FrogConfig.read("autoSelectJava") === true) {

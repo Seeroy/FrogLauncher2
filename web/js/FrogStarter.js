@@ -69,6 +69,10 @@ class FrogStarter {
 
         // Получаем конфигурацию
         let configuration = await FrogLaunchConfigurator.createConfigForVersion(this.versionId, javaVersion);
+        if(!configuration){
+            FrogCollector.writeLog(`Starter: Error happend with launch config!`);
+            return false;
+        }
         this.config = configuration;
         FrogCollector.writeLog(`Starter: Configuration ready`);
 
