@@ -31,6 +31,9 @@
         })
 
         $("#modal-console .openDir").click(() => {
+            if(!fs.existsSync(`${GAME_DATA}/logs`)){
+                fs.mkdirSync(`${GAME_DATA}/logs`);
+            }
             openExternal(`${GAME_DATA}/logs`);
         })
     })
