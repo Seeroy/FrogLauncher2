@@ -32,6 +32,7 @@ global.STATS_URL = "https://statscol.seeeroy.ru/save_fl?savedata=";
 //global.NEWS_URL = CDN_URL + "/news.json"; // Перемещено в index.ejs
 global.SERVERS_URL = CDN_URL + `/servers.json?_=${Date.now()}`;
 global.AUTHLIB_INJECTOR_URL = CDN_URL + "/authlib-injector.jar";
+global.REPO_NAME = "Seeroy/FrogLauncher2";
 
 // Ссылка на Java
 global.JAVA_LIST_URL = "https://api.adoptium.net/v3/info/available_releases";

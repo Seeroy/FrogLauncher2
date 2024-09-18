@@ -24,7 +24,7 @@ $("#modal-changelog .wrapper").scroll(function () {
 
 class FrogChangelogUI {
     static getReleases = (cb) => {
-        $.get(`https://api.github.com/repos/Seeroy/FrogLauncher2/releases?per_page=${changelog_pageLimit}&page=${changelog_currentPage}`, cb).fail(() => {
+        $.get(`https://api.github.com/repos/${REPO_NAME}/releases?per_page=${changelog_pageLimit}&page=${changelog_currentPage}`, cb).fail(() => {
             $(".list").html(CHANGELOG_FAILED_PLACEHOLDER);
         });
     }
