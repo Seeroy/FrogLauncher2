@@ -118,7 +118,7 @@ class FrogStarter {
             if (e.match(/Sound engine started/gim) !== null || e.match(/OpenAL initialized/gim) !== null || e.match(/Created\: 512x512 textures-atlas/gim) !== null) {
                 FrogFlyout.setText(MESSAGES.starter.started, versionDisplayName);
             }
-            if (e.match(/Stopping!/gim) !== null || e.match(/SoundSystem shutting down/gim) !== null) {
+            if (e.match(/Stopping!/gim) !== null) {
                 FrogFlyout.setText(MESSAGES.starter.closing, versionDisplayName);
                 FrogUI.appearMainWindow();
             }
