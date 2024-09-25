@@ -35,7 +35,7 @@ class FrogLaunchConfigurator {
         let moddedLaunchConfig = await FrogLaunchConfigurator.getModdedLaunchConfig(versionParsed.type, versionParsed.name);
         FrogCollector.writeLog(`Config: Prepared modded launch config`);
         resultConfig = {...moddedLaunchConfig, ...resultConfig};
-        resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(resultConfig);
+        resultConfig = FrogLaunchConfigurator.applySettingsFixesToConfig(versionParsed, resultConfig);
         FrogCollector.writeLog(`Config: Fixes applied`);
         FrogCollector.writeLog(`Config: Setup of authlib-injector and resolving promises`);
 
@@ -75,7 +75,7 @@ class FrogLaunchConfigurator {
     }
 
     // Наложить на конфигурацию фиксы, включенные в настройках лаунчера
-    static applySettingsFixesToConfig = (config) => {
+    static applySettingsFixesToConfig = (versionData, config) => {
         let configResult = config;
         if (typeof configResult.customArgs != "object") {
             configResult.customArgs = [];
@@ -112,7 +112,7 @@ class FrogLaunchConfigurator {
             fs.mkdirSync(separatedPath, {recursive: true});
         }
         if (FrogConfig.read("separatedStorage") === true && FrogConfig.read("fullySeparatedStorage") === false) {
-            configResult.overrides.gameDirectory = path.join(GAME_DATA, "home", (config?.version?.custom || config?.version?.number));
+            configResult.overrides.gameDirectory = path.join(GAME_DATA, "home", versionData.id);
         }
         let parsedActive = FrogVersionsManager.parseVersionID(FrogVersionsManager.getActiveVersion());
         // Для запуска модпака

@@ -160,6 +160,12 @@ class FrogAssets {
         let ofCachePath = path.join(GAME_DATA, "cache", "of", ofFile);
         let ofCacheDirname = path.dirname(ofCachePath);
         let ofPath = path.join(gamePath, "mods", ofFile);
+        let ofPathDirname = path.dirname(ofPath);
+
+        // Создаём папку если её нет
+        if(!fs.existsSync(ofPathDirname)){
+            fs.mkdirSync(ofPathDirname, {recursive: true});
+        }
 
         if(fs.existsSync(ofCachePath) && fs.existsSync(ofPath)){
             // Если файл уже есть в кэше и в игре
@@ -184,7 +190,6 @@ class FrogAssets {
         let dlResult = await FrogDownloader.downloadFile(ofUrl, ofCachePath, `OptiFine ${ofVersion}`, true);
         if(!dlResult){
             FrogCollector.writeLog(`OF: Failed to download file`);
-            console.log(dlResult);
             return false;
         }
 

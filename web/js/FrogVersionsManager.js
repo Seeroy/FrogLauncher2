@@ -280,7 +280,8 @@ class FrogVersionsManager {
         idSplit.shift();
         return {
             type: versionType,
-            name: idSplit.join("-")
+            name: idSplit.join("-"),
+            id: versionId
         }
     }
 }
