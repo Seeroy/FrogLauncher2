@@ -16,7 +16,7 @@ class FrogCollector {
             fs.writeFileSync(filesList[1], Date.now().toString());
             fs.writeFileSync(filesList[2], JSON.stringify(window.localStorage));
             fs.writeFileSync(filesList[3], JSON.stringify({
-                cpu: JSON.stringify(os.cpus()),
+                cpu: os.cpus(),
                 ram: Math.round(os.totalmem() / 1024 / 1024),
                 arch: os.arch(),
                 win: os.release(),
@@ -24,7 +24,11 @@ class FrogCollector {
                 homeDir: os.homedir(),
                 appDataDir: USERDATA_PATH,
                 resolvedRoot: path.resolve("./"),
-                machineId: uniqueId
+                uniqueId: uniqueId,
+                version: LAUNCHER_VERSION,
+                processVersions: process.versions,
+                javas: FrogJavaManager.getLocal(),
+                packsCount: FrogPacks.getPacksList().length
             }));
             const outputPath = path.join(USERDATA_PATH, archiveName + ".zip");
             FrogUtils.compressDirectory(outputPath, archiveDirPath).then(() => {
