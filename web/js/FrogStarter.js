@@ -78,6 +78,7 @@ class FrogStarter {
 
         // Если версия ForgeOptiFine - скачиваем/переносим файл в моды
         if(this.versionType === "forgeOptiFine"){
+            FrogCollector.writeLog(`Starter: Preparing OptiFine`);
             await FrogAssets.setupOptiFine(this.versionNumber, this.gameRoot);
         }
 

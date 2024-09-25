@@ -152,6 +152,7 @@ class FrogAssets {
     static setupOptiFine = async (ofVersion, gamePath) => {
         let ofUrl = manifestData?.optifine[ofVersion];
         if(!ofUrl){
+            FrogCollector.writeLog(`OF: No OptiFine in manifestData`);
             return false;
         }
         // Готовим все переменные
@@ -162,26 +163,34 @@ class FrogAssets {
 
         if(fs.existsSync(ofCachePath) && fs.existsSync(ofPath)){
             // Если файл уже есть в кэше и в игре
+            FrogCollector.writeLog(`OF: File already in cache`);
             return true;
         } else if(fs.existsSync(ofCachePath) && !fs.existsSync(ofPath)){
             // Есть в кэше, но нет в игре - копируем в моды
+            FrogCollector.writeLog(`OF: File already in cache, but not copied to mods`);
             fs.copyFileSync(ofCachePath, ofPath);
+            FrogCollector.writeLog(`OF: Copying to mods done`);
             return true;
         }
 
         // Если нет папки под кэш
         if(!fs.existsSync(path.dirname(ofCacheDirname))){
+            FrogCollector.writeLog(`OF: No cache directory, creating one`);
             fs.mkdirSync(ofCacheDirname, {recursive: true});
         }
 
         // Скачиваем файл
+        FrogCollector.writeLog(`OF: Starting file download [url=${ofUrl}]`);
         let dlResult = await FrogDownloader.downloadFile(ofUrl, ofCachePath, `OptiFine ${ofVersion}`, true);
         if(!dlResult){
+            FrogCollector.writeLog(`OF: Failed to download file`);
+            console.log(dlResult);
             return false;
         }
 
         // Копируем в моды
         fs.copyFileSync(ofCachePath, ofPath);
+        FrogCollector.writeLog(`OF: Copying to mods done`);
         return true;
     }
 
@@ -196,6 +205,7 @@ class FrogAssets {
         let ofPath = path.join(gamePath, "mods", ofFile);
 
         if(fs.existsSync(ofPath)){
+            FrogCollector.writeLog(`OF: OptiFine found in mods, removing...`);
             fs.unlinkSync(ofPath);
         }
         return true;
