@@ -175,6 +175,9 @@
         "disableAnimations": {
           "title": "Animationen deaktivieren",
           "description": "Alle Animations- und Übergangszeiten sind auf ein Minimum reduziert"
+        },
+        "fontFamily": {
+          "title": "Primäre Schnittstellenschriftart"
         }
       },
       "startup": {

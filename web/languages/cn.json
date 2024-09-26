@@ -175,6 +175,9 @@
         "disableAnimations": {
           "title": "停用動畫",
           "description": "所有動畫和轉場時間都縮到最短"
+        },
+        "fontFamily": {
+          "title": "主介面字體"
         }
       },
       "startup": {

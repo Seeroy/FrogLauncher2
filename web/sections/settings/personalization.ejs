@@ -85,6 +85,16 @@
 
 <div class="flex flex-center flex-gap-8 settings-item">
     <div class="icon">
+        <span class="material-symbols-outlined">format_size</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center">
+        <span class="name">{{settings.personalization.fontFamily.title}}</span>
+    </div>
+    <select class="custom-select lighter flex-grow" id="fontFamily"></select>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
         <span class="material-symbols-outlined">lens_blur</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
@@ -130,3 +140,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    var $fontSelect = $("#fontFamily");
+
+    $(function(){
+        reloadFontsSelect();
+    })
+
+    async function reloadFontsSelect() {
+        let fontsList = await FrogUI.getFontsAvailable();
+        let activeFont = await FrogThemes.loadFont();
+        $fontSelect.html("");
+        fontsList.forEach(item => {
+            $fontSelect.append(`<option${item === activeFont ? " selected" : ""}>${item}</option>`);
+        })
+    }
+
+    $fontSelect.on("change", async function(){
+        let selectedFont = $(this).val();
+        FrogConfig.write("fontFamily", selectedFont);
+        await FrogThemes.loadFont();
+    })
+</script>

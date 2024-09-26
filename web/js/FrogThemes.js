@@ -161,4 +161,21 @@ class FrogThemes {
         }
         return false;
     }
+
+    // Загрузить шрифт из конфигурации
+    static loadFont = async () => {
+        // Проверяем существование шрифта
+        let availableFonts = await FrogUI.getFontsAvailable();
+        let font = FrogConfig.read("fontFamily", "Manrope");
+        if(!availableFonts.includes(font)){
+            font = "Manrope";
+            FrogConfig.write("fontFamily", font);
+        }
+
+        $(".custom-font-style").remove();
+        // Если шрифт нестандартный - устанавливаем
+        if(font !== "Manrope") $("html").append(`<style class="custom-font-style">*:not(.console-textarea):not(.material-symbols-outlined) {font-family: "${font}" !important} </style>`);
+
+        return font;
+    }
 }

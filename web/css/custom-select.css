@@ -7,6 +7,17 @@
     height: 56px;
 }
 
+.custom-select.lighter {
+    background: var(--theme-primaryBgLighter);
+}
+
+select.custom-select {
+    color: var(--text-color);
+    padding: 6px 12px;
+    font-size: 14pt;
+    font-weight: 600;
+}
+
 .custom-select:hover {
     filter: brightness(110%);
     background: var(--theme-primaryBgLight) !important;

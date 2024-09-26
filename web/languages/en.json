@@ -175,6 +175,9 @@
         "disableAnimations": {
           "title": "Disable animations",
           "description": "The time of all animations and transitions is reduced to a minimum"
+        },
+        "fontFamily": {
+          "title": "Primary UI font"
         }
       },
       "startup": {

@@ -142,4 +142,25 @@ class FrogUI {
 
         await FrogModals.showModal("selectWorld");
     }
+
+    // Получить список доступных шрифтов
+    static getFontsAvailable = async () => {
+        let stockFontsList = ["Manrope", "Fira Code"];
+        // Если есть такая функция
+        if ("queryLocalFonts" in window) {
+            try {
+                // Получаем список шрифтов
+                let fonts = await window.queryLocalFonts();
+                let fontsList = stockFontsList;
+                fonts.forEach(font  => {
+                    fontsList.push(font.family);
+                })
+                return [...new Set(fontsList)];
+            } catch {
+                return stockFontsList;
+            }
+        } else {
+            return stockFontsList;
+        }
+    }
 }
