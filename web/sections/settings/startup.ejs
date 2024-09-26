@@ -34,6 +34,26 @@
 
 <div class="flex flex-center flex-gap-8 settings-item">
     <div class="icon">
+        <span class="material-symbols-outlined">manufacturing</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
+        <span class="name">{{settings.startup.gameStartParams.title}}</span>
+        <input type="text" class="lighter flex-grow" placeholder="{{settings.startup.gameStartParams.description}}" id="gameStartParams">
+    </div>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
+        <span class="material-symbols-outlined">manufacturing</span>
+    </div>
+    <div class="flex flex-grow flex-col flex-justify-center flex-gap-4">
+        <span class="name">{{settings.startup.javaStartParams.title}}</span>
+        <input type="text" class="lighter flex-grow" placeholder="{{settings.startup.javaStartParams.description}}" id="javaStartParams">
+    </div>
+</div>
+
+<div class="flex flex-center flex-gap-8 settings-item">
+    <div class="icon">
         <span class="material-symbols-outlined">fullscreen</span>
     </div>
     <div class="flex flex-grow flex-col flex-justify-center">
@@ -104,15 +124,27 @@
     let startup_minMemory = 512;
     let startup_defaultMemory = FrogUtils.round512(startup_maxMemory / 2) - 512;
     let startup_currentMemory = FrogConfig.read("xmxMemory", startup_defaultMemory);
-    let startup_xmxSlider = $("#xmxSlider");
-    let startup_xmxText = $("#xmxText");
+    let $xmxSlider = $("#xmxSlider");
+    let $xmxText = $("#xmxText");
+    let $javaArgs = $("#javaStartParams");
+    let $gameArgs = $("#gameStartParams");
 
     $(function () {
         // Настройка слайдера
-        startup_xmxSlider.attr("min", startup_minMemory);
-        startup_xmxSlider.attr("max", startup_maxMemory);
-        startup_xmxSlider.attr("value", startup_currentMemory);
-        startup_xmxText.val(startup_currentMemory);
+        $xmxSlider.attr("min", startup_minMemory);
+        $xmxSlider.attr("max", startup_maxMemory);
+        $xmxSlider.attr("value", startup_currentMemory);
+        $xmxText.val(startup_currentMemory);
+        $javaArgs.val(FrogConfig.read("javaStartParams", ""));
+        $gameArgs.val(FrogConfig.read("gameStartParams", ""));
+    })
+
+    // Изменение текста
+    $javaArgs.on("keyup", () => {
+        FrogConfig.write("javaStartParams", $javaArgs.val());
+    })
+    $gameArgs.on("keyup", () => {
+        FrogConfig.write("gameStartParams", $gameArgs.val());
     })
 
     function changeGameDirectory() {
@@ -130,21 +162,21 @@
     }
 
     // Изменение слайдера
-    startup_xmxSlider.on("input", () => {
-        startup_currentMemory = startup_xmxSlider.val();
-        startup_xmxText.val(startup_currentMemory);
+    $xmxSlider.on("input", () => {
+        startup_currentMemory = $xmxSlider.val();
+        $xmxText.val(startup_currentMemory);
     })
 
     // Сохранение изменений слайдера
-    startup_xmxSlider.on("change", () => {
-        startup_currentMemory = startup_xmxSlider.val();
-        startup_xmxText.val(startup_currentMemory);
+    $xmxSlider.on("change", () => {
+        startup_currentMemory = $xmxSlider.val();
+        $xmxText.val(startup_currentMemory);
         FrogConfig.write("xmxMemory", startup_currentMemory);
     })
 
     // Изменение в поле ввода
-    startup_xmxText.on("change", () => {
-        let inputVal = startup_xmxText.val();
+    $xmxText.on("change", () => {
+        let inputVal = $xmxText.val();
         if (inputVal > startup_maxMemory || inputVal < startup_minMemory) {
             if (inputVal < startup_minMemory) {
                 startup_currentMemory = startup_minMemory;
@@ -155,8 +187,8 @@
         } else {
             startup_currentMemory = inputVal;
         }
-        startup_xmxText.val(startup_currentMemory);
-        startup_xmxSlider.val(startup_currentMemory);
+        $xmxText.val(startup_currentMemory);
+        $xmxSlider.val(startup_currentMemory);
         return FrogConfig.write("xmxMemory", startup_currentMemory);
     })
 </script>

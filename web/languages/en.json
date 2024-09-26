@@ -204,6 +204,14 @@
           "title": "Network game fix (experimental)",
           "description": "The setting is aimed at correcting the error \"Network game is not available\" when using vanilla versions >= 1.16.5",
           "description2": "If you encounter any problems with skins and mods, it is recommended to disable this option"
+        },
+        "gameStartParams": {
+          "title": "Minecraft CLI arguments",
+          "description": "For example, -Xms512M"
+        },
+        "javaStartParams": {
+          "title": "Java CLI arguments",
+          "description": "For example, -XX:+UseG1GC"
         }
       },
       "about": {

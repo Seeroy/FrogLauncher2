@@ -204,6 +204,14 @@
           "title": "網路遊戲修正 (實驗性)",
           "description": "當使用 vanilla 版本 >= 1.16.5 時，設定的目的是修正錯誤 \"Network game is not available\" ",
           "description2": "如果您在使用面板和修改器時有任何問題，建議停用此設定"
+        },
+        "gameStartParams": {
+          "title": "遊戲命令列選項",
+          "description": "例如， -Xms512M"
+        },
+        "javaStartParams": {
+          "title": "Java 命令列選項",
+          "description": "例如， -XX:+UseG1GC"
         }
       },
       "about": {

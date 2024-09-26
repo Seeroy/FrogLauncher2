@@ -204,6 +204,14 @@
           "title": "Behebung eines Netzwerkspiels (experimentell)",
           "description": "Die Einstellung zielt darauf ab, den Fehler \"Netzwerkspiel ist nicht verfügbar\" zu beheben, wenn Vanilla-Versionen >= 1.16.5 verwendet werden",
           "description2": "Wenn Sie Probleme mit Skins und Mods haben, empfiehlt es sich, diese Einstellung zu deaktivieren"
+        },
+        "gameStartParams": {
+          "title": "Befehlszeilenoptionen für das Spiel",
+          "description": "Zum Beispiel, -Xms512M"
+        },
+        "javaStartParams": {
+          "title": "Java-Befehlszeilenoptionen",
+          "description": "Zum Beispiel, -XX:+UseG1GC"
         }
       },
       "about": {

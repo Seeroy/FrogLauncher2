@@ -19,7 +19,7 @@ class FrogLaunchConfigurator {
         let activeAccount = FrogAccountsManager.getActiveAccount();
         // Добавляем данные авторизации
         resultConfig.authorization = await FrogAccountsManager.getAccountMCLCData(activeAccount);
-        if(!resultConfig.authorization){
+        if (!resultConfig.authorization) {
             FrogCollector.writeLog(`Configurator: authorization config data is NULL!`);
             return false;
         }
@@ -88,11 +88,39 @@ class FrogLaunchConfigurator {
         }
 
         // Настройка подключения к серверу
-        if(!!selectedServerFromList){
+        if (!!selectedServerFromList) {
             configResult.customLaunchArgs.push("--server");
             configResult.customLaunchArgs.push(selectedServerFromList.split(":")[0]);
             configResult.customLaunchArgs.push("--port");
             configResult.customLaunchArgs.push(selectedServerFromList.split(":")[1]);
+        }
+
+        // Аргументы запуска
+        let javaArgs = FrogConfig.read("javaStartParams", "").toString().trim();
+        if (javaArgs.length > 0) {
+            configResult.customArgs = configResult.customArgs.concat(javaArgs.split(" "));
+        }
+        let gameArgs = FrogConfig.read("gameStartParams", "").toString().trim();
+
+        // Если есть Xms
+        let xmsValue = gameArgs.match(/\-Xms.*(M|G)/gmi);
+        if (xmsValue && xmsValue.length >= 1) {
+            // Если указано в гигабайтах
+            let isGiga = xmsValue[0].slice(-1).toString().toUpperCase() === "G";
+            let xmsNumVal = parseInt(xmsValue[0].replaceAll(/[^0-9]/g, ''));
+            if (isGiga) {
+                xmsNumVal = xmsNumVal * 1024;
+            }
+            // Задаём параметр
+            configResult.memory.min = xmsNumVal;
+
+            // Удаляем Xms из общего списка параметров
+            gameArgs = gameArgs.replace(xmsValue[0], "").trim();
+        }
+
+        // Добавляем игровые аргументы
+        if (gameArgs.length > 0) {
+            configResult.customLaunchArgs = configResult.customLaunchArgs.concat(gameArgs.split(" "));
         }
 
         configResult.window = {};
