@@ -332,7 +332,7 @@
         "go": "Create an account!",
         "success": {
           "title": "Registration successful!",
-          "description": "Done, you have created an account!",
+          "description": "Done, you have created an account! Now you need to authorize using the data specified during registration",
           "button": "Alright"
         }
       },

@@ -1,0 +1,405 @@
+{
+  "info": {
+    "code": "zh-TW",
+    "id": "zh-TW",
+    "displayName": "繁體中文",
+    "displayNameEnglish": "Traditional Chinese",
+    "author": "Seeroy, Bansa"
+  },
+  "translations": {
+    "errors": {
+      "title": "出錯了！",
+      "exitCode": "遊戲以退出代碼結束",
+      "list": [
+        "此遊戲版本或您的模組與所使用的 Java 版本不兼容。在聯繫開發者之前，請務必檢查您的模組列表！",
+        "看來 Java 版本和 Forge 版本不兼容！如果您使用自動 Java 版本檢測，請聯繫開發者以修復此錯誤",
+        "無法為 Java 分配所需的內存。請嘗試在啟動器設置中減少內存量",
+        "無法啟動遊戲的可執行 JAR 文件。請嘗試重新啟動啟動器或重新安裝遊戲",
+        "啟動器找不到 Java 可執行文件！如果您使用自動 Java 版本檢測，請聯繫開發者以修復此錯誤",
+        "遊戲配置或文件可能已損壞或由較新版本的遊戲創建。我們建議您重新安裝遊戲，並在啟動器設置中更改文件夾路徑",
+        "請嘗試再次重新啟動遊戲，如果無效 - 建議完全重新安裝遊戲",
+        "啟動遊戲時找不到某些 Java 類。問題可能與您安裝的模組有關，請檢查它們的兼容性和所有依賴項",
+        "無法從皮膚系統獲取元數據。請稍後嘗試啟動遊戲或暫時更換另一個帳戶"
+      ]
+    },
+    "accounts": {
+      "input": "輸入暱稱",
+      "offline": "離線",
+      "local": "本地帳戶",
+      "microsoft": "Microsoft 帳戶",
+      "elyby": "Ely.by 帳戶",
+      "frog": "FrogLauncher 帳戶",
+      "unknown": "未知帳戶",
+      "addingMs": "添加 Microsoft 帳戶",
+      "alreadyExists": "此帳戶已添加",
+      "added": "新帳戶已添加"
+    },
+    "changelog": {
+      "title": "更新歷史"
+    },
+    "loading": {
+      "progress": "正在加載內容",
+      "failed": "無法加載內容，請稍後再試"
+    },
+    "elyby": {
+      "title": "登錄 Ely.by 帳戶",
+      "login": "輸入登錄名",
+      "password": "輸入密碼",
+      "totp": "輸入 TOTP 代碼",
+      "totpNotify": "如果您不知道什麼是 TOTP 代碼或沒有啟用雙重驗證，請不要填寫此欄位",
+      "INVALID_CREDENTIALS": "登錄名或密碼錯誤",
+      "REQUIRES_TOTP": "未提供 TOTP 令牌",
+      "repeat": "需要重新授權"
+    },
+    "java": {
+      "preparing": "準備 Java",
+      "unpacking": "解壓 Java",
+      "installed": "新版本已安裝",
+      "failed": "安裝時出錯"
+    },
+    "commons": {
+      "login": "登錄",
+      "newAccountAdded": "已添加新帳戶",
+      "search": "搜索",
+      "install": "安裝",
+      "open": "打開",
+      "notSelected": "未選擇",
+      "starting": "現在以新方式",
+      "version": "版本",
+      "close": "關閉",
+      "plsWait": "請稍候",
+      "downloading": "下載中",
+      "installing": "安裝中",
+      "news": "新聞",
+      "bigUpdates": "重大更新",
+      "create": "創建",
+      "clickOrDrop": "點擊此處或拖放文件"
+    },
+    "packs": {
+      "importing": "正在導入模組包",
+      "imported": "模組包導入成功",
+      "importFailed": "導入失敗",
+      "alreadyExists": "此模組包已安裝",
+      "created": "模組包創建成功",
+      "installTo": "安裝到",
+      "defaultDir": "默認目錄",
+      "filters": {
+        "title": "過濾器",
+        "type": "類型",
+        "mods": "模組",
+        "rp": "資源包",
+        "shaders": "光影包",
+        "packs": "整合包",
+        "loaders": "加載器",
+        "versions": "遊戲版本"
+      },
+      "install": "安裝",
+      "updatePack": "更新模組包",
+      "createPack": "創建整合包",
+      "newPack": {
+        "title": "新整合包",
+        "input": "輸入整合包名稱",
+        "description": "從主列表中選擇要基於的版本來構建您的項目"
+      },
+      "updatePackM": {
+        "title": "更新模組",
+        "disclaimer": "模組更新目前僅支持手動模式以進行測試。請選擇要檢查的整合包",
+        "check": "檢查更新",
+        "checking": "正在檢查更新",
+        "installing": "正在安裝更新",
+        "found": "找到：",
+        "update": "全部更新"
+      }
+    },
+    "servers": {
+      "title": "伺服器",
+      "disclaimer": "啟動器開發者不保證伺服器的質量和誠實性",
+      "ipCopied": "IP 已複製！",
+      "link": "如何添加您的伺服器？"
+    },
+    "starter": {
+      "configuring": "正在準備配置",
+      "preparingGame": "準備啟動遊戲",
+      "starting": "遊戲正在啟動",
+      "started": "遊戲已啟動",
+      "closing": "遊戲正在關閉"
+    },
+    "updater": {
+      "available": "有新的更新可用",
+      "downloading": "正在下載",
+      "ready": "重新啟動啟動器後將安裝更新",
+      "changelog": "更新日誌",
+      "install": "安裝"
+    },
+    "settings": {
+      "title": "設置",
+      "sections": {
+        "personalization": "個性化",
+        "game": "遊戲進程",
+        "startup": "啟動參數",
+        "java": "Java 參數",
+        "about": "關於啟動器"
+      },
+      "game": {
+        "consoleOnStart": "啟動遊戲時打開控制台",
+        "consoleOnCrash": "崩潰時打開控制台",
+        "hideOnStart": "啟動遊戲時隱藏啟動器",
+        "autoInstallDeps": "自動安裝模組依賴項（實驗性）"
+      },
+      "java": {
+        "auto": {
+          "title": "自動選擇 Java 版本",
+          "description": "版本基於官方 Mojang 清單選擇和安裝"
+        },
+        "user": "自定義 Java 版本",
+        "selectJavaExe": "選擇 java.exe 文件"
+      },
+      "personalization": {
+        "language": "啟動器語言",
+        "mainColor": {
+          "title": "主要顏色",
+          "description": "您的啟動器 - 您的個性"
+        },
+        "darkMode": {
+          "title": "顏色模式",
+          "description": "啟動器將使用所選模式"
+        },
+        "background": {
+          "title": "背景",
+          "description": "今天是大城堡，還是地獄世界？"
+        },
+        "disableCss": {
+          "title": "關閉 CSS 效果",
+          "description": "關閉陰影和 filter() 效果"
+        },
+        "disableAnimations": {
+          "title": "關閉動畫",
+          "description": "將所有動畫和過渡時間縮短到最小"
+        },
+        "fontFamily": {
+          "title": "主要界面字體"
+        }
+      },
+      "startup": {
+        "gameDirectory": {
+          "title": "遊戲文件存儲文件夾",
+          "description": "所有遊戲文件、Java 和其他文件將存儲在此處"
+        },
+        "memory": {
+          "title": "內存分配",
+          "description": "現代版本遊戲的建議值為 4 GB 以上。如果遊戲出現卡頓，請減少此參數"
+        },
+        "fullscreen": {
+          "title": "全屏遊戲模式",
+          "description": "此標誌可能對某些整合包無效"
+        },
+        "partialSplit": {
+          "title": "分離版本存儲",
+          "description": "模組、整合包、資源包和其他用戶文件將存儲在每個版本的單獨文件夾中（遊戲文件夾/home）"
+        },
+        "fullSplit": {
+          "title": "完全分離版本（實驗性）",
+          "description": "每個版本需要的所有文件將存儲在單獨的文件夾中（遊戲文件夾/home）",
+          "description2": "只有在已安裝大量版本的情況下啟動某些版本出現問題時才啟用此功能！",
+          "description3": "啟用此功能時，每個版本都會佔用大量空間"
+        },
+        "multiplayerFix": {
+          "title": "多人遊戲修復（實驗性）",
+          "description": "此設置旨在修復使用原版 >= 1.16.5 版本時出現的「多人遊戲不可用」錯誤",
+          "description2": "如果出現任何皮膚和模組問題，建議關閉此參數"
+        },
+        "gameStartParams": {
+          "title": "遊戲命令行參數",
+          "description": "例如，-Xms512M"
+        },
+        "javaStartParams": {
+          "title": "Java 命令行參數",
+          "description": "例如，-XX:+UseG1GC"
+        }
+      },
+      "about": {
+        "site": "官方網站",
+        "sources": "項目源代碼",
+        "telegram": "Telegram 頻道",
+        "vk": "VK 群組",
+        "debug": "生成調試檔案",
+        "history": "啟動器更新歷史",
+        "eula": "用戶協議",
+        "privacyPolicy": "隱私政策",
+        "lessDataCollection": {
+          "title": "偏執模式",
+          "description": "為了提供技術支持，啟用此選項時，僅將最少的數據發送到服務器：您的程序版本和唯一標識符。禁用此選項時收集的完整數據列表在我們的隱私政策中有詳細說明。請放心，我們非常重視您的隱私"
+        }
+      }
+    },
+    "flymenu": {
+      "home": "主屏幕",
+      "settings": "設置",
+      "packs": "模組包",
+      "servers": "伺服器",
+      "console": "控制台",
+      "folder": "遊戲文件夾"
+    },
+    "flyout": {
+      "account": "帳戶",
+      "version": "遊戲版本",
+      "play": "開始遊戲",
+      "stop": "結束"
+    },
+    "versions": {
+      "releases": "正式版",
+      "snapshots": "快照版",
+      "favourites": "收藏",
+      "installed": "已安裝",
+      "pack": "整合包"
+    },
+    "versionsPosters": [
+      {
+        "version": "1.21",
+        "description": "困難挑戰"
+      },
+      {
+        "version": "1.20",
+        "description": "遊歷與傳說"
+      },
+      {
+        "version": "1.19",
+        "description": "荒野更新"
+      },
+      {
+        "version": "1.18",
+        "description": "洞穴與山崖（下篇）"
+      },
+      {
+        "version": "1.17",
+        "description": "洞穴與山崖（上篇）"
+      },
+      {
+        "version": "1.16",
+        "description": "下界更新"
+      },
+      {
+        "version": "1.15",
+        "description": "蜜蜂更新"
+      },
+      {
+        "version": "1.14",
+        "description": "村莊與掠奪"
+      },
+      {
+        "version": "1.13",
+        "description": "水域更新"
+      },
+      {
+        "version": "1.12",
+        "description": "彩色世界"
+      },
+      {
+        "version": "1.11",
+        "description": "探索更新"
+      }
+    ],
+"units": {
+      "size1": [
+        "KB",
+        "MB",
+        "GB",
+        "TB",
+        "PB",
+        "EB",
+        "ZB",
+        "YB"
+      ],
+      "size2": [
+        "KiB",
+        "MiB",
+        "GiB",
+        "TiB",
+        "PiB",
+        "EiB",
+        "ZiB",
+        "YiB"
+      ],
+      "mb": "MB"
+    },
+    "frogAuth": {
+      "login": {
+        "title": "登錄 | FrogID"
+      },
+      "register": {
+        "title": "註冊 | FrogID",
+        "repeatPassword": "再次輸入密碼",
+        "go": "創建帳戶！",
+        "success": {
+          "title": "註冊成功！",
+          "description": "完成，您已創建帳戶！現在您需要使用註冊時提供的信息進行登錄",
+          "button": "好的"
+        }
+      },
+      "goRegister": "我沒有帳戶",
+      "goLogin": "我已經有帳戶了",
+      "errors": {
+        "WRONG_CREDENTIALS": "登錄名或密碼錯誤",
+        "PNG_REQUIRED": "需要選擇 PNG 文件",
+        "FILE_BITMAP_TOO_BIG": "文件分辨率或大小過大",
+        "UNKNOWN": "執行操作時發生錯誤",
+        "ALREADY_EXISTS": "該用戶已存在，請選擇其他暱稱"
+      },
+      "skin": {
+        "title": "自定義外觀",
+        "skin": "皮膚",
+        "cape": "披風"
+      },
+      "useButton": "FrogSkins 皮膚系統",
+      "fieldsError": "欄位未填寫/填寫錯誤",
+      "passwordsComp": "密碼不匹配"
+    },
+    "console": {
+      "title": "控制台",
+      "openDir": "打開日誌文件夾",
+      "copy": "複製日誌",
+      "copied": "日誌已成功複製！"
+    },
+    "selectWorld": {
+      "title": "選擇世界",
+      "installHere": "安裝到這裡"
+    },
+    "packManager": {
+      "gamemodes": {
+        "0": "生存",
+        "1": "創造",
+        "2": "冒險"
+      },
+      "difficulty": {
+        "0": "和平",
+        "1": "普通",
+        "2": "困難",
+        "3": "極限"
+      },
+      "tabs": {
+        "worlds": "世界",
+        "install": "安裝",
+        "addFile": "添加文件",
+        "updates": "更新",
+        "import": "導入"
+      },
+      "installed": "安裝成功！",
+      "failedWorld": "無法安裝世界",
+      "successWorld": "世界安裝成功！",
+      "deleting": "正在刪除模組包",
+      "deleted": "模組包刪除完成！",
+      "worldDeleted": "世界刪除成功！",
+      "buttons": {
+        "export": "導出整合包",
+        "folder": "打開文件夾",
+        "icon": "更改圖標",
+        "play": "啟動整合包",
+        "delete": "刪除"
+      },
+      "exportStarted": "導出已開始",
+      "exportCompleted": "導出成功完成！",
+      "importStarted": "導入已開始",
+      "importCompleted": "導入成功完成！"
+    }
+  }
+}

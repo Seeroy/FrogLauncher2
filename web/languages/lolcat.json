@@ -1,0 +1,405 @@
+{
+  "info": {
+    "code": "lolcat",
+    "id": "lolcat",
+    "displayName": "LOLCAT",
+    "displayNameEnglish": "LOLCAT",
+    "author": "Seeroy, Bansa"
+  },
+  "translations": {
+    "errors": {
+      "title": "OH NOES! SUMFIN WENT WRONG!",
+      "exitCode": "GAME DUN FINISHED WIF EXIT CODE",
+      "list": [
+        "DIS GAME VERSHUN OR UR MODS NO WORKZ WIF UR JAVA. CHEK UR MODS B4 U MEOW AT DEVS!",
+        "LOOKS LIEK JAVA AN FORGE NO LIEK EACH OTHR! IF U USIN AUTO JAVA PIKR, PLZ MEOW AT DEVS 2 FIX",
+        "NO CAN HAZ ENUFF MEMRY 4 JAVA. TRY MAKIN LESS MEMRY IN LAUNCHER SETTINS",
+        "NO CAN START GAME JAR FILE. TRY RESTART LAUNCHER OR REINSTALL GAME",
+        "LAUNCHER CANT FIND JAVA! IF U USIN AUTO JAVA PIKR, PLZ MEOW AT DEVS 2 FIX",
+        "MAYBE GAME CONFIGS OR FILEZ R BORKED OR MADE BY NEWER GAME. WE REKOMEND REINSTALL GAME CLEAN, CHANGE FOLDER IN LAUNCHER SETTINS",
+        "TRY RESTART GAME AGAIN, IF NO HALP - WE REKOMEND FULL REINSTALL OF GAME",
+        "NO CAN FIND SUM JAVA CLASSEZ WEN STARTIN GAME. PROLLY UR MODS R BAD, CHEK IF DEY PLAY NICE TOGETHR",
+        "NO CAN GET SKIN SYSTEM METADATA. TRY START GAME LATER OR CHANGE UR ACCOUNT 4 NOW"
+      ]
+    },
+    "accounts": {
+      "input": "PUT UR NICKNAMEZ",
+      "offline": "OFFLINEZ",
+      "local": "LOCAL ACCOUNT",
+      "microsoft": "MICROSOFT ACCOUNT",
+      "elyby": "ELY.BY ACCOUNT",
+      "frog": "FROGLAUNCHER ACCOUNT",
+      "unknown": "MYSTERY ACCOUNT",
+      "addingMs": "ADDIN MICROSOFT ACCOUNT",
+      "alreadyExists": "DIS ACCOUNT ALREDY HERE",
+      "added": "NEW ACCOUNT ADDED"
+    },
+    "changelog": {
+      "title": "UPDAET HISTORY"
+    },
+    "loading": {
+      "progress": "LOADIN STUFFS",
+      "failed": "NO CAN LOAD STUFFS, TRY LATER KTHX"
+    },
+    "elyby": {
+      "title": "LOGIN 2 ELY.BY ACCOUNT",
+      "login": "PUT UR LOGIN",
+      "password": "PUT UR PASSWORD",
+      "totp": "PUT UR TOTP CODE",
+      "totpNotify": "IF U NO KNO WAT TOTP CODE IS OR U NO HAZ 2FA - NO FILL DIS",
+      "INVALID_CREDENTIALS": "WRONG LOGIN OR PASSWORD",
+      "REQUIRES_TOTP": "U FORGOT TOTP TOKEN",
+      "repeat": "U NEED 2 LOGIN AGAIN"
+    },
+    "java": {
+      "preparing": "PREPARIN JAVA",
+      "unpacking": "UNPACKIN JAVA",
+      "installed": "NEW VERSHUN INSTALLED",
+      "failed": "OOPSIE HAPPENED WEN INSTALLIN"
+    },
+    "commons": {
+      "login": "LOGIN",
+      "newAccountAdded": "NEW ACCOUNT ADDED",
+      "search": "SERCH",
+      "install": "INSTALL",
+      "open": "OPEN",
+      "notSelected": "NOTHIN PICKED",
+      "starting": "NOW IN NEW WAY",
+      "version": "VERSHUN",
+      "close": "CLOSE",
+      "plsWait": "PLZ WAIT KTHX",
+      "downloading": "DOWNLOADIN",
+      "installing": "INSTALLIN",
+      "news": "NEWZ",
+      "bigUpdates": "BIG UPDAETS",
+      "create": "MAEK",
+      "clickOrDrop": "CLICK HERE OR DROP FILE"
+    },
+    "packs": {
+      "importing": "IMPORTIN MODPACK",
+      "imported": "MODPACK IMPORTED SUCCESSFULLY",
+      "importFailed": "IMPORT FAILED",
+      "alreadyExists": "DIS MODPACK ALREDY INSTALLED",
+      "created": "MODPACK CREATED SUCCESSFULLY",
+      "installTo": "INSTALL 2",
+      "defaultDir": "DEFAULT DIRECTORY",
+      "filters": {
+        "title": "FILTERS",
+        "type": "TYPE",
+        "mods": "MODS",
+        "rp": "RESOURCE PACKS",
+        "shaders": "SHADER PACKS",
+        "packs": "PACKS",
+        "loaders": "LOADERS",
+        "versions": "GAME VERSHUNS"
+      },
+      "install": "INSTALL",
+      "updatePack": "UPDATE MODPACK",
+      "createPack": "CREATE PACK",
+      "newPack": {
+        "title": "NEW PACK",
+        "input": "PUT PACK NAME",
+        "description": "PICK VERSHUN FROM MAIN LIST 2 BASE UR PROJECT ON"
+      },
+      "updatePackM": {
+        "title": "UPDATIN MODS",
+        "disclaimer": "MOD UPDAETS R ONLY MANUAL NOW 4 TESTIN. PICK PACK 2 CHECK",
+        "check": "CHECK 4 UPDAETS",
+        "checking": "CHECKIN 4 UPDAETS",
+        "installing": "INSTALLIN UPDAETS",
+        "found": "FOUND: ",
+        "update": "UPDATE ALL"
+      }
+    },
+    "servers": {
+      "title": "SERVERS",
+      "disclaimer": "LAUNCHER DEV NO PROMISE GOOD OR HONEST SERVERS",
+      "ipCopied": "IP COPIED!",
+      "link": "HOW 2 ADD UR SERVER?"
+    },
+    "starter": {
+      "configuring": "MAKIN CONFIG",
+      "preparingGame": "GETTIN GAME READY 2 START",
+      "starting": "GAME STARTIN",
+      "started": "GAME STARTED",
+      "closing": "GAME CLOSIN"
+    },
+    "updater": {
+      "available": "NEW UPDAET AVAILABLE",
+      "downloading": "DOWNLOADIN",
+      "ready": "AFTER RESTART LAUNCHER UPDAET WILL BE INSTALLED",
+      "changelog": "CHANGE LIST",
+      "install": "INSTALL"
+    },
+    "settings": {
+      "title": "SETTINS",
+      "sections": {
+        "personalization": "PERSONALIZASHUN",
+        "game": "GAMEPLAY",
+        "startup": "STARTUP PARAMS",
+        "java": "JAVA PARAMS",
+        "about": "ABOUT LAUNCHER"
+      },
+      "game": {
+        "consoleOnStart": "OPEN CONSOLE WEN GAME START",
+        "consoleOnCrash": "OPEN CONSOLE WEN CRASH",
+        "hideOnStart": "HIDE LAUNCHER WEN GAME START",
+        "autoInstallDeps": "AUTO INSTALL MOD DEPENDENCIES (EXPERIMENTAL)"
+      },
+      "java": {
+        "auto": {
+          "title": "AUTO PICK JAVA VERSHUN",
+          "description": "VERSHUN PICKED AN INSTALLED BASED ON OFFICIAL MOJANG MANIFEST"
+        },
+        "user": "CUSTOM JAVA VERSHUN",
+        "selectJavaExe": "PICK JAVA.EXE FILE"
+      },
+      "personalization": {
+        "language": "LAUNCHER LANGUAGE",
+        "mainColor": {
+          "title": "MAIN COLOR",
+          "description": "UR LAUNCHER - UR STYLE"
+        },
+        "darkMode": {
+          "title": "COLOR MODE",
+          "description": "LAUNCHER WILL USE PICKED MODE"
+        },
+        "background": {
+          "title": "BACKGROUND",
+          "description": "BIG CASTLE TODAY, OR HELL WORLD?"
+        },
+        "disableCss": {
+          "title": "TURN OFF CSS EFFECTS",
+          "description": "TURNS OFF SHADOWS AN FILTER() EFFECTS"
+        },
+        "disableAnimations": {
+          "title": "TURN OFF ANIMASHUNS",
+          "description": "MAKES ALL ANIMASHUNS AN TRANSISHUNS SUPER SHORT"
+        },
+        "fontFamily": {
+          "title": "MAIN INTERFACE FONT"
+        }
+      },
+      "startup": {
+        "gameDirectory": {
+          "title": "FOLDER 4 STORIN GAME FILES",
+          "description": "ALL GAME FILES, JAVA AN OTHERS WILL BE STORED HERE"
+        },
+        "memory": {
+          "title": "MEMORY ALLOCASHUN",
+          "description": "RECOMMENDED VALUE 4 MODERN GAME VERSHUNS - FROM 4 GB. LOWER DIS IF GAME HAS FREEZES"
+        },
+        "fullscreen": {
+          "title": "FULLSCREEN GAME MODE",
+          "description": "FLAG MAY NOT WORK WIF SUM PACKS"
+        },
+        "partialSplit": {
+          "title": "SEPARATE VERSHUN STORAGE",
+          "description": "MODS, PACKS, RESOURCE PACKS AN OTHER USER FILES WILL BE STORED IN INDIVIDUAL FOLDER WIF EACH VERSHUN (GAME FOLDER/HOME)"
+        },
+        "fullSplit": {
+          "title": "FULL VERSHUN SEPARASHUN (EXPERIMENTAL)",
+          "description": "ALL FILES NEEDED BY EACH VERSHUN WILL BE STORED IN INDIVIDUAL FOLDER (GAME FOLDER/HOME)",
+          "description2": "TURN ON DIS FEATURE ONLY IF U HAZ PROBLEMS STARTIN CERTAIN VERSHUNS WEN U ALREADY HAZ MANY INSTALLED!",
+          "description3": "EACH VERSHUN WIF DIS FEATURE ON WILL TAKE UP LOTS OF SPACE"
+        },
+        "multiplayerFix": {
+          "title": "MULTIPLAYER FIX (EXPERIMENTAL)",
+          "description": "SETTIN AIMED AT FIXIN 'MULTIPLAYER NOT AVAILABLE' ERROR WEN USIN VANILLA VERSHUNS >= 1.16.5",
+          "description2": "IF U HAZ ANY PROBLEMS WIF SKINS AN MODS, WE RECOMMEND TURNIN OFF DIS PARAM"
+        },
+        "gameStartParams": {
+          "title": "GAME COMMAND LINE PARAMS",
+          "description": "FOR EXAMPLE, -Xms512M"
+        },
+        "javaStartParams": {
+          "title": "JAVA COMMAND LINE PARAMS",
+          "description": "FOR EXAMPLE, -XX:+UseG1GC"
+        }
+      },
+      "about": {
+        "site": "OFFICIAL SITE",
+        "sources": "PROJECT SOURCE CODE",
+        "telegram": "TELEGRAM CHANNEL",
+        "vk": "VK GROUP",
+        "debug": "MAKE DEBUG ARCHIVE",
+        "history": "LAUNCHER UPDAET HISTORY",
+        "eula": "USER AGREEMENT",
+        "privacyPolicy": "PRIVACY POLICY",
+        "lessDataCollection": {
+          "title": "PARANOIA MODE",
+          "description": "4 TECHNICAL SUPPORT, WIF DIS OPTION ON, ONLY MINIMAL DATA WILL BE SENT 2 SERVER: UR PROGRAM VERSHUN AN UR UNIQUE ID. FULL LIST OF COLLECTED DATA WEN OPTION OFF IS DESCRIBED IN OUR PRIVACY POLICY. BE SURE WE CARE ABOUT UR PRIVACY"
+        }
+      }
+    },
+    "flymenu": {
+      "home": "HOME SCREEN",
+      "settings": "SETTINS",
+      "packs": "MODPACKS",
+      "servers": "SERVERS",
+      "console": "CONSOLE",
+      "folder": "GAME FOLDER"
+    },
+    "flyout": {
+      "account": "ACCOUNT",
+      "version": "GAME VERSHUN",
+      "play": "PLAY",
+      "stop": "STOP"
+    },
+    "versions": {
+      "releases": "RELEASE VERSHUNS",
+      "snapshots": "SNAPSHOTS",
+      "favourites": "FAVORITES",
+      "installed": "INSTALLED",
+      "pack": "PACK"
+    },
+    "versionsPosters": [
+      {
+        "version": "1.21",
+        "description": "HARD CHALLENGES"
+      },
+      {
+        "version": "1.20",
+        "description": "TRAILS AN TALES"
+      },
+      {
+        "version": "1.19",
+        "description": "WILD UPDAET"
+      },
+      {
+        "version": "1.18",
+        "description": "CAVES AN CLIFFS (PART 2)"
+      },
+      {
+        "version": "1.17",
+        "description": "CAVES AN CLIFFS (PART 1)"
+      },
+      {
+        "version": "1.16",
+        "description": "NETHER UPDAET"
+      },
+      {
+        "version": "1.15",
+        "description": "BUZZIN BEES"
+      },
+      {
+        "version": "1.14",
+        "description": "VILLAGE AN PILLAGE"
+      },
+      {
+        "version": "1.13",
+        "description": "AQUATIC UPDAET"
+      },
+      {
+        "version": "1.12",
+        "description": "WORLD OF COLOR"
+      },
+      {
+        "version": "1.11",
+        "description": "EXPLORATION UPDAET"
+      }
+    ],
+    "units": {
+      "size1": [
+        "KB",
+        "MB",
+        "GB",
+        "TB",
+        "PB",
+        "EB",
+        "ZB",
+        "YB"
+      ],
+      "size2": [
+        "KIB",
+        "MIB",
+        "GIB",
+        "TIB",
+        "PIB",
+        "EIB",
+        "ZIB",
+        "YIB"
+      ],
+      "mb": "MB"
+    },
+"frogAuth": {
+      "login": {
+        "title": "LOGIN | FROGID"
+      },
+      "register": {
+        "title": "REGISTER | FROGID",
+        "repeatPassword": "PUT PASSWORD AGAIN",
+        "go": "MAEK ACCOUNT!",
+        "success": {
+          "title": "REGISTER SUCCESS!",
+          "description": "DONE, U MADE ACCOUNT! NOW U NEED 2 LOGIN USIN INFO U GAVE WEN REGISTERIN",
+          "button": "OK"
+        }
+      },
+      "goRegister": "I NO HAZ ACCOUNT",
+      "goLogin": "I ALREADY HAZ ACCOUNT",
+      "errors": {
+        "WRONG_CREDENTIALS": "WRONG LOGIN OR PASSWORD",
+        "PNG_REQUIRED": "NEED PNG FILE",
+        "FILE_BITMAP_TOO_BIG": "FILE 2 BIG OR 2 HEAVY",
+        "UNKNOWN": "OOPSIE HAPPENED WEN DOIN STUFF",
+        "ALREADY_EXISTS": "DIS USER ALREADY EXISTS, PICK DIFFERENT NICKNAME"
+      },
+      "skin": {
+        "title": "CUSTOMIZE UR LOOK",
+        "skin": "SKIN",
+        "cape": "CAPE"
+      },
+      "useButton": "FROGSKINS SKIN SYSTEM",
+      "fieldsError": "FIELDS NOT FILLED/FILLED WRONG",
+      "passwordsComp": "PASSWORDS NO MATCH"
+    },
+    "console": {
+      "title": "CONSOLE",
+      "openDir": "OPEN LOG FOLDER",
+      "copy": "COPY LOG",
+      "copied": "LOG COPIED SUCCESSFULLY!"
+    },
+    "selectWorld": {
+      "title": "PICK WORLD",
+      "installHere": "INSTALL HERE"
+    },
+    "packManager": {
+      "gamemodes": {
+        "0": "SURVIVAL",
+        "1": "CREATIVE",
+        "2": "ADVENTURE"
+      },
+      "difficulty": {
+        "0": "PEACEFUL",
+        "1": "NORMAL",
+        "2": "HARD",
+        "3": "HARDCORE"
+      },
+      "tabs": {
+        "worlds": "WORLDS",
+        "install": "INSTALL",
+        "addFile": "ADD FILE",
+        "updates": "UPDAETS",
+        "import": "IMPORT"
+      },
+      "installed": "INSTALLED SUCCESSFULLY!",
+      "failedWorld": "NO CAN INSTALL WORLD",
+      "successWorld": "WORLD INSTALLED SUCCESSFULLY!",
+      "deleting": "DELETIN MODPACK",
+      "deleted": "MODPACK DELETED!",
+      "worldDeleted": "WORLD DELETED SUCCESSFULLY!",
+      "buttons": {
+        "export": "EXPORT PACK",
+        "folder": "OPEN FOLDER",
+        "icon": "CHANGE ICON",
+        "play": "PLAY PACK",
+        "delete": "DELETE"
+      },
+      "exportStarted": "EXPORT STARTED",
+      "exportCompleted": "EXPORT COMPLETED SUCCESSFULLY!",
+      "importStarted": "IMPORT STARTED",
+      "importCompleted": "IMPORT COMPLETED SUCCESSFULLY!"
+    }
+  }
+}
